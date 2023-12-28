@@ -2,7 +2,7 @@
 name: Bug report
 about: Bug발생시 사용하는 이슈입니다
 title: "[Bug]"
-labels: bug
+labels: "\U0001F41Bbug"
 assignees: ''
 
 ---
