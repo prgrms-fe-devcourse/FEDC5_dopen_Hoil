@@ -1,3 +1,4 @@
+import { MoonIcon } from '@chakra-ui/icons';
 import { Box, Image } from '@chakra-ui/react';
 
 interface MainHeaderProps {
@@ -12,6 +13,9 @@ const MainHeader = ({ width = 480, height = 80 }: MainHeaderProps) => {
         src="https://via.placeholder.com/80"
         fallbackSrc="https://via.placeholder.com/80"
       />
+      <button>
+        <MoonIcon boxSize="30" />
+      </button>
     </Box>
   );
 };
