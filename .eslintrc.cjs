@@ -31,5 +31,9 @@ module.exports = {
 
     //컬리룰 추가완료. 옵션 0: off, 1: warn, 2: error 입니다. prettier로 auto-formatting 됩니다
     curly: 2,
+
+    //console.log 오류 띄우기
+
+    'no-console': ['error'],
   },
 };
