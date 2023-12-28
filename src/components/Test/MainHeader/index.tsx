@@ -12,12 +12,16 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       bg="white"
       w={`${width}px`}
       h={`${height}px`}
-      border="1px solid black"
       justify="space-between"
       align="center"
     >
-      <Image w="130px" height="78px" src="https://via.placeholder.com/80" />
-      <Flex gap="10px" align="center">
+      <Image
+        alt="dopen logo"
+        w="130px"
+        height="78px"
+        src="https://via.placeholder.com/80"
+      />
+      <Flex gap="10px">
         <IconButton
           aria-label="toggleDarkMode"
           icon={<MoonIcon />}
@@ -38,7 +42,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
         />
         <IconButton
           aria-label="notify"
-          icon={<BellIcon />}
+          icon={<BellIcon boxSize="5" />}
           bgColor="white"
           size="xs"
         />
