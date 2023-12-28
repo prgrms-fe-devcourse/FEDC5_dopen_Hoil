@@ -8,8 +8,8 @@ import {
 import { Flex, IconButton, Image, useColorMode } from '@chakra-ui/react';
 
 interface MainHeaderProps {
-  width?: number | string;
-  height?: number | string;
+  width?: number;
+  height?: number;
 }
 
 const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
@@ -26,7 +26,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       <Image
         alt="dopen logo"
         w="130px"
-        height="78px"
+        h={`${height}px`}
         src="https://via.placeholder.com/80"
       />
       <Flex gap="10px">
