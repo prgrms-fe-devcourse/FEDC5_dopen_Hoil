@@ -1,22 +1,49 @@
-import { MoonIcon } from '@chakra-ui/icons';
-import { Box, Image } from '@chakra-ui/react';
+import { BellIcon, ChatIcon, MoonIcon, SearchIcon } from '@chakra-ui/icons';
+import { Flex, IconButton, Image } from '@chakra-ui/react';
 
 interface MainHeaderProps {
-  width: number;
-  height: number;
+  width?: number | string;
+  height?: number | string;
 }
 
-const MainHeader = ({ width = 480, height = 80 }: MainHeaderProps) => {
+const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
   return (
-    <Box bg="white" w={`${width}px`} h={`${height}px`} border="1px solid black">
-      <Image
-        src="https://via.placeholder.com/80"
-        fallbackSrc="https://via.placeholder.com/80"
-      />
-      <button>
-        <MoonIcon boxSize="30" />
-      </button>
-    </Box>
+    <Flex
+      bg="white"
+      w={`${width}px`}
+      h={`${height}px`}
+      border="1px solid black"
+      justify="space-between"
+      align="center"
+    >
+      <Image w="130px" height="78px" src="https://via.placeholder.com/80" />
+      <Flex gap="10px" align="center">
+        <IconButton
+          aria-label="toggleDarkMode"
+          icon={<MoonIcon />}
+          bgColor="white"
+          size="xs"
+        />
+        <IconButton
+          aria-label="message"
+          icon={<ChatIcon />}
+          bgColor="white"
+          size="xs"
+        />
+        <IconButton
+          aria-label="search"
+          icon={<SearchIcon />}
+          bgColor="white"
+          size="xs"
+        />
+        <IconButton
+          aria-label="notify"
+          icon={<BellIcon />}
+          bgColor="white"
+          size="xs"
+        />
+      </Flex>
+    </Flex>
   );
 };
 

@@ -18,7 +18,7 @@ type Story = StoryObj<typeof MainHeader>;
 
 export const Deafult: Story = {
   args: {
-    width: 480,
+    width: 428,
     height: 80,
   },
 };
