@@ -5,7 +5,13 @@ import {
   SearchIcon,
   SunIcon,
 } from '@chakra-ui/icons';
-import { Flex, IconButton, Image, useColorMode } from '@chakra-ui/react';
+import {
+  Flex,
+  IconButton,
+  Image,
+  useColorMode,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 interface MainHeaderProps {
   width?: number;
@@ -13,16 +19,17 @@ interface MainHeaderProps {
 }
 
 const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
+  const DarkModeIcon = useColorModeValue(MoonIcon, SunIcon);
 
   return (
     <Flex
-      bg="white"
       w={`${width}px`}
       h={`${height}px`}
       justify="space-between"
       align="center"
     >
+      {/* 로고 들어갈 자리입니다. */}
       <Image
         alt="dopen logo"
         w="130px"
@@ -32,13 +39,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       <Flex gap="10px">
         <IconButton
           aria-label="toggleDarkMode"
-          icon={
-            colorMode === 'dark' ? (
-              <SunIcon color="black" />
-            ) : (
-              <MoonIcon color="black" />
-            )
-          }
+          icon={<DarkModeIcon color="black" />}
           bgColor="white"
           size="xs"
           onClick={toggleColorMode}
