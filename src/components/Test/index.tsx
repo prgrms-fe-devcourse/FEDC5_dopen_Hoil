@@ -1,12 +1,11 @@
-const Test = () => {
-  const testBool = false;
-  if (testBool) {
-    console.log('hi');
-  } else {
-    console.log('bye');
-  }
+import { Box } from '@chakra-ui/react';
 
-  return <div>테스트 컴포넌트 입니다. 컬리룰 추가완료</div>;
+const Test = () => {
+  return (
+    <Box bg="green" w="120px" h="150px">
+      테스트 컴포넌트
+    </Box>
+  );
 };
 
 export default Test;
