@@ -1,28 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
-import {
-  ChakraProvider,
-  ColorModeScript,
-  ThemeConfig,
-  extendTheme,
-} from '@chakra-ui/react';
+import ReactDOM from 'react-dom/client';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { theme } from './theme/index.ts';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { darkModeTheme } from './theme/darkmode.ts';
 
-const config: ThemeConfig = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
-};
-
-export const darkModeTheme = extendTheme({ config });
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <ColorModeScript
-        initialColorMode={darkModeTheme.config.initialColorMode}
-      />
-      <App />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript
+          initialColorMode={darkModeTheme.config.initialColorMode}
+        />
+        <App />
+      </ChakraProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
