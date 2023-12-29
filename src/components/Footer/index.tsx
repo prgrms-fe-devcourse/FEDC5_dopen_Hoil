@@ -24,8 +24,8 @@ const Footer = ({
       gap="62px"
       border="1px solid black"
       align="center"
-      w={width}
-      h={height}
+      w={typeof width === 'string' ? width : `${width}px`}
+      h={typeof height === 'string' ? height : `${height}px`}
     >
       <VStack>
         <IconButton
