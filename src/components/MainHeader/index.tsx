@@ -30,7 +30,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       justify="space-between"
       align="center"
     >
-      {/* 로고 들어갈 자리입니다. */}
+      {/* 로고 들어갈 자리입니다. 로고 사이즈에 맞춰서 사용해주세요*/}
       <Image
         alt="dopen logo"
         w="130px"

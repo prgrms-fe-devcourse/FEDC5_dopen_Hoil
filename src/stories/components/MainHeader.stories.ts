@@ -1,4 +1,4 @@
-import MainHeader from '@/components/Test/MainHeader';
+import MainHeader from '@/components/MainHeader';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof MainHeader> = {
