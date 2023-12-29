@@ -21,7 +21,7 @@ const Footer = ({
     <Flex
       pl="31px"
       pr="31px"
-      gap="50px"
+      justify="space-between"
       borderTop="1px solid"
       borderColor="gray.450"
       align="center"
