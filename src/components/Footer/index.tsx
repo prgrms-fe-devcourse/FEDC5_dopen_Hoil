@@ -42,7 +42,7 @@ const Footer = ({
           bg="white"
           _groupHover={{ background: 'gray.450' }}
         />
-        <Text textAlign="center" w="28px" color="black">
+        <Text fontWeight="800" textAlign="center" w="28px" color="black">
           홈
         </Text>
       </Flex>
@@ -59,7 +59,7 @@ const Footer = ({
           bg="white"
           _groupHover={{ background: 'gray.450' }}
         />
-        <Text textAlign="center" w="28px" color="black">
+        <Text fontWeight="800" textAlign="center" w="28px" color="black">
           랭킹
         </Text>
       </Flex>
@@ -76,7 +76,13 @@ const Footer = ({
           bg="white"
           _groupHover={{ background: 'gray.450' }}
         />
-        <Text textAlign="center" w="28px" color="black" fontSize="xs">
+        <Text
+          fontWeight="800"
+          textAlign="center"
+          w="28px"
+          color="black"
+          fontSize="xs"
+        >
           타이머
         </Text>
       </Flex>
@@ -93,7 +99,7 @@ const Footer = ({
           bg="white"
           _groupHover={{ background: 'gray.450' }}
         />
-        <Text textAlign="center" w="28px" color="black">
+        <Text fontWeight="800" textAlign="center" w="28px" color="black">
           게시판
         </Text>
       </Flex>
@@ -110,7 +116,7 @@ const Footer = ({
           bg="white"
           _groupHover={{ background: 'gray.450' }}
         />
-        <Text textAlign="center" w="28px" color="black">
+        <Text fontWeight="800" textAlign="center" w="28px" color="black">
           내정보
         </Text>
       </Flex>
