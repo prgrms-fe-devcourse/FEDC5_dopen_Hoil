@@ -1,4 +1,5 @@
-import Badge from '@/common/Badge';
+import Badge from '@/components/common/Badge';
+import { defaultHeaderHeight, defaultWidth } from '@/constants/style';
 import {
   BellIcon,
   ChatIcon,
@@ -19,7 +20,10 @@ interface MainHeaderProps {
   height?: number | string;
 }
 
-const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
+const MainHeader = ({
+  width = defaultWidth,
+  height = defaultHeaderHeight,
+}: MainHeaderProps) => {
   const { toggleColorMode } = useColorMode();
   const DarkModeIcon = useColorModeValue(MoonIcon, SunIcon);
 
