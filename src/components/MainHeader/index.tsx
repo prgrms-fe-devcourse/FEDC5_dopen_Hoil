@@ -42,20 +42,20 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
           aria-label="toggleDarkMode"
           icon={<DarkModeIcon color="black" boxSize="icon" />}
           bgColor="white"
-          size="xs"
+          size="md"
           onClick={toggleColorMode}
         />
         <IconButton
           aria-label="message"
           icon={<ChatIcon color="black" boxSize="icon" />}
           bgColor="white"
-          size="xs"
+          size="md"
         />
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
           bgColor="white"
-          size="xs"
+          size="md"
         />
         <IconButton
           aria-label="notify"
@@ -65,7 +65,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
             </Badge>
           }
           bgColor="white"
-          size="xs"
+          size="md"
         />
       </Flex>
     </Flex>
