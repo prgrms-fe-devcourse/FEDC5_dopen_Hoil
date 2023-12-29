@@ -15,8 +15,8 @@ import {
 } from '@chakra-ui/react';
 
 interface MainHeaderProps {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
@@ -25,8 +25,8 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
 
   return (
     <Flex
-      w={`${width}px`}
-      h={`${height}px`}
+      w={typeof width === 'string' ? width : `${width}px`}
+      h={typeof height === 'string' ? height : `${height}px`}
       justify="space-between"
       align="center"
     >
@@ -34,7 +34,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       <Image
         alt="dopen logo"
         w="130px"
-        h={`${height}px`}
+        h={typeof height === 'string' ? height : `${height}px`}
         src="https://via.placeholder.com/80"
       />
       <Flex gap="20px">
