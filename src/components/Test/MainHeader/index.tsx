@@ -1,3 +1,4 @@
+import Badge from '@/common/Badge';
 import {
   BellIcon,
   ChatIcon,
@@ -36,32 +37,34 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
         h={`${height}px`}
         src="https://via.placeholder.com/80"
       />
-      <Flex gap="10px">
+      <Flex gap="20px">
         <IconButton
           aria-label="toggleDarkMode"
-          icon={<DarkModeIcon color="black" />}
+          icon={<DarkModeIcon color="black" boxSize="24px" />}
           bgColor="white"
           size="xs"
           onClick={toggleColorMode}
         />
         <IconButton
           aria-label="message"
-          icon={<ChatIcon color="black" />}
+          icon={<ChatIcon color="black" boxSize="24px" />}
           bgColor="white"
           size="xs"
         />
         <IconButton
           aria-label="search"
-          icon={<SearchIcon color="black" />}
+          icon={<SearchIcon color="black" boxSize="24px" />}
           bgColor="white"
           size="xs"
         />
-        <IconButton
-          aria-label="notify"
-          icon={<BellIcon color="black" boxSize="5" />}
-          bgColor="white"
-          size="xs"
-        />
+        <Badge count={1} backgroundColor="red">
+          <IconButton
+            aria-label="notify"
+            icon={<BellIcon color="black" boxSize="28px" />}
+            bgColor="white"
+            size="xs"
+          />
+        </Badge>
       </Flex>
     </Flex>
   );
