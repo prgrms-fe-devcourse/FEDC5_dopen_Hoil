@@ -6,7 +6,7 @@ const BadgeContainer = styled.div`
   display: inline-block;
 `;
 
-const Super = styled.span`
+const Super = styled.span<{ size: string }>`
   position: absolute;
   display: inline-flex;
   align-items: center;
@@ -14,8 +14,8 @@ const Super = styled.span`
   right: 0;
   bottom: 0;
   transform: translate(25%, 25%);
-  height: 16px;
-  width: 16px;
+  height: ${({ size }) => size};
+  width: ${({ size }) => size};
   font-size: 12px;
   border-radius: 50%;
   color: white;
@@ -40,7 +40,7 @@ const Badge = ({
   children,
   count,
   maxCount,
-  /* size = '16px', */
+  size = '16px',
   backgroundColor = 'inherit',
   textColor = 'white',
   dot = false,
@@ -54,23 +54,22 @@ const Badge = ({
     color: textColor,
   };
 
-  /*   const sizeStyle = {
-    width: size,
-    height: size,
-  }; */
-
   if (count) {
     badge = (
-      <Super style={colorStyle}>
+      <Super size={size} style={colorStyle}>
         {maxCount && count > maxCount ? `${maxCount}+` : count}
       </Super>
     );
   } else {
     if (count !== undefined) {
-      badge = showZero ? <Super style={colorStyle}>0</Super> : null;
+      badge = showZero ? (
+        <Super size={size} style={colorStyle}>
+          0
+        </Super>
+      ) : null;
     } else if (dot) {
       badge = (
-        <Super className="dot" style={colorStyle}>
+        <Super size={size} className="dot" style={colorStyle}>
           0
         </Super>
       );
