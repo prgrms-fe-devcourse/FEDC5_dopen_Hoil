@@ -1,5 +1,5 @@
 import { defaultHeaderHeight, defaultWidth } from '@/constants/style';
-import { Flex, Icon, IconButton, Text, VStack } from '@chakra-ui/react';
+import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import {
   MdHome,
   MdEmojiEvents,
@@ -21,40 +21,62 @@ const Footer = ({
     <Flex
       pl="31px"
       pr="31px"
-      gap="62px"
+      gap="50px"
       border="1px solid black"
       align="center"
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
     >
-      <VStack>
+      <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="home"
           icon={<Icon as={MdHome} boxSize="icon" />}
           bg="white"
         />
-        <Text>홈</Text>
-      </VStack>
-      <IconButton
-        aria-label="ranking"
-        icon={<Icon as={MdEmojiEvents} boxSize="icon" />}
-        bg="white"
-      />
-      <IconButton
-        aria-label="timer"
-        icon={<Icon as={MdOutlineTimer} boxSize="icon" />}
-        bg="white"
-      />
-      <IconButton
-        aria-label="boardChannel"
-        icon={<Icon as={MdOutlineMessage} boxSize="icon" />}
-        bg="white"
-      />
-      <IconButton
-        aria-label="myInfo"
-        icon={<Icon as={MdPersonOutline} boxSize="icon" />}
-        bg="white"
-      />
+        <Text textAlign="center" w="28px" color="black">
+          홈
+        </Text>
+      </Flex>
+      <Flex flexDir="column" align="center" w="28px">
+        <IconButton
+          aria-label="ranking"
+          icon={<Icon as={MdEmojiEvents} boxSize="icon" />}
+          bg="white"
+        />
+        <Text textAlign="center" w="28px" color="black">
+          랭킹
+        </Text>
+      </Flex>
+      <Flex flexDir="column" align="center" w="28px">
+        <IconButton
+          aria-label="timer"
+          icon={<Icon as={MdOutlineTimer} boxSize="icon" />}
+          bg="white"
+        />
+        <Text textAlign="center" w="28px" color="black" fontSize="xs">
+          타이머
+        </Text>
+      </Flex>
+      <Flex flexDir="column" align="center" w="28px">
+        <IconButton
+          aria-label="boardChannel"
+          icon={<Icon as={MdOutlineMessage} boxSize="icon" />}
+          bg="white"
+        />
+        <Text textAlign="center" w="28px" color="black">
+          게시판
+        </Text>
+      </Flex>
+      <Flex flexDir="column" align="center" w="28px">
+        <IconButton
+          aria-label="myInfo"
+          icon={<Icon as={MdPersonOutline} boxSize="icon" />}
+          bg="white"
+        />
+        <Text textAlign="center" w="28px" color="black">
+          내정보
+        </Text>
+      </Flex>
     </Flex>
   );
 };
