@@ -29,51 +29,86 @@ const Footer = ({
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
     >
-      <Flex flexDir="column" align="center" w="28px">
+      <Flex
+        flexDir="column"
+        align="center"
+        w="28px"
+        cursor="pointer"
+        role="group"
+      >
         <IconButton
           aria-label="home"
           icon={<Icon as={MdHome} boxSize="icon" color="black" />}
           bg="white"
+          _groupHover={{ background: 'gray.450' }}
         />
         <Text textAlign="center" w="28px" color="black">
           홈
         </Text>
       </Flex>
-      <Flex flexDir="column" align="center" w="28px">
+      <Flex
+        flexDir="column"
+        align="center"
+        w="28px"
+        cursor="pointer"
+        role="group"
+      >
         <IconButton
           aria-label="ranking"
           icon={<Icon as={MdEmojiEvents} boxSize="icon" color="black" />}
           bg="white"
+          _groupHover={{ background: 'gray.450' }}
         />
         <Text textAlign="center" w="28px" color="black">
           랭킹
         </Text>
       </Flex>
-      <Flex flexDir="column" align="center" w="28px">
+      <Flex
+        flexDir="column"
+        align="center"
+        w="28px"
+        cursor="pointer"
+        role="group"
+      >
         <IconButton
           aria-label="timer"
           icon={<Icon as={MdOutlineTimer} boxSize="icon" color="black" />}
           bg="white"
+          _groupHover={{ background: 'gray.450' }}
         />
         <Text textAlign="center" w="28px" color="black" fontSize="xs">
           타이머
         </Text>
       </Flex>
-      <Flex flexDir="column" align="center" w="28px">
+      <Flex
+        flexDir="column"
+        align="center"
+        w="28px"
+        cursor="pointer"
+        role="group"
+      >
         <IconButton
           aria-label="boardChannel"
           icon={<Icon as={MdOutlineMessage} boxSize="icon" color="black" />}
           bg="white"
+          _groupHover={{ background: 'gray.450' }}
         />
         <Text textAlign="center" w="28px" color="black">
           게시판
         </Text>
       </Flex>
-      <Flex flexDir="column" align="center" w="28px">
+      <Flex
+        flexDir="column"
+        align="center"
+        w="28px"
+        cursor="pointer"
+        role="group"
+      >
         <IconButton
           aria-label="myInfo"
           icon={<Icon as={MdPersonOutline} boxSize="icon" color="black" />}
           bg="white"
+          _groupHover={{ background: 'gray.450' }}
         />
         <Text textAlign="center" w="28px" color="black">
           내정보
