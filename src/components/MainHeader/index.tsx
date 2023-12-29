@@ -57,14 +57,16 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
           bgColor="white"
           size="xs"
         />
-        <Badge count={1} backgroundColor="red">
-          <IconButton
-            aria-label="notify"
-            icon={<BellIcon color="black" boxSize="28px" />}
-            bgColor="white"
-            size="xs"
-          />
-        </Badge>
+        <IconButton
+          aria-label="notify"
+          icon={
+            <Badge count={1}>
+              <BellIcon color="black" boxSize="24px" />
+            </Badge>
+          }
+          bgColor="white"
+          size="xs"
+        />
       </Flex>
     </Flex>
   );

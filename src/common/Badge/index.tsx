@@ -3,7 +3,8 @@ import { ReactNode } from 'react';
 
 const BadgeContainer = styled.div`
   position: relative;
-  display: inline-block;
+  width: 24px;
+  height: 24px;
 `;
 
 const Super = styled.span<{ size: string }>`
@@ -41,7 +42,7 @@ const Badge = ({
   count,
   maxCount,
   size = '16px',
-  backgroundColor = 'inherit',
+  backgroundColor = 'red',
   textColor = 'white',
   dot = false,
   showZero = false,
