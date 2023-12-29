@@ -22,15 +22,17 @@ const Footer = ({
       pl="31px"
       pr="31px"
       gap="50px"
-      border="1px solid black"
+      borderTop="1px solid"
+      borderColor="gray.450"
       align="center"
+      bg="gray.50"
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
     >
       <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="home"
-          icon={<Icon as={MdHome} boxSize="icon" />}
+          icon={<Icon as={MdHome} boxSize="icon" color="black" />}
           bg="white"
         />
         <Text textAlign="center" w="28px" color="black">
@@ -40,7 +42,7 @@ const Footer = ({
       <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="ranking"
-          icon={<Icon as={MdEmojiEvents} boxSize="icon" />}
+          icon={<Icon as={MdEmojiEvents} boxSize="icon" color="black" />}
           bg="white"
         />
         <Text textAlign="center" w="28px" color="black">
@@ -50,7 +52,7 @@ const Footer = ({
       <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="timer"
-          icon={<Icon as={MdOutlineTimer} boxSize="icon" />}
+          icon={<Icon as={MdOutlineTimer} boxSize="icon" color="black" />}
           bg="white"
         />
         <Text textAlign="center" w="28px" color="black" fontSize="xs">
@@ -60,7 +62,7 @@ const Footer = ({
       <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="boardChannel"
-          icon={<Icon as={MdOutlineMessage} boxSize="icon" />}
+          icon={<Icon as={MdOutlineMessage} boxSize="icon" color="black" />}
           bg="white"
         />
         <Text textAlign="center" w="28px" color="black">
@@ -70,7 +72,7 @@ const Footer = ({
       <Flex flexDir="column" align="center" w="28px">
         <IconButton
           aria-label="myInfo"
-          icon={<Icon as={MdPersonOutline} boxSize="icon" />}
+          icon={<Icon as={MdPersonOutline} boxSize="icon" color="black" />}
           bg="white"
         />
         <Text textAlign="center" w="28px" color="black">
