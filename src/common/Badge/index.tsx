@@ -1,31 +1,6 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
 
-const BadgeContainer = styled.div`
-  position: relative;
-  width: 24px;
-  height: 24px;
-`;
-
-const Super = styled.span<{ size: string }>`
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  right: 0;
-  bottom: 0;
-  transform: translate(25%, 25%);
-  height: ${({ size }) => size};
-  width: ${({ size }) => size};
-  font-size: 12px;
-  border-radius: 50%;
-  color: white;
-  background-color: #f44;
-  &.dot {
-    border-radius: 50%;
-  }
-`;
-
 interface BadgeProps {
   children: ReactNode;
   count: number;
@@ -84,5 +59,30 @@ const Badge = ({
     </BadgeContainer>
   );
 };
+
+const BadgeContainer = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+`;
+
+const Super = styled.span<{ size: string }>`
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  bottom: 0;
+  transform: translate(25%, 25%);
+  height: ${({ size }) => size};
+  width: ${({ size }) => size};
+  font-size: 12px;
+  border-radius: 50%;
+  color: white;
+  background-color: #f44;
+  &.dot {
+    border-radius: 50%;
+  }
+`;
 
 export default Badge;
