@@ -40,20 +40,20 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
       <Flex gap="20px">
         <IconButton
           aria-label="toggleDarkMode"
-          icon={<DarkModeIcon color="black" boxSize="24px" />}
+          icon={<DarkModeIcon color="black" boxSize="icon" />}
           bgColor="white"
           size="xs"
           onClick={toggleColorMode}
         />
         <IconButton
           aria-label="message"
-          icon={<ChatIcon color="black" boxSize="24px" />}
+          icon={<ChatIcon color="black" boxSize="icon" />}
           bgColor="white"
           size="xs"
         />
         <IconButton
           aria-label="search"
-          icon={<SearchIcon color="black" boxSize="24px" />}
+          icon={<SearchIcon color="black" boxSize="icon" />}
           bgColor="white"
           size="xs"
         />
@@ -61,7 +61,7 @@ const MainHeader = ({ width = 428, height = 80 }: MainHeaderProps) => {
           aria-label="notify"
           icon={
             <Badge count={1}>
-              <BellIcon color="black" boxSize="24px" />
+              <BellIcon color="black" boxSize="icon" />
             </Badge>
           }
           bgColor="white"

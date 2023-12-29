@@ -3,6 +3,13 @@ import { extendTheme } from '@chakra-ui/react';
 // example theme
 
 export const theme = extendTheme({
+  styles: {
+    global: {
+      html: {
+        fontSize: '62.5%',
+      },
+    },
+  },
   colors: {
     pink: {
       100: '#FFE4E1',
@@ -51,5 +58,8 @@ export const theme = extendTheme({
     bold: 700,
     extrabold: 800,
     black: 900,
+  },
+  sizes: {
+    icon: '2.4rem',
   },
 });
