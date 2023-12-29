@@ -1,7 +1,7 @@
-import MainHeader from './components/MainHeader';
+import Test from './components/Test';
 
 const App = () => {
-  return <MainHeader width={428} height={80} />;
+  return <Test />;
 };
 
 export default App;
