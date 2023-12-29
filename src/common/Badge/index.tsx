@@ -23,12 +23,12 @@ const Badge = ({
   showZero = false,
   ...props
 }: BadgeProps) => {
-  let badge = null;
-
   const colorStyle = {
     backgroundColor,
     color: textColor,
   };
+
+  let badge = null;
 
   if (count) {
     badge = (
