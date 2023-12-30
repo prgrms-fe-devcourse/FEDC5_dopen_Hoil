@@ -30,6 +30,7 @@ const Footer = ({
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
     >
+      {/* [{icon:MdHome, textContent:"홈"}, ...]  이렇게 받아와서 map을 돌려도 좋아보입니다*/}
       <TextIconButton TheIcon={MdHome} textContent="홈" />
       <TextIconButton TheIcon={MdEmojiEvents} textContent="랭킹" />
       <TextIconButton TheIcon={MdOutlineTimer} textContent="타이머" />
