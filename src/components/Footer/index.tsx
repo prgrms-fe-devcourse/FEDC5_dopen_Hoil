@@ -1,5 +1,5 @@
 import { defaultHeaderHeight, defaultWidth } from '@/constants/style';
-import { Flex, Icon, IconButton, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import {
   MdHome,
   MdEmojiEvents,
@@ -7,6 +7,7 @@ import {
   MdOutlineMessage,
   MdPersonOutline,
 } from 'react-icons/md';
+import TextIconButton from '../common/TextIconButton';
 
 interface FooterProps {
   width?: number | string;
@@ -29,97 +30,11 @@ const Footer = ({
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
     >
-      <Flex
-        flexDir="column"
-        align="center"
-        w="28px"
-        cursor="pointer"
-        role="group"
-      >
-        <IconButton
-          aria-label="home"
-          icon={<Icon as={MdHome} boxSize="icon" color="black" />}
-          bg="white"
-          _groupHover={{ background: 'gray.450' }}
-        />
-        <Text fontWeight="800" textAlign="center" w="28px" color="black">
-          홈
-        </Text>
-      </Flex>
-      <Flex
-        flexDir="column"
-        align="center"
-        w="28px"
-        cursor="pointer"
-        role="group"
-      >
-        <IconButton
-          aria-label="ranking"
-          icon={<Icon as={MdEmojiEvents} boxSize="icon" color="black" />}
-          bg="white"
-          _groupHover={{ background: 'gray.450' }}
-        />
-        <Text fontWeight="800" textAlign="center" w="28px" color="black">
-          랭킹
-        </Text>
-      </Flex>
-      <Flex
-        flexDir="column"
-        align="center"
-        w="28px"
-        cursor="pointer"
-        role="group"
-      >
-        <IconButton
-          aria-label="timer"
-          icon={<Icon as={MdOutlineTimer} boxSize="icon" color="black" />}
-          bg="white"
-          _groupHover={{ background: 'gray.450' }}
-        />
-        <Text
-          fontWeight="800"
-          textAlign="center"
-          w="28px"
-          color="black"
-          fontSize="xs"
-        >
-          타이머
-        </Text>
-      </Flex>
-      <Flex
-        flexDir="column"
-        align="center"
-        w="28px"
-        cursor="pointer"
-        role="group"
-      >
-        <IconButton
-          aria-label="boardChannel"
-          icon={<Icon as={MdOutlineMessage} boxSize="icon" color="black" />}
-          bg="white"
-          _groupHover={{ background: 'gray.450' }}
-        />
-        <Text fontWeight="800" textAlign="center" w="28px" color="black">
-          게시판
-        </Text>
-      </Flex>
-      <Flex
-        flexDir="column"
-        align="center"
-        w="28px"
-        cursor="pointer"
-        role="group"
-      >
-        <IconButton
-          aria-label="myInfo"
-          icon={<Icon as={MdPersonOutline} boxSize="icon" color="black" />}
-          bg="white"
-          _groupHover={{ background: 'gray.450' }}
-        />
-        <Text fontWeight="800" textAlign="center" w="28px" color="black">
-          내정보
-        </Text>
-      </Flex>
+      <TextIconButton TheIcon={MdHome} textContent="홈" />
+      <TextIconButton TheIcon={MdEmojiEvents} textContent="랭킹" />
+      <TextIconButton TheIcon={MdOutlineTimer} textContent="타이머" />
+      <TextIconButton TheIcon={MdOutlineMessage} textContent="게시판" />
+      <TextIconButton TheIcon={MdPersonOutline} textContent="내정보" />
     </Flex>
   );
 };
