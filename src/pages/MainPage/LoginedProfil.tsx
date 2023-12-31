@@ -3,7 +3,12 @@ import { Avatar, Flex, Text } from '@chakra-ui/react';
 const LoginedProfil = () => {
   return (
     <Flex alignItems="center">
-      <Avatar size="2xl" />
+      <Avatar
+        size="2xl"
+        name="Kola Tioluwani"
+        src="https://bit.ly/tioluwani-kolawole"
+        cursor="default"
+      />
       <Flex direction="column" marginLeft="20px">
         <Text
           width="fit-content"
