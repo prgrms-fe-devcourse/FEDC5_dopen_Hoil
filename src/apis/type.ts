@@ -1,4 +1,4 @@
-interface User {
+export interface User {
   coverImage: string; // 커버 이미지
   image: string; // 프로필 이미지
   role: string;
@@ -9,7 +9,7 @@ interface User {
   likes: Like[];
   comments: string[];
   followers: [];
-  following: Array<Follow>; //Follow 타입에 __v 속성만 더 추가됨
+  following: Follow[];
   notifications: Notification[];
   messages: Message[];
   _id: string;
