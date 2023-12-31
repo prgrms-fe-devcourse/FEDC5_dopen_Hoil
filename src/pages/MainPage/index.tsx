@@ -18,17 +18,9 @@ const MainPage = () => {
       >
         <MainHeader />
         <Flex w={WIDTH} p="20px 10px 90px 10px" overflowY="auto">
-          {isLogin ? (
-            <>
-              <LoginedProfil />
-            </>
-          ) : (
-            <>
-              <NotLoginProfil />
-            </>
-          )}
+          {isLogin ? <LoginedProfil /> : <NotLoginProfil />}
         </Flex>
-        {/* 하단 네비게이터 위치 입니다. */}
+        {/* 하단 네비게이터 위치 */}
         <Box
           w={WIDTH}
           position="absolute"
@@ -36,6 +28,7 @@ const MainPage = () => {
           height="80px"
           bg="gray.300"
         />
+        {/* 하단 네비게이터 위치 */}
       </Flex>
     </>
   );
