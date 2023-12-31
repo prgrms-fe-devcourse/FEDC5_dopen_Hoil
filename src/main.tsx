@@ -5,18 +5,21 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { theme } from './theme/index.ts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { darkModeTheme } from './theme/darkmode.ts';
+import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <ColorModeScript
-          initialColorMode={darkModeTheme.config.initialColorMode}
-        />
-        <App />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <ChakraProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <ColorModeScript
+            initialColorMode={darkModeTheme.config.initialColorMode}
+          />
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ChakraProvider>
   </React.StrictMode>,
 );

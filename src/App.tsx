@@ -1,7 +1,14 @@
-import MainHeader from '@/components/MainHeader';
+import { Route, Routes } from 'react-router-dom';
+import MainPage from '@/pages/MainPage';
 
 const App = () => {
-  return <MainHeader width={428} height={80} />;
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+      </Routes>
+    </>
+  );
 };
 
 export default App;
