@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Text, Heading } from '@chakra-ui/react';
+import { Box, Text, Heading, Image } from '@chakra-ui/react';
 import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { setItem } from '@/utils/storage';
 import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
 
-interface Inputs {
+interface UserCrendentials {
   email: string;
   fullName: string;
   userName: string;
@@ -16,8 +16,8 @@ interface Inputs {
   passwordConfirm: string;
 }
 
-interface signUpInputData {
-  name: Path<Inputs>;
+interface SignUpInputData {
+  name: Path<UserCrendentials>;
   label: string;
   type: string;
   required: boolean;
@@ -31,10 +31,10 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors, isValid },
     setError,
-  } = useForm<Inputs>();
+  } = useForm<UserCrendentials>();
   const navigate = useNavigate();
 
-  const onValid: SubmitHandler<Inputs> = async (data) => {
+  const onValid: SubmitHandler<UserCrendentials> = async (data) => {
     if (data.password !== data.passwordConfirm) {
       setError(
         'passwordConfirm',
@@ -54,7 +54,7 @@ const SignUp = () => {
     navigate('/', { replace: true });
   };
 
-  const signUpInputArray: signUpInputData[] = [
+  const signUpInputArray: SignUpInputData[] = [
     {
       name: 'email',
       label: '이메일',
@@ -97,18 +97,24 @@ const SignUp = () => {
   ];
 
   return (
-    <SignUpContainer>
-      <div className="signup-title-container">
-        <Heading>
-          <img src="https://via.placeholder.com/198x74" />
+    <Box maxWidth={428} m="0 auto" textAlign="center" p="130px 20px">
+      <Box mb={30}>
+        <Heading mb={6}>
+          <Image
+            m="0 auto"
+            src="https://via.placeholder.com/198x74"
+            alt="Dopen Logo"
+          />
         </Heading>
-        <p>
-          <span>이미 회원이신가요?</span>
-          <Link to="/signin" title="로그인하기">
+        <Text fontSize="md">
+          <Text as="span" mr={5}>
+            이미 회원이신가요?
+          </Text>
+          <Link to="/signin" title="로그인하기" style={{ color: '#f88585' }}>
             로그인하기
           </Link>
-        </p>
-      </div>
+        </Text>
+      </Box>
       <Form onSubmit={handleSubmit(onValid)}>
         <ul>
           {signUpInputArray.map(
@@ -138,33 +144,9 @@ const SignUp = () => {
           </SubmitButton>
         )}
       </Form>
-    </SignUpContainer>
+    </Box>
   );
 };
-
-const SignUpContainer = styled.div`
-  max-width: 428px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 130px 20px;
-  border: 1px solid #000;
-  & .signup-title-container {
-    margin-bottom: 30px;
-    h2 {
-      margin-bottom: 16px;
-      img {
-        margin: 0 auto;
-      }
-    }
-    p {
-      font-size: 14px;
-      a {
-        color: #f88585;
-        padding-left: 12px;
-      }
-    }
-  }
-`;
 
 const SubmitButton = styled.button`
   width: 100%;
