@@ -1,2 +1,2 @@
-export const defaultWidth = '428px';
-export const defaultHeaderHeight = '80px';
+export const DEFAULT_WIDTH = '428px';
+export const DEFAULT_HEADER_HEIGHT = '80px';
