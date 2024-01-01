@@ -1,9 +1,9 @@
-import MainHeader from '@/components/MainHeader';
-import NotLoginProfil from '@/pages/MainPage/NotLoginProfile';
 import { defaultWidth } from '@/constants/style';
 import { Box, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
-import LoginedProfil from './LoginProfile';
+import MainHeader from '@/components/MainHeader';
+import NotLoginProfil from '@/pages/MainPage/NotLoginProfile';
+import LoginedProfil from '@/pages/MainPage/LoginProfile';
 
 const MainPage = () => {
   const [isLogin, setIsLoigin] = useState(false); // 로그인 유무를 구분하기 위한 임시 값입니다.
