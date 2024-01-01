@@ -40,7 +40,7 @@ const PageHeader = ({
         {pageName}
       </Text>
 
-      <Flex justify="space-between" w="69px">
+      <Flex w="69px" justify="space-between">
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
