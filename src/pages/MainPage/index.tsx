@@ -1,12 +1,14 @@
 import { defaultWidth } from '@/constants/style';
 import { Box, Flex } from '@chakra-ui/react';
-import { useState } from 'react';
 import MainHeader from '@/components/MainHeader';
 import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 
-const MainPage = () => {
-  const [isLogin, setIsLoigin] = useState(false); // 로그인 유무를 구분하기 위한 임시 값입니다.
+interface MainPageProps {
+  isLogin: boolean;
+}
+
+const MainPage = ({ isLogin = false }: MainPageProps) => {
   return (
     <>
       <Flex
