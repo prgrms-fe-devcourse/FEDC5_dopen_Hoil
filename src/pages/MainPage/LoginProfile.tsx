@@ -1,6 +1,6 @@
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 
-const LoginedProfil = () => {
+const LogineProfil = () => {
   return (
     <Flex alignItems="center">
       <Avatar
@@ -27,4 +27,4 @@ const LoginedProfil = () => {
   );
 };
 
-export default LoginedProfil;
+export default LogineProfil;
