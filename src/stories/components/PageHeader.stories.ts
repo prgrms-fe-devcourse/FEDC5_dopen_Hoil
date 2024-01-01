@@ -10,6 +10,9 @@ const meta: Meta<typeof PageHeader> = {
     height: {
       control: 'number',
     },
+    pageName: {
+      control: 'text',
+    },
   },
 };
 
@@ -20,5 +23,6 @@ export const Deafult: Story = {
   args: {
     width: 428,
     height: 80,
+    pageName: '테스트',
   },
 };
