@@ -17,6 +17,9 @@ const meta: Meta<typeof UserContentBlock> = {
     content: {
       control: 'text',
     },
+    isOnline: {
+      control: 'boolean',
+    },
   },
 };
 
@@ -29,5 +32,6 @@ export const Deafult: Story = {
     height: 80,
     username: '테스트닉',
     content: '테스트용 내용',
+    isOnline: true,
   },
 };

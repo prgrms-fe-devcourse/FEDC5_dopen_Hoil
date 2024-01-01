@@ -1,5 +1,5 @@
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
-import { Avatar, Flex, Text, VStack } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, Flex, Text, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 interface UserContentBlock {
@@ -7,6 +7,7 @@ interface UserContentBlock {
   height?: string | number;
   userImage?: string;
   userImageSize?: string | number;
+  isOnline?: boolean;
   username: string;
   content: string | number;
   subContent?: string;
@@ -21,6 +22,7 @@ const UserContentBlock = ({
   userImage = '',
   userImageSize = '50px',
   content,
+  isOnline,
   subContent = '7일전',
   username = '테스트용',
   usernameFontSize = '1.4rem',
@@ -47,7 +49,15 @@ const UserContentBlock = ({
             ? userImageSize
             : `${userImageSize}px`
         }
-      />
+      >
+        {isOnline !== undefined && (
+          <AvatarBadge
+            boxSize="14px"
+            border="2px solid white"
+            bg={isOnline ? 'green' : 'red'}
+          />
+        )}
+      </Avatar>
       <VStack flex="1" align="left" color="black">
         <Flex w="100%" justify="space-between">
           <Text
