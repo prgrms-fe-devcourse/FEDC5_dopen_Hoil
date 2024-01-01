@@ -17,7 +17,7 @@ const MainPage = () => {
         direction="column"
       >
         <MainHeader />
-        <Flex w={defaultWidth} p="20px 10px 90px 10px" overflowY="auto">
+        <Flex w="100%" p="20px 10px 90px 10px" overflowY="auto">
           {isLogin ? <LoginProfile /> : <GuestProfile />}
         </Flex>
         {/* 하단 네비게이터 위치 */}
