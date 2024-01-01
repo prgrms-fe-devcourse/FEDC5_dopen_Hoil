@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import { Text } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { Text, Heading } from '@chakra-ui/react';
+import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { DUMMY_DATA } from './data';
-import { useState } from 'react';
-const memberArray = DUMMY_DATA;
+import { signUp } from '@/apis/authentication';
+import { setItem } from '@/utils/storage';
+import { INPUT_VALIDATE } from '@/constants/inputValidate';
+import { LOGIN_TOKEN } from '@/constants/user';
 
 interface Inputs {
   email: string;
@@ -15,82 +16,92 @@ interface Inputs {
   passwordConfirm: string;
 }
 
+interface signUpInputData {
+  name: Path<Inputs>;
+  label: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+  validate?: RegisterOptions;
+}
+
 const SignUp = () => {
-  const [message, setMessage] = useState('');
   const {
     register,
     handleSubmit,
-    setFocus,
     formState: { errors, isValid },
+    setError,
   } = useForm<Inputs>();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // 이메일 정규표현식
-    const emailRegEx =
-      /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
-    if (!emailRegEx.test(data.email)) {
-      alert('이메일 형식이 아닙니다. 이메일을 확인해주세요.');
-      setFocus('email');
-      return;
-    }
-
-    // 중복 이메일 검사
-    const emailCheck = memberArray.some(
-      (member) => member.email === data.email,
-    );
-
-    if (emailCheck) {
-      alert('중복된 이메일 입니다.');
-      setFocus('email');
-      return;
-    }
-
-    // 이름 글자 수 검사
-    if (data.fullName.trim().length < 2) {
-      alert('이름을 2글자 이상 입력해주세요.');
-      setFocus('fullName');
-      return;
-    }
-
-    // 닉네임 글자 수 검사
-    if (data.fullName.trim().length < 2) {
-      alert('닉네임을 2글자 이상 입력해주세요.');
-      setFocus('userName');
-      return;
-    }
-
-    // 비밀번호 일치하지 않습니다.
+  const onValid: SubmitHandler<Inputs> = async (data) => {
     if (data.password !== data.passwordConfirm) {
-      setMessage('비밀번호가 일치하지 않습니다.');
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-
-    // 비밀번호 검사
-    const passwordRegEx =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-    // 비밀번호 확인 (대소문자 및 특수문자 포함 8글자 ~ 20글자)
-    if (!passwordRegEx.test(data.password)) {
-      alert(
-        '비밀번호는 최소 8자에서 최대 20자로 하나 이상의 대소문자, 하나의 숫자 및 하나의 특수 문자를 입력해주세요.',
+      setError(
+        'passwordConfirm',
+        { message: '비밀번호가 일치하지 않습니다.' },
+        { shouldFocus: true },
       );
-      setFocus('password');
       return;
     }
 
-    // 회원가입 완료
-    alert('회원가입 완료');
+    const signUpResponse = await signUp({
+      email: data.email,
+      fullName: data.fullName,
+      password: data.password,
+    });
+
+    setItem(LOGIN_TOKEN, signUpResponse.token);
     navigate('/', { replace: true });
   };
 
-  const navigate = useNavigate();
+  const signUpInputArray: signUpInputData[] = [
+    {
+      name: 'email',
+      label: '이메일',
+      type: 'text',
+      required: true,
+      placeholder: '이메일',
+      validate: { ...INPUT_VALIDATE.email },
+    },
+    {
+      name: 'fullName',
+      label: '이름',
+      type: 'text',
+      required: true,
+      placeholder: '이름',
+      validate: { ...INPUT_VALIDATE.fullName },
+    },
+    {
+      name: 'userName',
+      label: '닉네임',
+      type: 'text',
+      required: true,
+      placeholder: '닉네임',
+      validate: { ...INPUT_VALIDATE.userName },
+    },
+    {
+      name: 'password',
+      label: '비밀번호',
+      type: 'password',
+      required: true,
+      placeholder: '비밀번호',
+      validate: { ...INPUT_VALIDATE.password },
+    },
+    {
+      name: 'passwordConfirm',
+      label: '비밀번호 확인',
+      type: 'password',
+      required: true,
+      placeholder: '비밀번호 확인',
+    },
+  ];
 
   return (
     <SignUpContainer>
       <div className="signup-title-container">
-        <h2>
+        <Heading>
           <img src="https://via.placeholder.com/198x74" />
-        </h2>
+        </Heading>
         <p>
           <span>이미 회원이신가요?</span>
           <Link to="/signin" title="로그인하기">
@@ -98,51 +109,31 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onValid)}>
         <ul>
-          <li>
-            <Input
-              {...register('email', { required: true })}
-              type="text"
-              placeholder="이메일"
-            />
-          </li>
-          <li>
-            <Input
-              {...register('fullName', { required: true })}
-              type="text"
-              placeholder="이름"
-            />
-          </li>
-
-          <li>
-            <Input
-              {...register('userName', { required: true })}
-              type="text"
-              placeholder="닉네임"
-            />
-          </li>
-          <li>
-            <Input
-              {...register('password', { required: true })}
-              type="password"
-              placeholder="비밀번호"
-            />
-          </li>
-          <li>
-            <Input
-              {...register('passwordConfirm', { required: true })}
-              type="password"
-              placeholder="비밀번호 확인"
-            />
-            <Text>{message}</Text>
-          </li>
+          {signUpInputArray.map(
+            ({ name, type, required, placeholder, validate }) => (
+              <li key={name}>
+                <Input
+                  type={type}
+                  placeholder={placeholder}
+                  {...register(name, {
+                    required,
+                    ...validate,
+                  })}
+                />
+                <Text mt={2} color="pink.300" fontSize="sm">
+                  {errors && errors[name] && errors[name]?.message}
+                </Text>
+              </li>
+            ),
+          )}
         </ul>
 
         {isValid ? (
           <SubmitButton>가입하기</SubmitButton>
         ) : (
-          <SubmitButton style={{ backgroundColor: '#ccc' }} disabled>
+          <SubmitButton style={{ backgroundColor: '#A8A8A8' }}>
             가입하기
           </SubmitButton>
         )}
