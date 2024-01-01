@@ -1,4 +1,4 @@
-import { defaultWidth } from '@/constants/style';
+import { DEFAULT_WIDTH, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { Box, Flex } from '@chakra-ui/react';
 import MainHeader from '@/components/MainHeader';
 import GuestProfile from '@/pages/MainPage/GuestProfile';
@@ -13,18 +13,21 @@ const MainPage = ({ isLogin = false }: MainPageProps) => {
     <>
       <Flex
         position="relative"
-        w={defaultWidth}
+        w={DEFAULT_WIDTH}
         height="100vh"
         margin="0 auto"
         direction="column"
       >
         <MainHeader />
-        <Flex p="20px 20px 90px 20px" overflowY="auto">
+        <Flex
+          p={`20px ${DEFAULT_PAGE_PADDING} 90px ${DEFAULT_PAGE_PADDING}`}
+          overflowY="auto"
+        >
           {isLogin ? <LoginProfile /> : <GuestProfile />}
         </Flex>
         {/* 하단 네비게이터 위치 */}
         <Box
-          w={defaultWidth}
+          w={DEFAULT_WIDTH}
           position="absolute"
           bottom="0"
           height="80px"
