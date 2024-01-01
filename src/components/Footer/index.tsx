@@ -1,4 +1,4 @@
-import { defaultHeaderHeight, defaultWidth } from '@/constants/style';
+import { DEFAULT_HEADER_HEIGHT, DEFAULT_WIDTH } from '@/constants/style';
 import { Flex } from '@chakra-ui/react';
 import {
   MdHome,
@@ -15,8 +15,8 @@ interface FooterProps {
 }
 
 const Footer = ({
-  width = defaultWidth,
-  height = defaultHeaderHeight,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEADER_HEIGHT,
 }: FooterProps) => {
   return (
     <Flex
