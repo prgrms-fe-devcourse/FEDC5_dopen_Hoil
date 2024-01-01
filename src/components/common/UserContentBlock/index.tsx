@@ -6,36 +6,32 @@ interface UserContentBlock {
   width?: string | number;
   height?: string | number;
   userImage?: string;
+  userImageSize?: string | number;
   username: string;
   content: string | number;
   subContent?: string;
   usernameFontSize?: string | number;
   contentFontSize?: string | number;
   href?: string;
-  onImageClick?: () => void;
 }
 
 const UserContentBlock = ({
   width = DEFAULT_WIDTH,
   height,
   userImage = '',
+  userImageSize = '50px',
   content,
   subContent = '7일전',
   username = '테스트용',
   usernameFontSize = '1.4rem',
   contentFontSize = '1.2rem',
   href,
-  onImageClick,
 }: UserContentBlock) => {
   const navigate = useNavigate();
   const onNavigate = () => navigate(`${href}`);
   return (
-    /* 
-    1. width나 heigth값이 존재할시만 적용. 
-    2. href가 있을시만 네비게이팅. 만약 이미지 클릭이 있다면...고려해봐야할 사항
-    */
     <Flex
-      w={width && typeof width === 'string' ? width : `${width}px`}
+      w={typeof width === 'string' ? width : `${width}px`}
       h={height && typeof height === 'string' ? height : `${height}px`}
       align="center"
       gap="17px"
@@ -46,8 +42,11 @@ const UserContentBlock = ({
     >
       <Avatar
         src={userImage}
-        boxSize="50px"
-        onClick={() => onImageClick && onImageClick()}
+        boxSize={
+          userImageSize && typeof userImageSize === 'string'
+            ? userImageSize
+            : `${userImageSize}px`
+        }
       />
       <VStack flex="1" align="left" color="black">
         <Flex w="100%" justify="space-between">
