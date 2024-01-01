@@ -1,4 +1,4 @@
-export const inputValidate = {
+export const INPUT_VALIDATE = {
   email: {
     pattern: {
       value:
@@ -6,13 +6,13 @@ export const inputValidate = {
       message: '이메일 형식이 아닙니다. 이메일을 확인해주세요.',
     },
   },
-  name: {
+  fullName: {
     minLength: {
       value: 2,
       message: '이름을 2글자 이상 입력해주세요.',
     },
   },
-  nickName: {
+  userName: {
     pattern: {
       value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,
       message: '닉네임은 한글, 영문, 숫자 조합만 사용 가능합니다.',
