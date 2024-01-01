@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
+//TODO: 함수명 수정 필요할 것 같음
 export const getRequest = async <T>(
   url: string,
   config?: AxiosRequestConfig,
