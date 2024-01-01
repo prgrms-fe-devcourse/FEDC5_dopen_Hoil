@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 interface UserContentBlock {
   width?: string | number;
   height?: string | number;
-  userImage: string;
+  userImage?: string;
   username: string;
   content: string | number;
   usernameFontSize?: string | number;
