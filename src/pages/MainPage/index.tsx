@@ -5,10 +5,10 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 
 interface MainPageProps {
-  isLogin: boolean;
+  isLoggedIn: boolean;
 }
 
-const MainPage = ({ isLogin = false }: MainPageProps) => {
+const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
   return (
     <>
       <Flex
@@ -23,7 +23,7 @@ const MainPage = ({ isLogin = false }: MainPageProps) => {
           p={`20px ${DEFAULT_PAGE_PADDING} 90px ${DEFAULT_PAGE_PADDING}`}
           overflowY="auto"
         >
-          {isLogin ? <LoginProfile /> : <GuestProfile />}
+          {isLoggedIn ? <LoginProfile /> : <GuestProfile />}
         </Flex>
         {/* 하단 네비게이터 위치 */}
         <Box
