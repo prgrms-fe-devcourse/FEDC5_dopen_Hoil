@@ -7,6 +7,10 @@ export const INPUT_VALIDATE = {
     },
   },
   fullName: {
+    pattern: {
+      value: /^[ㄱ-ㅎ|가-힣]+$/,
+      message: '이름은 한글만 입력할 수 있습니다.',
+    },
     minLength: {
       value: 2,
       message: '이름을 2글자 이상 입력해주세요.',
