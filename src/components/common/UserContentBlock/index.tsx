@@ -1,3 +1,4 @@
+import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { Avatar, Flex, Text, VStack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +8,7 @@ interface UserContentBlock {
   userImage?: string;
   username: string;
   content: string | number;
+  subContent?: string;
   usernameFontSize?: string | number;
   contentFontSize?: string | number;
   href?: string;
@@ -14,10 +16,11 @@ interface UserContentBlock {
 }
 
 const UserContentBlock = ({
-  width,
+  width = DEFAULT_WIDTH,
   height,
   userImage = '',
   content,
+  subContent = '7일전',
   username = '테스트용',
   usernameFontSize = '1.4rem',
   contentFontSize = '1.2rem',
@@ -38,22 +41,28 @@ const UserContentBlock = ({
       gap="17px"
       onClick={() => href && onNavigate()}
       cursor="pointer"
+      pl={DEFAULT_PAGE_PADDING}
+      pr={DEFAULT_PAGE_PADDING}
     >
       <Avatar
         src={userImage}
         boxSize="50px"
         onClick={() => onImageClick && onImageClick()}
       />
-      <VStack align="left">
-        <Text
-          fontSize={
-            typeof usernameFontSize === 'string'
-              ? usernameFontSize
-              : `${usernameFontSize}px`
-          }
-        >
-          {username}
-        </Text>
+      <VStack flex="1" align="left" color="black">
+        <Flex w="100%" justify="space-between">
+          <Text
+            fontWeight="semibold"
+            fontSize={
+              typeof usernameFontSize === 'string'
+                ? usernameFontSize
+                : `${usernameFontSize}px`
+            }
+          >
+            {username}
+          </Text>
+          <Text fontSize="1.2rem">{subContent}</Text>
+        </Flex>
         <Text
           fontSize={
             typeof contentFontSize === 'string'
