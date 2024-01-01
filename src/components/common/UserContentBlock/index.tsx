@@ -23,7 +23,7 @@ const UserContentBlock = ({
   userImageSize = '50px',
   content,
   isOnline,
-  subContent = '7일전',
+  subContent,
   username = '테스트용',
   usernameFontSize = '1.4rem',
   contentFontSize = '1.2rem',
