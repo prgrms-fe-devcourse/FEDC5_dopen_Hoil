@@ -10,29 +10,29 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 interface UserContentBlockProps extends FlexProps {
+  href?: string;
   userImage?: string;
   userImageSize?: string | number;
-  isOnline?: boolean;
   username: string;
+  usernameFontSize?: string | number;
+  isOnline?: boolean;
   content: string;
   subContent?: string;
-  usernameFontSize?: string | number;
   contentFontSize?: string | number;
-  href?: string;
   onSubContentClick?: () => void;
 }
 
 const UserContentBlock = ({
+  href,
   userImage = '',
   userImageSize = '50px',
-  href,
-  content,
-  isOnline,
-  subContent,
-  onSubContentClick,
   username = '테스트용',
   usernameFontSize = '1.4rem',
+  isOnline,
+  content,
+  subContent,
   contentFontSize = '1.2rem',
+  onSubContentClick,
   ...props
 }: UserContentBlockProps) => {
   const navigate = useNavigate();
