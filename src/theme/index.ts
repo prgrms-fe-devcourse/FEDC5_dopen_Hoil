@@ -64,4 +64,7 @@ export const theme = extendTheme({
   sizes: {
     icon: '2.4rem',
   },
+  zIndices: {
+    normal: 100,
+  },
 });

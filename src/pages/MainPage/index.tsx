@@ -5,7 +5,7 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 
 interface MainPageProps {
-  isLoggedIn: boolean;
+  isLoggedIn?: boolean;
 }
 
 const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
