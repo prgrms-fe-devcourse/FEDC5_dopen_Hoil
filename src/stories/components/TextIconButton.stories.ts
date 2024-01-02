@@ -18,6 +18,15 @@ const meta: Meta<typeof TextIconButton> = {
     fontSize: {
       control: 'text',
     },
+    fontWeight: {
+      control: 'text',
+    },
+    textColor: {
+      control: 'text',
+    },
+    iconColor: {
+      control: 'text',
+    },
   },
 };
 

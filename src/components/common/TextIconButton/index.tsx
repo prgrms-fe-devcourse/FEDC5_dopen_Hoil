@@ -4,8 +4,8 @@ import {
   Icon,
   IconButton,
   IconProps,
-  SystemProps,
   Text,
+  TextProps,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 
@@ -14,15 +14,21 @@ interface TextIconButtonProps extends FlexProps {
   textContent: string;
   boxSize?: IconProps['boxSize'];
   textLocation?: 'left' | 'right' | 'top' | 'bottom';
-  fontSize?: SystemProps['fontSize'];
+  fontSize?: TextProps['fontSize'];
+  iconColor?: IconProps['color'];
+  textColor?: TextProps['color'];
+  fontWeight?: TextProps['fontWeight'];
 }
 
 const TextIconButton = ({
   TheIcon,
   textContent,
-  boxSize = 'icon',
   textLocation = 'bottom',
   fontSize = 'sm',
+  textColor = 'black',
+  fontWeight = '800',
+  boxSize = 'icon',
+  iconColor = 'black',
   ...props
 }: TextIconButtonProps) => {
   const calculateFlexDir = (
@@ -52,15 +58,15 @@ const TextIconButton = ({
     >
       <IconButton
         aria-label="home"
-        icon={<Icon as={TheIcon} boxSize={boxSize} color="black" />}
+        icon={<Icon as={TheIcon} boxSize={boxSize} color={iconColor} />}
         bg="transparent"
         _groupHover={{ background: 'gray.450' }}
       />
       <Text
         fontSize={fontSize}
-        fontWeight="800"
+        fontWeight={fontWeight}
         textAlign="center"
-        color="black"
+        color={textColor}
       >
         {textContent}
       </Text>
