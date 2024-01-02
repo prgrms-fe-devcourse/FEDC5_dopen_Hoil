@@ -35,6 +35,9 @@ export const theme = extendTheme({
     red: {
       100: '#EF4444',
     },
+    green: {
+      100: '#44DE82',
+    },
     black: '#222222',
 
     white: '#FFFFFF',
