@@ -19,6 +19,7 @@ interface UserContentBlockProps extends FlexProps {
   usernameFontSize?: string | number;
   contentFontSize?: string | number;
   href?: string;
+  onSubContentClick?: () => void;
 }
 
 const UserContentBlock = ({
@@ -28,6 +29,7 @@ const UserContentBlock = ({
   content,
   isOnline,
   subContent,
+  onSubContentClick,
   username = '테스트용',
   usernameFontSize = '1.4rem',
   contentFontSize = '1.2rem',
@@ -77,7 +79,14 @@ const UserContentBlock = ({
           >
             {username}
           </Text>
-          <Text fontSize="1.2rem" position="absolute" right="0" zIndex="normal">
+          <Text
+            fontSize="1.2rem"
+            position="absolute"
+            right="0"
+            zIndex="normal"
+            cursor={onSubContentClick && 'pointer'}
+            onClick={() => onSubContentClick && onSubContentClick()}
+          >
             {subContent}
           </Text>
         </Flex>
