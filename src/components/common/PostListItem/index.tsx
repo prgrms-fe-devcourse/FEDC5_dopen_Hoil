@@ -1,10 +1,11 @@
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
-import { Flex, Text, VStack } from '@chakra-ui/react';
+import { Flex, FlexProps, HStack, Text, VStack } from '@chakra-ui/react';
 import TextIconButton from '../TextIconButton';
-import { MdFavorite } from 'react-icons/md';
+import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 
-interface PostListItemProps {
+interface PostListItemProps extends FlexProps {
   title: string;
+  body?: string;
   username: string;
   timeAgo: string;
   likeCount: number;
@@ -13,10 +14,12 @@ interface PostListItemProps {
 
 const PostListItem = ({
   title,
+  body,
   username,
   timeAgo,
   likeCount,
   commentCount,
+  ...props
 }: PostListItemProps) => {
   return (
     <Flex
@@ -24,27 +27,64 @@ const PostListItem = ({
       h="67px"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
-      border="1px solid black"
       align="center"
       justify="space-between"
+      cursor="pointer"
+      {...props}
     >
       <VStack spacing="0" align="left">
-        <Text color="black" fontSize="1.4rem" fontWeight="semibold">
+        <Text
+          color="black"
+          fontSize="1.4rem"
+          fontWeight="semibold"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          w="200px"
+          whiteSpace="nowrap"
+        >
           {title}
         </Text>
-        <Text color="gray.800" fontSize="1.2rem" fontWeight="medium">
-          {username}
+        <Text
+          color="gray.800"
+          fontSize="1.2rem"
+          fontWeight="medium"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          w="200px"
+          whiteSpace="nowrap"
+        >
+          {body}
         </Text>
-        <Text color="gray.600" fontSize="1.2rem">
-          {timeAgo}
-        </Text>
+        <HStack>
+          <Text color="gray.800" fontSize="1.2rem" fontWeight="medium">
+            {username}
+          </Text>
+          <Text color="gray.600" fontSize="1.2rem">
+            {timeAgo}
+          </Text>
+        </HStack>
       </VStack>
       <VStack spacing="0">
         <TextIconButton
-          TheIcon={MdFavorite}
+          TheIcon={MdFavoriteBorder}
           textContent={likeCount.toString()}
+          boxSize="18px"
+          iconColor="pink.400"
+          fontSize="1.2rem"
+          fontWeight="normal"
+          textColor="gray.800"
+          textLocation="right"
         />
-        {commentCount}
+        <TextIconButton
+          TheIcon={MdArticle}
+          textContent={commentCount.toString()}
+          boxSize="18px"
+          iconColor="gray.800"
+          fontSize="1.2rem"
+          fontWeight="normal"
+          textColor="gray.800"
+          textLocation="right"
+        />
       </VStack>
     </Flex>
   );
