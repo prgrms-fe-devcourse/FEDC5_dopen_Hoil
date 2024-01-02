@@ -1,14 +1,9 @@
 import { postRequest } from '@/apis/instance';
 import { User } from '@/apis/type';
 
-interface LogIn {
+interface LogInPayload {
   email: string;
   password: string;
-}
-
-interface SignUp extends LogIn {
-  fullName: string;
-  username: string;
 }
 
 interface LogInResponse {
@@ -16,18 +11,28 @@ interface LogInResponse {
   token: string;
 }
 
-export const signUp = async ({ email, password, fullName, username }: SignUp) =>
-  await postRequest<LogInResponse, SignUp>('/signup', {
+export const logIn = async ({ email, password }: LogInPayload) =>
+  await postRequest<LogInResponse, LogInPayload>('/login', {
+    email,
+    password,
+  });
+
+interface SignUpPayload extends LogInPayload {
+  fullName: string;
+  username: string;
+}
+
+export const signUp = async ({
+  email,
+  password,
+  fullName,
+  username,
+}: SignUpPayload) =>
+  await postRequest<LogInResponse, SignUpPayload>('/signup', {
     email,
     password,
     fullName,
     username,
-  });
-
-export const logIn = async ({ email, password }: LogIn) =>
-  await postRequest<LogInResponse, LogIn>('/login', {
-    email,
-    password,
   });
 
 export const logOut = async () => await postRequest('/logout');
