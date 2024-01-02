@@ -1,15 +1,20 @@
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
-import { Avatar, AvatarBadge, Flex, Text, VStack } from '@chakra-ui/react';
+import {
+  Avatar,
+  AvatarBadge,
+  Flex,
+  FlexProps,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-interface UserContentBlock {
-  width?: string | number;
-  height?: string | number;
+interface UserContentBlockProps extends FlexProps {
   userImage?: string;
   userImageSize?: string | number;
   isOnline?: boolean;
   username: string;
-  content: string | number;
+  content: string;
   subContent?: string;
   usernameFontSize?: string | number;
   contentFontSize?: string | number;
@@ -17,30 +22,29 @@ interface UserContentBlock {
 }
 
 const UserContentBlock = ({
-  width = DEFAULT_WIDTH,
-  height,
   userImage = '',
   userImageSize = '50px',
+  href,
   content,
   isOnline,
   subContent,
   username = '테스트용',
   usernameFontSize = '1.4rem',
   contentFontSize = '1.2rem',
-  href,
-}: UserContentBlock) => {
+  ...props
+}: UserContentBlockProps) => {
   const navigate = useNavigate();
   const onNavigate = () => navigate(`${href}`);
   return (
     <Flex
-      w={typeof width === 'string' ? width : `${width}px`}
-      h={height && typeof height === 'string' ? height : `${height}px`}
+      w={DEFAULT_WIDTH}
       align="center"
       gap="17px"
       onClick={() => href && onNavigate()}
       cursor="pointer"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
+      {...props}
     >
       <Avatar
         src={userImage}
