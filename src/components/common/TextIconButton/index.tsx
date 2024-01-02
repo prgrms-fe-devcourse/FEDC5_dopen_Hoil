@@ -22,7 +22,9 @@ const TextIconButton = ({
   textLocation = 'bottom',
   ...props
 }: TextIconButtonProps) => {
-  const flexDir = (textLocation: TextIconButtonProps['textLocation']) => {
+  const calculateFlexDir = (
+    textLocation: TextIconButtonProps['textLocation'],
+  ) => {
     switch (textLocation) {
       case 'bottom':
         return 'column';
@@ -38,7 +40,7 @@ const TextIconButton = ({
   };
   return (
     <Flex
-      flexDir={flexDir(textLocation)}
+      flexDir={calculateFlexDir(textLocation)}
       align="center"
       justify="center"
       cursor="pointer"
