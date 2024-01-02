@@ -1,14 +1,15 @@
+import { REGEXP } from './regexp';
+
 export const INPUT_VALIDATE = {
   email: {
     pattern: {
-      value:
-        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+      value: REGEXP.email,
       message: '이메일 형식이 아닙니다. 이메일을 확인해주세요.',
     },
   },
   fullName: {
     pattern: {
-      value: /^[ㄱ-ㅎ|가-힣]+$/,
+      value: REGEXP.fullName,
       message: '이름은 한글만 입력할 수 있습니다.',
     },
     minLength: {
@@ -16,9 +17,9 @@ export const INPUT_VALIDATE = {
       message: '이름을 2글자 이상 입력해주세요.',
     },
   },
-  userName: {
+  username: {
     pattern: {
-      value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/,
+      value: REGEXP.username,
       message: '닉네임은 한글, 영문, 숫자 조합만 사용 가능합니다.',
     },
     minLength: {
@@ -32,7 +33,7 @@ export const INPUT_VALIDATE = {
   },
   password: {
     pattern: {
-      value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/,
+      value: REGEXP.password,
       message:
         '비밀번호는 최소 8자에서 최대 20자로 하나 이상의 대소문자, 하나의 숫자 및 하나의 특수 문자를 입력해주세요.',
     },
