@@ -12,7 +12,7 @@ const TextIconButton = ({ TheIcon, textContent }: TextIconButtonProps) => {
       <IconButton
         aria-label="home"
         icon={<Icon as={TheIcon} boxSize="icon" color="black" />}
-        bg="white"
+        bg="transparent"
         _groupHover={{ background: 'gray.450' }}
       />
       <Text fontSize="sm" fontWeight="800" textAlign="center" color="black">
