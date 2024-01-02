@@ -2,7 +2,7 @@ import { Avatar, Flex, Text } from '@chakra-ui/react';
 
 const GuestProfile = () => {
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" width="100%">
       <Avatar size="2xl" />
       <Flex direction="column" marginLeft="20px">
         <Text

@@ -1,28 +1,33 @@
-import { defaultWidth } from '@/constants/style';
+import { DEFAULT_WIDTH, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { Box, Flex } from '@chakra-ui/react';
-import { useState } from 'react';
 import MainHeader from '@/components/MainHeader';
 import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 
-const MainPage = () => {
-  const [isLogin, setIsLoigin] = useState(false); // 로그인 유무를 구분하기 위한 임시 값입니다.
+interface MainPageProps {
+  isLoggedIn: boolean;
+}
+
+const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
   return (
     <>
       <Flex
         position="relative"
-        w={defaultWidth}
+        w={DEFAULT_WIDTH}
         height="100vh"
         margin="0 auto"
         direction="column"
       >
         <MainHeader />
-        <Flex w="100%" p="20px 10px 90px 10px" overflowY="auto">
-          {isLogin ? <LoginProfile /> : <GuestProfile />}
+        <Flex
+          p={`20px ${DEFAULT_PAGE_PADDING} 90px ${DEFAULT_PAGE_PADDING}`}
+          overflowY="auto"
+        >
+          {isLoggedIn ? <LoginProfile /> : <GuestProfile />}
         </Flex>
         {/* 하단 네비게이터 위치 */}
         <Box
-          w={defaultWidth}
+          w={DEFAULT_WIDTH}
           position="absolute"
           bottom="0"
           height="80px"
