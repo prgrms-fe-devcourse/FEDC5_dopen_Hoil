@@ -1,5 +1,5 @@
 import { DEFAULT_HEADER_HEIGHT, DEFAULT_WIDTH } from '@/constants/style';
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import {
   MdHome,
   MdEmojiEvents,
@@ -9,15 +9,11 @@ import {
 } from 'react-icons/md';
 import TextIconButton from '../common/TextIconButton';
 
-interface FooterProps {
-  width?: number | string;
-  height?: number | string;
-}
-
 const Footer = ({
   width = DEFAULT_WIDTH,
   height = DEFAULT_HEADER_HEIGHT,
-}: FooterProps) => {
+  ...props
+}: FlexProps) => {
   return (
     <Flex
       pl="31px"
@@ -29,6 +25,7 @@ const Footer = ({
       bg="gray.50"
       w={typeof width === 'string' ? width : `${width}px`}
       h={typeof height === 'string' ? height : `${height}px`}
+      {...props}
     >
       {/* [{icon:MdHome, textContent:"홈"}, ...]  이렇게 받아와서 map을 돌려도 좋아보입니다*/}
       <TextIconButton TheIcon={MdHome} textContent="홈" />
