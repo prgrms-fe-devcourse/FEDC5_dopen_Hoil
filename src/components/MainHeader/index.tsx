@@ -9,56 +9,50 @@ import {
 } from '@chakra-ui/icons';
 import {
   Flex,
+  FlexProps,
   IconButton,
   Image,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
 
-interface MainHeaderProps {
-  width?: number | string;
-  height?: number | string;
-}
-
-const MainHeader = ({
-  width = DEFAULT_WIDTH,
-  height = DEFAULT_HEADER_HEIGHT,
-}: MainHeaderProps) => {
+const MainHeader = ({ ...props }: FlexProps) => {
   const { toggleColorMode } = useColorMode();
   const DarkModeIcon = useColorModeValue(MoonIcon, SunIcon);
 
   return (
     <Flex
-      w={typeof width === 'string' ? width : `${width}px`}
-      h={typeof height === 'string' ? height : `${height}px`}
+      w={DEFAULT_WIDTH}
+      h={DEFAULT_HEADER_HEIGHT}
       justify="space-between"
       align="center"
+      {...props}
     >
       {/* 로고 들어갈 자리입니다. 로고 사이즈에 맞춰서 사용해주세요*/}
       <Image
         alt="dopen logo"
         w="130px"
-        h={typeof height === 'string' ? height : `${height}px`}
+        h={DEFAULT_HEADER_HEIGHT}
         src="https://via.placeholder.com/80"
       />
       <Flex gap="20px">
         <IconButton
           aria-label="toggleDarkMode"
           icon={<DarkModeIcon color="black" boxSize="icon" />}
-          bgColor="white"
+          bg="transparent"
           size="md"
           onClick={toggleColorMode}
         />
         <IconButton
           aria-label="message"
           icon={<ChatIcon color="black" boxSize="icon" />}
-          bgColor="white"
+          bg="transparent"
           size="md"
         />
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
-          bgColor="white"
+          bg="transparent"
           size="md"
         />
         <IconButton
@@ -68,7 +62,7 @@ const MainHeader = ({
               <BellIcon color="black" boxSize="icon" />
             </Badge>
           }
-          bgColor="white"
+          bg="transparent"
           size="md"
         />
       </Flex>
