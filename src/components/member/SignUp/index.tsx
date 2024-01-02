@@ -1,23 +1,19 @@
+import { useQuery } from 'react-query';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
 import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 import { signUp } from '@/apis/authentication';
 import { setItem } from '@/utils/storage';
 import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
+import { UserResponse, UserInfoInput } from '@/types/user';
 
-interface UserCrendentials {
-  email: string;
-  fullName: string;
-  userName: string;
-  password: string;
-  passwordConfirm: string;
-}
-
+import { DUMMY_DATA } from './data';
 interface SignUpInputData {
-  name: Path<UserCrendentials>;
+  name: Path<UserInfoInput>;
   label: string;
   type: string;
   required: boolean;
@@ -26,16 +22,71 @@ interface SignUpInputData {
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid },
     setError,
-  } = useForm<UserCrendentials>();
-  const navigate = useNavigate();
+  } = useForm<UserInfoInput>();
 
-  const onValid: SubmitHandler<UserCrendentials> = async (data) => {
-    if (data.password !== data.passwordConfirm) {
+  const onSuccess = (data: UserResponse) => {
+    alert('회원가입 성공');
+    setItem(LOGIN_TOKEN, data.token);
+    navigate('/');
+  };
+
+  const onError = (error: AxiosError) => {
+    alert('회원가입 실패');
+    throw new Error(error.message);
+  };
+
+  const { refetch } = useQuery(
+    'signup',
+    async () => {
+      const { email, fullName, password } = getValues();
+      return await signUp({ email, fullName, password });
+    },
+    {
+      onSuccess,
+      onError,
+      enabled: false,
+    },
+  );
+
+  const onValid: SubmitHandler<UserInfoInput> = async ({
+    email,
+    username,
+    password,
+    passwordConfirm,
+  }) => {
+    // 중복 이메일(아이디) 체크
+    const UsersEmailCheck =
+      DUMMY_DATA && DUMMY_DATA.some((user) => user.email === email);
+    if (UsersEmailCheck) {
+      setError(
+        'email',
+        { message: '동일한 이메일이 존재합니다.' },
+        { shouldFocus: true },
+      );
+      return;
+    }
+
+    // 중복 닉네임 체크
+    const UsersNickNameCheck =
+      DUMMY_DATA && DUMMY_DATA.some((user) => user.username === username);
+    if (UsersNickNameCheck) {
+      setError(
+        'username',
+        { message: '동일한 닉네임이 존재합니다.' },
+        { shouldFocus: true },
+      );
+      return;
+    }
+
+    // 비밀번호 일치 체크
+    if (password !== passwordConfirm) {
       setError(
         'passwordConfirm',
         { message: '비밀번호가 일치하지 않습니다.' },
@@ -44,14 +95,7 @@ const SignUp = () => {
       return;
     }
 
-    const signUpResponse = await signUp({
-      email: data.email,
-      fullName: data.fullName,
-      password: data.password,
-    });
-
-    setItem(LOGIN_TOKEN, signUpResponse.token);
-    navigate('/', { replace: true });
+    refetch();
   };
 
   const signUpInputArray: SignUpInputData[] = [
@@ -72,12 +116,12 @@ const SignUp = () => {
       validate: { ...INPUT_VALIDATE.fullName },
     },
     {
-      name: 'userName',
+      name: 'username',
       label: '닉네임',
       type: 'text',
       required: true,
       placeholder: '닉네임',
-      validate: { ...INPUT_VALIDATE.userName },
+      validate: { ...INPUT_VALIDATE.username },
     },
     {
       name: 'password',
