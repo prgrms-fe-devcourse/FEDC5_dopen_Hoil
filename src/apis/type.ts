@@ -12,14 +12,14 @@ export interface User {
   following: Follow[];
   notifications: Notification[];
   messages: Message[];
-  _id: string;
+  _id: string; //유저의 고유 ID
   fullName: string;
   email: string;
   createdAt: string;
   updatedAt: string;
 }
 
-interface Channel {
+export interface Channel {
   authRequired: boolean; // 사용되지 않음
   posts: string[];
   _id: string;
@@ -29,28 +29,28 @@ interface Channel {
   updatedAt: string;
 }
 
-interface Post {
-  likes: Like[];
+export interface Post {
+  likes: Like[]; //likes의 길이로 like 수 알 수 있음
   comments: Comment[];
-  _id: string;
+  _id: string; //post에 대한 id
   image?: string;
   imagePublicId?: string;
   title: string;
   channel: Channel;
-  author: User;
+  author: User; //작성자 정보
   createdAt: string;
   updatedAt: string;
 }
 
-interface Like {
-  _id: string;
-  user: string; // 사용자 id
+export interface Like {
+  _id: string; //변동되는  값
+  user: string; // 좋아요를 누른 유저의 id
   post: string; // 포스트 id
   createdAt: string;
   updatedAt: string;
 }
 
-interface Notification {
+export interface Notification {
   seen: boolean;
   _id: string;
   author: User;
@@ -63,7 +63,7 @@ interface Notification {
   updatedAt: string;
 }
 
-interface Follow {
+export interface Follow {
   _id: string;
   user: string; // 사용자 id
   follower: string; // 사용자 id
@@ -71,7 +71,7 @@ interface Follow {
   updatedAt: string;
 }
 
-interface Message {
+export interface Message {
   _id: string;
   message: string;
   sender: User;
@@ -79,4 +79,22 @@ interface Message {
   seen: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Comment {
+  _id: string;
+  comment: string;
+  author: User;
+  post: string; // 포스트 id
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Conversation {
+  _id: string[];
+  message: string;
+  sender: User;
+  receiver: User;
+  seen: boolean;
+  createdAt: string;
 }
