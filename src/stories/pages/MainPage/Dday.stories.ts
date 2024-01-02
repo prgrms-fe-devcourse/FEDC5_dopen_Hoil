@@ -1,8 +1,8 @@
-import MainPage from '@/pages/MainPage';
+import Dday from '@/pages/MainPage/Dday';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof MainPage> = {
-  component: MainPage,
+const meta: Meta<typeof Dday> = {
+  component: Dday,
   argTypes: {
     isLoggedIn: {
       control: 'boolean',
@@ -11,7 +11,7 @@ const meta: Meta<typeof MainPage> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MainPage>;
+type Story = StoryObj<typeof Dday>;
 
 export const Deafult: Story = {
   args: {
