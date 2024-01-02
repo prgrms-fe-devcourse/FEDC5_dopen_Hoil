@@ -53,9 +53,16 @@ const UserContentBlock = ({
             ? userImageSize
             : `${userImageSize}px`
         }
+        boxShadow="0px 5px 15px -5px gray"
       >
         {isOnline ? (
-          <AvatarBadge boxSize="16px" border="2px solid white" bg="green.100" />
+          <AvatarBadge
+            boxSize="14px"
+            border="2px solid white"
+            bg="green.100"
+            right="5%"
+            bottom="5%"
+          />
         ) : null}
       </Avatar>
       <VStack flex="1" align="left" color="black">
