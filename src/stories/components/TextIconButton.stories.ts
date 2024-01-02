@@ -8,6 +8,13 @@ const meta: Meta<typeof TextIconButton> = {
     textContent: {
       control: 'text',
     },
+    boxSize: {
+      control: 'text',
+    },
+    textLocation: {
+      options: ['top', 'bottom', 'left', 'right'],
+      control: 'select',
+    },
   },
 };
 
