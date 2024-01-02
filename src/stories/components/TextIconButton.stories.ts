@@ -15,6 +15,9 @@ const meta: Meta<typeof TextIconButton> = {
       options: ['top', 'bottom', 'left', 'right'],
       control: 'select',
     },
+    fontSize: {
+      control: 'text',
+    },
   },
 };
 

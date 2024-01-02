@@ -4,6 +4,7 @@ import {
   Icon,
   IconButton,
   IconProps,
+  SystemProps,
   Text,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
@@ -13,6 +14,7 @@ interface TextIconButtonProps extends FlexProps {
   textContent: string;
   boxSize?: IconProps['boxSize'];
   textLocation?: 'left' | 'right' | 'top' | 'bottom';
+  fontSize?: SystemProps['fontSize'];
 }
 
 const TextIconButton = ({
@@ -20,6 +22,7 @@ const TextIconButton = ({
   textContent,
   boxSize = 'icon',
   textLocation = 'bottom',
+  fontSize = 'sm',
   ...props
 }: TextIconButtonProps) => {
   const calculateFlexDir = (
@@ -53,7 +56,12 @@ const TextIconButton = ({
         bg="transparent"
         _groupHover={{ background: 'gray.450' }}
       />
-      <Text fontSize="sm" fontWeight="800" textAlign="center" color="black">
+      <Text
+        fontSize={fontSize}
+        fontWeight="800"
+        textAlign="center"
+        color="black"
+      >
         {textContent}
       </Text>
     </Flex>
