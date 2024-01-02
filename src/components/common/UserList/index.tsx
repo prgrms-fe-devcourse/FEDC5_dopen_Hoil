@@ -1,7 +1,6 @@
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import {
   Avatar,
-  Box,
   Flex,
   FlexProps,
   IconButton,
@@ -36,10 +35,17 @@ const UserList = ({
       {...props}
     >
       <Avatar src={userImage} boxSize={userImageSize} />
-      <Box fontWeight="medium" pl="16px" fontSize="1.4rem" flex={1}>
+      <Flex
+        fontWeight="medium"
+        pl="16px"
+        fontSize="1.4rem"
+        flex={1}
+        justify="space-between"
+        pr="16px"
+      >
         <Text>{username}</Text>
         <Text>{content && content}</Text>
-      </Box>
+      </Flex>
       <IconButton
         aria-label="userInfo"
         icon={<MdArrowForwardIos />}
