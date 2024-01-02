@@ -32,6 +32,7 @@ const UserList = ({
       h="40px"
       align="center"
       color="black"
+      cursor="pointer"
       {...props}
     >
       <Avatar src={userImage} boxSize={userImageSize} />
