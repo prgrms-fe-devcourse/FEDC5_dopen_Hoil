@@ -57,7 +57,7 @@ const UserContentBlock = ({
         }
         boxShadow="0px 5px 15px -5px gray"
       >
-        {isOnline ? (
+        {isOnline && (
           <AvatarBadge
             boxSize="14px"
             border="2px solid white"
@@ -65,7 +65,7 @@ const UserContentBlock = ({
             right="5%"
             bottom="5%"
           />
-        ) : null}
+        )}
       </Avatar>
       <VStack flex="1" align="left" color="black">
         <Flex w="100%" position="relative">
