@@ -59,7 +59,7 @@ const UserContentBlock = ({
         )}
       </Avatar>
       <VStack flex="1" align="left" color="black">
-        <Flex w="100%" justify="space-between">
+        <Flex w="100%" position="relative">
           <Text
             fontWeight="semibold"
             fontSize={
@@ -70,7 +70,9 @@ const UserContentBlock = ({
           >
             {username}
           </Text>
-          <Text fontSize="1.2rem">{subContent}</Text>
+          <Text fontSize="1.2rem" position="absolute" right="0" zIndex="normal">
+            {subContent}
+          </Text>
         </Flex>
         <Text
           fontSize={
