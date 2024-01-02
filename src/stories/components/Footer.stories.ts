@@ -5,10 +5,10 @@ const meta: Meta<typeof Footer> = {
   component: Footer,
   argTypes: {
     width: {
-      control: 'number',
+      control: 'text',
     },
     height: {
-      control: 'number',
+      control: 'text',
     },
   },
 };
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof Footer>;
 
 export const Deafult: Story = {
   args: {
-    width: 428,
-    height: 80,
+    width: '428px',
+    height: '80px',
   },
 };
