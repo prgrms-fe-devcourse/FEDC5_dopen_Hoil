@@ -7,7 +7,6 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 
 interface UserContentBlockProps extends FlexProps {
   href?: string;
@@ -23,7 +22,6 @@ interface UserContentBlockProps extends FlexProps {
 }
 
 const UserContentBlock = ({
-  href,
   userImage = '',
   userImageSize = '50px',
   username = '테스트용',
@@ -35,14 +33,11 @@ const UserContentBlock = ({
   onSubContentClick,
   ...props
 }: UserContentBlockProps) => {
-  const navigate = useNavigate();
-  const onNavigate = () => navigate(`${href}`);
   return (
     <Flex
       w={DEFAULT_WIDTH}
       align="center"
       gap="17px"
-      onClick={() => href && onNavigate()}
       cursor="pointer"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
