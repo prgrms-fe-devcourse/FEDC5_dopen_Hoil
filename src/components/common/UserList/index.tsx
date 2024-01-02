@@ -44,6 +44,7 @@ const UserList = ({
         aria-label="userInfo"
         icon={<MdArrowForwardIos />}
         bg="transparent"
+        color="gray.700"
       />
     </Flex>
   );
