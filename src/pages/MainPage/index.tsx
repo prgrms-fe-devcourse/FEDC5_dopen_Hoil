@@ -1,8 +1,11 @@
 import { DEFAULT_WIDTH, DEFAULT_PAGE_PADDING } from '@/constants/style';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import MainHeader from '@/components/MainHeader';
+import Footer from '@/components/Footer';
 import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
+import Dday from '@/pages/MainPage/Dday';
+import EnterGallery from '@/pages/MainPage/EnterGallery';
 
 interface MainPageProps {
   isLoggedIn?: boolean;
@@ -22,18 +25,13 @@ const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
         <Flex
           p={`20px ${DEFAULT_PAGE_PADDING} 90px ${DEFAULT_PAGE_PADDING}`}
           overflowY="auto"
+          direction="column"
         >
           {isLoggedIn ? <LoginProfile /> : <GuestProfile />}
+          <Dday isLoggedIn={isLoggedIn} />
+          <EnterGallery />
         </Flex>
-        {/* 하단 네비게이터 위치 */}
-        <Box
-          w={DEFAULT_WIDTH}
-          position="absolute"
-          bottom="0"
-          height="80px"
-          bg="gray.300"
-        />
-        {/* 하단 네비게이터 위치 */}
+        <Footer position="absolute" bottom="0" />
       </Flex>
     </>
   );
