@@ -9,11 +9,7 @@ import {
 } from 'react-icons/md';
 import TextIconButton from '../common/TextIconButton';
 
-const Footer = ({
-  width = DEFAULT_WIDTH,
-  height = DEFAULT_HEADER_HEIGHT,
-  ...props
-}: FlexProps) => {
+const Footer = ({ ...props }: FlexProps) => {
   return (
     <Flex
       pl="31px"
@@ -23,8 +19,8 @@ const Footer = ({
       borderColor="gray.450"
       align="center"
       bg="gray.50"
-      w={typeof width === 'string' ? width : `${width}px`}
-      h={typeof height === 'string' ? height : `${height}px`}
+      w={DEFAULT_WIDTH}
+      h={DEFAULT_HEADER_HEIGHT}
       {...props}
     >
       {/* [{icon:MdHome, textContent:"홈"}, ...]  이렇게 받아와서 map을 돌려도 좋아보입니다*/}
