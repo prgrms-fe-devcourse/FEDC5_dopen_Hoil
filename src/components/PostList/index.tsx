@@ -18,7 +18,7 @@ const PostList = ({
   limit,
   ...props
 }: PostListProps) => {
-  const { data } = useQuery<Post[], AxiosError, Post[]>(
+  const { data } = useQuery<Post[], AxiosError>(
     [POST_LIST],
     async () => {
       return await getPostListByChannel({ channelId, offset, limit });
