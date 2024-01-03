@@ -37,11 +37,15 @@ const UserList = ({ keyword, offset, limit, isDivider }: UserListProps) => {
   return (
     <VStack
       w={DEFAULT_WIDTH}
-      spacing={0}
+      spacing={2}
       divider={isDivider ? <StackDivider /> : undefined}
     >
       {data?.map((user) => (
-        <UserListItem key={user._id} username={user?.username} />
+        <UserListItem
+          key={user._id}
+          username={user?.username}
+          _hover={{ bg: 'gray.100' }}
+        />
       ))}
     </VStack>
   );
