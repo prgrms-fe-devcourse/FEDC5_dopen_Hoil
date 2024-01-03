@@ -17,8 +17,8 @@ const PostListItem = ({
   body,
   username,
   timeAgo,
-  likeCount,
-  commentCount,
+  likeCount = 0,
+  commentCount = 0,
   ...props
 }: PostListItemProps) => {
   return (
