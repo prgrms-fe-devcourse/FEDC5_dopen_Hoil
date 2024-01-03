@@ -1,7 +1,9 @@
 import type { Preview } from '@storybook/react';
 import {theme} from "../src/theme"
 
+
 const preview: Preview = {
+
   parameters: {
     chakra:{
       theme,
