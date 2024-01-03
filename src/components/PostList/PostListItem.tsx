@@ -1,6 +1,6 @@
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { Flex, FlexProps, HStack, Text, VStack } from '@chakra-ui/react';
-import TextIconButton from '../TextIconButton';
+import TextIconButton from '../common/TextIconButton';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 
 interface PostListItemProps extends FlexProps {
