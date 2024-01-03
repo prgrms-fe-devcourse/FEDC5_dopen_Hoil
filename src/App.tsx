@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import MainPage from '@/pages/MainPage';
 import SignUp from '@/pages/SignUp';
-import MyPage from '@/components/MyPage';
+import MyPage from '@/pages/MyPage';
 
 const App = () => {
   return (
