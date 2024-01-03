@@ -1,7 +1,8 @@
 import SignUp from '@/pages/SignUp';
 import { Meta, StoryObj } from '@storybook/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, QueryCache } from 'react-query';
 import { withRouter } from 'storybook-addon-react-router-v6';
+import { AxiosError } from 'axios';
 
 const queryclient = new QueryClient({
   defaultOptions: {
