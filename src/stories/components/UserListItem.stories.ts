@@ -1,4 +1,4 @@
-import UserListItem from '@/components/common/UserListItem';
+import UserListItem from '@/components/UserList/UserListItem';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof UserListItem> = {
