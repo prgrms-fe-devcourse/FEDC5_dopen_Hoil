@@ -1,4 +1,5 @@
 import PostList from '@/components/PostList';
+import { TEST_CHANNEL_ID } from '@/constants/apiTest';
 import { Meta, StoryObj } from '@storybook/react';
 import { AxiosError } from 'axios';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
@@ -35,7 +36,17 @@ const meta = {
       </QueryClientProvider>
     ),
   ],
-  argTypes: {},
+  argTypes: {
+    channelId: {
+      control: 'text',
+    },
+    offset: {
+      control: 'number',
+    },
+    limit: {
+      control: 'number',
+    },
+  },
 } satisfies Meta<typeof PostList>;
 
 export default meta;
@@ -43,5 +54,7 @@ export default meta;
 type Story = StoryObj<typeof PostList>;
 
 export const Deafult: Story = {
-  args: {},
+  args: {
+    channelId: TEST_CHANNEL_ID,
+  },
 };
