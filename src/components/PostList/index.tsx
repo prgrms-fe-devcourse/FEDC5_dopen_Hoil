@@ -12,12 +12,24 @@ interface PostListProps extends ChannelPayload {}
 
 const PostList = ({
   channelId = TEST_CHANNEL_ID,
-  offset,
+  offset = 3,
   limit,
 }: PostListProps) => {
-  const { data } = useQuery<Post[], AxiosError>([POST_LIST], async () => {
-    return await getPostListByChannel({ channelId, offset, limit });
-  });
+  const { isError, error, data } = useQuery<Post[], AxiosError>(
+    [POST_LIST],
+    async () => {
+      return await getPostListByChannel({ channelId, offset, limit });
+    },
+    {
+      refetchOnWindowFocus: false,
+      meta: {
+        errorMessage: '게시글 목록 가져올때 에러 발생하였습니다',
+      },
+    },
+  );
+  if (isError && error.response) {
+    alert(error);
+  }
   return (
     <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />}>
       {data?.map((post) => (
