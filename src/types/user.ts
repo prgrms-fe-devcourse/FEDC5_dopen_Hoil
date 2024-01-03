@@ -12,3 +12,8 @@ export interface UserResponse {
   user: User;
   token: string;
 }
+
+export interface UserLoginInput {
+  email: string;
+  password: string;
+}
