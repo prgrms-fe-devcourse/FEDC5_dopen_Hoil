@@ -1,6 +1,5 @@
 import { ChannelPayload, getPostListByChannel } from '@/apis/post';
 import { Post } from '@/apis/type';
-import { TEST_CHANNEL_ID } from '@/constants/apiTest';
 import { POST_LIST } from '@/constants/queryKeys';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
@@ -9,12 +8,7 @@ import { StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_WIDTH } from '@/constants/style';
 interface PostListProps extends ChannelPayload, StackProps {}
 
-const PostList = ({
-  channelId = TEST_CHANNEL_ID,
-  offset = 3,
-  limit,
-  ...props
-}: PostListProps) => {
+const PostList = ({ channelId, offset, limit, ...props }: PostListProps) => {
   const { data } = useQuery<Post[], AxiosError>(
     [POST_LIST],
     async () => {
@@ -27,6 +21,10 @@ const PostList = ({
       },
     },
   );
+  /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
+  if (data && !data.length) {
+    return <div>비어있는 페이지를 나타내는 컴포넌트</div>;
+  }
   return (
     <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />} {...props}>
       {data?.map((post) => (
