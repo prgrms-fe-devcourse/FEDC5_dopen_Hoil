@@ -1,3 +1,4 @@
+import { DEFAULT_WIDTH } from '@/constants/style';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
@@ -18,7 +19,7 @@ const BoardListPreview = () => {
   ];
 
   return (
-    <Flex width="100%" marginTop="30px" direction="column">
+    <Flex maxW={DEFAULT_WIDTH} marginTop="30px" direction="column">
       <Flex
         borderBottom="1px"
         borderColor="gray.450"

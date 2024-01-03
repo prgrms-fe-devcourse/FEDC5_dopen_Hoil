@@ -1,3 +1,4 @@
+import { DEFAULT_WIDTH } from '@/constants/style';
 import { Box } from '@chakra-ui/react';
 import LoginDday from '@/pages/MainPage/LoginDday';
 import GuestDday from '@/pages/MainPage/GuestDday';
@@ -9,7 +10,7 @@ interface DdayProps {
 const Dday = ({ isLoggedIn = false }: DdayProps) => {
   return (
     <Box
-      width="100%"
+      maxW={DEFAULT_WIDTH}
       marginTop="25px"
       bg="pink.300"
       borderRadius="5px"
