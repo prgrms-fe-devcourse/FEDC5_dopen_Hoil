@@ -1,8 +1,9 @@
+import { DEFAULT_WIDTH } from '@/constants/style';
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 
 const LoginProfile = () => {
   return (
-    <Flex alignItems="center" width="100%">
+    <Flex alignItems="center" maxW={DEFAULT_WIDTH}>
       <Avatar
         size="2xl"
         name="Kola Tioluwani"
