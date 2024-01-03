@@ -152,7 +152,7 @@ const SignUp = () => {
           <Text as="span" mr={5}>
             이미 회원이신가요?
           </Text>
-          <Link to="/signin" title="로그인하기" style={{ color: '#f88585' }}>
+          <Link to="/login" title="로그인하기" style={{ color: '#f88585' }}>
             로그인하기
           </Link>
         </Text>
@@ -179,18 +179,16 @@ const SignUp = () => {
         </ul>
 
         {isValid ? (
-          <SubmitButton>가입하기</SubmitButton>
+          <Button>가입하기</Button>
         ) : (
-          <SubmitButton style={{ backgroundColor: '#A8A8A8' }}>
-            가입하기
-          </SubmitButton>
+          <Button style={{ backgroundColor: '#A8A8A8' }}>가입하기</Button>
         )}
       </Form>
     </Box>
   );
 };
 
-const SubmitButton = styled.button`
+export const Button = styled.button`
   width: 100%;
   height: 50px;
   background-color: #f88585;
@@ -200,7 +198,7 @@ const SubmitButton = styled.button`
   border-radius: 50px;
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   & ul {
     margin-bottom: 32px;
     & > li:not(:last-child) {
@@ -221,7 +219,7 @@ const Form = styled.form`
   }
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   height: 50px;
   font-size: 14px;
