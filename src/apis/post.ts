@@ -6,7 +6,7 @@ interface Limit {
   limit?: number;
 }
 
-interface ChannelPayload extends Limit {
+export interface ChannelPayload extends Limit {
   channelId: string;
 }
 
