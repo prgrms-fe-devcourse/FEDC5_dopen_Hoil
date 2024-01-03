@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 
-const EnterBoard = () => {
+const BoardListPreview = () => {
   const DUMMY_GALLERY_DATA = [
     {
       name: '자유게시판',
@@ -56,4 +56,4 @@ const EnterBoard = () => {
   );
 };
 
-export default EnterBoard;
+export default BoardListPreview;

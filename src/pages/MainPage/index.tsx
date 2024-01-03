@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 import Dday from '@/pages/MainPage/Dday';
-import EnterBoard from '@/pages/MainPage/EnterBoard';
+import BoardListPreview from '@/pages/MainPage/BoardListPreview';
 
 interface MainPageProps {
   isLoggedIn?: boolean;
@@ -29,7 +29,7 @@ const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
         >
           {isLoggedIn ? <LoginProfile /> : <GuestProfile />}
           <Dday isLoggedIn={isLoggedIn} />
-          <EnterBoard />
+          <BoardListPreview />
         </Flex>
         <Footer position="absolute" bottom="0" />
       </Flex>
