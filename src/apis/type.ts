@@ -14,6 +14,7 @@ export interface User {
   messages: Message[];
   _id: string; //유저의 고유 ID
   fullName: string;
+  username: string; // 유저 닉네임
   email: string;
   createdAt: string;
   updatedAt: string;
