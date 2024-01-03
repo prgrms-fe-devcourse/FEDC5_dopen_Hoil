@@ -9,20 +9,20 @@ import {
 } from '@chakra-ui/react';
 import { MdArrowForwardIos } from 'react-icons/md';
 
-interface UserListProps extends FlexProps {
+interface UserListItemProps extends FlexProps {
   username: string;
   userImage?: string;
   userImageSize?: SystemProps['boxSize'];
   content?: string;
 }
 
-const UserList = ({
+const UserListItem = ({
   username,
   userImage,
   userImageSize = '40px',
   content,
   ...props
-}: UserListProps) => {
+}: UserListItemProps) => {
   return (
     <Flex
       w={DEFAULT_WIDTH}
@@ -56,4 +56,4 @@ const UserList = ({
   );
 };
 
-export default UserList;
+export default UserListItem;

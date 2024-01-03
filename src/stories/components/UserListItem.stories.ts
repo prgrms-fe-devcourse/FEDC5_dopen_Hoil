@@ -1,8 +1,8 @@
-import UserList from '@/components/common/UserList';
+import UserListItem from '@/components/common/UserListItem';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof UserList> = {
-  component: UserList,
+const meta: Meta<typeof UserListItem> = {
+  component: UserListItem,
   argTypes: {
     width: {
       control: 'text',
@@ -23,7 +23,7 @@ const meta: Meta<typeof UserList> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof UserList>;
+type Story = StoryObj<typeof UserListItem>;
 
 export const Deafult: Story = {
   args: {
