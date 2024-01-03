@@ -51,7 +51,7 @@ const PostListItem = ({
           </Text>
         </HStack>
       </VStack>
-      <VStack spacing="0">
+      <Flex flexDir="column" align="flex-start">
         <TextIconButton
           TheIcon={MdFavoriteBorder}
           textContent={likeCount.toString()}
@@ -72,7 +72,7 @@ const PostListItem = ({
           textColor="gray.800"
           textLocation="right"
         />
-      </VStack>
+      </Flex>
     </Flex>
   );
 };
