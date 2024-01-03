@@ -10,19 +10,14 @@ export const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
+//TODO : 추후에 merge된 이후 상수로 바꾸기
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('login-token');
   if (token && config.headers) {
     config.headers.Authorization = `bearer ${token}`;
   }
   return config;
 });
-
-axiosInstance.interceptors.response.use(
-  (res) => res,
-  (err) => Promise.reject(err),
-);
 
 export const getRequest = async <T>(
   url: string,
