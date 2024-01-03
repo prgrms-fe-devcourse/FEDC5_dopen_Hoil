@@ -39,6 +39,10 @@ const SignUp = () => {
   };
 
   const onError = (error: AxiosError) => {
+    if (!error.response) {
+      // response가 없는 에러의 경우
+      alert(error.message);
+    }
     if (error.response?.status === 400) {
       setError(
         'email',
