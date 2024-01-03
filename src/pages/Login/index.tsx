@@ -1,11 +1,13 @@
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { useMutation } from 'react-query';
 import {
   Box,
   Heading,
   Text,
   Image,
   Checkbox,
-  FormLabel,
   Flex,
   Divider,
   Avatar,
@@ -14,7 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { Input, Button, Form } from '@/pages/SignUp';
 import { DEFAULT_WIDTH } from '@/constants/style';
-import { UserLoginInput, LoginInputProperty } from '@/types/user';
+import { getUserList } from '@/apis/userInfo';
+import { logIn } from '@/apis/authentication';
+import { User } from '@/apis/type';
+import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
+import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
+import { removeItem, setItem, getItem } from '@/utils/storage';
 
 import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
 
@@ -26,6 +33,7 @@ const loginInputList: LoginInputProperty[] = [
     required: true,
     placeholder: '이메일을 입력해주세요',
     validate: { ...LOGIN_INPUT_VALIDATE.email },
+    value: getItem(LOGINID_SAVEKEY, ''),
   },
   {
     name: 'password',
@@ -36,11 +44,88 @@ const loginInputList: LoginInputProperty[] = [
   },
 ];
 
+const socialLoginList = [
+  {
+    name: '네이버',
+    title: '네이버 로그인',
+    src: 'https://via.placeholder.com/40x40',
+  },
+  {
+    name: '카카오',
+    title: '카카오 로그인',
+    src: 'https://via.placeholder.com/40x40',
+  },
+];
+
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
+    handleSubmit,
+    getValues,
     formState: { errors },
-  } = useForm<UserLoginInput>();
+    setError,
+  } = useForm<UserLoginInput>({
+    defaultValues: {
+      email: getItem(LOGINID_SAVEKEY, ''),
+      saveId: getItem(LOGINID_SAVEKEY, '') ? true : false,
+    },
+  });
+
+  const onSuccess = (data: UserResponse) => {
+    alert('로그인 성공');
+    if (getValues('saveId')) {
+      // 아이디 로컬 스토리지에 저장
+      setItem(LOGINID_SAVEKEY, getValues('email'));
+    } else {
+      // 아이디 로컬 스토리지에서 삭제
+      removeItem(LOGINID_SAVEKEY);
+    }
+    setItem(LOGIN_TOKEN, data.token);
+    navigate('/', { replace: true });
+  };
+
+  const onError = (error: AxiosError) => {
+    if (error.response?.status === 400) {
+      // 비밀번호가 틀렸을 때
+      setError(
+        'password',
+        { message: '비밀번호를 확인해주세요.' },
+        { shouldFocus: true },
+      );
+    }
+  };
+
+  const { mutate } = useMutation<UserResponse, AxiosError>(
+    async () => {
+      const { email, password } = getValues();
+      return await logIn({ email, password });
+    },
+    {
+      onSuccess,
+      onError,
+      meta: {
+        errorMessage: '로그인에서 에러가 발생했습니다.',
+      },
+    },
+  );
+
+  const onValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
+    const userList = await getUserList({});
+    const emailCheck = userList.some(
+      (userData: User) => userData.email === email,
+    );
+    if (emailCheck) {
+      mutate();
+    } else {
+      setError(
+        'email',
+        { message: '등록되지 않은 아이디입니다.' },
+        { shouldFocus: true },
+      );
+    }
+  };
 
   return (
     <Box
@@ -66,7 +151,7 @@ const Login = () => {
         </Box>
       </Box>
 
-      <Form>
+      <Form onSubmit={handleSubmit(onValid)}>
         <ul style={{ marginBottom: '0px' }}>
           {loginInputList.map(
             ({ name, type, required, placeholder, validate }) => (
@@ -93,15 +178,20 @@ const Login = () => {
             colorScheme="red"
             iconColor="lg"
             id="emailRemember"
+            {...register('saveId')}
           />
-          <FormLabel m="0 0 0 8px" fontSize="sm">
+          <label
+            htmlFor="emailRemember"
+            style={{ marginLeft: '8px', fontSize: '12px', color: '#666' }}
+          >
             아이디 저장하기
-          </FormLabel>
+          </label>
         </Flex>
         <Button>로그인</Button>
         <Button
           type="button"
           style={{ backgroundColor: '#F5C6C2', marginTop: '18px' }}
+          onClick={() => navigate('/signup')}
         >
           회원가입 하기
         </Button>
@@ -122,24 +212,13 @@ const Login = () => {
         />
       </Flex>
       <UnorderedList display="flex" justifyContent="space-evenly">
-        <List>
-          <Text as="a" title="네이버 로그인">
-            <Avatar
-              size="40px"
-              name="네이버 로그인"
-              src="https://via.placeholder.com/40x40"
-            />
-          </Text>
-        </List>
-        <List>
-          <Text as="a" title="카카오 로그인">
-            <Avatar
-              size="40px"
-              name="카카오 로그인"
-              src="https://via.placeholder.com/40x40"
-            />
-          </Text>
-        </List>
+        {socialLoginList.map(({ name, title, src }) => (
+          <List key={name}>
+            <Text as="a" title={title}>
+              <Avatar size="40px" name={title} src={src} />
+            </Text>
+          </List>
+        ))}
       </UnorderedList>
     </Box>
   );

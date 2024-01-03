@@ -17,6 +17,7 @@ export interface LoginInputProperty {
   required: boolean;
   placeholder: string;
   validate?: RegisterOptions;
+  value?: string;
 }
 
 export interface UserInfoInput {
@@ -35,4 +36,5 @@ export interface UserResponse {
 export interface UserLoginInput {
   email: string;
   password: string;
+  saveId?: boolean;
 }
