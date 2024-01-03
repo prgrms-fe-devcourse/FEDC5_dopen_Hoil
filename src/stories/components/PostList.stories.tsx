@@ -37,6 +37,9 @@ const meta = {
     ),
   ],
   argTypes: {
+    keyword: {
+      control: 'text',
+    },
     channelId: {
       control: 'text',
     },
@@ -56,5 +59,6 @@ type Story = StoryObj<typeof PostList>;
 export const Deafult: Story = {
   args: {
     channelId: TEST_CHANNEL_ID,
+    keyword: 'test',
   },
 };
