@@ -33,12 +33,11 @@ const BoardListPreview = () => {
           더 보기 <ChevronRightIcon />
         </Button>
       </Flex>
-      <Flex paddingTop="14px" direction="column">
+      <Flex paddingTop="23px" gap="10px" direction="column">
         {/* TODO : 게시판 목록을 불러와서 Map으로 뿌려줘야함. */}
         {DUMMY_GALLERY_DATA.map((item) => (
           <Flex
             color="black"
-            padding="10px"
             alignItems="center"
             key={item.name}
             // TODO : 클릭 시 해당 게시판 목록으로 넘어가게 처리 필요.
