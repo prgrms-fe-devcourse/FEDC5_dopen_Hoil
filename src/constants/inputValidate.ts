@@ -39,3 +39,13 @@ export const INPUT_VALIDATE = {
     },
   },
 };
+
+export const LOGIN_INPUT_VALIDATE = {
+  email: {
+    pattern: {
+      value: REGEXP.email,
+      message: '아이디를 이메일 형식으로 입력해주세요.',
+    },
+  },
+  password: {},
+};
