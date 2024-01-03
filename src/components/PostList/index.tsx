@@ -6,10 +6,18 @@ import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
 import { StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_WIDTH } from '@/constants/style';
-interface PostListProps extends ChannelPayload, StackProps {}
+interface PostListProps extends ChannelPayload, StackProps {
+  keyword: string;
+}
 
-const PostList = ({ channelId, offset, limit, ...props }: PostListProps) => {
-  const { data } = useQuery<Post[], AxiosError>(
+const PostList = ({
+  keyword,
+  channelId,
+  offset,
+  limit,
+  ...props
+}: PostListProps) => {
+  const { data } = useQuery<Post[], AxiosError, Post[]>(
     [POST_LIST],
     async () => {
       return await getPostListByChannel({ channelId, offset, limit });
@@ -19,6 +27,7 @@ const PostList = ({ channelId, offset, limit, ...props }: PostListProps) => {
       meta: {
         errorMessage: '게시글 목록 가져올때 에러 발생하였습니다',
       },
+      select: (data) => data.filter((post) => post.title.includes(keyword)),
     },
   );
   /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
