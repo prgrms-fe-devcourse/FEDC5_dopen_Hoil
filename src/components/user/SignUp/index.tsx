@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query';
+import { useMutation } from 'react-query';
+import { AxiosError } from 'axios';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
 import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
@@ -11,6 +12,7 @@ import { LOGIN_TOKEN } from '@/constants/user';
 import { UserResponse, UserInfoInput } from '@/types/user';
 
 import { DUMMY_DATA } from './data';
+
 interface SignUpInputData {
   name: Path<UserInfoInput>;
   label: string;
@@ -33,42 +35,38 @@ const SignUp = () => {
   const onSuccess = (data: UserResponse) => {
     alert('회원가입 성공');
     setItem(LOGIN_TOKEN, data.token);
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
-  const { refetch } = useQuery(
-    'signup',
-    async () => {
-      const { email, fullName, password } = getValues();
-      return await signUp({ email, fullName, password });
-    },
-    {
-      onSuccess,
-      enabled: false,
-      meta: {
-        errorMessage: 'test',
-      },
-    },
-  );
-
-  const onValid: SubmitHandler<UserInfoInput> = async ({
-    email,
-    username,
-    password,
-    passwordConfirm,
-  }) => {
-    // 중복 이메일(아이디) 체크
-    const UsersEmailCheck =
-      DUMMY_DATA && DUMMY_DATA.some((user) => user.email === email);
-    if (UsersEmailCheck) {
+  const onError = (error: AxiosError) => {
+    if (error.response?.status === 400) {
       setError(
         'email',
         { message: '동일한 이메일이 존재합니다.' },
         { shouldFocus: true },
       );
-      return;
     }
+  };
 
+  const { mutate } = useMutation<UserResponse, AxiosError>(
+    async () => {
+      const { email, fullName, username, password } = getValues();
+      return await signUp({ email, fullName, username, password });
+    },
+    {
+      onSuccess,
+      onError,
+      meta: {
+        errorMessage: '회원가입에서 에러가 발생했습니다.',
+      },
+    },
+  );
+
+  const onValid: SubmitHandler<UserInfoInput> = async ({
+    username,
+    password,
+    passwordConfirm,
+  }) => {
     // 중복 닉네임 체크
     const UsersNickNameCheck =
       DUMMY_DATA && DUMMY_DATA.some((user) => user.username === username);
@@ -91,7 +89,7 @@ const SignUp = () => {
       return;
     }
 
-    refetch();
+    mutate();
   };
 
   const signUpInputArray: SignUpInputData[] = [
