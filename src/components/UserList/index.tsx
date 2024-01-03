@@ -26,10 +26,11 @@ const UserList = ({ keyword, offset, limit, isDivider }: UserListProps) => {
       meta: {
         errorMessage: '유저 목록 가져올때 에러 발생하였습니다',
       },
-      select: (data) => data.filter((user) => user.username.includes(keyword)),
+      /* 옵셔널 두번... */
+      select: (data) =>
+        data.filter((user) => user?.username?.includes(keyword)),
     },
   );
-
   if (data && !data.length) {
     return <div>검색어와 일치하는 유저가 없습니다(예시)</div>;
   }
@@ -40,7 +41,7 @@ const UserList = ({ keyword, offset, limit, isDivider }: UserListProps) => {
       divider={isDivider ? <StackDivider /> : undefined}
     >
       {data?.map((user) => (
-        <UserListItem key={user._id} username={user.username} />
+        <UserListItem key={user._id} username={user?.username} />
       ))}
     </VStack>
   );
