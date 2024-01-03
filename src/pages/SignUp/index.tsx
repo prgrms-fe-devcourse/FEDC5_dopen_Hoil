@@ -2,25 +2,16 @@ import { useMutation } from 'react-query';
 import { AxiosError } from 'axios';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
-import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { signUp } from '@/apis/authentication';
 import { setItem } from '@/utils/storage';
 import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
-import { UserResponse, UserInfoInput } from '@/types/user';
+import { UserResponse, UserInfoInput, SignUpInputProperty } from '@/types/user';
 
 import { DUMMY_DATA } from './data';
-
-interface SignUpInputData {
-  name: Path<UserInfoInput>;
-  label: string;
-  type: string;
-  required: boolean;
-  placeholder: string;
-  validate?: RegisterOptions;
-}
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -96,7 +87,7 @@ const SignUp = () => {
     mutate();
   };
 
-  const signUpInputArray: SignUpInputData[] = [
+  const signUpInputArray: SignUpInputProperty[] = [
     {
       name: 'email',
       label: '이메일',
