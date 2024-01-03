@@ -1,4 +1,4 @@
-import PostListItem from '@/components/common/PostListItem';
+import PostListItem from '@/components/PostList/PostListItem';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof PostListItem> = {
