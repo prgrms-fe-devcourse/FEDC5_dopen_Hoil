@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Flex, Box, Img, Text, Icon } from '@chakra-ui/react';
-import {
-  FaUserCircle,
-  FaClipboardList,
-  FaPen,
-  FaChevronRight,
-} from 'react-icons/fa';
+import { Box, Text, Avatar } from '@chakra-ui/react';
+import { FaUserCircle, FaClipboardList, FaPen } from 'react-icons/fa';
 import { logOut } from '@/apis/authentication';
 import { removeItem } from '@/utils/storage';
 import { LOGIN_TOKEN } from '@/constants/user';
+import MyPageListItem from './MyPageListItem';
 
 const myPageList = [
   [
@@ -39,7 +35,7 @@ const MyPage = () => {
   const onLogOut = () => {
     logOut();
     removeItem(LOGIN_TOKEN);
-    navigator('/');
+    navigator('/', { replace: true });
   };
 
   return (
@@ -52,11 +48,10 @@ const MyPage = () => {
     >
       <Box>
         <Box mt={15}>
-          <Img
+          <Avatar
+            size="118px"
+            name="프로필 이미지"
             src="https://via.placeholder.com/118x118"
-            m="0 auto"
-            borderRadius="50%"
-            alt="프로필 이미지"
           />
         </Box>
         <ProfileName>공부하는 민수</ProfileName>
@@ -66,34 +61,18 @@ const MyPage = () => {
           <MyPageUl key={index}>
             {mypage.map(({ icon, title, href }, index) => {
               return (
-                <li key={index} onClick={() => navigator(href)}>
-                  <Flex alignItems="center">
-                    <Flex
-                      alignItems="center"
-                      justifyContent="center"
-                      w="32px"
-                      h="32px"
-                      borderRadius="4px"
-                      marginRight="30px"
-                      backgroundColor="#FAFCFE"
-                      border="1px"
-                      borderColor="gray.200"
-                      boxShadow="0px 24px 48px 0 rgba(0,0,0,0.16)"
-                    >
-                      <Icon as={icon} w="18px" h="18px" fill="pink.300" />
-                    </Flex>
-                    <Text as="span" fontSize="lg" fontWeight="medium">
-                      {title}
-                    </Text>
-                  </Flex>
-                  <Icon as={FaChevronRight} w={8} h={8} />
-                </li>
+                <MyPageListItem
+                  key={index}
+                  icon={icon}
+                  title={title}
+                  href={href}
+                />
               );
             })}
           </MyPageUl>
         );
       })}
-      <MyPageUl onClick={() => {}}>
+      <MyPageUl>
         <li onClick={onLogOut}>
           <Text as="strong" fontSize="lg" color="pink.400">
             로그아웃
