@@ -15,7 +15,7 @@ const PostList = ({
   offset = 3,
   limit,
 }: PostListProps) => {
-  const { isError, error, data } = useQuery<Post[], AxiosError>(
+  const { data } = useQuery<Post[], AxiosError>(
     [POST_LIST],
     async () => {
       return await getPostListByChannel({ channelId, offset, limit });
@@ -27,9 +27,6 @@ const PostList = ({
       },
     },
   );
-  if (isError && error.response) {
-    alert(error);
-  }
   return (
     <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />}>
       {data?.map((post) => (
