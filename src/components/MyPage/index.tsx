@@ -76,10 +76,11 @@ const MyPage = () => {
                       borderRadius="4px"
                       marginRight="30px"
                       backgroundColor="#FAFCFE"
-                      border="1px solid #F0F0F0"
+                      border="1px"
+                      borderColor="gray.200"
                       boxShadow="0px 24px 48px 0 rgba(0,0,0,0.16)"
                     >
-                      <Icon as={icon} w="18px" h="18px" fill="#F88585" />
+                      <Icon as={icon} w="18px" h="18px" fill="pink.300" />
                     </Flex>
                     <Text as="span" fontSize="lg" fontWeight="medium">
                       {title}
