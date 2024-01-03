@@ -5,15 +5,15 @@ import { POST_LIST } from '@/constants/queryKeys';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
-import { StackDivider, VStack } from '@chakra-ui/react';
+import { StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_WIDTH } from '@/constants/style';
-
-interface PostListProps extends ChannelPayload {}
+interface PostListProps extends ChannelPayload, StackProps {}
 
 const PostList = ({
   channelId = TEST_CHANNEL_ID,
   offset = 3,
   limit,
+  ...props
 }: PostListProps) => {
   const { data } = useQuery<Post[], AxiosError>(
     [POST_LIST],
@@ -28,7 +28,7 @@ const PostList = ({
     },
   );
   return (
-    <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />}>
+    <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />} {...props}>
       {data?.map((post) => (
         <PostListItem
           key={post._id}
