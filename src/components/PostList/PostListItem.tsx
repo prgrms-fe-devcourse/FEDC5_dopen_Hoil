@@ -5,7 +5,6 @@ import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 
 interface PostListItemProps extends FlexProps {
   title: string;
-  body?: string;
   username: string;
   timeAgo: string;
   likeCount: number;
@@ -14,7 +13,6 @@ interface PostListItemProps extends FlexProps {
 
 const PostListItem = ({
   title,
-  body,
   username,
   timeAgo,
   likeCount = 0,
@@ -44,21 +42,10 @@ const PostListItem = ({
         >
           {title}
         </Text>
-        <Text
-          color="gray.800"
-          fontSize="1.2rem"
-          fontWeight="medium"
-          textOverflow="ellipsis"
-          overflow="hidden"
-          w="200px"
-          whiteSpace="nowrap"
-        >
-          {body}
+        <Text color="gray.800" fontSize="1.2rem" fontWeight="medium">
+          {username}
         </Text>
         <HStack>
-          <Text color="gray.800" fontSize="1.2rem" fontWeight="medium">
-            {username}
-          </Text>
           <Text color="gray.600" fontSize="1.2rem">
             {timeAgo}
           </Text>

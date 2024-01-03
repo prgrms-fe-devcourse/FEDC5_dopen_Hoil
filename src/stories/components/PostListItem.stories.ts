@@ -7,9 +7,7 @@ const meta: Meta<typeof PostListItem> = {
     title: {
       control: 'text',
     },
-    body: {
-      control: 'text',
-    },
+
     username: {
       control: 'text',
     },
@@ -31,7 +29,6 @@ type Story = StoryObj<typeof PostListItem>;
 export const Deafult: Story = {
   args: {
     title: '제목입니다제목입니다제목입니다제목입니다제목입니다',
-    body: '내용이에요내용이에요내용이에요내용이에요내용이에요내용이에',
     username: '올챙이',
     timeAgo: '2일전',
     likeCount: 10,
