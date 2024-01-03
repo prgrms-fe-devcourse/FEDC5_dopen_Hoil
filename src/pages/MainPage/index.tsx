@@ -23,7 +23,8 @@ const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
       >
         <MainHeader />
         <Flex
-          p={`20px ${DEFAULT_PAGE_PADDING} 90px ${DEFAULT_PAGE_PADDING}`}
+          height="100vh"
+          p={`20px ${DEFAULT_PAGE_PADDING}`}
           overflowY="auto"
           direction="column"
         >
@@ -31,7 +32,7 @@ const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
           <Dday isLoggedIn={isLoggedIn} />
           <BoardListPreview />
         </Flex>
-        <Footer position="absolute" bottom="0" />
+        <Footer position="sticky" bottom="0" />
       </Flex>
     </>
   );
