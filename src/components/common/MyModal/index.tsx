@@ -42,7 +42,7 @@ const MyModal = ({
               bg="pink.300"
               h="modal.header.h"
               borderTopRadius="10px"
-              color="black"
+              color="white"
             >
               {title}
             </Heading>
