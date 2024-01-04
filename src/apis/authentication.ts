@@ -1,4 +1,4 @@
-import { postRequest } from '@/apis/instance';
+import { getRequest, postRequest } from '@/apis/instance';
 import { User } from '@/apis/type';
 
 interface LogInPayload {
@@ -36,3 +36,5 @@ export const signUp = async ({
   });
 
 export const logOut = async () => await postRequest('/logout');
+
+export const checkAuthenticated = async () => await getRequest('/auth-user');
