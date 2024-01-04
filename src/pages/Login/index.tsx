@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import {
@@ -7,12 +7,12 @@ import {
   Heading,
   Text,
   Image,
-  Checkbox,
   Flex,
   Divider,
   Avatar,
   UnorderedList,
-  List,
+  ListItem,
+  Checkbox,
 } from '@chakra-ui/react';
 import { Input, Button, Form } from '@/pages/SignUp';
 import { DEFAULT_WIDTH } from '@/constants/style';
@@ -48,12 +48,14 @@ const socialLoginList = [
   {
     name: '네이버',
     title: '네이버 로그인',
-    src: 'https://via.placeholder.com/40x40',
+    src: 'src/assets/naver.png',
+    href: 'https://naver.com',
   },
   {
     name: '카카오',
     title: '카카오 로그인',
-    src: 'https://via.placeholder.com/40x40',
+    src: 'src/assets/kakao.png',
+    href: 'https://www.kakaocorp.com/',
   },
 ];
 
@@ -69,17 +71,17 @@ const Login = () => {
   } = useForm<UserLoginInput>({
     defaultValues: {
       email: getItem(LOGINID_SAVEKEY, ''),
-      saveId: getItem(LOGINID_SAVEKEY, '') ? true : false,
+      saveId: getItem(LOGINID_SAVEKEY, false) ? true : false,
     },
   });
 
   const onSuccess = (data: UserResponse) => {
     alert('로그인 성공');
     if (getValues('saveId')) {
-      // 아이디 로컬 스토리지에 저장
+      // 체크박스 체크 시 - 아이디 로컬 스토리지에 저장
       setItem(LOGINID_SAVEKEY, getValues('email'));
     } else {
-      // 아이디 로컬 스토리지에서 삭제
+      // 체크박스 미체크 시 - 아이디 로컬 스토리지에서 삭제
       removeItem(LOGINID_SAVEKEY);
     }
     setItem(LOGIN_TOKEN, data.token);
@@ -176,16 +178,14 @@ const Login = () => {
           <Checkbox
             size="lg"
             colorScheme="red"
-            iconColor="lg"
             id="emailRemember"
+            iconSize="lg"
             {...register('saveId')}
-          />
-          <label
-            htmlFor="emailRemember"
-            style={{ marginLeft: '8px', fontSize: '12px', color: '#666' }}
           >
-            아이디 저장하기
-          </label>
+            <Text as="span" fontSize="sm" color="#666">
+              아이디 저장하기
+            </Text>
+          </Checkbox>
         </Flex>
         <Button>로그인</Button>
         <Button
@@ -196,6 +196,32 @@ const Login = () => {
           회원가입 하기
         </Button>
       </Form>
+      <Box margin="18px 0 23px">
+        <UnorderedList display="flex" justifyContent="space-between">
+          <ListItem
+            listStyleType="none"
+            fontSize="sm"
+            w="calc(50% - 12px)"
+            textAlign="right"
+            _hover={{ textDecoration: 'underline' }}
+          >
+            <Link to="findid" title="아이디 찾기">
+              아이디 찾기
+            </Link>
+          </ListItem>
+          <ListItem
+            listStyleType="none"
+            fontSize="sm"
+            w="calc(50% - 12px)"
+            textAlign="left"
+            _hover={{ textDecoration: 'underline' }}
+          >
+            <Link to="findpassword" title="비밀번호 찾기">
+              비밀번호 찾기
+            </Link>
+          </ListItem>
+        </UnorderedList>
+      </Box>
       <Flex alignItems="center" margin="48px 0 32px">
         <Divider
           orientation="horizontal"
@@ -211,15 +237,24 @@ const Login = () => {
           w="calc(50% - 25px)"
         />
       </Flex>
-      <UnorderedList display="flex" justifyContent="space-evenly">
-        {socialLoginList.map(({ name, title, src }) => (
-          <List key={name}>
-            <Text as="a" title={title}>
-              <Avatar size="40px" name={title} src={src} />
-            </Text>
-          </List>
-        ))}
-      </UnorderedList>
+      <Box>
+        <UnorderedList display="flex" justifyContent="space-evenly">
+          {socialLoginList.map(({ name, title, src, href }) => (
+            <ListItem key={name} listStyleType="none">
+              <Text
+                as="a"
+                title={title}
+                cursor="pointer"
+                display="block"
+                target="_blank"
+                href={href}
+              >
+                <Avatar size="40px" name={title} src={src} />
+              </Text>
+            </ListItem>
+          ))}
+        </UnorderedList>
+      </Box>
     </Box>
   );
 };
