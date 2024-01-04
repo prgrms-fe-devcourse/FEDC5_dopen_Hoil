@@ -18,7 +18,7 @@ interface MyModal extends ModalProps {
   title: string;
   children: ReactNode;
   buttonText: string;
-  onSubmit: () => void;
+  onButtonClick: () => void;
 }
 
 const MyModal = ({
@@ -27,7 +27,7 @@ const MyModal = ({
   title,
   children,
   buttonText,
-  onSubmit,
+  onButtonClick,
   ...props
 }: MyModal) => {
   return (
@@ -55,7 +55,7 @@ const MyModal = ({
                 h="modal.button.h"
                 w="modal.button.w"
                 bg="pink.100"
-                onClick={onSubmit}
+                onClick={onButtonClick}
                 mb="28px"
                 color="pink.300"
                 fontSize="1.4rem"

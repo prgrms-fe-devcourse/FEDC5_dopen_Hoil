@@ -17,7 +17,7 @@ const meta: Meta<typeof MyModal> = {
     buttonText: {
       control: 'text',
     },
-    onSubmit: {
+    onButtonClick: {
       type: 'function',
     },
   },
@@ -36,7 +36,7 @@ const ModalTest = () => {
         isOpen={isOpen}
         onClose={onClose}
         buttonText="누르면 알림창"
-        onSubmit={() => alert('하이')}
+        onButtonClick={() => alert('하이')}
       >
         <Text align="center" fontSize="2rem">
           하이 아임내용
