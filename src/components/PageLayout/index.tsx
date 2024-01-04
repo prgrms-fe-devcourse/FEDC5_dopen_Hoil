@@ -7,8 +7,8 @@ const PageLayout = () => {
     <Flex
       position="relative"
       direction="column"
-      justifyContent="center"
-      w={DEFAULT_WIDTH}
+      w="100vw"
+      maxW={DEFAULT_WIDTH}
       height="100vh"
       margin="0 auto"
     >
