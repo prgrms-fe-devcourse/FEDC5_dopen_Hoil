@@ -6,10 +6,11 @@ const PageLayout = () => {
   return (
     <Flex
       position="relative"
+      direction="column"
+      justifyContent="center"
       w={DEFAULT_WIDTH}
       height="100vh"
       margin="0 auto"
-      direction="column"
     >
       <Outlet></Outlet>
     </Flex>
