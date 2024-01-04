@@ -36,5 +36,5 @@ export interface UserResponse {
 export interface UserLoginInput {
   email: string;
   password: string;
-  saveId?: boolean;
+  isSavedId?: boolean;
 }
