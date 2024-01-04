@@ -15,7 +15,12 @@ interface UserListProps extends StackProps {
 }
 
 // 유저 전체 쿼리후 키워드로 필터링
-const UserList = ({ keyword, offset, limit, isDivider }: UserListProps) => {
+const UserList = ({
+  keyword,
+  offset,
+  limit,
+  isDivider = false,
+}: UserListProps) => {
   const { data } = useQuery<User[], AxiosError>(
     [USER_LIST],
     async () => {
