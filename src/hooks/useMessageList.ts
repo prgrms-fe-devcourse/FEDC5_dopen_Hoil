@@ -10,8 +10,11 @@ export const useMessageList = () => {
   );
   const userDataList = data?.map(({ createdAt, message, sender, receiver }) => {
     //TODO : 로그인한 유저의 실제 _id 받아와서 비교
-    const otherType = sender._id === 'test' ? receiver : sender;
+    const otherType =
+      sender._id === import.meta.env.VITE_APP_TESTID ? receiver : sender;
+
     return {
+      key: createdAt,
       userImage: otherType.coverImage,
       username: otherType.username,
       content: message,
