@@ -6,15 +6,23 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { signUp } from '@/apis/authentication';
-import { setItem } from '@/utils/storage';
+import { getUserList } from '@/apis/userInfo';
+import { getItem, setItem } from '@/utils/storage';
 import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { UserResponse, UserInfoInput, SignUpInputProperty } from '@/types/user';
 
-import { DUMMY_DATA } from './data';
+import { useEffect } from 'react';
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getItem(LOGIN_TOKEN, '')) {
+      navigate('/', { replace: true });
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -62,9 +70,11 @@ const SignUp = () => {
     password,
     passwordConfirm,
   }) => {
+    const userList = await getUserList({});
+
     // 중복 닉네임 체크
     const UsersNickNameCheck =
-      DUMMY_DATA && DUMMY_DATA.some((user) => user.username === username);
+      userList && userList.some((user) => user.username === username);
     if (UsersNickNameCheck) {
       setError(
         'username',
