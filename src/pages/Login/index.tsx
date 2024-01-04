@@ -21,9 +21,10 @@ import { logIn } from '@/apis/authentication';
 import { User } from '@/apis/type';
 import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
 import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
-import { removeItem, setItem, getItem } from '@/utils/storage';
+import { setItem, getItem } from '@/utils/storage';
 
 import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
+import { saveLoginId } from './saveLoginId';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -71,21 +72,15 @@ const Login = () => {
   } = useForm<UserLoginInput>({
     defaultValues: {
       email: getItem(LOGINID_SAVEKEY, ''),
-      saveId: getItem(LOGINID_SAVEKEY, false) ? true : false,
+      isSavedId: getItem(LOGINID_SAVEKEY, false) ? true : false,
     },
   });
 
   const onSuccess = (data: UserResponse) => {
     alert('로그인 성공');
-    if (getValues('saveId')) {
-      // 체크박스 체크 시 - 아이디 로컬 스토리지에 저장
-      setItem(LOGINID_SAVEKEY, getValues('email'));
-    } else {
-      // 체크박스 미체크 시 - 아이디 로컬 스토리지에서 삭제
-      removeItem(LOGINID_SAVEKEY);
-    }
+    saveLoginId(getValues('isSavedId'), getValues('email'));
     setItem(LOGIN_TOKEN, data.token);
-    navigate('/', { replace: true });
+    navigate(-1);
   };
 
   const onError = (error: AxiosError) => {
@@ -113,12 +108,12 @@ const Login = () => {
     },
   );
 
-  const onValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
+  const onLoginValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
     const userList = await getUserList({});
-    const emailCheck = userList.some(
+    const isEmailCheck = userList.some(
       (userData: User) => userData.email === email,
     );
-    if (emailCheck) {
+    if (isEmailCheck) {
       mutate();
     } else {
       setError(
@@ -129,7 +124,7 @@ const Login = () => {
     }
   };
 
-  const Preparing = (event: React.MouseEvent<HTMLElement>) => {
+  const preparing = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     alert('현재 서비스 준비중입니다.');
   };
@@ -158,7 +153,7 @@ const Login = () => {
         </Box>
       </Box>
 
-      <Form onSubmit={handleSubmit(onValid)}>
+      <Form onSubmit={handleSubmit(onLoginValid)}>
         <ul style={{ marginBottom: '0px' }}>
           {loginInputList.map(
             ({ name, type, required, placeholder, validate }) => (
@@ -185,7 +180,7 @@ const Login = () => {
             colorScheme="red"
             id="emailRemember"
             iconSize="lg"
-            {...register('saveId')}
+            {...register('isSavedId')}
           >
             <Text as="span" fontSize="sm" color="#666">
               아이디 저장하기
@@ -210,7 +205,7 @@ const Login = () => {
             textAlign="right"
             _hover={{ textDecoration: 'underline' }}
           >
-            <Link to="findid" title="아이디 찾기" onClick={Preparing}>
+            <Link to="findid" title="아이디 찾기" onClick={preparing}>
               아이디 찾기
             </Link>
           </ListItem>
@@ -221,7 +216,7 @@ const Login = () => {
             textAlign="left"
             _hover={{ textDecoration: 'underline' }}
           >
-            <Link to="findpassword" title="비밀번호 찾기" onClick={Preparing}>
+            <Link to="findpassword" title="비밀번호 찾기" onClick={preparing}>
               비밀번호 찾기
             </Link>
           </ListItem>
@@ -253,7 +248,7 @@ const Login = () => {
                 display="block"
                 target="_blank"
                 href={href}
-                onClick={Preparing}
+                onClick={preparing}
               >
                 <Avatar size="40px" name={title} src={src} />
               </Text>
