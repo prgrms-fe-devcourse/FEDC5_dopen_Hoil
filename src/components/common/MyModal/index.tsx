@@ -56,6 +56,7 @@ const MyModal = ({
                 onClick={onSubmit}
                 mb="28px"
                 color="pink.300"
+                fontSize="1.4rem"
               >
                 {buttonText}
               </Button>
