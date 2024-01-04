@@ -7,11 +7,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
+  ModalProps,
   Portal,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-interface MyModal {
+interface MyModal extends ModalProps {
   onClose(): void;
   isOpen: boolean;
   title: string;
@@ -27,11 +28,12 @@ const MyModal = ({
   children,
   buttonText,
   onSubmit,
+  ...props
 }: MyModal) => {
   return (
     <>
       <Portal>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} {...props}>
           <ModalOverlay />
           <ModalContent maxW="modal.w" h="modal.h" borderRadius="10px">
             <Heading
