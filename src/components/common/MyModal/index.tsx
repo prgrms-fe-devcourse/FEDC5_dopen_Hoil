@@ -7,19 +7,28 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
-  useDisclosure,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface MyModal {
+  onClose(): void;
+  onOpen(): void;
+  isOpen: boolean;
   title: string;
   children: ReactNode;
   buttonText: string;
   onSubmit: () => void;
 }
 
-const MyModal = ({ title, children, buttonText, onSubmit }: MyModal) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const MyModal = ({
+  isOpen,
+  onOpen,
+  onClose,
+  title,
+  children,
+  buttonText,
+  onSubmit,
+}: MyModal) => {
   return (
     <>
       <Button onClick={onOpen}>오픈모달</Button>
