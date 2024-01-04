@@ -16,7 +16,7 @@ const MyModal = () => {
       <Button onClick={onOpen}>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent w="modal.w" h="modal.h">
             <ModalHeader>머리입니다</ModalHeader>
             <ModalCloseButton />
             <ModalBody>내용</ModalBody>

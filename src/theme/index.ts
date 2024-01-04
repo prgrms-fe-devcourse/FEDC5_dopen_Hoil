@@ -66,6 +66,17 @@ export const theme = extendTheme({
   },
   sizes: {
     icon: '2.4rem',
+    modal: {
+      h: '343px',
+      w: '392px',
+      header: {
+        h: '54px',
+      },
+      button: {
+        w: '178px',
+        h: '36px',
+      },
+    },
   },
   zIndices: {
     normal: 100,
