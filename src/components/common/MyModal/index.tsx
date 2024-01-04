@@ -34,6 +34,7 @@ const MyModal = ({ title, children, buttonText, onSubmit }: MyModal) => {
             bg="pink.300"
             h="modal.header.h"
             borderTopRadius="10px"
+            color="black"
           >
             {title}
           </Heading>
@@ -46,6 +47,7 @@ const MyModal = ({ title, children, buttonText, onSubmit }: MyModal) => {
               bg="pink.100"
               onClick={onSubmit}
               mb="28px"
+              color="pink.300"
             >
               {buttonText}
             </Button>
