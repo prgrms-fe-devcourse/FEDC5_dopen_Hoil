@@ -12,7 +12,6 @@ import { ReactNode } from 'react';
 
 interface MyModal {
   onClose(): void;
-  onOpen(): void;
   isOpen: boolean;
   title: string;
   children: ReactNode;
@@ -22,7 +21,6 @@ interface MyModal {
 
 const MyModal = ({
   isOpen,
-  onOpen,
   onClose,
   title,
   children,
@@ -31,7 +29,6 @@ const MyModal = ({
 }: MyModal) => {
   return (
     <>
-      <Button onClick={onOpen}>오픈모달</Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW="modal.w" h="modal.h" borderRadius="10px">

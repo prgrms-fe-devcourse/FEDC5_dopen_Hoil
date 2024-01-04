@@ -7,8 +7,6 @@ import { QueryClient, QueryClientProvider, QueryCache } from 'react-query';
 import { darkModeTheme } from './theme/darkmode.ts';
 import { BrowserRouter } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { Provider } from 'react-redux';
-import { store } from './app/store.ts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,14 +35,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <BrowserRouter>
-            <ColorModeScript
-              initialColorMode={darkModeTheme.config.initialColorMode}
-            />
-            <App />
-          </BrowserRouter>
-        </Provider>
+        <BrowserRouter>
+          <ColorModeScript
+            initialColorMode={darkModeTheme.config.initialColorMode}
+          />
+          <App />
+        </BrowserRouter>
       </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>,
