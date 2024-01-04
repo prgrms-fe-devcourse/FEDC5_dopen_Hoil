@@ -6,6 +6,7 @@ import { logOut } from '@/apis/authentication';
 import { removeItem } from '@/utils/storage';
 import { LOGIN_TOKEN } from '@/constants/user';
 import MyPageListItem from './MyPageListItem';
+import { DEFAULT_WIDTH } from '@/constants/style';
 
 const myPageList = [
   [
@@ -40,7 +41,7 @@ const MyPage = () => {
 
   return (
     <Box
-      maxW={428}
+      maxW={DEFAULT_WIDTH}
       m="0 auto"
       border="1px solid"
       textAlign="center"
