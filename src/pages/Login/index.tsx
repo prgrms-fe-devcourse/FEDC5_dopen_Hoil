@@ -129,6 +129,11 @@ const Login = () => {
     }
   };
 
+  const Preparing = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    alert('현재 서비스 준비중입니다.');
+  };
+
   return (
     <Box
       maxWidth={DEFAULT_WIDTH}
@@ -205,7 +210,7 @@ const Login = () => {
             textAlign="right"
             _hover={{ textDecoration: 'underline' }}
           >
-            <Link to="findid" title="아이디 찾기">
+            <Link to="findid" title="아이디 찾기" onClick={Preparing}>
               아이디 찾기
             </Link>
           </ListItem>
@@ -216,7 +221,7 @@ const Login = () => {
             textAlign="left"
             _hover={{ textDecoration: 'underline' }}
           >
-            <Link to="findpassword" title="비밀번호 찾기">
+            <Link to="findpassword" title="비밀번호 찾기" onClick={Preparing}>
               비밀번호 찾기
             </Link>
           </ListItem>
@@ -248,6 +253,7 @@ const Login = () => {
                 display="block"
                 target="_blank"
                 href={href}
+                onClick={Preparing}
               >
                 <Avatar size="40px" name={title} src={src} />
               </Text>
