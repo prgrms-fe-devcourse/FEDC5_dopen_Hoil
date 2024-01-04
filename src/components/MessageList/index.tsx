@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 import { useMessageList } from '@/hooks/useMessageList';
-import UserContentBlockList from '@/components/common/UserContentBlockList';
+import UserContentBlock from '../common/UserContentBlock';
 
 const MessageList = () => {
+  const navigate = useNavigate();
   const { isLoading, error, userDataList } = useMessageList();
   //TODO: 로딩 및 에러처리 세부 구현
   if (isLoading) {
@@ -10,8 +13,24 @@ const MessageList = () => {
   if (error) {
     return <div>에러가 발생했습니다</div>;
   }
+
   return (
-    <>{userDataList && <UserContentBlockList userDataList={userDataList} />}</>
+    <Flex flexDir="column" gap="5">
+      {userDataList?.map(
+        ({ key, userImage, username, content, subContent, userId }) => {
+          return (
+            <UserContentBlock
+              key={key}
+              userImage={userImage}
+              username={username}
+              content={content}
+              subContent={subContent}
+              onClick={() => navigate(`./${userId}`)}
+            ></UserContentBlock>
+          );
+        },
+      )}
+    </Flex>
   );
 };
 export default MessageList;
