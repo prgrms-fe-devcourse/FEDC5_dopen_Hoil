@@ -20,6 +20,7 @@ const UserList = ({
   offset,
   limit,
   isDivider = false,
+  ...props
 }: UserListProps) => {
   const { data } = useQuery<User[], AxiosError>(
     [USER_LIST],
@@ -44,6 +45,7 @@ const UserList = ({
       w={DEFAULT_WIDTH}
       spacing={2}
       divider={isDivider ? <StackDivider /> : undefined}
+      {...props}
     >
       {data?.map((user) => (
         <UserListItem
