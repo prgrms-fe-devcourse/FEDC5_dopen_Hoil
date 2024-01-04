@@ -16,6 +16,7 @@ export const useMessageList = () => {
       username: otherType.username,
       content: message,
       subContent: calculateTimeDiff(createdAt) || '',
+      userId: otherType._id,
     };
   });
   return { isLoading, error, userDataList };
