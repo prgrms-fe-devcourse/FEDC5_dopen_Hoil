@@ -31,42 +31,40 @@ const MyModal = ({
   ...props
 }: MyModal) => {
   return (
-    <>
-      <Portal>
-        <Modal isOpen={isOpen} onClose={onClose} {...props}>
-          <ModalOverlay />
-          <ModalContent maxW="modal.w" h="modal.h" borderRadius="10px">
-            <Heading
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              fontSize="1.6rem"
-              bg="pink.300"
-              h="modal.header.h"
-              borderTopRadius="10px"
-              color="white"
+    <Portal>
+      <Modal isOpen={isOpen} onClose={onClose} {...props}>
+        <ModalOverlay />
+        <ModalContent maxW="modal.w" h="modal.h" borderRadius="10px">
+          <Heading
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="1.6rem"
+            bg="pink.300"
+            h="modal.header.h"
+            borderTopRadius="10px"
+            color="white"
+          >
+            {title}
+          </Heading>
+          <ModalCloseButton />
+          <ModalBody>{children}</ModalBody>
+          <ModalFooter justifyContent="center">
+            <Button
+              h="modal.button.h"
+              w="modal.button.w"
+              bg="pink.100"
+              onClick={onButtonClick}
+              mb="28px"
+              color="pink.300"
+              fontSize="1.4rem"
             >
-              {title}
-            </Heading>
-            <ModalCloseButton />
-            <ModalBody>{children}</ModalBody>
-            <ModalFooter justifyContent="center">
-              <Button
-                h="modal.button.h"
-                w="modal.button.w"
-                bg="pink.100"
-                onClick={onButtonClick}
-                mb="28px"
-                color="pink.300"
-                fontSize="1.4rem"
-              >
-                {buttonText}
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </Portal>
-    </>
+              {buttonText}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Portal>
   );
 };
 
