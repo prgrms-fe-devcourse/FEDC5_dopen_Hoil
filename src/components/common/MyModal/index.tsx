@@ -1,28 +1,57 @@
 import {
   Button,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalHeader,
+  ModalFooter,
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 
-const MyModal = () => {
+interface MyModal {
+  title: string;
+  children: ReactNode;
+  buttonText: string;
+  onSubmit: () => void;
+}
+
+const MyModal = ({ title, children, buttonText, onSubmit }: MyModal) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent w="modal.w" h="modal.h">
-            <ModalHeader>머리입니다</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>내용</ModalBody>
-          </ModalContent>
-        </Modal>
-      </Button>
+      <Button onClick={onOpen}>오픈모달</Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent maxW="modal.w" h="modal.h" borderRadius="10px">
+          <Heading
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            fontSize="1.6rem"
+            bg="pink.300"
+            h="modal.header.h"
+            borderTopRadius="10px"
+          >
+            {title}
+          </Heading>
+          <ModalCloseButton />
+          <ModalBody>{children}</ModalBody>
+          <ModalFooter justifyContent="center">
+            <Button
+              h="modal.button.h"
+              w="modal.button.w"
+              bg="pink.100"
+              onClick={onSubmit}
+              mb="28px"
+            >
+              {buttonText}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
