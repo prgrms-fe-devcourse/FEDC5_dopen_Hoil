@@ -14,17 +14,20 @@ import {
   ListItem,
   Checkbox,
 } from '@chakra-ui/react';
+
 import { Input, Button, Form } from '@/pages/SignUp';
-import { DEFAULT_WIDTH } from '@/constants/style';
+
 import { getUserList } from '@/apis/userInfo';
 import { logIn } from '@/apis/authentication';
 import { User } from '@/apis/type';
 import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
+import { DEFAULT_WIDTH } from '@/constants/style';
+import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
 import { setItem, getItem } from '@/utils/storage';
 
-import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
 import { saveLoginId } from './saveLoginId';
+import { preparing } from './preparing';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -122,11 +125,6 @@ const Login = () => {
         { shouldFocus: true },
       );
     }
-  };
-
-  const preparing = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-    alert('현재 서비스 준비중입니다.');
   };
 
   return (
