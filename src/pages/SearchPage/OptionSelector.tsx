@@ -4,11 +4,11 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface SearchOptionSelectorProps extends SelectProps {
   setSearchOption: Dispatch<SetStateAction<string>>;
-  SELETE_OPTION: string[];
+  SELETE_OPTIONS: string[];
 }
 
-const SearchOptionSelector = ({
-  SELETE_OPTION = [],
+const OptionSelector = ({
+  SELETE_OPTIONS = [],
   setSearchOption,
   ...props
 }: SearchOptionSelectorProps) => {
@@ -19,7 +19,7 @@ const SearchOptionSelector = ({
         onChange={(e) => setSearchOption(e.target.value)}
         {...props}
       >
-        {SELETE_OPTION.map((option) => (
+        {SELETE_OPTIONS.map((option) => (
           <option value={option} key={option}>
             {option}
           </option>
@@ -29,4 +29,4 @@ const SearchOptionSelector = ({
   );
 };
 
-export default SearchOptionSelector;
+export default OptionSelector;

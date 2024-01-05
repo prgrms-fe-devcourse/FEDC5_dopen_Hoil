@@ -1,20 +1,21 @@
-import { DEFAULT_PAGE_PADDING } from '@/constants/style';
+import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { Box, BoxProps, CloseButton, Flex, Input } from '@chakra-ui/react';
-import { Dispatch, FormEvent, SetStateAction } from 'react';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 
+// TODO : Input 컴포넌트인데 BoxProps를 받아오니깐 어색... 새로운 작명이 필요
 interface SearchInputProps extends BoxProps {
   keyword: string;
   disabled?: boolean;
   setKeyword: Dispatch<SetStateAction<string>>;
-  onSearchStart: (e: FormEvent<HTMLFormElement>) => void;
+  onSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 const SearchInput = ({
   keyword = '',
   disabled,
   setKeyword,
-  onSearchStart,
+  onSearchSubmit,
   ...props
 }: SearchInputProps) => {
   return (
@@ -26,7 +27,7 @@ const SearchInput = ({
         alignItems="center"
       >
         <SearchIcon boxSize={6} />
-        <form style={{ flexGrow: '1' }} onSubmit={(e) => onSearchStart(e)}>
+        <form style={{ flexGrow: '1' }} onSubmit={(e) => onSearchSubmit(e)}>
           <Input
             fontSize="1.4rem"
             color="gray.700"
