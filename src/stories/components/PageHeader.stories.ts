@@ -5,10 +5,10 @@ const meta: Meta<typeof PageHeader> = {
   component: PageHeader,
   argTypes: {
     width: {
-      control: 'number',
+      control: 'text',
     },
     height: {
-      control: 'number',
+      control: 'text',
     },
     pageName: {
       control: 'text',
@@ -21,8 +21,8 @@ type Story = StoryObj<typeof PageHeader>;
 
 export const Deafult: Story = {
   args: {
-    width: 428,
-    height: 80,
+    width: '428px',
+    height: '80px',
     pageName: '테스트',
   },
 };
