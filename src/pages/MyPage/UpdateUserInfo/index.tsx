@@ -1,7 +1,6 @@
 import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
-import { DEFAULT_WIDTH } from '@/constants/style';
-import { SubmitButton, Input, Form } from '@/pages/SignUp';
+import { Button, Input, Form } from '@/pages/SignUp';
 import {
   Box,
   Flex,
@@ -58,7 +57,7 @@ const UpdateUserInfo = () => {
   return (
     <Form
       style={{
-        maxWidth: DEFAULT_WIDTH,
+        width: '100%',
         margin: '0 auto',
         height: '100vh',
         padding: '30px 20px',
@@ -115,13 +114,13 @@ const UpdateUserInfo = () => {
           </ListItem>
         ))}
       </UnorderedList>
-      <SubmitButton>회원정보 수정</SubmitButton>
-      <SubmitButton
+      <Button>회원정보 수정</Button>
+      <Button
         type="button"
         style={{ backgroundColor: '#A09ABD', marginTop: '18px' }}
       >
         회원탈퇴
-      </SubmitButton>
+      </Button>
     </Form>
   );
 };
