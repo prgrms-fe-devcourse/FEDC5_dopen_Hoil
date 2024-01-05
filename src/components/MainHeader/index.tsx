@@ -33,7 +33,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
         alt="dopen logo"
         w="130px"
         h={DEFAULT_HEADER_HEIGHT}
-        src="https://via.placeholder.com/80"
+        src="/assets/dopenLogo.svg"
       />
       <Flex gap="20px">
         <IconButton

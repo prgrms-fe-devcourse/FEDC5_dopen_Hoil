@@ -1,4 +1,4 @@
-import MyPage from '@/components/MyPage';
+import MyPage from '@/pages/MyPage';
 import { Meta, StoryObj } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 
