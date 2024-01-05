@@ -19,7 +19,6 @@ import { Input, Button, Form } from '@/pages/SignUp';
 
 import { getUserList } from '@/apis/userInfo';
 import { logIn } from '@/apis/authentication';
-import { User } from '@/apis/type';
 import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
 import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
@@ -27,6 +26,7 @@ import { setItem, getItem } from '@/utils/storage';
 
 import { saveLoginId } from './saveLoginId';
 import { preparing } from './preparing';
+import { userInfoCheck } from '../SignUp/userInfoCheck';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -118,10 +118,8 @@ const Login = () => {
 
   const onLoginValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
     const userList = await getUserList({});
-    const isEmailCheck = userList.some(
-      (userData: User) => userData.email === email,
-    );
-    if (isEmailCheck) {
+    const isUserEmailCheck = userInfoCheck(userList, 'email', email);
+    if (isUserEmailCheck) {
       mutate();
     } else {
       setError(
