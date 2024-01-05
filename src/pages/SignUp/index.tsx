@@ -113,7 +113,7 @@ const SignUp = () => {
     await userInfoValid({ userData: data, setError, callback: mutate });
 
   return (
-    <Box maxWidth={428} m="0 auto" textAlign="center" p="130px 20px">
+    <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">
       <Box mb={30}>
         <Heading mb={6}>
           <Image
