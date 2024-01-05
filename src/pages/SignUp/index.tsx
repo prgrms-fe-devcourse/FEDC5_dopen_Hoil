@@ -2,15 +2,67 @@ import { useMutation } from 'react-query';
 import { AxiosError } from 'axios';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { signUp } from '@/apis/authentication';
-import { getUserList } from '@/apis/userInfo';
 import { setItem } from '@/utils/storage';
 import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
-import { UserResponse, UserInfoInput, SignUpInputProperty } from '@/types/user';
+import { UserResponse, UserInfoInput } from '@/types/user';
+
+import { userInfoValid } from './userInfoValid';
+
+interface UserInputData {
+  name: Path<UserInfoInput>;
+  label: string;
+  type: string;
+  required: boolean;
+  placeholder?: string;
+  validate?: RegisterOptions;
+}
+
+export const UserInputList: UserInputData[] = [
+  {
+    name: 'email',
+    label: '이메일',
+    type: 'text',
+    required: true,
+    placeholder: '이메일',
+    validate: { ...INPUT_VALIDATE.email },
+  },
+  {
+    name: 'fullName',
+    label: '이름',
+    type: 'text',
+    required: true,
+    placeholder: '이름',
+    validate: { ...INPUT_VALIDATE.fullName },
+  },
+  {
+    name: 'username',
+    label: '닉네임',
+    type: 'text',
+    required: true,
+    placeholder: '닉네임',
+    validate: { ...INPUT_VALIDATE.username },
+  },
+  {
+    name: 'password',
+    label: '비밀번호',
+    type: 'password',
+    required: true,
+    placeholder: '비밀번호',
+    validate: { ...INPUT_VALIDATE.password },
+  },
+  {
+    name: 'passwordConfirm',
+    label: '비밀번호 확인',
+    type: 'password',
+    required: true,
+    placeholder: '비밀번호 확인',
+  },
+];
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -57,79 +109,8 @@ const SignUp = () => {
     },
   );
 
-  const onValid: SubmitHandler<UserInfoInput> = async ({
-    username,
-    password,
-    passwordConfirm,
-  }) => {
-    const userList = await getUserList({});
-
-    // 중복 닉네임 체크
-    const UsersNickNameCheck =
-      userList && userList.some((user) => user.username === username);
-    if (UsersNickNameCheck) {
-      setError(
-        'username',
-        { message: '동일한 닉네임이 존재합니다.' },
-        { shouldFocus: true },
-      );
-      return;
-    }
-
-    // 비밀번호 일치 체크
-    if (password !== passwordConfirm) {
-      setError(
-        'passwordConfirm',
-        { message: '비밀번호가 일치하지 않습니다.' },
-        { shouldFocus: true },
-      );
-      return;
-    }
-
-    mutate();
-  };
-
-  const signUpInputArray: SignUpInputProperty[] = [
-    {
-      name: 'email',
-      label: '이메일',
-      type: 'text',
-      required: true,
-      placeholder: '이메일',
-      validate: { ...INPUT_VALIDATE.email },
-    },
-    {
-      name: 'fullName',
-      label: '이름',
-      type: 'text',
-      required: true,
-      placeholder: '이름',
-      validate: { ...INPUT_VALIDATE.fullName },
-    },
-    {
-      name: 'username',
-      label: '닉네임',
-      type: 'text',
-      required: true,
-      placeholder: '닉네임',
-      validate: { ...INPUT_VALIDATE.username },
-    },
-    {
-      name: 'password',
-      label: '비밀번호',
-      type: 'password',
-      required: true,
-      placeholder: '비밀번호',
-      validate: { ...INPUT_VALIDATE.password },
-    },
-    {
-      name: 'passwordConfirm',
-      label: '비밀번호 확인',
-      type: 'password',
-      required: true,
-      placeholder: '비밀번호 확인',
-    },
-  ];
+  const onValid: SubmitHandler<UserInfoInput> = async (data) =>
+    await userInfoValid({ userData: data, setError, callback: mutate });
 
   return (
     <Box maxWidth={428} m="0 auto" textAlign="center" p="130px 20px">
@@ -152,7 +133,7 @@ const SignUp = () => {
       </Box>
       <Form onSubmit={handleSubmit(onValid)}>
         <ul>
-          {signUpInputArray.map(
+          {UserInputList.map(
             ({ name, type, required, placeholder, validate }) => (
               <li key={name}>
                 <Input
