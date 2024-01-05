@@ -8,12 +8,12 @@ export const useMessage = (userId: string) => {
     async () => await getMessageListByUser(userId),
   );
 
-  const messageLogs = data?.map(({ message, sender, receiver }) => {
+  const messageLogs = data?.map(({ message, sender, receiver, _id }) => {
     if (import.meta.env.VITE_APP_TESTID === sender._id) {
-      return { message, type: 'sent' };
+      return { _id, message, type: 'sent' };
     }
     if (import.meta.env.VITE_APP_TESTID === receiver._id) {
-      return { message, type: 'received' };
+      return { _id, message, type: 'received' };
     }
   });
 
