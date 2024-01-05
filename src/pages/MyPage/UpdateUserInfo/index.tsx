@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
-import { Button, Input, Form } from '@/pages/SignUp';
 import {
   Box,
   Flex,
@@ -9,15 +9,33 @@ import {
   UnorderedList,
   ListItem,
 } from '@chakra-ui/react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import { changeUserName, changePassword } from '@/apis/userInfo';
 import { UserInputList } from '@/pages/SignUp';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { UserInfoInput } from '@/types/user';
-import { AxiosError } from 'axios';
-import { User } from '@/apis/type';
+import { Button, Input, Form } from '@/pages/SignUp';
 import { userInfoValid } from '@/pages/SignUp/userInfoValid';
+import { preparing } from '@/pages/Login/preparing';
+import { User } from '@/apis/type';
+import { UserInfoInput } from '@/types/user';
 
-const UpdateUserInfo = () => {
+interface userInfoTypes {
+  image: string;
+  email: string;
+  fullName: string;
+  username: string;
+}
+
+const UpdateUserInfo = ({
+  image,
+  email,
+  fullName,
+  username,
+}: userInfoTypes) => {
+  const [profilePreview, setProfilePreview] = useState(image || '');
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -25,13 +43,31 @@ const UpdateUserInfo = () => {
     getValues,
     formState: { errors },
   } = useForm<UserInfoInput>({
-    defaultValues: {},
+    defaultValues: {
+      email,
+      fullName,
+      username,
+    },
   });
 
   const onSuccess = async () => {
     // 2차 비밀번호 변경
     const { password } = getValues();
     await changePassword(password);
+
+    // 3차 프로필 이미지 변경 (api 통신 오류)
+    // if (profilePreview) {
+    //   const file = new File([new Blob([profilePreview])], 'profileImage.png', {
+    //     type: 'image/png',
+    //   });
+
+    //   await changeProfileImage({
+    //     image: file,
+    //     isCover: false,
+    //   });
+    // }
+
+    navigate(-1);
   };
   const onError = () => {};
 
@@ -51,6 +87,15 @@ const UpdateUserInfo = () => {
     },
   );
 
+  // 프로필 이미지 변경
+  const onProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file: File = event.target.files[0];
+      const profileImage = URL.createObjectURL(file);
+      setProfilePreview(profileImage);
+    }
+  };
+
   const onUpdateUserInfoValid: SubmitHandler<UserInfoInput> = async (data) =>
     await userInfoValid({ userData: data, setError, callback: mutate });
 
@@ -67,11 +112,12 @@ const UpdateUserInfo = () => {
       <UnorderedList ml="0">
         <ListItem mb="30px" listStyleType="none">
           <Flex alignItems="center">
-            <Box w="118px" mr="32px">
+            <Box w="118px" h="118px" mr="32px">
               <Avatar
-                size="118px"
+                w="118px"
+                h="118px"
                 name="프로필 이미지 등록하기"
-                src="https://via.placeholder.com/118x118"
+                src={profilePreview || 'https://via.placeholder.com/118x118'}
               ></Avatar>
             </Box>
             <Box w="calc(100% - 150px)">
@@ -81,7 +127,7 @@ const UpdateUserInfo = () => {
                   type="file"
                   id="file"
                   accept="image/*"
-                  {...register('profileImage')}
+                  onChange={onProfileImageChange}
                 />
               </ProfileUploadFileBox>
               <Text
@@ -118,6 +164,7 @@ const UpdateUserInfo = () => {
       <Button
         type="button"
         style={{ backgroundColor: '#A09ABD', marginTop: '18px' }}
+        onClick={preparing}
       >
         회원탈퇴
       </Button>
