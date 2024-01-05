@@ -4,15 +4,16 @@ import styled from '@emotion/styled';
 // TODO : 게시판 목록을 API를 통해 '658b7460fadd1520147a8d72' 형태로 받아와서 객체 key-value 값으로 바꿀 필요가 있음.
 // 이에 따라 Router 설정도 필요 (with. 쿼리 스트링)
 // /constants/SearchOption 에서 수정하기
-import { SELETE_OPTION } from '@/constants/SearchOption';
+import { OPTION_USER, SELETE_OPTIONS } from '@/constants/SearchOptions';
 import { DEFAULT_WIDTH } from '@/constants/style';
+import { TEST_CHANNEL_ID } from '@/constants/apiTest';
 import PageHeader from '@/components/PageHeader';
 import PostList from '@/components/PostList';
 import UserList from '@/components/UserList';
-import SearchOptionSelector from '@/pages/SearchPage/SearchOptionSelector';
+import OptionSelector from '@/pages/SearchPage/OptionSelector';
 import SearchInput from '@/pages/SearchPage/SearchInput';
 
-export interface searchDataTypes {
+export interface SearchDataTypes {
   keyword: string;
   channelId: string;
 }
@@ -20,38 +21,36 @@ export interface searchDataTypes {
 const SearchPage = () => {
   const [searchOption, setSearchOption] = useState('');
   const [keyword, setKeyword] = useState('');
-  const [searchData, setSearchData] = useState<searchDataTypes>({
+  const [searchData, setSearchData] = useState<SearchDataTypes>({
     keyword: '',
     channelId: '',
   });
 
-  const onSearchStart = (e: FormEvent<HTMLFormElement>) => {
+  const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // 이 부분 컨벤션이 기억이 안나서 코멘트 부탁드리겠습니다 !
-    if (searchOption === '유저') {
+    if (searchOption === OPTION_USER) {
       setSearchData({
-        keyword: keyword,
+        keyword,
         channelId: '',
       });
     } else {
       setSearchData({
-        keyword: keyword,
-        channelId: '658b7460fadd1520147a8d72', // 게시판의 ID로 바꿔주기. 이건 Test 채널
+        keyword,
+        channelId: TEST_CHANNEL_ID,
       });
     }
-    // 이 부분 컨벤션이 기억이 안나서 코멘트 부탁드리겠습니다 !
+    setKeyword('');
   };
 
   return (
     <Flex w={DEFAULT_WIDTH} height="100vh" margin="0 auto" direction="column">
       <PageHeader pageName="검색" />
       <SearchPageBody>
-        <SearchOptionSelector
+        <OptionSelector
           w="132px"
           mb="5px"
           setSearchOption={setSearchOption}
-          SELETE_OPTION={SELETE_OPTION}
+          SELETE_OPTIONS={SELETE_OPTIONS}
         />
         <SearchInput
           w="100%"
@@ -59,7 +58,7 @@ const SearchPage = () => {
           disabled={searchOption ? false : true}
           keyword={keyword}
           setKeyword={setKeyword}
-          onSearchStart={onSearchStart}
+          onSearchSubmit={onSearchSubmit}
         />
         {searchData.keyword &&
           (searchData.channelId !== '' ? (
