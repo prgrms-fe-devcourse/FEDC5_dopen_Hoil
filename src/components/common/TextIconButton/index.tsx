@@ -5,28 +5,21 @@ import {
   IconButton,
   IconProps,
   Text,
-  TextProps,
 } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 
 interface TextIconButtonProps extends FlexProps {
   TheIcon: IconType;
   textContent: string;
-  boxSize?: IconProps['boxSize'];
   textLocation?: 'left' | 'right' | 'top' | 'bottom';
-  fontSize?: TextProps['fontSize'];
+  boxSize?: IconProps['boxSize'];
   iconColor?: IconProps['color'];
-  textColor?: TextProps['color'];
-  fontWeight?: TextProps['fontWeight'];
 }
 
 const TextIconButton = ({
   TheIcon,
   textContent,
   textLocation = 'bottom',
-  fontSize = 'sm',
-  textColor = 'black',
-  fontWeight = '800',
   boxSize = 'icon',
   iconColor = 'black',
   ...props
@@ -54,6 +47,9 @@ const TextIconButton = ({
       justify="center"
       cursor="pointer"
       role="group"
+      fontSize="sm"
+      color="black"
+      fontWeight="extrabold"
       {...props}
     >
       <IconButton
@@ -62,14 +58,7 @@ const TextIconButton = ({
         bg="transparent"
         _groupHover={{ background: 'gray.450' }}
       />
-      <Text
-        fontSize={fontSize}
-        fontWeight={fontWeight}
-        textAlign="center"
-        color={textColor}
-      >
-        {textContent}
-      </Text>
+      <Text textAlign="center">{textContent}</Text>
     </Flex>
   );
 };
