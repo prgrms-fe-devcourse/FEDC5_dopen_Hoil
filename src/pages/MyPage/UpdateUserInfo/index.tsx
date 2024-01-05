@@ -1,27 +1,72 @@
+import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
 import { DEFAULT_WIDTH } from '@/constants/style';
-import { SubmitButton, Input } from '@/pages/SignUp';
+import { SubmitButton, Input, Form } from '@/pages/SignUp';
 import {
   Box,
   Flex,
   Avatar,
   Text,
-  FormControl,
   UnorderedList,
   ListItem,
 } from '@chakra-ui/react';
+import { changeUserName, changePassword } from '@/apis/userInfo';
+import { UserInputList } from '@/pages/SignUp';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { UserInfoInput } from '@/types/user';
+import { AxiosError } from 'axios';
+import { User } from '@/apis/type';
+import { userInfoValid } from '@/pages/SignUp/userInfoValid';
 
 const UpdateUserInfo = () => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    getValues,
+    formState: { errors },
+  } = useForm<UserInfoInput>({
+    defaultValues: {},
+  });
+
+  const onSuccess = async () => {
+    // 2차 비밀번호 변경
+    const { password } = getValues();
+    await changePassword(password);
+  };
+  const onError = () => {};
+
+  const { mutate } = useMutation<User, AxiosError>(
+    async () => {
+      // 1차 이름, 닉네임 변경
+      const { fullName, username } = getValues();
+      const changeUser = await changeUserName({ fullName, username });
+      return changeUser;
+    },
+    {
+      onSuccess,
+      onError,
+      meta: {
+        errorMessage: '회원정보 수정에서 에러가 발생했습니다.',
+      },
+    },
+  );
+
+  const onUpdateUserInfoValid: SubmitHandler<UserInfoInput> = async (data) =>
+    await userInfoValid({ userData: data, setError, callback: mutate });
+
   return (
-    <FormControl
-      maxW={DEFAULT_WIDTH}
-      margin="0 auto"
-      border="1px solid"
-      h="100vh"
-      padding="30px 20px"
+    <Form
+      style={{
+        maxWidth: DEFAULT_WIDTH,
+        margin: '0 auto',
+        height: '100vh',
+        padding: '30px 20px',
+      }}
+      onSubmit={handleSubmit(onUpdateUserInfoValid)}
     >
       <UnorderedList ml="0">
-        <ListItem listStyleType="none" mb="30px">
+        <ListItem mb="30px" listStyleType="none">
           <Flex alignItems="center">
             <Box w="118px" mr="32px">
               <Avatar
@@ -33,7 +78,12 @@ const UpdateUserInfo = () => {
             <Box w="calc(100% - 150px)">
               <ProfileUploadFileBox>
                 <label htmlFor="file">프로필 이미지 업로드</label>
-                <input type="file" id="file" />
+                <input
+                  type="file"
+                  id="file"
+                  accept="image/*"
+                  {...register('profileImage')}
+                />
               </ProfileUploadFileBox>
               <Text
                 fontSize="sm"
@@ -46,42 +96,33 @@ const UpdateUserInfo = () => {
             </Box>
           </Flex>
         </ListItem>
-        <ListItem listStyleType="none" mb="15px">
-          <Text as="strong" fontSize="14px">
-            이메일
-          </Text>
-          <Input type="text" disabled />
-        </ListItem>
-        <ListItem listStyleType="none" mb="15px">
-          <Text as="strong" fontSize="14px">
-            이름
-          </Text>
-          <Input type="text" />
-        </ListItem>
-        <ListItem listStyleType="none" mb="15px">
-          <Text as="strong" fontSize="14px">
-            닉네임
-          </Text>
-          <Input type="text" />
-        </ListItem>
-        <ListItem listStyleType="none" mb="15px">
-          <Text as="strong" fontSize="14px">
-            비밀번호
-          </Text>
-          <Input type="password" />
-        </ListItem>
-        <ListItem listStyleType="none" mb="15px">
-          <Text as="strong" fontSize="14px">
-            비밀번호 확인
-          </Text>
-          <Input type="password" />
-        </ListItem>
+        {UserInputList.map(({ name, label, type, required, validate }) => (
+          <ListItem listStyleType="none" mb="15px" key={name}>
+            <Text as="strong" fontSize="14px">
+              {label}
+            </Text>
+            <Input
+              type={type}
+              required={name === 'email' ? false : required}
+              disabled={name === 'email' ? true : false}
+              {...register(name, {
+                ...validate,
+              })}
+            />
+            <Text mt={2} color="pink.300" fontSize="sm">
+              {errors && errors[name] && errors[name]?.message}
+            </Text>
+          </ListItem>
+        ))}
       </UnorderedList>
       <SubmitButton>회원정보 수정</SubmitButton>
-      <SubmitButton style={{ backgroundColor: '#A09ABD', marginTop: '18px' }}>
+      <SubmitButton
+        type="button"
+        style={{ backgroundColor: '#A09ABD', marginTop: '18px' }}
+      >
         회원탈퇴
       </SubmitButton>
-    </FormControl>
+    </Form>
   );
 };
 
