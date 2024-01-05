@@ -20,14 +20,12 @@ const useUserInfo = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       const user: User = await checkAuthenticated();
-
       const userInfo: userInfoType = {
         image: user.image,
         email: user.email,
         fullName: user.fullName,
         username: user.username,
       };
-
       setUserInfo(userInfo);
     };
 
