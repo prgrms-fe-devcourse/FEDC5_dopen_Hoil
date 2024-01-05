@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 // TODO : 게시판 목록을 API를 통해 '658b7460fadd1520147a8d72' 형태로 받아와서 객체 key-value 값으로 바꿀 필요가 있음.
 // 이에 따라 Router 설정도 필요 (with. 쿼리 스트링)
 // /constants/SearchOption 에서 수정하기
-import { OPTION_USER, SELETE_OPTIONS } from '@/constants/SearchOptions';
+import { OPTION_USER, SELECT_OPTIONS } from '@/constants/SearchOptions';
 import { DEFAULT_WIDTH } from '@/constants/style';
 import { TEST_CHANNEL_ID } from '@/constants/apiTest';
 import PageHeader from '@/components/PageHeader';
@@ -19,7 +19,7 @@ export interface SearchDataTypes {
 }
 
 const SearchPage = () => {
-  const [searchOption, setSearchOption] = useState('');
+  const [option, setOption] = useState('');
   const [keyword, setKeyword] = useState('');
   const [searchData, setSearchData] = useState<SearchDataTypes>({
     keyword: '',
@@ -28,7 +28,7 @@ const SearchPage = () => {
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchOption === OPTION_USER) {
+    if (option === OPTION_USER) {
       setSearchData({
         keyword,
         channelId: '',
@@ -49,13 +49,13 @@ const SearchPage = () => {
         <OptionSelector
           w="132px"
           mb="5px"
-          setSearchOption={setSearchOption}
-          SELETE_OPTIONS={SELETE_OPTIONS}
+          setOption={setOption}
+          SELECT_OPTIONS={SELECT_OPTIONS}
         />
         <SearchInput
           w="100%"
           mb="30px"
-          disabled={searchOption ? false : true}
+          disabled={option ? false : true}
           keyword={keyword}
           setKeyword={setKeyword}
           onSearchSubmit={onSearchSubmit}
