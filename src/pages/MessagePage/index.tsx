@@ -5,7 +5,7 @@ const MessagePage = () => {
   return (
     <Flex flexDir="column">
       <PageHeader pageName="DM" />
-      <Message gap="8" h="100vh" />
+      <Message gap="8" minH="100vh" />
     </Flex>
   );
 };
