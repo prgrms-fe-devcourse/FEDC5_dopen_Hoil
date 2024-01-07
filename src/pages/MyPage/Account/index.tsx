@@ -6,7 +6,7 @@ const Account = () => {
 
   return (
     <>
-      {email && fullName && username ? (
+      {email && fullName ? (
         <UpdateUserInfo
           image={image}
           email={email}
