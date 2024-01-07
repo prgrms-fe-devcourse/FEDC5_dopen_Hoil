@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import {
@@ -63,6 +63,7 @@ const socialLoginList = [
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -81,7 +82,13 @@ const Login = () => {
     alert('로그인 성공');
     saveLoginId(getValues('isSavedId'), getValues('email'));
     setItem(LOGIN_TOKEN, data.token);
-    navigate(-1);
+
+    const path = location.state?.from?.pathname;
+    if (!path || path === '/signup') {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
   };
 
   const onError = (error: AxiosError) => {
