@@ -4,9 +4,9 @@ import Message from '@/pages/MessagePage/Message';
 
 const MessagePage = () => {
   return (
-    <Flex flexDir="column">
+    <Flex flexDir="column" h="100vh">
       <PageHeader pageName="DM" />
-      <Message gap="10" minH="100vh" bgColor="gray.300" />
+      <Message bgColor="gray.300" minH="100vh" overflowY="auto" />
     </Flex>
   );
 };
