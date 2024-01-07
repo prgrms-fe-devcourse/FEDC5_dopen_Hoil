@@ -2,7 +2,8 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { getMessageList } from '@/apis/message';
 import { Conversation } from '@/apis/type';
-import { calculateTimeDiff } from '@/components/MessageList/calculateTimeDiff';
+import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+
 export const useMessageList = () => {
   const { isLoading, error, data } = useQuery<Conversation[], AxiosError>(
     'messageList',
