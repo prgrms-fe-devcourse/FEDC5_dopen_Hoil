@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import MainPage from '@/pages/MainPage';
 import SignUp from '@/pages/SignUp';
+import Login from '@/pages/Login';
 import MyPage from '@/pages/MyPage';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/message" element={<MessageListPage />} />
