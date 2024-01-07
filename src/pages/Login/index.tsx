@@ -21,7 +21,6 @@ import { getUserList } from '@/apis/userInfo';
 import { logIn } from '@/apis/authentication';
 import { User } from '@/apis/type';
 import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
-import { DEFAULT_WIDTH } from '@/constants/style';
 import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
 import { setItem, getItem } from '@/utils/storage';
@@ -37,7 +36,6 @@ const loginInputList: LoginInputProperty[] = [
     required: true,
     placeholder: '이메일을 입력해주세요',
     validate: { ...LOGIN_INPUT_VALIDATE.email },
-    value: getItem(LOGINID_SAVEKEY, ''),
   },
   {
     name: 'password',
@@ -128,18 +126,13 @@ const Login = () => {
   };
 
   return (
-    <Box
-      maxWidth={DEFAULT_WIDTH}
-      m="0 auto"
-      textAlign="center"
-      p="130px 20px"
-      border="1px solid"
-    >
+    <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">
       <Box mb="36px">
         <Heading mb="17px">
           <Image
             m="0 auto"
-            src="https://via.placeholder.com/198x74"
+            w="198px"
+            src="/assets/dopenLogo.svg"
             alt="Dopen Logo"
           />
         </Heading>
