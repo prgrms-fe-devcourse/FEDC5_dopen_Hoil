@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { getItem } from '@/utils/storage';
+import { LOGIN_TOKEN } from '@/constants/user';
 
 const API_ENDPOINT = `${import.meta.env.VITE_APP_URL}:${
   import.meta.env.VITE_APP_PORT
@@ -12,7 +14,7 @@ export const axiosInstance = axios.create({
 });
 //TODO : 추후에 merge된 이후 상수로 바꾸기
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('login-token');
+  const token = getItem(LOGIN_TOKEN, '');
   if (token && config.headers) {
     config.headers.Authorization = `bearer ${token}`;
   }
