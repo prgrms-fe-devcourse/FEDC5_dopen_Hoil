@@ -19,6 +19,7 @@ import { userInfoValid } from '@/pages/SignUp/userInfoValid';
 import { preparing } from '@/pages/Login/preparing';
 import { User } from '@/apis/type';
 import { UserInfoInput } from '@/types/user';
+import { PROFILE_IMAGE_TYPES } from '@/constants/user';
 
 interface userInfoTypes {
   image: string;
@@ -67,6 +68,7 @@ const UpdateUserInfo = ({
     //   });
     // }
 
+    alert('회원정보 수정 완료');
     navigate(-1);
   };
   const onError = () => {};
@@ -91,8 +93,16 @@ const UpdateUserInfo = ({
   const onProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file: File = event.target.files[0];
+      const fileType = file['type'];
       const profileImage = URL.createObjectURL(file);
-      setProfilePreview(profileImage);
+
+      if (PROFILE_IMAGE_TYPES.includes(fileType)) {
+        setProfilePreview(profileImage);
+      } else {
+        alert(
+          '파일 형식이 올바르지 않습니다. 이미지 파일만 업로드할 수 있습니다.',
+        );
+      }
     }
   };
 
