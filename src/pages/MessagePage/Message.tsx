@@ -3,6 +3,7 @@ import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
+import { Fragment } from 'react';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
@@ -12,7 +13,7 @@ const Message = ({ ...props }: BoxProps) => {
     <Flex flexDir="column" gap="5" {...props}>
       {messageLogs?.map(([date, messages]) => {
         return (
-          <>
+          <Fragment key={date}>
             <TextDivider
               key={date}
               p="10"
@@ -48,7 +49,7 @@ const Message = ({ ...props }: BoxProps) => {
                 </MessageBox>
               );
             })}
-          </>
+          </Fragment>
         );
       })}
     </Flex>
