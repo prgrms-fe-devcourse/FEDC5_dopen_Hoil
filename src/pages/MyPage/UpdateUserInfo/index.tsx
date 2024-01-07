@@ -93,15 +93,14 @@ const UpdateUserInfo = ({
   const onProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file: File = event.target.files[0];
-      const fileType = file['type'];
-      const profileImage = URL.createObjectURL(file);
+      const fileType = file.type;
 
-      if (PROFILE_IMAGE_TYPES.includes(fileType)) {
+      if (PROFILE_IMAGE_TYPES[fileType]) {
+        const profileImage = URL.createObjectURL(file);
         setProfilePreview(profileImage);
       } else {
-        alert(
-          '파일 형식이 올바르지 않습니다. 이미지 파일만 업로드할 수 있습니다.',
-        );
+        alert('파일 형식이 올바르지 않습니다. 이미지 파일을 업로드해 주세요.');
+        event.target.value = '';
       }
     }
   };
@@ -128,7 +127,7 @@ const UpdateUserInfo = ({
                 h="118px"
                 name="프로필 이미지 등록하기"
                 src={profilePreview || 'https://via.placeholder.com/118x118'}
-              ></Avatar>
+              />
             </Box>
             <Box w="calc(100% - 150px)">
               <ProfileUploadFileBox>
@@ -165,7 +164,7 @@ const UpdateUserInfo = ({
               })}
             />
             <Text mt={2} color="pink.300" fontSize="sm">
-              {errors && errors[name] && errors[name]?.message}
+              {errors?.[name]?.message}
             </Text>
           </ListItem>
         ))}
