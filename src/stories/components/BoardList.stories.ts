@@ -1,4 +1,4 @@
-import BoardList from '@/components/common/BoardList';
+import BoardList from '@/components/BoardList';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BoardList> = {
