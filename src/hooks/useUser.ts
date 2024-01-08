@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import { getUserList } from '@/apis/userInfo';
+import { USER_LIST } from '@/constants/queryKeys';
 
 interface userListProps {
   offset?: number;
@@ -8,7 +9,7 @@ interface userListProps {
 
 export const useGetUsersList = ({ offset, limit }: userListProps = {}) => {
   return useQuery(
-    'user-list',
+    USER_LIST,
     async () => {
       if (offset && limit) {
         return await getUserList({ offset, limit });
