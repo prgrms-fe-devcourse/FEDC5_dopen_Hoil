@@ -11,7 +11,7 @@ import { INPUT_VALIDATE } from '@/constants/inputValidate';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { UserResponse, UserInfoInput } from '@/types/user';
 
-import { userInfoValid } from './userInfoValid';
+import { validateUserInfo } from './validateUserInfo';
 
 interface UserInputData {
   name: Path<UserInfoInput>;
@@ -110,7 +110,7 @@ const SignUp = () => {
   );
 
   const onValid: SubmitHandler<UserInfoInput> = async (data) =>
-    await userInfoValid({ userData: data, setError, onSuccess: mutate });
+    await validateUserInfo({ userData: data, setError, onSuccess: mutate });
 
   return (
     <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">

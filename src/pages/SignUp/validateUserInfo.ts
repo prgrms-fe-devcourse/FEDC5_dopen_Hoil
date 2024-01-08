@@ -9,7 +9,7 @@ interface userInfoValidProps {
   onSuccess: () => void;
 }
 
-export const userInfoValid = async ({
+export const validateUserInfo = async ({
   userData,
   setError,
   onSuccess,
