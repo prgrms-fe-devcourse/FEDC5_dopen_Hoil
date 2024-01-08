@@ -1,10 +1,20 @@
+import PageLayout from '@/components/PageLayout';
 import TimerPage from '@/pages/TimerPage';
 import { Meta, StoryObj } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
+import {
+  reactRouterNestedAncestors,
+  reactRouterParameters,
+  withRouter,
+} from 'storybook-addon-react-router-v6';
 
 const meta: Meta<typeof TimerPage> = {
   component: TimerPage,
   decorators: [withRouter],
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterNestedAncestors(<PageLayout />),
+    }),
+  },
   argTypes: {},
 };
 

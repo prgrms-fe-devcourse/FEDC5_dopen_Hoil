@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 
 const useTimer = (initialTime: string = '00:00:00') => {
+  //setInterval의 반환 타입 추론
   const Ref = useRef<ReturnType<typeof setInterval>>();
 
   const [timer, setTimer] = useState(initialTime);
@@ -33,6 +34,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
     if (Ref.current) {
       return;
     }
+
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
       if (total >= 0) {
@@ -56,15 +58,9 @@ const useTimer = (initialTime: string = '00:00:00') => {
   };
 
   const getDeadLineTime = (deadline: string): Date => {
-    /* 
-    1. 유저에게서 hh:mm:ss형태의 값을 받아온다.
-    2. 현재시각에서 hh:mm:ss를 추출한뒤, 유저에게서 받아온 값을 더해준다.
-      2-1. 23:59가 넘어가면 안된다.
-      2-2. 넘어가지 않는다면 3번으로
-    3. 더한 시간을 리턴해준다
-    */
     const [hours, minutes, seconds] = deadline.split(':').map(Number);
     const deadLineToSeconds = seconds + minutes * 60 + hours * 60 * 24;
+
     const currentDate = new Date();
     currentDate.setSeconds(currentDate.getSeconds() + deadLineToSeconds);
     return currentDate;
