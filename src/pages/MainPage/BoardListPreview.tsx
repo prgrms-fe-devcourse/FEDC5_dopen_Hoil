@@ -5,7 +5,7 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react';
 const BoardListPreview = () => {
   const DUMMY_GALLERY_DATA = [
     {
-      name: '자유게시판',
+      name: '자유 게시판',
       posts: ['자유게시판 첫 번째 글', '자유게시판 두 번째 글'],
     },
     {
