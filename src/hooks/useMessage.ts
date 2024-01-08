@@ -1,8 +1,8 @@
-import { useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 import { getMessageListByUser } from '@/apis/message';
 import { convertDateToString } from '@/utils/convertDateToString';
 
-interface Message {
+interface MessageLog {
   time: string;
   message: string;
   _id: string;
@@ -10,12 +10,17 @@ interface Message {
 }
 
 export const useMessage = (userId: string) => {
+  const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery(
-    'message',
+    ['message', userId],
     async () => await getMessageListByUser(userId),
   );
 
-  const messageLogs = new Map<string, Message[]>();
+  const updateMessageLogs = () => {
+    queryClient.invalidateQueries(['message', userId]);
+  };
+
+  const messageLogs = new Map<string, MessageLog[]>();
 
   data?.forEach(({ message, sender, _id, createdAt }) => {
     const { date, time } = convertDateToString(new Date(createdAt));
@@ -33,5 +38,10 @@ export const useMessage = (userId: string) => {
     }
   });
 
-  return { isLoading, error, messageLogs: Array.from(messageLogs.entries()) };
+  return {
+    isLoading,
+    error,
+    messageLogs: Array.from(messageLogs.entries()),
+    updateMessageLogs,
+  };
 };
