@@ -41,10 +41,11 @@ interface TimerInputMetaDataTypes {
 }
 
 const TimerPage = () => {
-  const { timer, startTimer, stopTimer, isPlay } = useTimer(DEFAULT_TIME);
+  const { timer, startTimer, stopTimer, isPlay, setTimer } =
+    useTimer(DEFAULT_TIME);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const timeBenchmark = useRef(stringTimeToSeconds(DEFAULT_TIME));
+  const timeBenchmark = useRef(stringTimeToSeconds(timer));
 
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
     {
@@ -118,7 +119,10 @@ const TimerPage = () => {
     const timeArr = [hour, minute, second].map((time) =>
       time.toString().padStart(2, '0'),
     );
-    alert(timeArr);
+    const stringTime = timeArr.join(':');
+    setTimer(stringTime);
+    timeBenchmark.current = stringTimeToSeconds(stringTime);
+    onClose();
   };
 
   const timeToPercentage = (time: string) => {
