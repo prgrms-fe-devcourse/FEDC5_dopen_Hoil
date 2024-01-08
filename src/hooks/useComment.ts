@@ -1,7 +1,7 @@
+import { useMutation, useQuery } from 'react-query';
 import { checkAuthenticated } from '@/apis/authentication';
 import { deleteComment } from '@/apis/comment';
 import { getUserInfo } from '@/apis/userInfo';
-import { useMutation, useQuery } from 'react-query';
 
 export const useMyComment = () => {
   return useQuery('my-comment', async () => {
