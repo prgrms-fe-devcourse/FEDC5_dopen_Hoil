@@ -57,8 +57,8 @@ const MyPage = () => {
       <Box>
         <Box mt={15}>
           <Avatar
-            size="118px"
-            maxW="118px"
+            w="118px"
+            h="118px"
             name={myInfo.username + '님의 프로필 이미지입니다.'}
             src={myInfo.image || 'https://via.placeholder.com/118x118'}
           />
