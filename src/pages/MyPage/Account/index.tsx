@@ -1,9 +1,9 @@
-import useMyInfo from '@/hooks/useMyInfo';
+import { useMyInfo } from '@/hooks/useAuth';
 import UpdateUserInfo from '../UpdateUserInfo';
 import { Box } from '@chakra-ui/react';
 
 const Account = () => {
-  const { myInfo, isError, isLoading } = useMyInfo();
+  const { data: myInfo, isError, isLoading } = useMyInfo();
 
   if (isLoading) {
     return <Box>로딩중입니다...</Box>;

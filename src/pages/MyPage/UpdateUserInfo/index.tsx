@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
 import {
   Box,
@@ -12,19 +11,13 @@ import {
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
-import {
-  changeUserName,
-  changePassword,
-  changeProfileImage,
-} from '@/apis/userInfo';
 import { UserInputList } from '@/pages/SignUp';
 import { Button, Input, Form } from '@/pages/SignUp';
 import { validateUserInfo } from '@/pages/SignUp/validateUserInfo';
 import { preparing } from '@/pages/Login/preparing';
-import { User } from '@/apis/type';
 import { UserInfoInput } from '@/types/user';
 import { PROFILE_IMAGE_TYPES } from '@/constants/user';
+import { useUpdateInfo } from '@/hooks/useAuth';
 
 interface userInfoTypes {
   image: string;
@@ -48,7 +41,6 @@ const UpdateUserInfo = ({
     register,
     handleSubmit,
     setError,
-    getValues,
     formState: { errors },
   } = useForm<UserInfoInput>({
     defaultValues: {
@@ -58,39 +50,12 @@ const UpdateUserInfo = ({
     },
   });
 
-  const onSuccess = async () => {
-    // 2차 비밀번호 변경
-    const { password } = getValues();
-    await changePassword(password);
-
-    // 3차 프로필 이미지 변경
-    if (profileImageFile && !(profileImageFile instanceof String)) {
-      await changeProfileImage({
-        image: profileImageFile,
-        isCover: false,
-      });
-    }
-
+  const onSuccessFn = () => {
     alert('회원정보 수정 완료');
     navigate(-1);
   };
-  const onError = () => {};
 
-  const { mutate } = useMutation<User, AxiosError>(
-    async () => {
-      // 1차 이름, 닉네임 변경
-      const { fullName, username } = getValues();
-      const changeUser = await changeUserName({ fullName, username });
-      return changeUser;
-    },
-    {
-      onSuccess,
-      onError,
-      meta: {
-        errorMessage: '회원정보 수정에서 에러가 발생했습니다.',
-      },
-    },
-  );
+  const { mutate } = useUpdateInfo({ onSuccessFn, profileImageFile });
 
   // 프로필 이미지 변경
   const onProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
