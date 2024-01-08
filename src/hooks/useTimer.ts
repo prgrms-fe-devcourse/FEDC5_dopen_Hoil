@@ -21,6 +21,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
     const hours = Math.floor((total / 1000 / 60 / 60) % 24)
       .toString()
       .padStart(2, '0');
+
     return {
       total,
       hours,
@@ -29,15 +30,12 @@ const useTimer = (initialTime: string = '00:00:00') => {
     };
   };
 
-  const startTimer = (
-    deadline: Date = getDeadLineTime(timer || initialTime),
-  ) => {
+  const startTimer = (deadline: Date = getDeadLineTime(timer)) => {
     if (Ref.current) {
       return;
     }
 
     setIsPlay(true);
-
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
       if (total >= 0) {
@@ -63,8 +61,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
 
   const getDeadLineTime = (deadline: string): Date => {
     const [hours, minutes, seconds] = deadline.split(':').map(Number);
-    const deadLineToSeconds = seconds + minutes * 60 + hours * 60 * 24;
-
+    const deadLineToSeconds = seconds + minutes * 60 + hours * 3600;
     const currentDate = new Date();
     currentDate.setSeconds(currentDate.getSeconds() + deadLineToSeconds);
     return currentDate;
