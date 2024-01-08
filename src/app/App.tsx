@@ -17,6 +17,7 @@ import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
 import TimerPage from '@/pages/TimerPage';
+import '@fontsource/noto-sans-kr';
 
 const App = () => {
   const { channelListData } = useChannelList();
