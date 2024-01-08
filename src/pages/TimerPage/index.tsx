@@ -33,6 +33,9 @@ const TimerPage = () => {
   };
 
   const startTimer = (deadline: Date) => {
+    if (Ref.current) {
+      return;
+    }
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
       if (total >= 0) {
@@ -46,6 +49,7 @@ const TimerPage = () => {
   const stopTimer = () => {
     if (Ref.current) {
       clearInterval(Ref.current);
+      Ref.current = undefined;
     }
   };
 
