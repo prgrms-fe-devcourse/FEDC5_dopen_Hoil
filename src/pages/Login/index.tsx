@@ -26,7 +26,7 @@ import { setItem, getItem } from '@/utils/storage';
 
 import { saveLoginId } from './saveLoginId';
 import { preparing } from './preparing';
-import { userInfoCheck } from '../SignUp/userInfoCheck';
+import { isValueUniqueInArray } from '@/utils/isValueUniqueInArray';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -118,7 +118,7 @@ const Login = () => {
 
   const onLoginValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
     const userList = await getUserList({});
-    const isUserEmailCheck = userInfoCheck(userList, 'email', email);
+    const isUserEmailCheck = isValueUniqueInArray(userList, 'email', email);
     if (isUserEmailCheck) {
       mutate();
     } else {

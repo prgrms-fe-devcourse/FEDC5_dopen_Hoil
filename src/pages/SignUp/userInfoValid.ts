@@ -1,5 +1,5 @@
 import { getUserList } from '@/apis/userInfo';
-import { isUserInfoCheck } from './userInfoCheck';
+import { isValueUniqueInArray } from '@/utils/isValueUniqueInArray';
 import { UserInfoInput } from '@/types/user';
 import { UseFormSetError } from 'react-hook-form';
 
@@ -18,9 +18,13 @@ export const userInfoValid = async ({
   const userList = await getUserList({});
 
   // 중복 닉네임 체크
-  const isUserNickNameCheck = isUserInfoCheck(userList, 'username', username);
+  const isUserNickNameCheck = isValueUniqueInArray(
+    userList,
+    'username',
+    username,
+  );
 
-  if (isUserNickNameCheck) {
+  if (isUserNickNameCheck === false) {
     setError(
       'username',
       { message: '동일한 닉네임이 존재합니다.' },
