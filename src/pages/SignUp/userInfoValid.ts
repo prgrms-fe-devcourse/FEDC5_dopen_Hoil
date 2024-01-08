@@ -1,24 +1,24 @@
 import { getUserList } from '@/apis/userInfo';
-import { userInfoCheck } from './userInfoCheck';
+import { isUserInfoCheck } from './userInfoCheck';
 import { UserInfoInput } from '@/types/user';
 import { UseFormSetError } from 'react-hook-form';
 
 interface userInfoValidProps {
   userData: UserInfoInput;
   setError: UseFormSetError<UserInfoInput>;
-  callback: () => void;
+  onSuccess: () => void;
 }
 
 export const userInfoValid = async ({
   userData,
   setError,
-  callback,
+  onSuccess,
 }: userInfoValidProps): Promise<void> => {
   const { username, password, passwordConfirm } = userData;
   const userList = await getUserList({});
 
   // 중복 닉네임 체크
-  const isUserNickNameCheck = userInfoCheck(userList, 'username', username);
+  const isUserNickNameCheck = isUserInfoCheck(userList, 'username', username);
 
   if (isUserNickNameCheck) {
     setError(
@@ -40,5 +40,5 @@ export const userInfoValid = async ({
   }
 
   // mutate
-  await callback();
+  await onSuccess();
 };
