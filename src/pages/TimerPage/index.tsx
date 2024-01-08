@@ -16,10 +16,16 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useRef } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 
-const TEST_TIME = '01:00:05';
+const DEFAULT_TIME = '00:01:05';
+
+const stringTimeToSeconds = (time: string) => {
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  return seconds + minutes * 60 + hours * 3600;
+};
 
 interface TimerInputTypes {
   hour: string;
@@ -33,8 +39,10 @@ interface TimerInputMetaDataTypes {
 }
 
 const TimerPage = () => {
-  const { timer, startTimer, stopTimer, isPlay } = useTimer(TEST_TIME);
+  const { timer, startTimer, stopTimer, isPlay } = useTimer(DEFAULT_TIME);
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const timeBenchmark = useRef(stringTimeToSeconds(DEFAULT_TIME));
 
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
     {
@@ -103,13 +111,26 @@ const TimerPage = () => {
     'aria-label': '',
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => alert('잘 전달됐어요');
+
+  const timeToPercentage = (time: string) => {
+    const sumSeconds = stringTimeToSeconds(time);
+    const percentage =
+      100 - Math.round((sumSeconds / timeBenchmark.current) * 100);
+
+    return percentage;
+  };
 
   return (
     <Flex flexDir="column" align="center" w="100%" bg="pink.200">
       <PageHeader pageName="타이머" />
       <Center p="97px 0" position="relative" w="100%">
-        <CircularProgress value={50} color="black" size="400px" thickness="1px">
+        <CircularProgress
+          value={timeToPercentage(timer)}
+          color="black"
+          size="400px"
+          thickness="1px"
+        >
           <CircularProgressLabel
             fontWeight="bold"
             color="white"
@@ -150,7 +171,7 @@ const TimerPage = () => {
           isOpen={isOpen}
           onClose={onClose}
           buttonText="타이머 설정하기"
-          onButtonClick={() => {}}
+          onButtonClick={handleSubmit(() => onSubmit())}
           isCentered
         >
           <form
@@ -158,7 +179,6 @@ const TimerPage = () => {
               display: 'flex',
               height: '100%',
             }}
-            onSubmit={handleSubmit(onSubmit)}
           >
             {timeInputMetaData.map(({ name, validate }) => (
               <FormControl isInvalid={!!errors?.[name]?.message} key={name}>
@@ -173,17 +193,6 @@ const TimerPage = () => {
                 <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
               </FormControl>
             ))}
-            <Button
-              h="modal.button.h"
-              w="modal.button.w"
-              bg="pink.100"
-              mb="28px"
-              color="pink.300"
-              fontSize="1.4rem"
-              type="submit"
-            >
-              타이머 설정하기
-            </Button>
           </form>
         </MyModal>
         <Button
