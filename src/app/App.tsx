@@ -16,6 +16,7 @@ import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
+import TimerPage from '@/pages/TimerPage';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -51,6 +52,7 @@ const App = () => {
             </>
           ))}
           <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/timer" element={<TimerPage />} />
         </Route>
       </Routes>
     </>
