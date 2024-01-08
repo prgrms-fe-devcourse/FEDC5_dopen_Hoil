@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 import { changeUserName } from '@/apis/userInfo';
-import { checkAuthenticated, logIn } from '@/apis/authentication';
+import { checkAuthenticated, logIn, logOut } from '@/apis/authentication';
 import { MY_INFO } from '@/constants/queryKeys';
 import { User } from '@/apis/type';
 import { LOGIN_TOKEN } from '@/constants/user';
@@ -63,6 +63,16 @@ export const useLogin = ({ onSuccessFn, onErrorFn, isSavedId }: LoginProps) => {
     },
     meta: {
       errorMessage: '로그인에서 에러가 발생했습니다.',
+    },
+  });
+};
+
+export const useLogOut = ({ onSuccessFn }: AuthProps) => {
+  return useMutation(logOut, {
+    onSuccess: () => {
+      if (onSuccessFn) {
+        onSuccessFn();
+      }
     },
   });
 };
