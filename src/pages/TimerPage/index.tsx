@@ -2,6 +2,7 @@ import PageHeader from '@/components/PageHeader';
 import MyModal from '@/components/common/MyModal';
 import useTimer from '@/hooks/useTimer';
 import {
+  Box,
   Button,
   Center,
   CircularProgress,
@@ -13,10 +14,11 @@ import {
   IconButton,
   IconButtonProps,
   Input,
+  Text,
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 
@@ -89,7 +91,7 @@ const TimerPage = () => {
   const {
     handleSubmit,
     register,
-    /* getValues, */
+    getValues,
     formState: { errors, isValid },
   } = useForm<TimerInputTypes>({
     defaultValues: {
@@ -111,13 +113,18 @@ const TimerPage = () => {
     'aria-label': '',
   };
 
-  const onSubmit = () => alert('잘 전달됐어요');
+  const onSubmit = () => {
+    const { hour, minute, second } = getValues();
+    const timeArr = [hour, minute, second].map((time) =>
+      time.toString().padStart(2, '0'),
+    );
+    alert(timeArr);
+  };
 
   const timeToPercentage = (time: string) => {
     const sumSeconds = stringTimeToSeconds(time);
     const percentage =
       100 - Math.round((sumSeconds / timeBenchmark.current) * 100);
-
     return percentage;
   };
 
@@ -174,26 +181,50 @@ const TimerPage = () => {
           onButtonClick={handleSubmit(() => onSubmit())}
           isCentered
         >
-          <form
-            style={{
-              display: 'flex',
-              height: '100%',
-            }}
-          >
-            {timeInputMetaData.map(({ name, validate }) => (
-              <FormControl isInvalid={!!errors?.[name]?.message} key={name}>
-                <Input
-                  id={name}
-                  type="number"
-                  {...register(name, {
-                    required: '시간을 설정해주세요',
-                    ...validate,
-                  })}
-                />
-                <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
-              </FormControl>
-            ))}
-          </form>
+          <Box pl="20px" color="black">
+            <Text fontSize="1.4rem" fontWeight="bold" m="14px 0">
+              목표 시간을 설정해주세요
+            </Text>
+            <form
+              style={{
+                display: 'flex',
+                height: '90px',
+              }}
+            >
+              {timeInputMetaData.map(({ name, validate }, index) => (
+                <Fragment key={name}>
+                  <FormControl isInvalid={!!errors?.[name]?.message} w="100px">
+                    <Input
+                      id={name}
+                      type="number"
+                      {...register(name, {
+                        required: '시간을 설정해주세요',
+                        ...validate,
+                      })}
+                      h="70px"
+                      fontSize="3rem"
+                      textAlign="center"
+                    />
+                    <FormErrorMessage>
+                      {errors?.[name]?.message}
+                    </FormErrorMessage>
+                  </FormControl>
+                  {index !== timeInputMetaData.length - 1 && (
+                    <Flex
+                      fontSize="2rem"
+                      color="#000000"
+                      fontWeight="bold"
+                      m="0 10px"
+                      align="center"
+                      h="60px"
+                    >
+                      :
+                    </Flex>
+                  )}
+                </Fragment>
+              ))}
+            </form>
+          </Box>
         </MyModal>
         <Button
           color="white"
