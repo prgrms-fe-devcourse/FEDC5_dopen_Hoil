@@ -15,11 +15,12 @@ import {
 } from '@chakra-ui/react';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 
-const TEST_TIME = '00:00:05';
+const TEST_TIME = '01:00:05';
 
 const TimerPage = () => {
   const { timer, startTimer, stopTimer, isPlay } = useTimer(TEST_TIME);
   const { isOpen, onClose, onOpen } = useDisclosure();
+
   const timerIconStyle: IconButtonProps = {
     position: 'absolute',
     left: '50%',
@@ -35,7 +36,7 @@ const TimerPage = () => {
     <Flex flexDir="column" align="center" w="100%" bg="pink.200">
       <PageHeader pageName="타이머" />
       <Center p="97px 0" position="relative" w="100%">
-        <CircularProgress value={50} color="black" size="360px" thickness="1px">
+        <CircularProgress value={50} color="black" size="400px" thickness="1px">
           <CircularProgressLabel
             fontWeight="bold"
             color="white"
@@ -79,7 +80,12 @@ const TimerPage = () => {
           onButtonClick={() => {}}
           isCentered
         >
-          gd
+          <form
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          ></form>
         </MyModal>
         <Button
           color="white"
