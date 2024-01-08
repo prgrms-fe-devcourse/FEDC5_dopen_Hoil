@@ -2,10 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box, Text, Avatar } from '@chakra-ui/react';
 import { FaUserCircle, FaClipboardList, FaPen } from 'react-icons/fa';
-import { logOut } from '@/apis/authentication';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { removeItem } from '@/utils/storage';
-import useMyInfo from '@/hooks/useMyInfo';
+import { useLogOut, useMyInfo } from '@/hooks/useAuth';
 import MyPageListItem from './MyPageListItem';
 
 const myPageList = [
@@ -33,13 +32,17 @@ const myPageList = [
 const MyPage = () => {
   const navigator = useNavigate();
 
-  const onLogOut = () => {
-    logOut();
+  const onSuccessFn = () => {
     removeItem(LOGIN_TOKEN);
     navigator('/', { replace: true });
   };
+  const { mutate } = useLogOut({ onSuccessFn });
 
-  const { myInfo, isLoading } = useMyInfo();
+  const onLogOut = () => {
+    mutate;
+  };
+
+  const { data: myInfo, isLoading } = useMyInfo();
 
   if (isLoading || !myInfo) {
     return <Box>로딩중입니다...</Box>;
