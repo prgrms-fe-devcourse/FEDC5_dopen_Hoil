@@ -30,6 +30,14 @@ const useTimer = (initialTime: string = '00:00:00') => {
     };
   };
 
+  const stopTimer = () => {
+    if (Ref.current) {
+      clearInterval(Ref.current);
+      Ref.current = undefined;
+      setIsPlay(false);
+    }
+  };
+
   const startTimer = (deadline: Date = getDeadLineTime(timer)) => {
     if (Ref.current) {
       return;
@@ -40,18 +48,12 @@ const useTimer = (initialTime: string = '00:00:00') => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
       if (total >= 0) {
         setTimer(`${hours}:${minutes}:${seconds}`);
+      } else {
+        stopTimer();
       }
     }, 1000);
 
     Ref.current = id;
-  };
-
-  const stopTimer = () => {
-    if (Ref.current) {
-      clearInterval(Ref.current);
-      Ref.current = undefined;
-      setIsPlay(false);
-    }
   };
 
   const resetTimer = () => {
