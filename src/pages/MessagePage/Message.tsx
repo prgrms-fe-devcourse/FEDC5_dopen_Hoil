@@ -1,13 +1,14 @@
+import { Fragment } from 'react';
+import { useParams } from 'react-router-dom';
 import { useMessage } from '@/hooks/useMessage';
 import { Box, Flex, BoxProps } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
-import { Fragment } from 'react';
-
+import MessageForm from './MessageForm';
+//메시지 불러오기 실패 or 메시지 전송 실패
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
-  const { messageLogs } = useMessage(userId!);
+  const { messageLogs, updateMessageLogs } = useMessage(userId!);
 
   return (
     <Flex flexDir="column" gap="5" {...props}>
@@ -52,6 +53,7 @@ const Message = ({ ...props }: BoxProps) => {
           </Fragment>
         );
       })}
+      <MessageForm userId={userId!} onSuccess={updateMessageLogs} />
     </Flex>
   );
 };
