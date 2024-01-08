@@ -8,11 +8,16 @@ import {
   Text,
   UnorderedList,
   ListItem,
+  FormLabel,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { changeUserName, changePassword } from '@/apis/userInfo';
+import {
+  changeUserName,
+  changePassword,
+  changeProfileImage,
+} from '@/apis/userInfo';
 import { UserInputList } from '@/pages/SignUp';
 import { Button, Input, Form } from '@/pages/SignUp';
 import { userInfoValid } from '@/pages/SignUp/userInfoValid';
@@ -34,7 +39,9 @@ const UpdateUserInfo = ({
   fullName,
   username,
 }: userInfoTypes) => {
-  const [profilePreview, setProfilePreview] = useState(image || '');
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+  const [profilePreview, setProfilePreview] = useState<string>(image || '');
+
   const navigate = useNavigate();
 
   const {
@@ -56,17 +63,13 @@ const UpdateUserInfo = ({
     const { password } = getValues();
     await changePassword(password);
 
-    // 3차 프로필 이미지 변경 (api 통신 오류)
-    // if (profilePreview) {
-    //   const file = new File([new Blob([profilePreview])], 'profileImage.png', {
-    //     type: 'image/png',
-    //   });
-
-    //   await changeProfileImage({
-    //     image: file,
-    //     isCover: false,
-    //   });
-    // }
+    // 3차 프로필 이미지 변경
+    if (profileImageFile && !(profileImageFile instanceof String)) {
+      await changeProfileImage({
+        image: profileImageFile,
+        isCover: false,
+      });
+    }
 
     alert('회원정보 수정 완료');
     navigate(-1);
@@ -98,6 +101,7 @@ const UpdateUserInfo = ({
       if (PROFILE_IMAGE_TYPES[fileType]) {
         const profileImage = URL.createObjectURL(file);
         setProfilePreview(profileImage);
+        setProfileImageFile(file);
       } else {
         alert('파일 형식이 올바르지 않습니다. 이미지 파일을 업로드해 주세요.');
         event.target.value = '';
@@ -126,7 +130,11 @@ const UpdateUserInfo = ({
                 w="118px"
                 h="118px"
                 name="프로필 이미지 등록하기"
-                src={profilePreview || 'https://via.placeholder.com/118x118'}
+                src={
+                  profilePreview
+                    ? profilePreview
+                    : 'https://via.placeholder.com/118x118'
+                }
               />
             </Box>
             <Box w="calc(100% - 150px)">
@@ -152,11 +160,12 @@ const UpdateUserInfo = ({
         </ListItem>
         {UserInputList.map(({ name, label, type, required, validate }) => (
           <ListItem listStyleType="none" mb="15px" key={name}>
-            <Text as="strong" fontSize="14px">
+            <FormLabel htmlFor={name} fontSize="14px">
               {label}
-            </Text>
+            </FormLabel>
             <Input
               type={type}
+              id={name}
               required={name === 'email' ? false : required}
               disabled={name === 'email' ? true : false}
               {...register(name, {
