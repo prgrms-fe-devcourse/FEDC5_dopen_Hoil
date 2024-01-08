@@ -42,7 +42,9 @@ export const theme = extendTheme({
 
     white: '#FFFFFF',
   },
-  fonts: {},
+  fonts: {
+    body: 'Noto Sans KR',
+  },
   fontSizes: {
     xs: '1rem',
     sm: '1.2rem',

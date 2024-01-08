@@ -8,6 +8,7 @@ import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
 import SearchPage from '../pages/SearchPage';
 import TimerPage from '@/pages/TimerPage';
+import '@fontsource/noto-sans-kr';
 
 const App = () => {
   return (
