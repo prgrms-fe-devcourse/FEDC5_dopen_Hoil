@@ -110,7 +110,7 @@ const SignUp = () => {
   );
 
   const onValid: SubmitHandler<UserInfoInput> = async (data) =>
-    await userInfoValid({ userData: data, setError, callback: mutate });
+    await userInfoValid({ userData: data, setError, onSuccess: mutate });
 
   return (
     <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">

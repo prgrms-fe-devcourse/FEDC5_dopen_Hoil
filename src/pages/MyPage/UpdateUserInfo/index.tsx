@@ -110,7 +110,7 @@ const UpdateUserInfo = ({
   };
 
   const onUpdateUserInfoValid: SubmitHandler<UserInfoInput> = async (data) =>
-    await userInfoValid({ userData: data, setError, callback: mutate });
+    await userInfoValid({ userData: data, setError, onSuccess: mutate });
 
   return (
     <Form
