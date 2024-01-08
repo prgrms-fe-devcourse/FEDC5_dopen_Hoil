@@ -40,7 +40,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
-          bgColor="white"
+          bgColor="transparent"
         />
         <IconButton
           aria-label="notify"
@@ -49,7 +49,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
               <BellIcon color="black" boxSize="icon" />
             </Badge>
           }
-          bgColor="white"
+          bgColor="transparent"
         />
       </Flex>
     </Flex>
