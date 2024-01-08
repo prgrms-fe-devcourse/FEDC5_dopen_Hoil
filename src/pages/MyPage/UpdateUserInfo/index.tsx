@@ -20,7 +20,7 @@ import {
 } from '@/apis/userInfo';
 import { UserInputList } from '@/pages/SignUp';
 import { Button, Input, Form } from '@/pages/SignUp';
-import { userInfoValid } from '@/pages/SignUp/userInfoValid';
+import { validateUserInfo } from '@/pages/SignUp/validateUserInfo';
 import { preparing } from '@/pages/Login/preparing';
 import { User } from '@/apis/type';
 import { UserInfoInput } from '@/types/user';
@@ -110,7 +110,7 @@ const UpdateUserInfo = ({
   };
 
   const onUpdateUserInfoValid: SubmitHandler<UserInfoInput> = async (data) =>
-    await userInfoValid({ userData: data, setError, onSuccess: mutate });
+    await validateUserInfo({ userData: data, setError, onSuccess: mutate });
 
   return (
     <Form
