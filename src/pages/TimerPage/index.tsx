@@ -11,12 +11,12 @@ import {
   IconButtonProps,
   VStack,
 } from '@chakra-ui/react';
-import { MdPlayArrow } from 'react-icons/md';
+import { MdPause, MdPlayArrow } from 'react-icons/md';
 
 const TEST_TIME = '00:00:05';
 
 const TimerPage = () => {
-  const { timer, startTimer } = useTimer(TEST_TIME);
+  const { timer, startTimer, stopTimer, isPlay } = useTimer(TEST_TIME);
   const timerIconStyle: IconButtonProps = {
     position: 'absolute',
     left: '50%',
@@ -41,12 +41,21 @@ const TimerPage = () => {
             {timer}
           </CircularProgressLabel>
         </CircularProgress>
-        <IconButton
-          {...timerIconStyle}
-          aria-label="재생"
-          icon={<Icon as={MdPlayArrow} color="white" boxSize="50px" />}
-          onClick={() => startTimer()}
-        />
+        {isPlay ? (
+          <IconButton
+            {...timerIconStyle}
+            aria-label="멈춤"
+            icon={<Icon as={MdPause} color="white" boxSize="50px" />}
+            onClick={() => stopTimer()}
+          />
+        ) : (
+          <IconButton
+            {...timerIconStyle}
+            aria-label="재생"
+            icon={<Icon as={MdPlayArrow} color="white" boxSize="50px" />}
+            onClick={() => startTimer()}
+          />
+        )}
       </Center>
       <VStack pb="155px" spacing="22px">
         <Button
