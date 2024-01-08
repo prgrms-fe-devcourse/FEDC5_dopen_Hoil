@@ -1,5 +1,5 @@
-import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Divider, Flex, FlexProps, Text } from '@chakra-ui/react';
+import { MdArrowForwardIos } from 'react-icons/md';
 
 interface BodarListProps extends FlexProps {
   boardName: string;
@@ -16,7 +16,7 @@ const BoardList = ({ boardName, ...props }: BodarListProps) => {
         {...props}
       >
         <Text>{boardName}</Text>
-        <ChevronRightIcon />
+        <MdArrowForwardIos />
       </Flex>
       <Divider color="gray.450" />
     </>

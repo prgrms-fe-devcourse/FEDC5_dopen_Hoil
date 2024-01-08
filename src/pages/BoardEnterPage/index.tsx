@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import Footer from '@/components/Footer';
 import PageHeader from '@/components/PageHeader';
-import BoardList from '@/components/common/BoardList';
+import BoardList from '@/components/BoardList';
 import { BOARD_LIST } from '@/constants/Board';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 
