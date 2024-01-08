@@ -1,4 +1,5 @@
 import PageHeader from '@/components/PageHeader';
+import MyModal from '@/components/common/MyModal';
 import useTimer from '@/hooks/useTimer';
 import {
   Button,
@@ -10,6 +11,7 @@ import {
   IconButton,
   IconButtonProps,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
 
@@ -17,6 +19,7 @@ const TEST_TIME = '00:00:05';
 
 const TimerPage = () => {
   const { timer, startTimer, stopTimer, isPlay } = useTimer(TEST_TIME);
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const timerIconStyle: IconButtonProps = {
     position: 'absolute',
     left: '50%',
@@ -64,9 +67,20 @@ const TimerPage = () => {
           w="388px"
           h="70px"
           _hover={{ bg: 'pink.400' }}
+          onClick={onOpen}
         >
           타이머 설정
         </Button>
+        <MyModal
+          title="타이머 설정"
+          isOpen={isOpen}
+          onClose={onClose}
+          buttonText="타이머 설정하기"
+          onButtonClick={() => {}}
+          isCentered
+        >
+          gd
+        </MyModal>
         <Button
           color="white"
           bg="pink.300"
