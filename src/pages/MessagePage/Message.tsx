@@ -5,10 +5,19 @@ import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
 import MessageForm from './MessageForm';
-//메시지 불러오기 실패 or 메시지 전송 실패
+import { sendMessage } from '@/apis/message';
+
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
   const { messageLogs, updateMessageLogs } = useMessage(userId!);
+
+  const onSendMessage = async (message: string) => {
+    if (!userId) {
+      return;
+    }
+    await sendMessage({ message, receiver: userId });
+    updateMessageLogs();
+  };
 
   return (
     <Flex flexDir="column" gap="5" {...props}>
@@ -17,10 +26,10 @@ const Message = ({ ...props }: BoxProps) => {
           <Fragment key={date}>
             <TextDivider
               key={date}
-              p="10"
+              p="10px"
               dividerColor="gray.400"
               text={
-                <Box p="2" bgColor="gray.300">
+                <Box p="2px" bgColor="gray.300">
                   {date}
                 </Box>
               }
@@ -33,9 +42,9 @@ const Message = ({ ...props }: BoxProps) => {
                   key={_id}
                   bgColor={bgColor}
                   alignSelf={align}
-                  borderRadius="10"
-                  p="4"
-                  maxW="200"
+                  borderRadius="10px"
+                  p="4px"
+                  maxW="200px"
                 >
                   <MessageBox.Main fontSize="1.25rem" textColor={mainTextColor}>
                     {message}
@@ -53,7 +62,7 @@ const Message = ({ ...props }: BoxProps) => {
           </Fragment>
         );
       })}
-      <MessageForm userId={userId!} onSuccess={updateMessageLogs} />
+      <MessageForm onSuccess={onSendMessage} bgColor="white" />
     </Flex>
   );
 };
