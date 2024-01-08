@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box, Text, Avatar } from '@chakra-ui/react';
 import { FaUserCircle, FaClipboardList, FaPen } from 'react-icons/fa';
-import { checkAuthenticated, logOut } from '@/apis/authentication';
-import { removeItem } from '@/utils/storage';
+import { logOut } from '@/apis/authentication';
 import { LOGIN_TOKEN } from '@/constants/user';
+import { removeItem } from '@/utils/storage';
+import useMyInfo from '@/hooks/useMyInfo';
 import MyPageListItem from './MyPageListItem';
-import { useQuery } from 'react-query';
-import { User } from '@/apis/type';
 
 const myPageList = [
   [
@@ -40,13 +39,7 @@ const MyPage = () => {
     navigator('/', { replace: true });
   };
 
-  const { data: myInfo, isLoading } = useQuery<User>(
-    'myInfo',
-    async () => {
-      return await checkAuthenticated();
-    },
-    {},
-  );
+  const { myInfo, isLoading } = useMyInfo();
 
   if (isLoading || !myInfo) {
     return <Box>로딩중입니다...</Box>;
