@@ -45,7 +45,7 @@ const TimerPage = () => {
     useTimer(DEFAULT_TIME);
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const timeBenchmark = useRef(stringTimeToSeconds(timer));
+  const timeBenchmark = useRef(timer);
 
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
     {
@@ -121,15 +121,8 @@ const TimerPage = () => {
     );
     const stringTime = timeArr.join(':');
     setTimer(stringTime);
-    timeBenchmark.current = stringTimeToSeconds(stringTime);
+    timeBenchmark.current = stringTime;
     onClose();
-  };
-
-  const timeToPercentage = (time: string) => {
-    const sumSeconds = stringTimeToSeconds(time);
-    const percentage =
-      100 - Math.round((sumSeconds / timeBenchmark.current) * 100);
-    return percentage;
   };
 
   return (
@@ -137,10 +130,14 @@ const TimerPage = () => {
       <PageHeader pageName="타이머" />
       <Center p="97px 0" position="relative" w="100%">
         <CircularProgress
-          value={timeToPercentage(timer)}
+          value={
+            stringTimeToSeconds(timeBenchmark.current.toString()) -
+            stringTimeToSeconds(timer)
+          }
           color="black"
           size="400px"
           thickness="1px"
+          max={stringTimeToSeconds(timeBenchmark.current)}
         >
           <CircularProgressLabel
             fontWeight="bold"
