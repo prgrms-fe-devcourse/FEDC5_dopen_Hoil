@@ -67,7 +67,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
     return currentDate;
   };
 
-  return { timer, startTimer, stopTimer, resetTimer, isPlay };
+  return { timer, startTimer, stopTimer, resetTimer, isPlay, setTimer };
 };
 
 export default useTimer;
