@@ -160,6 +160,7 @@ const TimerPage = () => {
             aria-label="재생"
             icon={<Icon as={MdPlayArrow} color="white" boxSize="50px" />}
             onClick={() => startTimer()}
+            isDisabled={stringTimeToSeconds(timer) <= 0}
           />
         )}
       </Center>
