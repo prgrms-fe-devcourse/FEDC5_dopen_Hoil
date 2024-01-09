@@ -12,7 +12,7 @@ const BoardEnterPage = () => {
   return (
     <>
       <PageHeader pageName="게시판" />
-      {params ? (
+      {params.boardName ? (
         <Outlet />
       ) : (
         <Box w={DEFAULT_WIDTH} h="100vh" p={`0 ${DEFAULT_PAGE_PADDING}`}>
