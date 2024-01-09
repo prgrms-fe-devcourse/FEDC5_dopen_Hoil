@@ -10,7 +10,7 @@ const ErrorPage = () => {
     <>
       <MainHeader />
       <Box w={DEFAULT_WIDTH} h="100vh">
-        <Image src="src/assets/404.svg" alt="404 Error" />
+        <Image src="/src/assets/404.svg" alt="404 Error" />
         <Button
           w="388px"
           h="50px"
