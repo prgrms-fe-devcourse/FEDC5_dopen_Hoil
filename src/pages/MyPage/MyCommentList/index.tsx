@@ -26,7 +26,7 @@ const MyCommentList = () => {
   return (
     <Box>
       <PageHeader pageName="내가 작성한 댓글" />
-      <UnorderedList listStyleType="none">
+      <UnorderedList listStyleType="none" p="0 20px">
         {myCommentList.map(({ _id, comment }) => (
           <MyCommentListItem
             key={_id}
