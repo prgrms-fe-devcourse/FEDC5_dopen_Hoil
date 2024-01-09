@@ -4,6 +4,7 @@ import SignUp from '@/pages/SignUp';
 import Login from '@/pages/Login';
 import MyPage from '@/pages/MyPage';
 import Account from '@/pages/MyPage/Account';
+import MyCommentList from '@/pages/MyPage/MyCommentList';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mypage/account" element={<Account />} />
+          <Route path="/mypage/mycommentlist" element={<MyCommentList />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/message" element={<MessageListPage />} />
           <Route path="/message/:userId" element={<MessagePage />} />
