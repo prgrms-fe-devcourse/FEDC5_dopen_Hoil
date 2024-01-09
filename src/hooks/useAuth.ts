@@ -5,7 +5,12 @@ import {
   changeProfileImage,
   changeUserName,
 } from '@/apis/userInfo';
-import { checkAuthenticated, logIn, logOut } from '@/apis/authentication';
+import {
+  checkAuthenticated,
+  logIn,
+  logOut,
+  signUp,
+} from '@/apis/authentication';
 
 import { setItem } from '@/utils/storage';
 
@@ -33,6 +38,10 @@ interface UpdateUserInfoProps extends AuthProps {
   newUserInfo: UserInfoInput;
 }
 
+interface SignUpProps extends AuthProps {
+  userInfo: UserInfoInput;
+}
+
 export const useLogin = ({ onSuccessFn, onErrorFn, isSavedId }: LoginProps) => {
   return useMutation<UserResponse, AxiosError, LogInPayload, unknown>(logIn, {
     onSuccess: (result) => {
@@ -47,9 +56,6 @@ export const useLogin = ({ onSuccessFn, onErrorFn, isSavedId }: LoginProps) => {
         onErrorFn(error);
       }
     },
-    meta: {
-      errorMessage: '로그인에서 에러가 발생했습니다.',
-    },
   });
 };
 
@@ -61,6 +67,31 @@ export const useLogOut = ({ onSuccessFn }: AuthProps) => {
       }
     },
   });
+};
+
+export const useSignUp = ({
+  onSuccessFn,
+  onErrorFn,
+  userInfo,
+}: SignUpProps) => {
+  return useMutation(
+    async () => {
+      const { token } = await signUp({ ...userInfo });
+      setItem(LOGIN_TOKEN, token);
+    },
+    {
+      onSuccess: () => {
+        if (onSuccessFn) {
+          onSuccessFn();
+        }
+      },
+      onError: (error: AxiosError) => {
+        if (onErrorFn) {
+          onErrorFn(error);
+        }
+      },
+    },
+  );
 };
 
 export const useUpdateInfo = ({
@@ -90,9 +121,6 @@ export const useUpdateInfo = ({
         if (onSuccessFn) {
           onSuccessFn();
         }
-      },
-      meta: {
-        errorMessage: '회원정보 수정에서 에러가 발생했습니다.',
       },
     },
   );

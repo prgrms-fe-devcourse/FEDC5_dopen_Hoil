@@ -1,68 +1,14 @@
-import { useMutation } from 'react-query';
 import { AxiosError } from 'axios';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
-import { useForm, SubmitHandler, Path, RegisterOptions } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
 
-import { signUp } from '@/apis/authentication';
-import { setItem } from '@/utils/storage';
-import { INPUT_VALIDATE } from '@/constants/inputValidate';
-import { LOGIN_TOKEN } from '@/constants/user';
-import { UserResponse, UserInfoInput } from '@/types/user';
+import { useSignUp } from '@/hooks/useAuth';
+import { UserInfoInput } from '@/types/user';
 
+import { USER_INPUT_LIST } from './userInputList';
 import { validateUserInfo } from './validateUserInfo';
-
-interface UserInputData {
-  name: Path<UserInfoInput>;
-  label: string;
-  type: string;
-  required: boolean;
-  placeholder?: string;
-  validate?: RegisterOptions;
-}
-
-export const UserInputList: UserInputData[] = [
-  {
-    name: 'email',
-    label: '이메일',
-    type: 'text',
-    required: true,
-    placeholder: '이메일',
-    validate: { ...INPUT_VALIDATE.email },
-  },
-  {
-    name: 'fullName',
-    label: '이름',
-    type: 'text',
-    required: true,
-    placeholder: '이름',
-    validate: { ...INPUT_VALIDATE.fullName },
-  },
-  {
-    name: 'username',
-    label: '닉네임',
-    type: 'text',
-    required: true,
-    placeholder: '닉네임',
-    validate: { ...INPUT_VALIDATE.username },
-  },
-  {
-    name: 'password',
-    label: '비밀번호',
-    type: 'password',
-    required: true,
-    placeholder: '비밀번호',
-    validate: { ...INPUT_VALIDATE.password },
-  },
-  {
-    name: 'passwordConfirm',
-    label: '비밀번호 확인',
-    type: 'password',
-    required: true,
-    placeholder: '비밀번호 확인',
-  },
-];
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -75,13 +21,12 @@ const SignUp = () => {
     setError,
   } = useForm<UserInfoInput>();
 
-  const onSuccess = (data: UserResponse) => {
+  const onSuccessFn = () => {
     alert('회원가입 성공');
-    setItem(LOGIN_TOKEN, data.token);
     navigate('/', { replace: true });
   };
 
-  const onError = (error: AxiosError) => {
+  const onErrorFn = (error: AxiosError) => {
     if (!error.response) {
       // response가 없는 에러의 경우
       alert(error.message);
@@ -95,19 +40,11 @@ const SignUp = () => {
     }
   };
 
-  const { mutate } = useMutation<UserResponse, AxiosError>(
-    async () => {
-      const { email, fullName, username, password } = getValues();
-      return await signUp({ email, fullName, username, password });
-    },
-    {
-      onSuccess,
-      onError,
-      meta: {
-        errorMessage: '회원가입에서 에러가 발생했습니다.',
-      },
-    },
-  );
+  const { mutate } = useSignUp({
+    onSuccessFn,
+    onErrorFn,
+    userInfo: getValues(),
+  });
 
   const onValid: SubmitHandler<UserInfoInput> = async (data) =>
     await validateUserInfo({ userData: data, setError, onSuccess: mutate });
@@ -118,7 +55,8 @@ const SignUp = () => {
         <Heading mb={6}>
           <Image
             m="0 auto"
-            src="https://via.placeholder.com/198x74"
+            w="198px"
+            src="/assets/dopenLogo.svg"
             alt="Dopen Logo"
           />
         </Heading>
@@ -133,7 +71,7 @@ const SignUp = () => {
       </Box>
       <Form onSubmit={handleSubmit(onValid)}>
         <ul>
-          {UserInputList.map(
+          {USER_INPUT_LIST.map(
             ({ name, type, required, placeholder, validate }) => (
               <li key={name}>
                 <Input
