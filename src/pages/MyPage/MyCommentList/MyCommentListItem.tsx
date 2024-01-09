@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
-import { ListItem, Flex, Box, Text, Avatar } from '@chakra-ui/react';
+import { ListItem, Box } from '@chakra-ui/react';
 import { useDeleteComment } from '@/hooks/useComment';
+
+import UserContentBlock from '@/components/common/UserContentBlock';
 
 interface MyCommentListItemProps {
   id: string;
@@ -25,34 +27,16 @@ const MyCommentListItem = ({
   };
   return (
     <ListItem key={id} p="10px 0 10px" borderBottom="1px solid #D9D9D9">
-      <Flex mb="10px" justifyContent="space-between">
-        <Flex alignItems="center">
-          <Box mr="10px">
-            <Avatar w="40px" h="40px" src={image ?? '기본 이미지'} />
-          </Box>
-          <Box>
-            <Text as="strong" display="block" fontSize="1.4rem">
-              {username}
-            </Text>
-            <Text as="span" fontSize="sm">
-              2일전
-            </Text>
-          </Box>
-        </Flex>
-        <Box>
-          <Text
-            as="a"
-            fontSize="sm"
-            color="gray.600"
-            cursor="pointer"
-            _hover={{ textDecoration: 'underline' }}
-            onClick={() => onDeleteComment(comment, id)}
-          >
-            삭제
-          </Text>
-        </Box>
-      </Flex>
-      <Box>
+      <UserContentBlock
+        userImage={image}
+        userImageSize="40px"
+        username={username}
+        isOnline={false}
+        content="2일전"
+        subContent="취소"
+        onSubContentClick={() => onDeleteComment(comment, id)}
+      />
+      <Box mt="10px">
         <CommentText lineClamp={lineClamp}>{comment}</CommentText>
       </Box>
     </ListItem>
@@ -68,7 +52,7 @@ const CommentText = styled.p<CommentTextProps>`
   -webkit-line-clamp: ${({ lineClamp }) => lineClamp};
   -webkit-box-orient: vertical;
   overflow: hidden;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 `;
 
 export default MyCommentListItem;
