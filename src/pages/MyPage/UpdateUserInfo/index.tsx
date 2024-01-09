@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { UserInputList } from '@/pages/SignUp';
+import { USER_INPUT_LIST } from '@/pages/SignUp/userInputList';
 import { Button, Input, Form } from '@/pages/SignUp';
 import { validateUserInfo } from '@/pages/SignUp/validateUserInfo';
 import { preparing } from '@/pages/Login/preparing';
@@ -128,7 +128,7 @@ const UpdateUserInfo = ({
             </Box>
           </Flex>
         </ListItem>
-        {UserInputList.map(({ name, label, type, required, validate }) => (
+        {USER_INPUT_LIST.map(({ name, label, type, required, validate }) => (
           <ListItem listStyleType="none" mb="15px" key={name}>
             <FormLabel htmlFor={name} fontSize="14px">
               {label}
