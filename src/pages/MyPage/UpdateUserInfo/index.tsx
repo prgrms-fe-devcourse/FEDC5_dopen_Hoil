@@ -41,6 +41,7 @@ const UpdateUserInfo = ({
     register,
     handleSubmit,
     setError,
+    getValues,
     formState: { errors },
   } = useForm<UserInfoInput>({
     defaultValues: {
@@ -55,7 +56,11 @@ const UpdateUserInfo = ({
     navigate(-1);
   };
 
-  const { mutate } = useUpdateInfo({ onSuccessFn, profileImageFile });
+  const { mutate } = useUpdateInfo({
+    onSuccessFn,
+    profileImageFile,
+    newUserInfo: getValues(),
+  });
 
   // 프로필 이미지 변경
   const onProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
