@@ -3,7 +3,9 @@ import { Flex, FlexProps } from '@chakra-ui/react';
 import { useMessageList } from '@/hooks/useMessageList';
 import UserContentBlock from '../common/UserContentBlock';
 
-const MessageList = ({ ...props }: FlexProps) => {
+interface MessageListProps extends FlexProps {}
+
+const MessageList = ({ ...props }: MessageListProps) => {
   const navigate = useNavigate();
   const { isLoading, error, userDataList } = useMessageList();
   //TODO: 로딩 및 에러처리 세부 구현
