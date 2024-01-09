@@ -3,15 +3,10 @@ import { isValueUniqueInArray } from '@/utils/isValueUniqueInArray';
 import { UserInfoInput } from '@/types/user';
 import { UseFormSetError } from 'react-hook-form';
 
-interface Name {
-  fullName: string;
-  username: string;
-  password: string;
-}
 interface userInfoValidProps {
   userData: UserInfoInput;
   setError: UseFormSetError<UserInfoInput>;
-  onSuccess: ({ fullName, username, password }: Name) => void;
+  onSuccess: () => void;
 }
 
 export const validateUserInfo = async ({
@@ -19,7 +14,7 @@ export const validateUserInfo = async ({
   setError,
   onSuccess,
 }: userInfoValidProps): Promise<void> => {
-  const { fullName, username, password, passwordConfirm } = userData;
+  const { username, password, passwordConfirm } = userData;
   const userList = await getUserList({});
 
   // 중복 닉네임 체크
@@ -49,5 +44,5 @@ export const validateUserInfo = async ({
   }
 
   // mutate
-  onSuccess({ fullName, username, password });
+  onSuccess();
 };
