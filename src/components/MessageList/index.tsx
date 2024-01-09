@@ -29,6 +29,7 @@ const MessageList = ({ ...props }: MessageListProps) => {
               content={content}
               subContent={subContent}
               onClick={() => navigate(`./${userId}`)}
+              ellipsis={2}
             ></UserContentBlock>
           );
         },
