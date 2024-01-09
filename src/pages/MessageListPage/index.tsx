@@ -5,7 +5,7 @@ const MessageListPage = () => {
   return (
     <>
       <PageHeader pageName="메세지" />
-      <MessageList />;
+      <MessageList gap="10" h="100vh" />
     </>
   );
 };

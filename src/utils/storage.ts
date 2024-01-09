@@ -7,16 +7,13 @@ export const getItem = <T>(key: string, defaultValue: T) => {
       return JSON.parse(storagedValue);
     }
     return defaultValue;
-  } catch (e) {
+  } catch (error) {
     return defaultValue;
   }
 };
 
 export const setItem = <T>(key: string, value: T) => {
-  const storagedValue = storage.setItem(
-    key,
-    typeof value === 'string' ? value : JSON.stringify(value),
-  );
+  const storagedValue = storage.setItem(key, JSON.stringify(value));
 
   return storagedValue;
 };

@@ -21,6 +21,7 @@ export interface LoginInputProperty {
 }
 
 export interface UserInfoInput {
+  profileImage?: string;
   email: string;
   fullName: string;
   username: string;

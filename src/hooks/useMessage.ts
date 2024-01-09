@@ -1,21 +1,47 @@
+import { useQueryClient, useQuery } from 'react-query';
 import { getMessageListByUser } from '@/apis/message';
-import { useQuery } from 'react-query';
+import { convertDateToString } from '@/utils/convertDateToString';
+import { MESSAGE } from '@/constants/queryKeys';
+interface MessageLog {
+  time: string;
+  message: string;
+  _id: string;
+  type: 'sent' | 'received';
+}
 
 export const useMessage = (userId: string) => {
-  //data는 시간을 기준으로 오름차순 정렬되어서 나옴
+  const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery(
-    'message',
+    [MESSAGE, userId],
     async () => await getMessageListByUser(userId),
   );
 
-  const messageLogs = data?.map(({ message, sender, receiver, _id }) => {
-    if (import.meta.env.VITE_APP_TESTID === sender._id) {
-      return { _id, message, type: 'sent' };
-    }
-    if (import.meta.env.VITE_APP_TESTID === receiver._id) {
-      return { _id, message, type: 'received' };
+  const updateMessageLogs = () => {
+    queryClient.invalidateQueries([MESSAGE, userId]);
+  };
+
+  const messageLogs = new Map<string, MessageLog[]>();
+
+  data?.forEach(({ message, sender, _id, createdAt }) => {
+    const { date, time } = convertDateToString(new Date(createdAt));
+    const type =
+      import.meta.env.VITE_APP_TESTID === sender._id ? 'sent' : 'received';
+
+    const existingMessages = messageLogs.get(date);
+    if (existingMessages) {
+      messageLogs.set(date, [
+        ...existingMessages,
+        { _id, message, type, time },
+      ]);
+    } else {
+      messageLogs.set(date, [{ _id, message, type, time }]);
     }
   });
 
-  return { isLoading, error, messageLogs };
+  return {
+    isLoading,
+    error,
+    messageLogs: Array.from(messageLogs.entries()),
+    updateMessageLogs,
+  };
 };
