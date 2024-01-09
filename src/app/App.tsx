@@ -7,6 +7,7 @@ import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
 import SearchPage from '../pages/SearchPage';
+import ErrorPage from '@/pages/404Page';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/message" element={<MessageListPage />} />
           <Route path="/message/:userId" element={<MessagePage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </>
