@@ -1,7 +1,7 @@
 import { useQueryClient, useQuery } from 'react-query';
 import { getMessageListByUser } from '@/apis/message';
 import { convertDateToString } from '@/utils/convertDateToString';
-
+import { MESSAGE } from '@/constants/queryKeys';
 interface MessageLog {
   time: string;
   message: string;
@@ -12,7 +12,7 @@ interface MessageLog {
 export const useMessage = (userId: string) => {
   const queryClient = useQueryClient();
   const { isLoading, error, data } = useQuery(
-    ['message', userId],
+    [MESSAGE, userId],
     async () => await getMessageListByUser(userId),
   );
 
