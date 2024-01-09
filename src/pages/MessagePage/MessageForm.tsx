@@ -7,7 +7,7 @@ import {
   BoxProps,
   FormControl,
 } from '@chakra-ui/react';
-import { LuMousePointer2 } from 'react-icons/lu';
+import { LuSend } from 'react-icons/lu';
 import { useMessageForm } from '@/hooks/useMessageForm';
 
 interface MessageFormProps extends BoxProps {
@@ -37,7 +37,7 @@ const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
               isLoading={isSubmitting}
               isDisabled={!isValid}
             >
-              <Icon as={LuMousePointer2} color="pink" />
+              <Icon as={LuSend} color="pink" />
             </Button>
           </Flex>
         </FormControl>
