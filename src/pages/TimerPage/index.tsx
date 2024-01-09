@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import MyModal from '@/components/common/MyModal';
+import { TIME_OUT_VALUE } from '@/constants/time';
 import useTimer from '@/hooks/useTimer';
 import { getItem, setItem } from '@/utils/storage';
 import {
@@ -50,9 +51,7 @@ const TimerPage = () => {
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const TIME_OUT_VALUE = '23:45:00';
-
-  const timeOut = (value: string) => {
+  const checkTimeOut = (value: string) => {
     const timeDiff =
       stringTimeToSeconds(TIME_OUT_VALUE) - stringTimeToSeconds(value);
     return timeDiff >= 0 || '23:45까지만 설정 가능합니다.';
@@ -70,7 +69,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => timeOut(value),
+        validate: (value) => checkTimeOut(value),
       },
     },
     {
@@ -84,7 +83,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => timeOut(value),
+        validate: (value) => checkTimeOut(value),
       },
     },
     {
@@ -98,7 +97,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => timeOut(value),
+        validate: (value) => checkTimeOut(value),
       },
     },
   ];
@@ -134,9 +133,11 @@ const TimerPage = () => {
       time.toString().padStart(2, '0'),
     );
     const stringTime = timeArr.join(':');
+
     setTimer(stringTime);
     timeBenchmark.current = stringTime;
     setItem('timer', { time: stringTime });
+
     onClose();
   };
 
