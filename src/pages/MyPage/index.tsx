@@ -1,33 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box, Text, Avatar } from '@chakra-ui/react';
-import { FaUserCircle, FaClipboardList, FaPen } from 'react-icons/fa';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { removeItem } from '@/utils/storage';
 import { useLogOut, useMyInfo } from '@/hooks/useAuth';
 import MyPageListItem from './MyPageListItem';
-
-const myPageList = [
-  [
-    {
-      icon: FaUserCircle,
-      title: '회원정보 수정',
-      href: '/mypage/account',
-    },
-  ],
-  [
-    {
-      icon: FaClipboardList,
-      title: '내가 작성한 게시글 보기',
-      href: '/mypage/myboardlist',
-    },
-    {
-      icon: FaPen,
-      title: '내가 작성한 댓글 보기',
-      href: '/mypage/mycommentlist',
-    },
-  ],
-];
+import { MYPAGE_LIST } from './myPageList';
 
 const MyPage = () => {
   const navigator = useNavigate();
@@ -61,7 +39,7 @@ const MyPage = () => {
         </Box>
         <ProfileName>{myInfo.username}</ProfileName>
       </Box>
-      {myPageList.map((mypage, index) => {
+      {MYPAGE_LIST.map((mypage, index) => {
         return (
           <MyPageUl key={index}>
             {mypage.map(({ icon, title, href }, index) => {
@@ -90,7 +68,7 @@ const MyPage = () => {
 
 const ProfileName = styled.strong`
   display: inline-block;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: bold;
   margin-top: 10px;
 `;
