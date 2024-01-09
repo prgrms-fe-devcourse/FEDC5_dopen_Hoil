@@ -1,10 +1,20 @@
 import { useQuery } from 'react-query';
-import { MYBOARD_LIST } from '@/constants/queryKeys';
+import { MYPOST_LIST, POST_DETAIL } from '@/constants/queryKeys';
 import { checkAuthenticated } from '@/apis/authentication';
+import { getPostDetail } from '@/apis/post';
 
-export const useMyBoardList = () => {
+interface PostProps {
+  onSuccessFn?: () => void;
+  onErrorFn?: () => void;
+}
+
+interface PostDetailProps extends PostProps {
+  id: string;
+}
+
+export const useMyPostList = () => {
   return useQuery(
-    MYBOARD_LIST,
+    MYPOST_LIST,
     async () => {
       const { posts } = await checkAuthenticated();
 
@@ -12,4 +22,14 @@ export const useMyBoardList = () => {
     },
     {},
   );
+};
+
+export const usePostDetail = ({ onSuccessFn, id }: PostDetailProps) => {
+  return useQuery(POST_DETAIL, async () => await getPostDetail(id), {
+    onSuccess: () => {
+      if (onSuccessFn) {
+        onSuccessFn();
+      }
+    },
+  });
 };

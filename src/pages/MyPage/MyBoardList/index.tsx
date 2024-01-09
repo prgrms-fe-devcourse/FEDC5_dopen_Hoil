@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@chakra-ui/react';
 
-import { useMyBoardList } from '@/hooks/usePost';
+import { useMyPostList } from '@/hooks/usePost';
 
 import PostListItem from '@/components/PostList/PostListItem';
 import PageHeader from '@/components/PageHeader';
@@ -9,15 +9,19 @@ import Footer from '@/components/Footer';
 
 const MyBoardList = () => {
   const navigate = useNavigate();
-  const { data: myPostList, isLoading } = useMyBoardList();
+  const { data: myPostList, isLoading, isError } = useMyPostList();
 
   if (isLoading) {
     return <Box>로딩중입니다...</Box>;
   }
 
-  if (!myPostList) {
-    return <Box>새로고침 해주세요....</Box>;
+  if (isError || !myPostList) {
+    return <Box>새로고침 해주세요...</Box>;
   }
+
+  const onPostDetail = (id: string) => {
+    navigate(`./${id}`);
+  };
 
   return (
     <Box>
@@ -32,7 +36,7 @@ const MyBoardList = () => {
             likeCount={post.likes.length}
             commentCount={post.comments.length}
             style={{ borderBottom: '1px solid' }}
-            onClick={() => navigate(`./${post._id}`)}
+            onClick={() => onPostDetail(post._id)}
           />
         ))}
       </Box>
