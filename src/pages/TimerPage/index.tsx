@@ -1,3 +1,4 @@
+import { createPost } from '@/apis/post';
 import PageHeader from '@/components/PageHeader';
 import MyModal from '@/components/common/MyModal';
 import { TIME_OUT_VALUE } from '@/constants/time';
@@ -23,6 +24,7 @@ import {
 import { Fragment, useEffect, useRef } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
+import { useMutation } from 'react-query';
 
 const stringTimeToSeconds = (time: string) => {
   const [hours, minutes, seconds] = time.split(':').map(Number);
@@ -40,6 +42,13 @@ interface TimerInputMetaDataTypes {
   validate?: RegisterOptions;
 }
 
+const DUMMY_DATA = {
+  userId: '658b73f0fadd1520147a8d64',
+  email: 'test@test.com',
+  password: '12341234',
+  timerChannelId: '659cbef85b11b0431d028400',
+};
+
 const TimerPage = () => {
   const { timer, startTimer, stopTimer, isPlay, setTimer } = useTimer();
   const timeBenchmark = useRef(timer);
@@ -52,8 +61,13 @@ const TimerPage = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const checkTimeOut = (value: string) => {
-    const timeDiff =
-      stringTimeToSeconds(TIME_OUT_VALUE) - stringTimeToSeconds(value);
+    const currentTime = new Date();
+    const currentLimit =
+      stringTimeToSeconds(TIME_OUT_VALUE) -
+      stringTimeToSeconds(
+        `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`,
+      );
+    const timeDiff = currentLimit - stringTimeToSeconds(value);
     return timeDiff >= 0 || '23:45까지만 설정 가능합니다.';
   };
 
@@ -62,14 +76,17 @@ const TimerPage = () => {
       name: 'hour',
       validate: {
         pattern: {
-          value: /^[0-2]?[0-3]$/,
+          value: /^(0?[0-9]|1[0-9]|2[0-3])$/,
           message: '00~23사이 숫자만 가능합니다',
         },
         maxLength: {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => checkTimeOut(value),
+        validate: () =>
+          checkTimeOut(
+            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
+          ),
       },
     },
     {
@@ -83,7 +100,10 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => checkTimeOut(value),
+        validate: () =>
+          checkTimeOut(
+            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
+          ),
       },
     },
     {
@@ -97,7 +117,10 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
-        validate: (value) => checkTimeOut(value),
+        validate: () =>
+          checkTimeOut(
+            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
+          ),
       },
     },
   ];
@@ -127,12 +150,21 @@ const TimerPage = () => {
     'aria-label': '',
   };
 
+  const { mutate } = useMutation(['timerPost'], async (time: string) => {
+    return await createPost({
+      title: JSON.stringify({ time }),
+      channelId: DUMMY_DATA.timerChannelId,
+    });
+  });
+
   const onSubmit = () => {
     const { hour, minute, second } = getValues();
     const timeArr = [hour, minute, second].map((time) =>
       time.toString().padStart(2, '0'),
     );
     const stringTime = timeArr.join(':');
+
+    mutate(stringTime);
 
     setTimer(stringTime);
     timeBenchmark.current = stringTime;
