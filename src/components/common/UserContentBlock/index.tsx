@@ -16,6 +16,7 @@ interface UserContentBlockProps extends FlexProps {
   usernameFontSize?: string | number;
   isOnline?: boolean;
   content: string;
+  ellipsis?: number | number[];
   subContent?: string;
   contentFontSize?: string | number;
   onSubContentClick?: () => void;
@@ -28,6 +29,7 @@ const UserContentBlock = ({
   usernameFontSize = '1.4rem',
   isOnline,
   content,
+  ellipsis = 1,
   subContent,
   contentFontSize = '1.2rem',
   onSubContentClick,
@@ -91,6 +93,7 @@ const UserContentBlock = ({
               ? contentFontSize
               : `${contentFontSize}px`
           }
+          noOfLines={ellipsis}
         >
           {content}
         </Text>

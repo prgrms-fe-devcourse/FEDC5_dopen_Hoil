@@ -54,7 +54,7 @@ const TimerPage = () => {
   const checkTimeOut = (value: string) => {
     const timeDiff =
       stringTimeToSeconds(TIME_OUT_VALUE) - stringTimeToSeconds(value);
-    return timeDiff >= 0 || '23:45까지만 설정 가능합니다.';
+    return timeDiff >= 0 || '23:45:00까지만 설정 가능합니다.';
   };
 
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
@@ -106,7 +106,7 @@ const TimerPage = () => {
     handleSubmit,
     register,
     getValues,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<TimerInputTypes>({
     defaultValues: {
       hour: '00',
@@ -244,16 +244,6 @@ const TimerPage = () => {
             </form>
           </Box>
         </MyModal>
-        <Button
-          color="white"
-          bg="pink.300"
-          w="388px"
-          h="70px"
-          _hover={{ bg: 'pink.400' }}
-          disabled={!isValid}
-        >
-          스톱워치로 전환
-        </Button>
       </VStack>
     </Flex>
   );

@@ -6,9 +6,12 @@ import MyPage from '@/pages/MyPage';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
-import SearchPage from '../pages/SearchPage';
 import TimerPage from '@/pages/TimerPage';
 import '@fontsource/noto-sans-kr';
+import ErrorPage from '@/pages/404Page';
+import SearchPage from '@/pages/SearchPage';
+import BoardEnterPage from '@/pages/BoardEnterPage';
+import BoardPage from '@/pages/BoardPage';
 
 const App = () => {
   return (
@@ -23,6 +26,10 @@ const App = () => {
           <Route path="/message/:userId" element={<MessagePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/timer" element={<TimerPage />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="/board" element={<BoardEnterPage />}>
+            <Route path=":boardName" element={<BoardPage />} />
+          </Route>
         </Route>
       </Routes>
     </>
