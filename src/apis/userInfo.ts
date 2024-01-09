@@ -8,7 +8,7 @@ export const getUserList = async ({
   offset?: number;
   limit?: number;
 }) =>
-  await getRequest<User[]>('users/get-users', {
+  await getRequest<User[]>('/users/get-users', {
     params: {
       offset,
       limit,
@@ -16,27 +16,41 @@ export const getUserList = async ({
   });
 
 export const getOnlineUserList = async () =>
-  await getRequest<User[]>('users/online-users');
+  await getRequest<User[]>('/users/online-users');
 
 export const getUserInfo = async (userId: string) =>
-  await getRequest<User>(`users/${userId}`);
+  await getRequest<User>(`/users/${userId}`);
 
 interface ChangeImagePayload {
-  isCover?: boolean;
-  image: BinaryData;
+  image: File;
+  isCover: boolean;
 }
 
-export const changeProfileImage = async (image: BinaryData) =>
-  await postRequest<User, ChangeImagePayload>('/users/upload-photo', {
-    isCover: false,
-    image,
-  });
+export const changeProfileImage = async ({
+  image,
+  isCover = false,
+}: ChangeImagePayload) => {
+  const formData = new FormData();
+  formData.append('isCover', isCover ? 'true' : 'false');
+  formData.append('image', image);
 
-export const changeCoverImage = async (image: BinaryData) =>
-  await postRequest<User, ChangeImagePayload>('users/upload-photo', {
-    isCover: true,
-    image,
+  return await postRequest<User, FormData>('/users/upload-photo', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
+};
+
+export const changeCoverImage = async ({
+  image,
+  isCover = true,
+}: ChangeImagePayload) => {
+  const formData = new FormData();
+  formData.append('isCover', isCover ? 'true' : 'false');
+  formData.append('image', image);
+
+  return await postRequest<User, FormData>('/users/upload-photo', formData);
+};
 
 interface Name {
   fullName: string;
@@ -44,7 +58,10 @@ interface Name {
 }
 
 //이름 이외의 데이터는 삽입할 수 없음
-export const changeUserName = async ({ fullName, username }: Name) => {
+export const changeUserName = async ({
+  fullName,
+  username,
+}: Name): Promise<User> => {
   return await putRequest('/settings/update-user', { fullName, username });
 };
 
