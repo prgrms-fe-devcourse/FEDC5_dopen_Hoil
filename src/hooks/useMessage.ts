@@ -17,7 +17,7 @@ export const useMessage = (userId: string) => {
   );
 
   const updateMessageLogs = () => {
-    queryClient.invalidateQueries(['message', userId]);
+    queryClient.invalidateQueries([MESSAGE, userId]);
   };
 
   const messageLogs = new Map<string, MessageLog[]>();
