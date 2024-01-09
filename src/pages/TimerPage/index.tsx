@@ -1,6 +1,7 @@
 import PageHeader from '@/components/PageHeader';
 import MyModal from '@/components/common/MyModal';
 import useTimer from '@/hooks/useTimer';
+import { getItem, setItem } from '@/utils/storage';
 import {
   Box,
   Button,
@@ -18,11 +19,9 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Fragment, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
-
-const DEFAULT_TIME = '00:01:05';
 
 const stringTimeToSeconds = (time: string) => {
   const [hours, minutes, seconds] = time.split(':').map(Number);
@@ -41,11 +40,23 @@ interface TimerInputMetaDataTypes {
 }
 
 const TimerPage = () => {
-  const { timer, startTimer, stopTimer, isPlay, setTimer } =
-    useTimer(DEFAULT_TIME);
+  const { timer, startTimer, stopTimer, isPlay, setTimer } = useTimer();
+  const timeBenchmark = useRef(timer);
+  useEffect(() => {
+    const { time } = getItem('timer', { time: '00:00:00' });
+    setTimer(time);
+    timeBenchmark.current = time;
+  }, [setTimer]);
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const timeBenchmark = useRef(timer);
+  const TIME_OUT_VALUE = '23:45:00';
+
+  const timeOut = (value: string) => {
+    const timeDiff =
+      stringTimeToSeconds(TIME_OUT_VALUE) - stringTimeToSeconds(value);
+    return timeDiff >= 0 || '23:45까지만 설정 가능합니다.';
+  };
 
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
     {
@@ -59,6 +70,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
+        validate: (value) => timeOut(value),
       },
     },
     {
@@ -72,6 +84,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
+        validate: (value) => timeOut(value),
       },
     },
     {
@@ -85,6 +98,7 @@ const TimerPage = () => {
           value: 2,
           message: '숫자는 두개까지 입력 가능합니다',
         },
+        validate: (value) => timeOut(value),
       },
     },
   ];
@@ -122,6 +136,7 @@ const TimerPage = () => {
     const stringTime = timeArr.join(':');
     setTimer(stringTime);
     timeBenchmark.current = stringTime;
+    setItem('timer', { time: stringTime });
     onClose();
   };
 
