@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ListItem, Box } from '@chakra-ui/react';
-import { useDeleteComment } from '@/hooks/useComment';
+import { useDeleteComment } from '@/hooks/useMyComment';
 
 import UserContentBlock from '@/components/common/UserContentBlock';
 

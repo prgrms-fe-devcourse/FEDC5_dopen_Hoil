@@ -1,5 +1,5 @@
 import { Box, UnorderedList } from '@chakra-ui/react';
-import { useMyComment } from '@/hooks/useComment';
+import { useMyComment } from '@/hooks/useMyComment';
 import { useMyInfo } from '@/hooks/useAuth';
 
 import PageHeader from '@/components/PageHeader';
