@@ -7,7 +7,7 @@ export interface User {
   isOnline: boolean;
   posts: Post[];
   likes: Like[];
-  comments: string[];
+  comments: string[] | Comment[];
   followers: [];
   following: Follow[];
   notifications: Notification[];
