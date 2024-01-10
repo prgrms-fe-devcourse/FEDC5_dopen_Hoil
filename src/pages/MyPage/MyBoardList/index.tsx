@@ -9,13 +9,13 @@ import Footer from '@/components/Footer';
 
 const MyBoardList = () => {
   const navigate = useNavigate();
-  const { data: myPostList, isLoading, isError } = useMyPostList();
+  const { data: myPostList = [], isLoading, isError } = useMyPostList();
 
   if (isLoading) {
     return <Box>로딩중입니다...</Box>;
   }
 
-  if (isError || !myPostList) {
+  if (isError) {
     return <Box>새로고침 해주세요...</Box>;
   }
 
