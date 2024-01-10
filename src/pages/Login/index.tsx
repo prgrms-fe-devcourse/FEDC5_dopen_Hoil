@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { useMutation } from 'react-query';
 import {
   Box,
   Heading,
@@ -17,16 +16,15 @@ import {
 
 import { Input, Button, Form } from '@/pages/SignUp';
 
-import { getUserList } from '@/apis/userInfo';
-import { logIn } from '@/apis/authentication';
-import { User } from '@/apis/type';
-import { UserResponse, UserLoginInput, LoginInputProperty } from '@/types/user';
+import { UserLoginInput, LoginInputProperty } from '@/types/user';
 import { LOGIN_INPUT_VALIDATE } from '@/constants/inputValidate';
-import { LOGIN_TOKEN, LOGINID_SAVEKEY } from '@/constants/user';
-import { setItem, getItem } from '@/utils/storage';
 
-import { saveLoginId } from './saveLoginId';
 import { preparing } from './preparing';
+import { isValueUniqueInArray } from '@/utils/isValueUniqueInArray';
+import { useGetUsersList } from '@/hooks/useUser';
+import { useLogin } from '@/hooks/useAuth';
+import { LOGINID_SAVEKEY } from '@/constants/user';
+import { getItem } from '@/utils/storage';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -68,7 +66,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
     setError,
   } = useForm<UserLoginInput>({
@@ -78,10 +76,8 @@ const Login = () => {
     },
   });
 
-  const onSuccess = (data: UserResponse) => {
+  const onSuccessFn = () => {
     alert('로그인 성공');
-    saveLoginId(getValues('isSavedId'), getValues('email'));
-    setItem(LOGIN_TOKEN, data.token);
 
     const path = location.state?.from?.pathname;
     if (!path || path === '/signup') {
@@ -91,7 +87,7 @@ const Login = () => {
     }
   };
 
-  const onError = (error: AxiosError) => {
+  const onErrorFn = (error: AxiosError) => {
     if (error.response?.status === 400) {
       // 비밀번호가 틀렸을 때
       setError(
@@ -102,27 +98,20 @@ const Login = () => {
     }
   };
 
-  const { mutate } = useMutation<UserResponse, AxiosError>(
-    async () => {
-      const { email, password } = getValues();
-      return await logIn({ email, password });
-    },
-    {
-      onSuccess,
-      onError,
-      meta: {
-        errorMessage: '로그인에서 에러가 발생했습니다.',
-      },
-    },
-  );
+  const { mutate } = useLogin({
+    onSuccessFn,
+    onErrorFn,
+    isSavedId: watch('isSavedId') ?? false,
+  });
+  const { data: userList = [] } = useGetUsersList();
 
-  const onLoginValid: SubmitHandler<UserLoginInput> = async ({ email }) => {
-    const userList = await getUserList({});
-    const isEmailCheck = userList.some(
-      (userData: User) => userData.email === email,
-    );
-    if (isEmailCheck) {
-      mutate();
+  const onLoginValid: SubmitHandler<UserLoginInput> = async ({
+    email,
+    password,
+  }) => {
+    const isUserEmailCheck = isValueUniqueInArray(userList, 'email', email);
+    if (isUserEmailCheck) {
+      mutate({ email, password });
     } else {
       setError(
         'email',

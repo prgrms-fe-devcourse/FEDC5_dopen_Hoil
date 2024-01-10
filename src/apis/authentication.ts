@@ -37,4 +37,5 @@ export const signUp = async ({
 
 export const logOut = async () => await postRequest('/logout');
 
-export const checkAuthenticated = async () => await getRequest('/auth-user');
+export const checkAuthenticated = async (): Promise<User> =>
+  await getRequest('/auth-user');
