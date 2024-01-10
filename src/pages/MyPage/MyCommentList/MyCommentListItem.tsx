@@ -1,9 +1,10 @@
-import styled from '@emotion/styled';
-import { ListItem, Box } from '@chakra-ui/react';
+import { ListItem, Box, Text } from '@chakra-ui/react';
 import { useDeleteComment } from '@/hooks/useMyComment';
 
 import UserContentBlock from '@/components/common/UserContentBlock';
-
+import Confirm from '@/components/common/Confirm';
+import { useState } from 'react';
+import { useQueryClient } from 'react-query';
 interface MyCommentListItemProps {
   id: string;
   image: string;
@@ -19,40 +20,47 @@ const MyCommentListItem = ({
   comment,
   lineClamp = 1,
 }: MyCommentListItemProps) => {
-  const { mutate } = useDeleteComment();
-  const onDeleteComment = (title: string, id: string) => {
-    if (confirm(`${title} 댓글을 정말 삭제하시겠습니까?`)) {
-      mutate(id);
-    }
+  const [isConfirm, setIsConfirm] = useState(false);
+  const queryClient = useQueryClient();
+  const { mutate } = useDeleteComment({ queryClient });
+
+  const onConfirm = () => {
+    mutate(id);
   };
+
+  const onCancel = () => {
+    setIsConfirm(false);
+  };
+
   return (
     <ListItem key={id} p="10px 0 10px" borderBottom="1px solid #D9D9D9">
       <UserContentBlock
+        p="0"
+        w="100%"
+        cursor="default"
         userImage={image}
         userImageSize="40px"
         username={username}
         isOnline={false}
         content="2일전"
         subContent="취소"
-        onSubContentClick={() => onDeleteComment(comment, id)}
+        onSubContentClick={() => setIsConfirm(true)}
       />
       <Box mt="10px">
-        <CommentText lineClamp={lineClamp}>{comment}</CommentText>
+        <Text noOfLines={lineClamp} fontSize="1.3rem">
+          {comment}
+        </Text>
       </Box>
+
+      {isConfirm && (
+        <Confirm
+          onCancel={onCancel}
+          onConfirm={onConfirm}
+          comment={`${comment} 댓글을 정말 삭제하시겠습니까?`}
+        />
+      )}
     </ListItem>
   );
 };
-
-interface CommentTextProps {
-  lineClamp: number;
-}
-
-const CommentText = styled.p<CommentTextProps>`
-  display: -webkit-box;
-  -webkit-line-clamp: ${({ lineClamp }) => lineClamp};
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  font-size: 1.3rem;
-`;
 
 export default MyCommentListItem;
