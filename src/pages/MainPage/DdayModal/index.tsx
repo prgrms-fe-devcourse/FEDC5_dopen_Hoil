@@ -26,7 +26,7 @@ const DdayModal = ({
     formState: { errors },
   } = useForm<DdayModalInputTypes>();
 
-  const onSuccess = () => {};
+  const onSubmit = () => {};
 
   return (
     <MyModal
@@ -34,12 +34,12 @@ const DdayModal = ({
       isOpen={isOpen}
       title="D-DAY"
       buttonText="D-day 등록하기"
-      onButtonClick={() => handleSubmit(onSuccess)}
+      onButtonClick={handleSubmit(() => onSubmit())}
       isCentered
     >
       <form style={{ padding: '0 20px' }}>
-        <FormControl isInvalid={!!errors.dDayTitle}>
-          <FormLabel htmlFor="dDayTitle" p="12px 0">
+        <FormControl isInvalid={!!errors.dDayTitle?.message}>
+          <FormLabel htmlFor="dDayTitle" fontSize="1.4rem">
             D-Day 명을 작성해주세요.
           </FormLabel>
           <InputGroup>
@@ -50,8 +50,8 @@ const DdayModal = ({
               {...register('dDayTitle', {
                 required: 'd-day 명을 작성해주세요!',
                 minLength: {
-                  value: 1,
-                  message: '최소 1글자 이상 입력해주세요',
+                  value: 2,
+                  message: '최소 2글자 이상 입력해주세요',
                 },
                 maxLength: {
                   value: 20,
@@ -68,10 +68,10 @@ const DdayModal = ({
               />
             </InputRightElement>
           </InputGroup>
-          <FormErrorMessage>{errors.dDayDate?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.dDayTitle?.message}</FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={!!errors.dDayDate}>
-          <FormLabel htmlFor="dDayDate" p="12px 0">
+        <FormControl isInvalid={!!errors.dDayDate?.message}>
+          <FormLabel htmlFor="dDayDate" fontSize="1.4rem">
             날짜를 선택해주세요.
           </FormLabel>
           <Input
@@ -84,7 +84,7 @@ const DdayModal = ({
               required: 'd-day날짜를 기입해주세요',
             })}
           />
-          <FormErrorMessage></FormErrorMessage>
+          <FormErrorMessage>{errors.dDayDate?.message}</FormErrorMessage>
         </FormControl>
       </form>
     </MyModal>
