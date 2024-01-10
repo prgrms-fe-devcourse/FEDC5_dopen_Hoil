@@ -9,6 +9,29 @@ import {
 } from 'react-icons/md';
 import TextIconButton from '../common/TextIconButton';
 
+const elementsData = [
+  {
+    icon: MdHome,
+    text: '홈',
+  },
+  {
+    icon: MdEmojiEvents,
+    text: '랭킹',
+  },
+  {
+    icon: MdOutlineTimer,
+    text: '타이머',
+  },
+  {
+    icon: MdOutlineMessage,
+    text: '게시판',
+  },
+  {
+    icon: MdPersonOutline,
+    text: '내정보',
+  },
+];
+
 const Footer = ({ ...props }: FlexProps) => {
   return (
     <Flex
@@ -23,12 +46,9 @@ const Footer = ({ ...props }: FlexProps) => {
       h={DEFAULT_HEADER_HEIGHT}
       {...props}
     >
-      {/* [{icon:MdHome, textContent:"홈"}, ...]  이렇게 받아와서 map을 돌려도 좋아보입니다*/}
-      <TextIconButton TheIcon={MdHome} textContent="홈" />
-      <TextIconButton TheIcon={MdEmojiEvents} textContent="랭킹" />
-      <TextIconButton TheIcon={MdOutlineTimer} textContent="타이머" />
-      <TextIconButton TheIcon={MdOutlineMessage} textContent="게시판" />
-      <TextIconButton TheIcon={MdPersonOutline} textContent="내정보" />
+      {elementsData.map(({ icon, text }) => (
+        <TextIconButton key={text} TheIcon={icon} textContent={text} />
+      ))}
     </Flex>
   );
 };
