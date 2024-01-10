@@ -17,7 +17,7 @@ const MyPage = () => {
   const { mutate } = useLogOut({ onSuccessFn });
 
   const onLogOut = () => {
-    mutate;
+    mutate();
   };
 
   const { data: myInfo, isLoading } = useMyInfo();
