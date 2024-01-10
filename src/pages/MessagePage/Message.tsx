@@ -6,6 +6,7 @@ import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
 import MessageForm from './MessageForm';
 import { sendMessage } from '@/apis/message';
+import { pushNotification } from '@/apis/notifications';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
@@ -15,7 +16,13 @@ const Message = ({ ...props }: BoxProps) => {
     if (!userId) {
       return;
     }
-    await sendMessage({ message, receiver: userId });
+    const data = await sendMessage({ message, receiver: userId });
+    await pushNotification({
+      notificationType: 'MESSAGE',
+      notificationTypeId: data._id,
+      userId: userId,
+      postId: data._id,
+    });
     updateMessageLogs();
   };
 
@@ -62,7 +69,13 @@ const Message = ({ ...props }: BoxProps) => {
           </Fragment>
         );
       })}
-      <MessageForm onSuccess={onSendMessage} bgColor="white" />
+      <MessageForm
+        onSuccess={onSendMessage}
+        bgColor="white"
+        pos="absolute"
+        bottom="0"
+        w="100%"
+      />
     </Flex>
   );
 };
