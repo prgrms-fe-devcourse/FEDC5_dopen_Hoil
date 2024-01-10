@@ -1,4 +1,5 @@
 import MyModal, { MyModalProps } from '@/components/common/MyModal';
+import { setItem } from '@/utils/storage';
 import {
   CloseButton,
   FormControl,
@@ -8,25 +9,38 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface DdayModalInputTypes {
   dDayTitle: string;
-  dDayDate: Date;
+  dDayDate: string;
 }
 
-const DdayModal = ({
-  isOpen,
-  onClose,
-}: Pick<MyModalProps, 'isOpen' | 'onClose'>) => {
+interface DdayModalProps extends Pick<MyModalProps, 'isOpen' | 'onClose'> {
+  setDday: Dispatch<SetStateAction<{ dDayTitle: string; dDayDate: string }>>;
+}
+
+const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
   const {
     register,
     resetField,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<DdayModalInputTypes>();
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    setDday({
+      dDayTitle: getValues('dDayTitle'),
+      dDayDate: getValues('dDayDate'),
+    });
+    setItem('d-day', {
+      dDayTitle: getValues('dDayTitle'),
+      dDayDate: getValues('dDayDate'),
+    });
+    onClose();
+  };
 
   return (
     <MyModal
@@ -79,7 +93,7 @@ const DdayModal = ({
             type="date"
             p="0 18px"
             h="40px"
-            w="135px"
+            w="150px"
             {...register('dDayDate', {
               required: 'd-day날짜를 기입해주세요',
             })}
