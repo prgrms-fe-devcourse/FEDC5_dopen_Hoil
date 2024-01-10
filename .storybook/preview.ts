@@ -3,7 +3,6 @@ import {theme} from "../src/theme"
 
 
 const preview: Preview = {
-
   parameters: {
     chakra:{
       theme,

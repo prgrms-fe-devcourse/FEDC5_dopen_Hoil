@@ -1,8 +1,10 @@
 import PageHeader from '@/components/PageHeader';
 import { Meta, StoryObj } from '@storybook/react';
+import { withRouter } from 'storybook-addon-react-router-v6';
 
 const meta: Meta<typeof PageHeader> = {
   component: PageHeader,
+  decorators: [withRouter],
   argTypes: {
     width: {
       control: 'text',
