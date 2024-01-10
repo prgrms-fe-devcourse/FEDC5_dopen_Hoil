@@ -10,23 +10,23 @@ export const useNotificationList = () => {
     },
   );
 
-  const notificationList = data
-    ?.map((notify) => {
-      //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
-      const author = notify.author.username;
-      if (notify.message) {
-        return { type: 'MESSAGE', author };
-      }
+  const notificationList = data?.map((notify) => {
+    //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
+    const { username } = notify.author;
+    const date = notify.createdAt;
 
-      if (notify.comment) {
-        return { type: 'COMMENT', author };
-      }
+    if (notify.message) {
+      return { type: 'MESSAGE', username, date };
+    }
 
-      if (notify.follow) {
-        return { type: 'FOLLOW', author };
-      }
-    })
-    .filter((item) => item === undefined);
+    if (notify.comment) {
+      return { type: 'COMMENT', username, date };
+    }
+
+    if (notify.follow) {
+      return { type: 'FOLLOW', username, date };
+    }
+  });
 
   return {
     notificationList,
