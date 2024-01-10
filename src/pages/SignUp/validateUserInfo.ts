@@ -24,7 +24,7 @@ export const validateUserInfo = async ({
     username,
   );
 
-  if (isUserNickNameCheck === false) {
+  if (isUserNickNameCheck) {
     setError(
       'username',
       { message: '동일한 닉네임이 존재합니다.' },
