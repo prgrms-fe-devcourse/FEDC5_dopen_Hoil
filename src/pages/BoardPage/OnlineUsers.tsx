@@ -1,4 +1,4 @@
-import OnlineUserProfil from '@/components/OnlineUserProfil';
+import OnlineUserProfile from '@/components/OnlineUserProfile';
 import { Flex } from '@chakra-ui/react';
 
 interface OnlineUsersProps {
@@ -9,7 +9,7 @@ interface OnlineUsersProps {
 const OnlineUsers = ({ username = '테스트', image = '' }: OnlineUsersProps) => {
   return (
     <Flex gap="8px">
-      <OnlineUserProfil username={username} image={image} />
+      <OnlineUserProfile username={username} image={image} />
     </Flex>
   );
 };

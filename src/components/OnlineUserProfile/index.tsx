@@ -1,11 +1,11 @@
 import { Avatar, Circle, Flex, Text } from '@chakra-ui/react';
 
-interface OnlineUserProfilProps {
+interface OnlineUserProfileProps {
   username: string;
   image: string;
 }
 
-const OnlineUserProfil = ({ username, image }: OnlineUserProfilProps) => {
+const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
   return (
     <Flex w="60px" h="80px" flexDirection="column" alignItems="center">
       <Avatar src={image} w="60px" h="60px" mb="5px">
@@ -21,4 +21,4 @@ const OnlineUserProfil = ({ username, image }: OnlineUserProfilProps) => {
   );
 };
 
-export default OnlineUserProfil;
+export default OnlineUserProfile;

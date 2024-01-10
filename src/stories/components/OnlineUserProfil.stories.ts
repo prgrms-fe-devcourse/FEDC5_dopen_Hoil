@@ -1,4 +1,4 @@
-import OnlineUserProfil from '@/components/OnlineUserProfil';
+import OnlineUserProfil from '@/components/OnlineUserProfile';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof OnlineUserProfil> = {
