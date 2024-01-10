@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-interface MyModal extends ModalProps {
+export interface MyModalProps extends ModalProps {
   onClose(): void;
   isOpen: boolean;
   title: string;
@@ -29,7 +29,7 @@ const MyModal = ({
   buttonText,
   onButtonClick,
   ...props
-}: MyModal) => {
+}: MyModalProps) => {
   return (
     <Portal>
       <Modal isOpen={isOpen} onClose={onClose} {...props}>
