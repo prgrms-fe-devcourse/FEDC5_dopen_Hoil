@@ -11,6 +11,7 @@ import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
 import BoardPage from '@/pages/BoardPage';
+import { BOARD_LIST } from '@/constants/Board';
 
 const App = () => {
   return (
@@ -27,9 +28,13 @@ const App = () => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
-          <Route path="/board/free" element={<BoardPage />} />
-          <Route path="/board/infoshare" element={<BoardPage />} />
-          <Route path="/board/reflections" element={<BoardPage />} />
+          {Object.keys(BOARD_LIST).map((board) => (
+            <Route
+              key={board}
+              path={`/board/${board}`}
+              element={<BoardPage />}
+            />
+          ))}
         </Route>
       </Routes>
     </>
