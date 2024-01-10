@@ -8,8 +8,66 @@ import {
   MdPersonOutline,
 } from 'react-icons/md';
 import TextIconButton from '../common/TextIconButton';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { getInteractiveMap } from '@/utils/getInteractiveMap';
 
 const Footer = ({ ...props }: FlexProps) => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [currentPageName, setCurrentPageName] = useState('');
+
+  const elementsData = [
+    {
+      icon: MdHome,
+      text: '홈',
+    },
+    {
+      icon: MdEmojiEvents,
+      text: '랭킹',
+    },
+    {
+      icon: MdOutlineTimer,
+      text: '타이머',
+    },
+    {
+      icon: MdOutlineMessage,
+      text: '게시판',
+    },
+    {
+      icon: MdPersonOutline,
+      text: '내정보',
+    },
+  ];
+
+  const footerIconPath = useMemo<Map<string, string>>(
+    () =>
+      getInteractiveMap<string, string>(
+        new Map([
+          ['', '홈'],
+          ['rank', '랭킹'],
+          ['timer', '타이머'],
+          ['board', '게시판'],
+          ['mypage', '내정보'],
+        ]),
+      ),
+    [],
+  );
+
+  useEffect(() => {
+    setCurrentPageName(pathname?.split('/')?.[1]);
+  }, [pathname]);
+
+  const matchedPageNameStyle = (currentPageName: string, iconText: string) => {
+    if (footerIconPath.get(currentPageName) === iconText) {
+      return {
+        iconColor: 'pink.300',
+        color: 'pink.300',
+      };
+    }
+    return {};
+  };
+
   return (
     <Flex
       pl="31px"
@@ -23,12 +81,15 @@ const Footer = ({ ...props }: FlexProps) => {
       h={DEFAULT_HEADER_HEIGHT}
       {...props}
     >
-      {/* [{icon:MdHome, textContent:"홈"}, ...]  이렇게 받아와서 map을 돌려도 좋아보입니다*/}
-      <TextIconButton TheIcon={MdHome} textContent="홈" />
-      <TextIconButton TheIcon={MdEmojiEvents} textContent="랭킹" />
-      <TextIconButton TheIcon={MdOutlineTimer} textContent="타이머" />
-      <TextIconButton TheIcon={MdOutlineMessage} textContent="게시판" />
-      <TextIconButton TheIcon={MdPersonOutline} textContent="내정보" />
+      {elementsData.map(({ icon, text }) => (
+        <TextIconButton
+          key={text}
+          TheIcon={icon}
+          textContent={text}
+          onClick={() => navigate(`/${footerIconPath.get(text)}`)}
+          {...matchedPageNameStyle(currentPageName, text)}
+        />
+      ))}
     </Flex>
   );
 };

@@ -10,11 +10,17 @@ import { Flex, Text } from '@chakra-ui/layout';
 import { FlexProps } from '@chakra-ui/react';
 import { MdArrowBackIos } from 'react-icons/md';
 import Badge from '../common/Badge';
+import { useNavigate } from 'react-router-dom';
 
 interface PageHeaderProps extends FlexProps {
   pageName: string;
 }
+
 const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
+  const navigate = useNavigate();
+
+  const goBack = () => navigate(-1);
+
   return (
     <Flex
       w={DEFAULT_WIDTH}
@@ -26,8 +32,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
       color="black"
       {...props}
     >
-      {/* 여기에 뒤로가기 기능 달아주면 됩니다 */}
-      <Flex w="69px" align="center" cursor="pointer">
+      <Flex w="69px" align="center" cursor="pointer" onClick={goBack}>
         <Icon as={MdArrowBackIos} boxSize="icon" />
         <Text fontSize="sm">뒤로가기</Text>
       </Flex>
@@ -40,7 +45,8 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
-          bgColor="transparent"
+          bg="transparent"
+          onClick={() => navigate('/search')}
         />
         <IconButton
           aria-label="notify"
@@ -49,7 +55,8 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
               <BellIcon color="black" boxSize="icon" />
             </Badge>
           }
-          bgColor="transparent"
+          bg="transparent"
+          onClick={() => navigate('/notification')}
         />
       </Flex>
     </Flex>
