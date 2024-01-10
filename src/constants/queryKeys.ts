@@ -9,3 +9,6 @@ export const MY_COMMENT_LIST = 'my-comment-list';
 export const MYBOARD_LIST = 'myboard-list';
 export const CHANNEL_LIST = 'channel-list';
 export const NOTIFICATION_LIST = 'notification-list';
+export const USER_INFO = 'user-info';
+export const CREATE_FOLLOW = 'create-follow';
+export const DELETE_FOLLOW = 'delete-follow';
