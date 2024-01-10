@@ -21,6 +21,7 @@ const BoardPage = () => {
   return (
     <>
       <PageHeader pageName={path} />
+      {/* 실시간 접속자 박스 */}
       <Box w={DEFAULT_WIDTH} padding={`10px ${DEFAULT_PAGE_PADDING}`}>
         <Text
           fontSize="1.6rem"
@@ -51,6 +52,7 @@ const BoardPage = () => {
         )}
         <Divider mt="13px" color="gray.450" />
       </Box>
+      {/* 실시간 접속자 박스 */}
       <BoardPostList />
       <WriteButton />
       <Footer />
