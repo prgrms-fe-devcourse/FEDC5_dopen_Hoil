@@ -9,7 +9,15 @@ import {
 } from 'react-icons/md';
 import TextIconButton from '../common/TextIconButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+const interactiveMap = <K, V>(map: Map<K, V>): Map<K | V, V | K> => {
+  const newMap = new Map<K | V, V | K>();
+  map.forEach((value, key) => {
+    newMap.set(value, key);
+    newMap.set(key, value);
+  });
+  return newMap;
+};
 
 const Footer = ({ ...props }: FlexProps) => {
   const { pathname } = useLocation();
@@ -39,17 +47,19 @@ const Footer = ({ ...props }: FlexProps) => {
     },
   ];
 
-  const footerIconPath = new Map([
-    ['', '홈'],
-    ['rank', '랭킹'],
-    ['timer', '타이머'],
-    ['board', '게시판'],
-    ['mypage', '내정보'],
-  ]);
-
-  footerIconPath.forEach((value, key, map) => {
-    map.set(value, key);
-  });
+  const footerIconPath = useMemo<Map<string, string>>(
+    () =>
+      interactiveMap<string, string>(
+        new Map([
+          ['', '홈'],
+          ['rank', '랭킹'],
+          ['timer', '타이머'],
+          ['board', '게시판'],
+          ['mypage', '내정보'],
+        ]),
+      ),
+    [],
+  );
 
   useEffect(() => {
     setCurrentPageName(pathname?.split('/')?.[1]);
