@@ -10,14 +10,7 @@ import {
 import TextIconButton from '../common/TextIconButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
-const getInteractiveMap = <K, V>(map: Map<K, V>): Map<K | V, V | K> => {
-  const newMap = new Map<K | V, V | K>();
-  map.forEach((value, key) => {
-    newMap.set(value, key);
-    newMap.set(key, value);
-  });
-  return newMap;
-};
+import { getInteractiveMap } from '@/utils/getInteractiveMap';
 
 const Footer = ({ ...props }: FlexProps) => {
   const { pathname } = useLocation();
