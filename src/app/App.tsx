@@ -26,9 +26,10 @@ const App = () => {
           <Route path="/message/:userId" element={<MessagePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<ErrorPage />} />
-          <Route path="/board" element={<BoardEnterPage />}>
-            <Route path=":boardName" element={<BoardPage />} />
-          </Route>
+          <Route path="/board" element={<BoardEnterPage />} />
+          <Route path="/board/free" element={<BoardPage />} />
+          <Route path="/board/infoshare" element={<BoardPage />} />
+          <Route path="/board/reflections" element={<BoardPage />} />
         </Route>
       </Routes>
     </>
