@@ -1,6 +1,5 @@
-import { QueryClient, useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { checkAuthenticated } from '@/apis/authentication';
-import { deleteComment } from '@/apis/comment';
 import { getUserInfo } from '@/apis/userInfo';
 import { Comment } from '@/apis/type';
 import { MY_COMMENT_LIST } from '@/constants/queryKeys';
@@ -21,17 +20,5 @@ export const useMyComment = () => {
     }
 
     return userInfo.comments;
-  });
-};
-
-interface DeleteCommentProps {
-  queryClient: QueryClient;
-}
-
-export const useDeleteComment = ({ queryClient }: DeleteCommentProps) => {
-  return useMutation(deleteComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(MY_COMMENT_LIST);
-    },
   });
 };
