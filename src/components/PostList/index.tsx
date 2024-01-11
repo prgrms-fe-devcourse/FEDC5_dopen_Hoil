@@ -34,11 +34,7 @@ const PostList = ({
   /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
   if (data && !data.length) {
     return (
-      <Box
-        w={DEFAULT_WIDTH}
-        padding={`0 ${DEFAULT_PAGE_PADDING}`}
-        fontSize="1.2rem"
-      >
+      <Box w="100%" padding={`0 ${DEFAULT_PAGE_PADDING}`} fontSize="1.2rem">
         검색어와 일치하는 글이 없습니다
       </Box>
     );
