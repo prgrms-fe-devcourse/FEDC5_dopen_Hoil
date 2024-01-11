@@ -1,21 +1,23 @@
 import { User } from '@/apis/type';
 import { DEFAULT_WIDTH } from '@/constants/style';
-import { Avatar, Flex, Text } from '@chakra-ui/react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useAdvice } from '@/hooks/useAdvice';
+import { Avatar, Flex, Spinner, Text } from '@chakra-ui/react';
 
 interface LoginProfileProps {
   myInfo: User;
 }
 
 const LoginProfile = ({ myInfo }: LoginProfileProps) => {
-  const [advice, setAdvice] = useState('');
+  // const [advice, setAdvice] = useState('');
 
-  useEffect(() => {
-    axios
-      .get('https://api.adviceslip.com/advice')
-      .then((res) => setAdvice(res.data.slip.advice));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('https://api.adviceslip.com/advice')
+  //     .then((res) => setAdvice(res.data.slip.advice))
+  //     .catch(() => setAdvice('Hi dopen !'));
+  // }, []);
+
+  const { advice } = useAdvice();
 
   return (
     <Flex cursor="default" alignItems="center" maxW={DEFAULT_WIDTH}>
@@ -26,7 +28,7 @@ const LoginProfile = ({ myInfo }: LoginProfileProps) => {
           안녕하세요!
         </Text>
         <Text fontStyle="oblique" fontSize="md">
-          {advice}
+          {advice || <Spinner />}
         </Text>
       </Flex>
     </Flex>
