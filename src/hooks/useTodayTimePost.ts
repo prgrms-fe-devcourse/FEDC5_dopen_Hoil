@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 export const useTodayTimePost = (channelId: string) => {
-  return useQuery<Post[], AxiosError>(
+  return useQuery<Post[], AxiosError, Post>(
     ['today-time-post'],
     () => getPostListByChannel({ channelId }),
     {
@@ -14,9 +14,9 @@ export const useTodayTimePost = (channelId: string) => {
       select: (posts) =>
         posts.filter((post) => {
           const currentDate = new Date().toLocaleDateString('en-CA');
-          const currentDateString = currentDate.split(',')[0];
-          return post.createdAt === currentDateString;
-        }),
+          return post.createdAt.split('T')[0] === currentDate;
+        })?.[0],
+      refetchOnWindowFocus: false,
     },
   );
 };
