@@ -33,14 +33,14 @@ interface TimerInputMetaDataTypes {
 interface TimerSettingModalProps
   extends Pick<MyModalProps, 'isOpen' | 'onClose'> {
   setTimer: Dispatch<SetStateAction<string>>;
-  settedTime: MutableRefObject<string>;
+  targetTime: MutableRefObject<string>;
 }
 
 const TimerSettingModal = ({
   isOpen,
   onClose,
   setTimer,
-  settedTime,
+  targetTime,
 }: TimerSettingModalProps) => {
   const timeInputMetaData: TimerInputMetaDataTypes[] = [
     {
@@ -104,7 +104,7 @@ const TimerSettingModal = ({
     const stringTime = timeArr.join(':');
 
     setTimer(stringTime);
-    settedTime.current = stringTime;
+    targetTime.current = stringTime;
     setItem('timer', { time: stringTime });
 
     onClose();
