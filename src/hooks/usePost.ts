@@ -16,5 +16,5 @@ export const useMyPostList = () => {
 };
 
 export const usePostDetail = ({ id }: PostDetailProps) => {
-  return useQuery(POST_DETAIL, async () => await getPostDetail(id), {});
+  return useQuery(POST_DETAIL, async () => await getPostDetail(id));
 };
