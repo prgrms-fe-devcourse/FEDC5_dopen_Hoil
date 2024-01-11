@@ -51,7 +51,7 @@ const App = () => {
             </>
           ))}
         </Route>
-        <Route path="/notify" element={<NotificationPage />} />
+        <Route path="/notification" element={<NotificationPage />} />
       </Routes>
     </>
   );
