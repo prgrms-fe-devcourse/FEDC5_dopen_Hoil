@@ -24,31 +24,33 @@ export const useNotificationList = () => {
   const { data, isLoading, error } = useQuery(
     NOTIFICATION_LIST,
     getUserNotificationList,
-  );
+    {
+      suspense: true,
+      select: (data) => {
+        return data.map<MyNotificationListItem>((notify) => {
+          //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
 
-  const initialData = data ?? [];
+          const { createdAt: date, _id, author } = notify;
 
-  const myNotificationList: MyNotificationListItem[] = initialData.map(
-    (notify) => {
-      //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
+          if (notify.message) {
+            return { type: 'MESSAGE', author, date, _id };
+          }
 
-      const { createdAt: date, _id, author } = notify;
+          if (notify.comment) {
+            return { type: 'COMMENT', author, date, _id };
+          }
 
-      if (notify.message) {
-        return { type: 'MESSAGE', author, date, _id };
-      }
-
-      if (notify.comment) {
-        return { type: 'COMMENT', author, date, _id };
-      }
-
-      if (notify.follow) {
-        return { type: 'FOLLOW', author, date, _id };
-      } else {
-        throw new Error('notify type is invalid!');
-      }
+          if (notify.follow) {
+            return { type: 'FOLLOW', author, date, _id };
+          } else {
+            throw new Error('notify type is invalid!');
+          }
+        });
+      },
     },
   );
+
+  const myNotificationList = data ?? [];
 
   return {
     myNotificationList,
