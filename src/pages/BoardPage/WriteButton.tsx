@@ -1,9 +1,11 @@
 import { EditIcon } from '@chakra-ui/icons';
 import { Box, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const WriteButton = () => {
+  const navigate = useNavigate();
+
   return (
-    // TODO : onClick 이벤트 (navigate 글쓰기 페이지)
     <Box margin="0 auto 20px auto">
       <Button
         w="160px"
@@ -14,6 +16,7 @@ const WriteButton = () => {
         color="white"
         bg="pink.300"
         _hover={{ bg: 'pink.400' }}
+        onClick={() => navigate('./post')}
       >
         글쓰기
         <EditIcon ml="5px" />
