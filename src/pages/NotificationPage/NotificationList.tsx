@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from '@chakra-ui/react';
+import { AbsoluteCenter, Flex, FlexProps, Text } from '@chakra-ui/react';
 import {
   useNotificationList,
   messageByTypes,
@@ -13,16 +13,24 @@ const NotificationList = ({ ...props }: NotificationListProps) => {
 
   return (
     <Flex flexDir="column" overflowY="auto" {...props}>
-      {myNotificationList.map(({ _id, type, author, date }) => {
-        return (
-          <UserContentBlock
-            key={_id}
-            username={author.username}
-            content={messageByTypes[type]}
-            subContent={calculateTimeDiff(date)}
-          ></UserContentBlock>
-        );
-      })}
+      {myNotificationList.length ? (
+        myNotificationList.map(({ _id, type, author, date }) => {
+          return (
+            <UserContentBlock
+              key={_id}
+              username={author.username}
+              content={messageByTypes[type]}
+              subContent={calculateTimeDiff(date)}
+            ></UserContentBlock>
+          );
+        })
+      ) : (
+        <AbsoluteCenter>
+          <Text fontSize="1.5rem" as="b">
+            표시할 알림이 없습니다
+          </Text>
+        </AbsoluteCenter>
+      )}
     </Flex>
   );
 };
