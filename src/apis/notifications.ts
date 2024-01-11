@@ -7,8 +7,9 @@ export const getUserNotificationList = async () =>
 export const checkNotification = async () =>
   await putRequest('/notifications/seen');
 
-interface PushNotificationPayload {
-  notificationType: 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
+export type NotificationType = 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
+export interface PushNotificationPayload {
+  notificationType: NotificationType;
   notificationTypeId: string;
   userId: string;
   postId: string | null;
