@@ -167,7 +167,10 @@ const TimerPage = () => {
           w="388px"
           h="70px"
           _hover={{ bg: 'pink.400' }}
-          onClick={onOpen}
+          onClick={() => {
+            stopTimer();
+            onOpen();
+          }}
         >
           타이머 설정
         </Button>
