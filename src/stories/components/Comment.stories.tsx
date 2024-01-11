@@ -35,20 +35,6 @@ const meta = {
       </QueryClientProvider>
     ),
   ],
-  argTypes: {
-    keyword: {
-      control: 'text',
-    },
-    offset: {
-      control: 'number',
-    },
-    limit: {
-      control: 'number',
-    },
-    isDivider: {
-      control: 'boolean',
-    },
-  },
 } satisfies Meta<typeof Comment>;
 
 export default meta;
