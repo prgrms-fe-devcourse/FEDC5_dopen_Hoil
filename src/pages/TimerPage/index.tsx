@@ -167,7 +167,7 @@ const TimerPage = () => {
           h="70px"
           _hover={{ bg: 'pink.400' }}
           onClick={() => {
-            stopTimer();
+            onPause();
             onOpen();
           }}
         >
