@@ -1,8 +1,10 @@
-import { User } from '@/apis/type';
+import { useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { Flex, Box, Text, Button, Avatar } from '@chakra-ui/react';
 import { useMyInfo } from '@/hooks/useAuth';
 import { useCreateFollow, useDeleteFollow } from '@/hooks/useFollow';
-import { Flex, Box, Text, Button, Avatar } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { User } from '@/apis/type';
+import { MY_INFO } from '@/constants/queryKeys';
 
 interface UserProfileProps {
   userList: User[];
@@ -15,14 +17,23 @@ const UserProfile = ({ userList, username }: UserProfileProps) => {
   )[0];
 
   const [isFollowing, setIsFollowing] = useState(false);
-  const [followId, setFollowId] = useState('');
+  const [followId, setFollowId] = useState(id);
 
   const { data: myInfo, isSuccess } = useMyInfo();
+
+  const queryClient = useQueryClient();
+
+  const onSuccessFn = () => {
+    queryClient.invalidateQueries(MY_INFO);
+  };
+
   const { mutate: createFollow } = useCreateFollow({
     id,
+    onSuccessFn,
   });
   const { mutate: deleteFollow } = useDeleteFollow({
     id: followId,
+    onSuccessFn,
   });
 
   const onCreateFollow = () => {
@@ -82,11 +93,24 @@ const UserProfile = ({ userList, username }: UserProfileProps) => {
             onClick={onDeleteFollow}
             backgroundColor="pink.300"
             color="white"
+            _hover={{
+              color: '#222',
+              backgroundColor: 'gray.300',
+            }}
           >
             팔로우 취소
           </Button>
         ) : (
-          <Button w="144px" h="40px" onClick={onCreateFollow}>
+          <Button
+            w="144px"
+            h="40px"
+            backgroundColor="gray.300"
+            onClick={onCreateFollow}
+            _hover={{
+              backgroundColor: 'pink.300',
+              color: '#fff',
+            }}
+          >
             팔로우
           </Button>
         )}
