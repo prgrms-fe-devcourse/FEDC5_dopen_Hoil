@@ -54,6 +54,7 @@ const TimerPage = () => {
   const targetTime = useRef(timer);
 
   useEffect(() => {
+    //어제자 저장기록은 무시해야하는지...
     const { time } = getItem('timer', { time: '00:00:00' });
 
     setTimer(time);

@@ -1,5 +1,6 @@
 import MyModal, { MyModalProps } from '@/components/common/MyModal';
 import { TIME_OUT_VALUE } from '@/constants/time';
+import { convertDateToString } from '@/utils/convertDateToString';
 import { setItem } from '@/utils/storage';
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { FormControl, FormErrorMessage } from '@chakra-ui/form-control';
@@ -105,7 +106,14 @@ const TimerSettingModal = ({
 
     setTimer(stringTime);
     targetTime.current = stringTime;
-    setItem('timer', { time: stringTime });
+
+    const currentDate = new Date();
+    const { date } = convertDateToString(currentDate);
+
+    setItem('timer', {
+      time: stringTime,
+      day: date,
+    });
 
     onClose();
   };
