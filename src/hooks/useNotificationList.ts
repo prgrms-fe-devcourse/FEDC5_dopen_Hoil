@@ -5,6 +5,7 @@ import {
 } from '@/apis/notifications';
 import { NOTIFICATION_LIST } from '@/constants/queryKeys';
 import { User } from '@/apis/type';
+
 export interface MyNotificationListItem {
   type: NotificationType;
   author: User;
