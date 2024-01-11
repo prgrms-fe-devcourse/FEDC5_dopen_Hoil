@@ -50,8 +50,8 @@ const App = () => {
               />
             </>
           ))}
+          <Route path="/notification" element={<NotificationPage />} />
         </Route>
-        <Route path="/notification" element={<NotificationPage />} />
       </Routes>
     </>
   );
