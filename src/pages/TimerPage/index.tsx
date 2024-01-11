@@ -30,6 +30,7 @@ const DUMMY_DATA = {
 
 const TimerPage = () => {
   const { timer, startTimer, stopTimer, isPlay, setTimer } = useTimer();
+  /* const { data } = useTodayTimePost(DUMMY_DATA.timerChannelId); */
   const timeBenchmark = useRef(timer);
   useEffect(() => {
     const { time } = getItem('timer', { time: '00:00:00' });
