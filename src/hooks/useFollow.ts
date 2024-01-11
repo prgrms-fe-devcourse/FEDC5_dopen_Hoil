@@ -6,13 +6,13 @@ interface FollowProps {
   id: string;
 }
 
-export const useCreateFllow = ({ id }: FollowProps) => {
+export const useCreateFollow = ({ id }: FollowProps) => {
   return useMutation(CREATE_FOLLOW, async () => {
     await followUser(id);
   });
 };
 
-export const useDeleteFllow = ({ id }: FollowProps) => {
+export const useDeleteFollow = ({ id }: FollowProps) => {
   return useMutation(DELETE_FOLLOW, async () => {
     await unfollowUser(id);
   });
