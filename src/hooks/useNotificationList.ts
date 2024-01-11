@@ -28,12 +28,8 @@ export const useNotificationList = () => {
     MyNotificationListItem[]
   >(NOTIFICATION_LIST, getUserNotificationList, {
     suspense: true,
-    useErrorBoundary: (error) => {
-      //400과 401는 위임,나머지는 여기서
-      return error.response?.status === 400 || error.response?.status === 401;
-    },
     meta: {
-      errorMessage: '오류',
+      errorMessage: '오류가 발생했습니다',
     },
     select: (data) => {
       return data.map<MyNotificationListItem>((notify) => {
