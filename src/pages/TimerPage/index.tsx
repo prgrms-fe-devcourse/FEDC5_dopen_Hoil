@@ -133,12 +133,13 @@ const timerIconStyle: IconButtonProps = {
 };
 
 const TimerPage = () => {
-  const { timer, isPlay, isEnd, startTimer, stopTimer, setTimer } = useTimer();
+  const { timer, isPlay, isTimerEnd, startTimer, stopTimer, setTimer } =
+    useTimer();
 
   const {
     data: todayTimePost,
     refetch,
-    isSuccess,
+    isSuccess: isTodayTimePostSuccess,
   } = useTodayTimePost(DUMMY_DATA.timerChannelId);
 
   const targetTime = useRef(timer);
@@ -146,9 +147,7 @@ const TimerPage = () => {
   useEffect(() => {
     //어제자 저장기록은 무시해야하는지...
     const { time } = getItem('timer', { time: '00:00:00' });
-
     setTimer(time);
-
     targetTime.current = time;
   }, [setTimer]);
 
@@ -183,29 +182,37 @@ const TimerPage = () => {
       2. 있다면 오늘자 게시글의 제목을 가져와서 현재 소비한 시간과 더해준 후 다시 제목으로 넣어줌   
 ,
     */
-    if (!isSuccess) {
-      //에러처리필요
+    if (!isTodayTimePostSuccess) {
+      //오늘자 타이머 게시글 가져올때 성공하지 못했을때. 에러처리필요
       stopTimer();
       targetTime.current = timer;
       return;
     }
+
     const currentSpendTime =
-      stringTimeToSeconds(targetTime.current) - stringTimeToSeconds(timer);
+      stringTimeToSeconds(targetTime.current) - stringTimeToSeconds(timer); // 타이머를 이용한 시간.
+
+    //게시글 있다면 수정
     if (todayTimePost) {
       const { _id, title } = todayTimePost;
       const totalSpendTime = currentSpendTime + stringTimeToSeconds(title);
       onEditPost({ postId: _id, title: secondsToStringTime(totalSpendTime) });
     } else {
-      //생성하기
+      //게시글이 없다면 생성
       onCreatePost(secondsToStringTime(currentSpendTime));
     }
+
     stopTimer();
+
+    //circularProgress의 퍼센테이지가 잘 작동하기 위하여 0 초과일때만 할당.
+    //할당하지 않는다면 소비한시간 계산할때 처음 설정시간 - 지금시간을 계속 더해서 이상해집니다
     if (stringTimeToSeconds(timer) > 0) {
       targetTime.current = timer;
     }
   };
 
-  if (isEnd) {
+  //
+  if (isTimerEnd) {
     onPause();
   }
 
