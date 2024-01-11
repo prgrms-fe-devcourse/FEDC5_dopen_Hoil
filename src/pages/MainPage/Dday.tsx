@@ -4,10 +4,10 @@ import LoginDday from '@/pages/MainPage/LoginDday';
 import GuestDday from '@/pages/MainPage/GuestDday';
 
 interface DdayProps {
-  isLoggedIn?: boolean;
+  myInfo?: object;
 }
 
-const Dday = ({ isLoggedIn = false }: DdayProps) => {
+const Dday = ({ myInfo = {} }: DdayProps) => {
   return (
     <Box
       maxW={DEFAULT_WIDTH}
@@ -19,7 +19,7 @@ const Dday = ({ isLoggedIn = false }: DdayProps) => {
       {/* TODO
       - D-Day 설정 모달 추가
       - 비로그인일 때 클릭 시 로그인 페이지, 로그인일 때 클릭 시 D-Day 설정 모달 띄우기*/}
-      {isLoggedIn ? <LoginDday /> : <GuestDday />}
+      {myInfo ? <LoginDday /> : <GuestDday />}
     </Box>
   );
 };
