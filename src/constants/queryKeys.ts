@@ -1,4 +1,3 @@
-export const POST_LIST = 'post-list';
 export const USER_LIST = 'user-list';
 export const MYPOST_LIST = 'mypost-list';
 export const POST_DETAIL = 'post-detail';

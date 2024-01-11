@@ -1,15 +1,16 @@
+import { Channel } from '@/apis/type';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { Box, Select, SelectProps } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
 
 interface SearchOptionSelectorProps extends SelectProps {
   setOption: Dispatch<SetStateAction<string>>;
-  SELECT_OPTIONS: string[];
+  channelListData?: Channel[];
 }
 
 const OptionSelector = ({
-  SELECT_OPTIONS = [],
   setOption,
+  channelListData = [],
   ...props
 }: SearchOptionSelectorProps) => {
   return (
@@ -19,9 +20,10 @@ const OptionSelector = ({
         onChange={(e) => setOption(e.target.value)}
         {...props}
       >
-        {SELECT_OPTIONS.map((option) => (
-          <option value={option} key={option}>
-            {option}
+        <option value="유저">유저</option>
+        {channelListData?.map((option) => (
+          <option value={option.name} key={option._id}>
+            {option.description}
           </option>
         ))}
       </Select>
