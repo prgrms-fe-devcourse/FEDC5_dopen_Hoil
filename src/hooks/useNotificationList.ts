@@ -3,6 +3,7 @@ import {
   getUserNotificationList,
   NotificationType,
 } from '@/apis/notifications';
+import { NOTIFICATION_LIST } from '@/constants/queryKeys';
 import { User } from '@/apis/type';
 export interface MyNotificationListItem {
   type: NotificationType;
@@ -20,11 +21,8 @@ export const messageByTypes: { [key in NotificationType]: string } = {
 
 export const useNotificationList = () => {
   const { data, isLoading, error } = useQuery(
-    'notificationList',
+    NOTIFICATION_LIST,
     getUserNotificationList,
-    {
-      useErrorBoundary: true,
-    },
   );
 
   const initialData = data ?? [];
