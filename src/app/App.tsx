@@ -13,10 +13,12 @@ import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
 import BoardPage from '@/pages/BoardPage';
-import { BOARD_LIST } from '@/constants/Board';
 import PostEditPage from '@/pages/PostEditPage';
+import { useChannelList } from '@/hooks/useChannelList';
 
 const App = () => {
+  const { channelListData } = useChannelList();
+
   return (
     <>
       <Routes>
@@ -33,16 +35,16 @@ const App = () => {
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
-          {Object.keys(BOARD_LIST).map((board) => (
+          {channelListData?.map((board) => (
             <>
               <Route
-                key={board}
-                path={`/board/${board}`}
+                key={board._id}
+                path={`/board/${board.name}`}
                 element={<BoardPage />}
               />
               <Route
-                key={board}
-                path={`/board/${board}/post`}
+                key={board._id}
+                path={`/board/${board.name}/post`}
                 element={<PostEditPage />}
               />
             </>

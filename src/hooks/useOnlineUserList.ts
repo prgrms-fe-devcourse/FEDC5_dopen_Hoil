@@ -15,5 +15,7 @@ export const useOnlineUserList = () => {
     },
   );
 
-  return { data };
+  const onlineUsersListData = data;
+
+  return { onlineUsersListData };
 };
