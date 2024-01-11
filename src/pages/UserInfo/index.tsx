@@ -12,7 +12,6 @@ const UserInfo = () => {
   const { username = '' } = useParams();
 
   const { data: userList = [] } = useGetUsersList({});
-
   const isUserExist = isValueUniqueInArray(userList, 'username', username);
 
   if (isUserExist === false) {
@@ -21,7 +20,7 @@ const UserInfo = () => {
 
   return (
     <Box border="1px solid" height="100vh">
-      <PageHeader pageName={username || ''} />
+      <PageHeader pageName={username} />
       <Box padding="25px 20px">
         <UserProfile userList={userList} username={username} />
         <Box mt="55px">
