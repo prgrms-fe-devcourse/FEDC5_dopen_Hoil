@@ -15,6 +15,7 @@ import BoardEnterPage from '@/pages/BoardEnterPage';
 import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
+import NotificationPage from '@/pages/NotificationPage';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -50,6 +51,7 @@ const App = () => {
             </>
           ))}
         </Route>
+        <Route path="/notify" element={<NotificationPage />} />
       </Routes>
     </>
   );
