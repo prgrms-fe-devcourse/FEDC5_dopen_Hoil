@@ -1,3 +1,4 @@
+import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { useRef, useState } from 'react';
 
 const useTimer = (initialTime: string = '00:00:00') => {
@@ -67,8 +68,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
   };
 
   const getDeadLineTime = (deadline: string): Date => {
-    const [hours, minutes, seconds] = deadline.split(':').map(Number);
-    const deadLineToSeconds = seconds + minutes * 60 + hours * 3600;
+    const deadLineToSeconds = stringTimeToSeconds(deadline);
     const currentDate = new Date();
     currentDate.setSeconds(currentDate.getSeconds() + deadLineToSeconds);
     return currentDate;
