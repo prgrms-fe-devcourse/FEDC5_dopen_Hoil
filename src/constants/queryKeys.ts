@@ -8,3 +8,4 @@ export const ONLINE_USER_LIST = 'online-user-list';
 export const MY_COMMENT_LIST = 'my-comment-list';
 export const MYBOARD_LIST = 'myboard-list';
 export const CHANNEL_LIST = 'channel-list';
+export const NOTIFICATION_LIST = 'notification-list';
