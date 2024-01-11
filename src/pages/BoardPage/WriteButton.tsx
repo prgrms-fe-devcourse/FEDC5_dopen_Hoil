@@ -6,7 +6,12 @@ const WriteButton = () => {
   const navigate = useNavigate();
 
   return (
-    <Box margin="0 auto 20px auto">
+    <Box
+      position="fixed"
+      bottom="50px"
+      left="50%"
+      transform="translate(-50%, -50%)"
+    >
       <Button
         w="160px"
         h="50px"
