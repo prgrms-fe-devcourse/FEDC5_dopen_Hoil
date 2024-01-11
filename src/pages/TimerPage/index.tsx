@@ -206,7 +206,6 @@ const TimerPage = () => {
     }
   };
 
-  //
   if (isTimerEnd) {
     onPause();
   }
