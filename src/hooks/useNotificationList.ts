@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
+import { AxiosError } from 'axios';
 import {
   getUserNotificationList,
   NotificationType,
 } from '@/apis/notifications';
 import { NOTIFICATION_LIST } from '@/constants/queryKeys';
-import { User } from '@/apis/type';
+import { User, Notification } from '@/apis/type';
 
 export interface MyNotificationListItem {
   type: NotificationType;
@@ -21,34 +22,40 @@ export const messageByTypes: { [key in NotificationType]: string } = {
 };
 
 export const useNotificationList = () => {
-  const { data, isLoading, error } = useQuery(
-    NOTIFICATION_LIST,
-    getUserNotificationList,
-    {
-      suspense: true,
-      select: (data) => {
-        return data.map<MyNotificationListItem>((notify) => {
-          //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
-
-          const { createdAt: date, _id, author } = notify;
-
-          if (notify.message) {
-            return { type: 'MESSAGE', author, date, _id };
-          }
-
-          if (notify.comment) {
-            return { type: 'COMMENT', author, date, _id };
-          }
-
-          if (notify.follow) {
-            return { type: 'FOLLOW', author, date, _id };
-          } else {
-            throw new Error('notify type is invalid!');
-          }
-        });
-      },
+  const { data, isLoading, error } = useQuery<
+    Notification[],
+    AxiosError,
+    MyNotificationListItem[]
+  >(NOTIFICATION_LIST, getUserNotificationList, {
+    suspense: true,
+    useErrorBoundary: (error) => {
+      //400과 401는 위임,나머지는 여기서
+      return error.response?.status === 400 || error.response?.status === 401;
     },
-  );
+    meta: {
+      errorMessage: '오류',
+    },
+    select: (data) => {
+      return data.map<MyNotificationListItem>((notify) => {
+        //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
+        const { createdAt: date, _id, author } = notify;
+
+        if (notify.message) {
+          return { type: 'MESSAGE', author, date, _id };
+        }
+
+        if (notify.comment) {
+          return { type: 'COMMENT', author, date, _id };
+        }
+
+        if (notify.follow) {
+          return { type: 'FOLLOW', author, date, _id };
+        } else {
+          throw new Error('type is invalid');
+        }
+      });
+    },
+  });
 
   const myNotificationList = data ?? [];
 
