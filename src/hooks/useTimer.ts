@@ -6,7 +6,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
 
   const [timer, setTimer] = useState(initialTime);
   const [isPlay, setIsPlay] = useState(false);
-  const [isEnd, setIsEnd] = useState(false);
+  const [isTimerEnd, setIsTimerEnd] = useState(false);
 
   const getTimeRemaining = (deadline: Date) => {
     //total밀리초가 1000단위로 딱 떨어지지 않기에 올림처리
@@ -48,13 +48,13 @@ const useTimer = (initialTime: string = '00:00:00') => {
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
       if (total > 0) {
-        setIsEnd(false);
+        setIsTimerEnd(false);
         setTimer(`${hours}:${minutes}:${seconds}`);
       } else if (total === 0) {
         setTimer(`${hours}:${minutes}:${seconds}`);
         stopTimer();
-        setIsEnd(true);
-        setTimeout(() => setIsEnd(false));
+        setIsTimerEnd(true);
+        setTimeout(() => setIsTimerEnd(false));
       }
     }, 1000);
 
@@ -81,7 +81,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
     resetTimer,
     isPlay,
     setTimer,
-    isEnd,
+    isTimerEnd,
   };
 };
 
