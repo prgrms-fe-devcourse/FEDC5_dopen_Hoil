@@ -13,7 +13,7 @@ const BoardPostList = () => {
 
 const BoardPageBody = styled.div`
   width: ${DEFAULT_WIDTH};
-  height: 100vh;
+  margin-bottom: 50px;
   padding: 10px 0;
   overflow-y: auto;
 
