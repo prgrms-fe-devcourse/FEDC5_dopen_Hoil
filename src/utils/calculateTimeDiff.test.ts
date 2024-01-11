@@ -1,6 +1,8 @@
-import { expect, test } from 'vitest';
+import { expect, test, vitest } from 'vitest';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 
 test('calculate time difference between UTC type', () => {
-  expect(calculateTimeDiff('2024-01-05T17:01:05.147Z')).toBe('5일 전');
+  const fakeDate = new Date('2024-01-07T17:01:05.147Z');
+  vitest.useFakeTimers().setSystemTime(fakeDate);
+  expect(calculateTimeDiff('2024-01-05T17:01:05.147Z')).toBe('2일 전');
 });
