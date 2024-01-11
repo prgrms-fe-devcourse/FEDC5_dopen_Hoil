@@ -201,6 +201,7 @@ const TimerPage = () => {
     stopTimer();
     settedTime.current = timer;
   };
+
   return (
     <Flex flexDir="column" align="center" w="100%" bg="pink.200">
       <PageHeader pageName="타이머" />
