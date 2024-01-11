@@ -43,7 +43,7 @@ const timerIconStyle: IconButtonProps = {
 };
 
 const TimerPage = () => {
-  const { timer, startTimer, stopTimer, isPlay, setTimer } = useTimer();
+  const { timer, isPlay, isEnd, startTimer, stopTimer, setTimer } = useTimer();
 
   const {
     data: todayTimePost,
@@ -51,14 +51,14 @@ const TimerPage = () => {
     isSuccess,
   } = useTodayTimePost(DUMMY_DATA.timerChannelId);
 
-  const settedTime = useRef(timer);
+  const targetTime = useRef(timer);
 
   useEffect(() => {
     const { time } = getItem('timer', { time: '00:00:00' });
 
     setTimer(time);
 
-    settedTime.current = time;
+    targetTime.current = time;
   }, [setTimer]);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -95,11 +95,11 @@ const TimerPage = () => {
     if (!isSuccess) {
       //에러처리필요
       stopTimer();
-      settedTime.current = timer;
+      targetTime.current = timer;
       return;
     }
     const currentSpendTime =
-      stringTimeToSeconds(settedTime.current) - stringTimeToSeconds(timer);
+      stringTimeToSeconds(targetTime.current) - stringTimeToSeconds(timer);
     if (todayTimePost) {
       const { _id, title } = todayTimePost;
       const totalSpendTime = currentSpendTime + stringTimeToSeconds(title);
@@ -109,8 +109,14 @@ const TimerPage = () => {
       onCreatePost(secondsToStringTime(currentSpendTime));
     }
     stopTimer();
-    settedTime.current = timer;
+    if (stringTimeToSeconds(timer) > 0) {
+      targetTime.current = timer;
+    }
   };
+
+  if (isEnd) {
+    onPause();
+  }
 
   return (
     <Flex flexDir="column" align="center" w="100%" bg="pink.200">
@@ -118,13 +124,13 @@ const TimerPage = () => {
       <Center p="97px 0" position="relative" w="100%">
         <CircularProgress
           value={
-            stringTimeToSeconds(settedTime.current.toString()) -
+            stringTimeToSeconds(targetTime.current.toString()) -
             stringTimeToSeconds(timer)
           }
           color="black"
           size="400px"
           thickness="1px"
-          max={stringTimeToSeconds(settedTime.current)}
+          max={stringTimeToSeconds(targetTime.current)}
         >
           <CircularProgressLabel
             fontWeight="bold"
@@ -166,7 +172,7 @@ const TimerPage = () => {
           isOpen={isOpen}
           onClose={onClose}
           setTimer={setTimer}
-          settedTime={settedTime}
+          targetTime={targetTime}
         />
       </VStack>
     </Flex>
