@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 
 const useTimer = (initialTime: string = '00:00:00') => {
   //setInterval의 반환 타입 추론
-  const Ref = useRef<ReturnType<typeof setInterval>>();
+  const setIntervalId = useRef<ReturnType<typeof setInterval>>();
 
   const [timer, setTimer] = useState(initialTime);
   const [isPlay, setIsPlay] = useState(false);
@@ -33,15 +33,15 @@ const useTimer = (initialTime: string = '00:00:00') => {
   };
 
   const stopTimer = () => {
-    if (Ref.current) {
-      clearInterval(Ref.current);
-      Ref.current = undefined;
+    if (setIntervalId.current) {
+      clearInterval(setIntervalId.current);
+      setIntervalId.current = undefined;
       setIsPlay(false);
     }
   };
 
   const startTimer = (deadline: Date = getDeadLineTime(timer)) => {
-    if (Ref.current) {
+    if (setIntervalId.current) {
       return;
     }
 
@@ -59,7 +59,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
       }
     }, 1000);
 
-    Ref.current = id;
+    setIntervalId.current = id;
   };
 
   const resetTimer = () => {
