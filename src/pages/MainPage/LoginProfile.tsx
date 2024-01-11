@@ -12,7 +12,7 @@ const LoginProfile = ({ myInfo }: LoginProfileProps) => {
 
   return (
     <Flex cursor="default" alignItems="center" maxW={DEFAULT_WIDTH}>
-      <Avatar size="2xl" name="Kola Tioluwani" src={myInfo.image || ''} />
+      <Avatar size="2xl" src={myInfo.image || ''} />
       <Flex direction="column" marginLeft="20px">
         <Text width="fit-content" fontSize="3xl" fontWeight="bold">
           <span style={{ color: '#F88585' }}>{myInfo.username}</span>님
