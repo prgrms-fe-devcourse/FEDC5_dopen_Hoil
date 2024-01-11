@@ -8,15 +8,6 @@ interface LoginProfileProps {
 }
 
 const LoginProfile = ({ myInfo }: LoginProfileProps) => {
-  // const [advice, setAdvice] = useState('');
-
-  // useEffect(() => {
-  //   axios
-  //     .get('https://api.adviceslip.com/advice')
-  //     .then((res) => setAdvice(res.data.slip.advice))
-  //     .catch(() => setAdvice('Hi dopen !'));
-  // }, []);
-
   const { advice } = useAdvice();
 
   return (
