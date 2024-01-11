@@ -4,8 +4,7 @@ import { convertDateToString } from '@/utils/convertDateToString';
 import { setItem } from '@/utils/storage';
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { FormControl, FormErrorMessage } from '@chakra-ui/form-control';
-import { Input } from '@chakra-ui/input';
-import { Box, Text, Flex } from '@chakra-ui/layout';
+import { Box, Flex, Input, Text } from '@chakra-ui/react';
 import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 
