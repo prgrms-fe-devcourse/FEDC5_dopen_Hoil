@@ -6,12 +6,11 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 import Dday from '@/pages/MainPage/Dday';
 import BoardListPreview from '@/pages/MainPage/BoardListPreview';
+import { useMyInfo } from '@/hooks/useAuth';
 
-interface MainPageProps {
-  isLoggedIn?: boolean;
-}
+const MainPage = () => {
+  const { data: myInfo } = useMyInfo();
 
-const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
   return (
     <>
       <Flex
@@ -28,8 +27,8 @@ const MainPage = ({ isLoggedIn = false }: MainPageProps) => {
           overflowY="auto"
           direction="column"
         >
-          {isLoggedIn ? <LoginProfile /> : <GuestProfile />}
-          <Dday isLoggedIn={isLoggedIn} />
+          {myInfo ? <LoginProfile myInfo={myInfo} /> : <GuestProfile />}
+          <Dday myInfo={myInfo} />
           <BoardListPreview />
         </Flex>
         <Footer position="sticky" bottom="0" />

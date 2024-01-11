@@ -1,7 +1,10 @@
 import { DEFAULT_WIDTH } from '@/constants/style';
 import { Avatar, Flex, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const GuestProfile = () => {
+  const navigate = useNavigate();
+
   return (
     <Flex alignItems="center" maxW={DEFAULT_WIDTH}>
       <Avatar size="2xl" />
@@ -15,8 +18,8 @@ const GuestProfile = () => {
           borderColor="transparent"
           transition="border-bottom 0.5s"
           _hover={{ cursor: 'pointer', borderColor: 'pink.300' }}
+          onClick={() => navigate('/login')}
         >
-          {/* TODO : 로그인 버튼 클릭 시 로그인 페이지로 넘어가도록 처리 필요. */}
           로그인
         </Text>
         <Text fontStyle="oblique" fontSize="md" cursor="default">
