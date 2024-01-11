@@ -20,7 +20,7 @@ const BoardEnterPage = () => {
             fontSize="2rem"
             fontWeight="midium"
             p="10px"
-            onClick={() => navigate(`/board/${[board]}`)}
+            onClick={() => navigate(`./${[board]}`)}
           />
         ))}
       </Box>
