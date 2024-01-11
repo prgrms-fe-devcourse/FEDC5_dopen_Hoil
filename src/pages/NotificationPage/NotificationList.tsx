@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import {
   useNotificationList,
   messageByTypes,
@@ -6,7 +6,9 @@ import {
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 
-const NotificationList = ({ ...props }) => {
+interface NotificationListProps extends FlexProps {}
+
+const NotificationList = ({ ...props }: NotificationListProps) => {
   const { myNotificationList } = useNotificationList();
 
   return (
