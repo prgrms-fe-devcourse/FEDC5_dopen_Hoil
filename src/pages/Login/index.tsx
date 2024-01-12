@@ -23,8 +23,9 @@ import { preparing } from './preparing';
 import { isValueUniqueInArray } from '@/utils/isValueUniqueInArray';
 import { useGetUsersList } from '@/hooks/useUser';
 import { useLogin } from '@/hooks/useAuth';
-import { LOGINID_SAVEKEY } from '@/constants/user';
-import { getItem } from '@/utils/storage';
+import { LOGINID_SAVEKEY, LOGIN_TOKEN } from '@/constants/user';
+import { getItem, removeItem } from '@/utils/storage';
+import { useEffect } from 'react';
 
 const loginInputList: LoginInputProperty[] = [
   {
@@ -62,6 +63,12 @@ const socialLoginList = [
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (getItem(LOGIN_TOKEN, '')) {
+      removeItem(LOGIN_TOKEN);
+    }
+  }, []);
 
   const {
     register,
