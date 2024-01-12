@@ -16,6 +16,7 @@ const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
         color="black"
         fontSize="1.2rem"
         fontWeight="semibold"
+        cursor="default"
         whiteSpace="nowrap"
         overflow="hidden"
         textOverflow="ellipsis"
