@@ -14,14 +14,15 @@ const Account = () => {
   }
 
   const { image, email, fullName, username } = myInfo;
-
+  const { name, timerChannelId } = JSON.parse(fullName);
   return (
     <>
       <UpdateUserInfo
         image={image}
         email={email}
-        fullName={fullName}
+        fullName={name}
         username={username}
+        timerChannelId={timerChannelId}
       />
     </>
   );
