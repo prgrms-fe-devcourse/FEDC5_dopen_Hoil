@@ -25,6 +25,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
     <Flex
       w={DEFAULT_WIDTH}
       h={DEFAULT_HEADER_HEIGHT}
+      shrink="0"
       align="center"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
