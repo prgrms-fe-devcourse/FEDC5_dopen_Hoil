@@ -9,6 +9,8 @@ import MyBoardList from '@/pages/MyPage/MyBoardList';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
+import TimerPage from '@/pages/TimerPage';
+import '@fontsource/noto-sans-kr';
 import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
@@ -16,6 +18,8 @@ import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
+import TimerPage from '@/pages/TimerPage';
+import '@fontsource/noto-sans-kr';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -34,6 +38,7 @@ const App = () => {
           <Route path="/message" element={<MessageListPage />} />
           <Route path="/message/:userId" element={<MessagePage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/timer" element={<TimerPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
           {channelListData?.map((board) => (
@@ -51,6 +56,7 @@ const App = () => {
             </>
           ))}
           <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/timer" element={<TimerPage />} />
         </Route>
       </Routes>
     </>
