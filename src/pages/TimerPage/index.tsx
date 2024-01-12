@@ -46,15 +46,12 @@ const timerIconStyle: IconButtonProps = {
 };
 
 const TimerPage = () => {
-  const {
-    timer,
-    isPlay,
-    isTimerEnd,
-    timerRef,
-    startTimer,
-    stopTimer,
-    setTimer,
-  } = useTimer();
+  const { timer, isPlay, timerRef, startTimer, stopTimer, setTimer } = useTimer(
+    {
+      timerEndCallback: () => onPause(),
+      limitTime: TIME_OUT_VALUE,
+    },
+  );
 
   const {
     data: todayTimePost,
@@ -137,19 +134,6 @@ const TimerPage = () => {
   };
 
   //타이머 끝나면 실행
-  if (isTimerEnd) {
-    onPause();
-  }
-
-  //23:45:00되는 순간 실행
-  if (
-    stringTimeToSeconds(timer) <= 0 ||
-    stringTimeToSeconds(TIME_OUT_VALUE) -
-      stringTimeToSeconds(getCurrentStringTime()) <=
-      0
-  ) {
-    onPause();
-  }
 
   const preventEvent = (e: BeforeUnloadEvent) => e.preventDefault();
 
@@ -223,7 +207,7 @@ const TimerPage = () => {
           h="70px"
           _hover={{ bg: 'pink.400' }}
           onClick={() => {
-            onPause();
+            isPlay && onPause();
             onOpen();
           }}
         >

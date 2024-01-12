@@ -1,7 +1,17 @@
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { useRef, useState } from 'react';
 
-const useTimer = (initialTime: string = '00:00:00') => {
+interface useTimerProps {
+  timerEndCallback?: () => void;
+  limitTime?: string; //"HH:MM:SS"
+  initialTime?: string; //"HH:MM:SS"
+}
+
+const useTimer = ({
+  timerEndCallback,
+  limitTime,
+  initialTime = '00:00:00',
+}: useTimerProps) => {
   //setInterval의 반환 타입 추론
   const setIntervalId = useRef<ReturnType<typeof setInterval>>();
   const [timer, _setTimer] = useState(initialTime);
@@ -53,15 +63,25 @@ const useTimer = (initialTime: string = '00:00:00') => {
     setIsPlay(true);
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
-      if (total > 0) {
-        setIsTimerEnd(false);
-        setTimer(`${hours}:${minutes}:${seconds}`);
-      } else if (total === 0) {
-        setTimer(`${hours}:${minutes}:${seconds}`);
+      if (
+        limitTime &&
+        Date.parse(`1970-01-01T${limitTime}`) -
+          Date.parse(`1970-01-01T${hours}:${minutes}:${seconds}`) <=
+          0
+      ) {
         stopTimer();
         setIsTimerEnd(true);
+        timerEndCallback?.();
+      }
+      if (total > 0) {
+        setIsTimerEnd(false);
+      } else if (total === 0) {
+        stopTimer();
+        setIsTimerEnd(true);
+        timerEndCallback?.();
         setTimeout(() => setIsTimerEnd(false));
       }
+      setTimer(`${hours}:${minutes}:${seconds}`);
     }, 1000);
 
     setIntervalId.current = id;
