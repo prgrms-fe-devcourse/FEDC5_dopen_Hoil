@@ -19,6 +19,7 @@ import { LOGIN_TOKEN } from '@/constants/user';
 
 import { saveLoginId } from '@/pages/Login/saveLoginId';
 import { UserInfoInput, UserResponse } from '@/types/user';
+import { createChannel } from '@/apis/channel';
 
 interface AuthProps {
   onSuccessFn?: () => void;
@@ -38,7 +39,9 @@ interface UpdateUserInfoProps extends AuthProps {
   newUserInfo: UserInfoInput;
 }
 
-interface SignUpProps extends AuthProps {
+interface SignUpProps {
+  onSuccessFn: (data: UserResponse) => void;
+  onErrorFn?: (error: AxiosError) => void;
   userInfo: UserInfoInput;
 }
 
@@ -76,19 +79,31 @@ export const useSignUp = ({
 }: SignUpProps) => {
   return useMutation(
     async () => {
-      const { token } = await signUp({ ...userInfo });
-      setItem(LOGIN_TOKEN, token);
+      const { username, fullName } = userInfo;
+
+      const { _id: id } = await createChannel(username);
+
+      const data = await signUp({
+        ...userInfo,
+        fullName: JSON.stringify({ name: fullName, timerChannelId: id }),
+      });
+      setItem(LOGIN_TOKEN, data.token);
+
+      return data;
     },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         if (onSuccessFn) {
-          onSuccessFn();
+          onSuccessFn(data);
         }
       },
       onError: (error: AxiosError) => {
         if (onErrorFn) {
           onErrorFn(error);
         }
+      },
+      meta: {
+        errorMessage: '회원가입 과정에서 오류가 발생했습니다.',
       },
     },
   );
