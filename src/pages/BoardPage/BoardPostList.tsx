@@ -1,18 +1,22 @@
 import PostList from '@/components/PostList';
-import { TEST_CHANNEL_ID } from '@/constants/apiTest';
 import { DEFAULT_WIDTH } from '@/constants/style';
 import styled from '@emotion/styled';
 
-const BoardPostList = () => {
+interface BoardPostListProps {
+  channelId: string;
+}
+
+const BoardPostList = ({ channelId }: BoardPostListProps) => {
   return (
     <BoardPageBody>
-      <PostList keyword="" channelId={TEST_CHANNEL_ID} />
+      <PostList keyword="" channelId={channelId} />
     </BoardPageBody>
   );
 };
 
 const BoardPageBody = styled.div`
   width: ${DEFAULT_WIDTH};
+  flex-grow: 1;
   margin-bottom: 50px;
   padding: 10px 0;
   overflow-y: auto;
