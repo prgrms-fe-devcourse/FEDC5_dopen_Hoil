@@ -19,6 +19,7 @@ import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
 import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
+import { Fragment } from 'react';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -41,18 +42,13 @@ const App = () => {
           <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
           {channelListData?.map((board) => (
-            <>
+            <Fragment key={board._id}>
+              <Route path={`/board/${board.name}`} element={<BoardPage />} />
               <Route
-                key={board._id}
-                path={`/board/${board.name}`}
-                element={<BoardPage />}
-              />
-              <Route
-                key={board._id}
                 path={`/board/${board.name}/post`}
                 element={<PostEditPage />}
               />
-            </>
+            </Fragment>
           ))}
           <Route path="/board/:boardName/:postId" element={<PostViewPage />} />
           <Route path="/notification" element={<NotificationPage />} />
