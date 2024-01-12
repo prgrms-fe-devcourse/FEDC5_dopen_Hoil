@@ -226,7 +226,7 @@ const TimerPage = () => {
           color="black"
           size="400px"
           thickness="1px"
-          max={stringTimeToSeconds(currentTargetTime.current)}
+          max={stringTimeToSeconds(originTargetTime.current)}
         >
           <CircularProgressLabel
             fontWeight="bold"
