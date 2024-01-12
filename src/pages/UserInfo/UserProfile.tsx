@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { Flex, Box, Text, Button, Avatar } from '@chakra-ui/react';
 import { useMyInfo } from '@/hooks/useAuth';
 import { useCreateFollow, useDeleteFollow } from '@/hooks/useFollow';
 import { User } from '@/apis/type';
 import { MY_INFO } from '@/constants/queryKeys';
+import { LOGIN_TOKEN } from '@/constants/user';
+import { getItem } from '@/utils/storage';
+import Confirm from '@/components/common/Confirm';
 
 interface UserProfileProps {
   userList: User[];
@@ -12,14 +16,31 @@ interface UserProfileProps {
 }
 
 const UserProfile = ({ userList, username }: UserProfileProps) => {
+  const navigate = useNavigate();
   const { image, _id: id } = userList.filter(
     (user) => user.username === username,
   )[0];
-
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isConfirm, setIsConfirm] = useState(false);
+  const [isFollowing, setIsFollowing] = useState<null | boolean>(null);
   const [followId, setFollowId] = useState(id);
 
   const { data: myInfo, isSuccess } = useMyInfo();
+  useEffect(() => {
+    if (!myInfo) {
+      return;
+    }
+
+    const { following } = myInfo;
+    if (isSuccess) {
+      const isAlreadyFollowing = following.some(({ user, _id }) => {
+        if (user === id) {
+          setFollowId(_id);
+          return user === id;
+        }
+      });
+      setIsFollowing(isAlreadyFollowing);
+    }
+  }, [myInfo]);
 
   const queryClient = useQueryClient();
 
@@ -41,6 +62,10 @@ const UserProfile = ({ userList, username }: UserProfileProps) => {
       alert('이미 팔로우 하신 상태 입니다.');
       return;
     }
+    if (!getItem(LOGIN_TOKEN, '')) {
+      setIsConfirm(true);
+      return;
+    }
     createFollow();
     setIsFollowing(true);
   };
@@ -54,22 +79,14 @@ const UserProfile = ({ userList, username }: UserProfileProps) => {
     setIsFollowing(false);
   };
 
-  useEffect(() => {
-    if (!myInfo) {
-      return;
-    }
+  const onConfirm = () => {
+    setIsConfirm(false);
+    navigate('/login');
+  };
 
-    const { following } = myInfo;
-    if (isSuccess) {
-      const isAlreadyFollowing = following.some(({ user, _id }) => {
-        if (user === id) {
-          setFollowId(_id);
-          return user === id;
-        }
-      });
-      setIsFollowing(isAlreadyFollowing);
-    }
-  }, [myInfo]);
+  const onCancel = () => {
+    setIsConfirm(false);
+  };
 
   return (
     <Flex alignItems="center">
@@ -115,6 +132,13 @@ const UserProfile = ({ userList, username }: UserProfileProps) => {
           </Button>
         )}
       </Box>
+      {isConfirm && (
+        <Confirm
+          onCancel={onCancel}
+          onConfirm={onConfirm}
+          comment={`${username}님을 팔로우 하기 위해서는 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까`}
+        />
+      )}
     </Flex>
   );
 };
