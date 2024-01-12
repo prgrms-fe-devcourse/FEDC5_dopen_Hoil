@@ -12,6 +12,13 @@ export const useChannelList = () => {
       meta: {
         errorMessage: '채널 목록을 가져올 때 에러가 발생했습니다.',
       },
+      select: (data) =>
+        data.filter(
+          (channel) =>
+            channel.description === '자유 게시판' ||
+            channel.description === '인증 & 회고 게시판' ||
+            channel.description === '정보 공유 게시판',
+        ),
     },
   );
 

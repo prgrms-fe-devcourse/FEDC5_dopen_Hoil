@@ -8,7 +8,7 @@ const WriteButton = () => {
   return (
     <Box
       position="fixed"
-      bottom="50px"
+      bottom="80px"
       left="50%"
       transform="translate(-50%, -50%)"
     >

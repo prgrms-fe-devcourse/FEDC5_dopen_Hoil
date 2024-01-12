@@ -79,6 +79,7 @@ const Footer = ({ ...props }: FlexProps) => {
       bg="gray.50"
       w={DEFAULT_WIDTH}
       h={DEFAULT_HEADER_HEIGHT}
+      shrink="0"
       {...props}
     >
       {elementsData.map(({ icon, text }) => (
