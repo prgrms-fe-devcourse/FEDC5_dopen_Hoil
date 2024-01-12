@@ -7,17 +7,17 @@ import BoardPostList from '@/pages/BoardPage/BoardPostList';
 import { useChannelList } from '@/hooks/useChannelList';
 
 const BoardPage = () => {
-  const { channelListData } = useChannelList();
-  const location = useLocation();
+  const { channelListData = [] } = useChannelList();
+  const { pathname } = useLocation();
   const pathInfo = channelListData?.filter(
-    (channel) => channel.name === location.pathname.split('/')[2],
+    (channel) => channel.name === pathname.split('/')[2],
   )[0];
 
   return (
     <>
-      <PageHeader pageName={(pathInfo && pathInfo.description) || '게시판'} />
+      <PageHeader pageName={pathInfo.description} />
       <OnlineUsers />
-      <BoardPostList channelId={(pathInfo && pathInfo._id) || ''} />
+      <BoardPostList channelId={pathInfo._id} />
       <WriteButton />
       <Footer position="sticky" bottom="0" />
     </>
