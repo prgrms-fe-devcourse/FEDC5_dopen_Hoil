@@ -16,5 +16,17 @@ export const useMyPostList = () => {
 };
 
 export const usePostDetail = ({ id }: PostDetailProps) => {
-  return useQuery(POST_DETAIL, async () => await getPostDetail(id), {});
+  const { data, error } = useQuery(
+    POST_DETAIL,
+    async () => await getPostDetail(id),
+    {
+      suspense: true,
+      retry: 0,
+    },
+  );
+
+  return {
+    data,
+    error,
+  };
 };
