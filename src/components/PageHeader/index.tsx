@@ -45,12 +45,8 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
         <IconButton
           aria-label="search"
           icon={<SearchIcon color="black" boxSize="icon" />}
-<<<<<<< HEAD
           bg="transparent"
           onClick={() => navigate('/search')}
-=======
-          bgColor="transparent"
->>>>>>> aa36eeb (:bug: PageHeader컴포넌트 아이콘 배경색 하양 => 투명으로 변경)
         />
         <IconButton
           aria-label="notify"
@@ -59,12 +55,8 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
               <BellIcon color="black" boxSize="icon" />
             </Badge>
           }
-<<<<<<< HEAD
           bg="transparent"
           onClick={() => navigate('/notification')}
-=======
-          bgColor="transparent"
->>>>>>> aa36eeb (:bug: PageHeader컴포넌트 아이콘 배경색 하양 => 투명으로 변경)
         />
       </Flex>
     </Flex>
