@@ -134,30 +134,24 @@ const timerIconStyle: IconButtonProps = {
 };
 
 const TimerPage = () => {
-  const { timer, isPlay, isTimerEnd, startTimer, stopTimer, setTimer } =
-    useTimer();
+  const {
+    timer,
+    isPlay,
+    isTimerEnd,
+    timerRef,
+    startTimer,
+    stopTimer,
+    setTimer,
+  } = useTimer();
 
   const {
     data: todayTimePost,
     refetch,
-    isSuccess: isTodayTimePostSuccess,
+    isError: isTodayTimePostError,
   } = useTodayTimePost(DUMMY_DATA.timerChannelId);
 
   const currentTargetTime = useRef(timer);
   const originTargetTime = useRef(timer);
-
-  useEffect(() => {
-    //어제자 저장기록은 무시해야하는지...
-    const { time, originTime } = getItem('timer', {
-      time: '00:00:00',
-      originTime: '00:00:00',
-      date: convertDateToString(new Date()).date,
-    });
-    setTimer(time);
-
-    currentTargetTime.current = time;
-    originTargetTime.current = originTime;
-  }, [setTimer]);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -185,22 +179,32 @@ const TimerPage = () => {
   );
 
   const onPause = () => {
+    //1초라도 경과했는지 판별 후 로직 실행합니다. 아무런 행동없이 새로고침하면 로직을 실행하지 않습니다
+    if (
+      stringTimeToSeconds(currentTargetTime.current) -
+        stringTimeToSeconds(timerRef.current) <=
+      0
+    ) {
+      return;
+    }
+
+    //로컬에 먼저 저장합니다
+
     setItem('timer', {
-      time: timer,
+      time: timerRef.current,
       originTime: originTargetTime.current,
       date: convertDateToString(new Date()).date,
     });
 
-    if (!isTodayTimePostSuccess) {
+    if (isTodayTimePostError) {
       //오늘자 타이머 게시글 가져올때 성공하지 못했을때. 에러처리필요
       stopTimer();
       currentTargetTime.current = timer;
       return;
     }
-
     const currentSpendTime =
       stringTimeToSeconds(currentTargetTime.current) -
-      stringTimeToSeconds(timer); // 타이머를 이용한 시간.
+      stringTimeToSeconds(timerRef.current); // 타이머를 이용한 시간.
 
     //게시글 있다면 수정
     if (todayTimePost) {
@@ -213,17 +217,36 @@ const TimerPage = () => {
     }
 
     stopTimer();
-
     //circularProgress의 퍼센테이지가 잘 작동하기 위하여 0 초과일때만 할당.
     //할당하지 않는다면 소비한시간 계산할때 처음 설정시간 - 지금시간을 계속 더해서 이상해집니다
-    if (stringTimeToSeconds(timer) > 0) {
-      currentTargetTime.current = timer;
+    if (stringTimeToSeconds(timerRef.current) > 0) {
+      currentTargetTime.current = timerRef.current;
     }
   };
 
   if (isTimerEnd) {
     onPause();
   }
+
+  const preventEvent = (e: BeforeUnloadEvent) => e.preventDefault();
+
+  useEffect(() => {
+    //어제자 저장기록은 무시해야하는지...
+    const { time, originTime } = getItem('timer', {
+      time: '00:00:00',
+      originTime: '00:00:00',
+      date: convertDateToString(new Date()).date,
+    });
+    setTimer(time);
+
+    currentTargetTime.current = time;
+    originTargetTime.current = originTime;
+
+    window.addEventListener('beforeunload', preventEvent);
+
+    return () => window.removeEventListener('beforeunload', preventEvent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex flexDir="column" align="center" w="100%" bg="pink.200">
