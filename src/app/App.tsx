@@ -10,7 +10,6 @@ import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
 import TimerPage from '@/pages/TimerPage';
-import '@fontsource/noto-sans-kr';
 import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
@@ -18,9 +17,7 @@ import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
-import TimerPage from '@/pages/TimerPage';
 import '@fontsource/noto-sans-kr';
-
 const App = () => {
   const { channelListData } = useChannelList();
 
