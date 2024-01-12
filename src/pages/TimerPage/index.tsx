@@ -2,7 +2,7 @@ import { createPost, editPost } from '@/apis/post';
 import PageHeader from '@/components/PageHeader';
 
 import useTimer from '@/hooks/useTimer';
-import { getItem } from '@/utils/storage';
+import { getItem, setItem } from '@/utils/storage';
 import {
   Button,
   Center,
@@ -22,6 +22,7 @@ import TimerSettingModal from './TimerSettingModal';
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { useTodayTimePost } from '@/hooks/useTodayTimePost';
 import { secondsToStringTime } from '@/utils/secondsToStringTime';
+import { convertDateToString } from '@/utils/convertDateToString';
 
 const DUMMY_DATA = {
   userId: '658b73f0fadd1520147a8d64',
@@ -147,11 +148,15 @@ const TimerPage = () => {
 
   useEffect(() => {
     //어제자 저장기록은 무시해야하는지...
-    const { time } = getItem('timer', { time: '00:00:00' });
+    const { time, originTime } = getItem('timer', {
+      time: '00:00:00',
+      originTime: '00:00:00',
+      date: convertDateToString(new Date()).date,
+    });
     setTimer(time);
 
     currentTargetTime.current = time;
-    originTargetTime.current = time;
+    originTargetTime.current = originTime;
   }, [setTimer]);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -180,6 +185,12 @@ const TimerPage = () => {
   );
 
   const onPause = () => {
+    setItem('timer', {
+      time: timer,
+      originTime: originTargetTime.current,
+      date: convertDateToString(new Date()).date,
+    });
+
     if (!isTodayTimePostSuccess) {
       //오늘자 타이머 게시글 가져올때 성공하지 못했을때. 에러처리필요
       stopTimer();

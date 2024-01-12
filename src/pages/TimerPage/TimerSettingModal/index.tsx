@@ -114,6 +114,7 @@ const TimerSettingModal = ({
 
     setItem('timer', {
       time: stringTime,
+      originTime: stringTime,
       day: date,
     });
 
