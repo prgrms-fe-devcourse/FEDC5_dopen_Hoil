@@ -15,9 +15,13 @@ import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
 import BoardPage from '@/pages/BoardPage';
-import { BOARD_LIST } from '@/constants/Board';
+import PostEditPage from '@/pages/PostEditPage';
+import { useChannelList } from '@/hooks/useChannelList';
+import NotificationPage from '@/pages/NotificationPage';
 
 const App = () => {
+  const { channelListData } = useChannelList();
+
   return (
     <>
       <Routes>
@@ -35,13 +39,21 @@ const App = () => {
           <Route path="/timer" element={<TimerPage />} />
           <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
-          {Object.keys(BOARD_LIST).map((board) => (
-            <Route
-              key={board}
-              path={`/board/${board}`}
-              element={<BoardPage />}
-            />
+          {channelListData?.map((board) => (
+            <>
+              <Route
+                key={board._id}
+                path={`/board/${board.name}`}
+                element={<BoardPage />}
+              />
+              <Route
+                key={board._id}
+                path={`/board/${board.name}/post`}
+                element={<PostEditPage />}
+              />
+            </>
           ))}
+          <Route path="/notification" element={<NotificationPage />} />
         </Route>
       </Routes>
     </>

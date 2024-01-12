@@ -2,9 +2,9 @@ import { useQuery } from 'react-query';
 import { getUserList } from '@/apis/userInfo';
 import { User } from '@/apis/type';
 import { AxiosError } from 'axios';
-import { StackDivider, StackProps, VStack } from '@chakra-ui/react';
+import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { USER_LIST } from '@/constants/queryKeys';
-import { DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import UserListItem from './UserListItem';
 
 interface UserListProps extends StackProps {
@@ -38,7 +38,15 @@ const UserList = ({
     },
   );
   if (data && !data.length) {
-    return <div>검색어와 일치하는 유저가 없습니다(예시)</div>;
+    return (
+      <Box
+        w={DEFAULT_WIDTH}
+        padding={`0 ${DEFAULT_PAGE_PADDING}`}
+        fontSize="1.2rem"
+      >
+        검색어와 일치하는 유저가 없습니다
+      </Box>
+    );
   }
   return (
     <VStack

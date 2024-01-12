@@ -2,13 +2,14 @@ import { getRequest, postRequest, putRequest } from './instance';
 import { Notification } from './type';
 
 export const getUserNotificationList = async () =>
-  await getRequest<Notification>('/notifications');
+  await getRequest<Notification[]>('/notifications');
 
 export const checkNotification = async () =>
   await putRequest('/notifications/seen');
 
-interface PushNotificationPayload {
-  notificationType: 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
+export type NotificationType = 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
+export interface PushNotificationPayload {
+  notificationType: NotificationType;
   notificationTypeId: string;
   userId: string;
   postId: string | null;
