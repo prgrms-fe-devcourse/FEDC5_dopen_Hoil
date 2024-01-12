@@ -111,10 +111,16 @@ export const useUpdateInfo = ({
 }: UpdateUserInfoProps) => {
   return useMutation(
     async () => {
-      const { fullName, username, password } = newUserInfo;
+      const { fullName, username, password, timerChannelId } = newUserInfo;
 
       // 1차 내 정보 변경
-      await changeUserName({ fullName, username });
+      await changeUserName({
+        fullName: JSON.stringify({
+          name: fullName,
+          timerChannelId,
+        }),
+        username,
+      });
       // // 2차 비밀번호 변경
       await changePassword(password);
 

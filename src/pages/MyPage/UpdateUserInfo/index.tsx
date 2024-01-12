@@ -24,6 +24,7 @@ interface userInfoTypes {
   email: string;
   fullName: string;
   username: string;
+  timerChannelId: string;
 }
 
 const UpdateUserInfo = ({
@@ -31,6 +32,7 @@ const UpdateUserInfo = ({
   email,
   fullName,
   username,
+  timerChannelId,
 }: userInfoTypes) => {
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string>(image || '');
@@ -59,7 +61,7 @@ const UpdateUserInfo = ({
   const { mutate } = useUpdateInfo({
     onSuccessFn,
     profileImageFile,
-    newUserInfo: getValues(),
+    newUserInfo: { ...getValues(), timerChannelId },
   });
 
   // 프로필 이미지 변경
