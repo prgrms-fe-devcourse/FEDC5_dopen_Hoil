@@ -87,16 +87,11 @@ export const useSignUp = ({
         ...userInfo,
         fullName: JSON.stringify({ name: fullName, timerChannelId: id }),
       });
-      setItem(LOGIN_TOKEN, data.token);
 
       return data;
     },
     {
-      onSuccess: (data) => {
-        if (onSuccessFn) {
-          onSuccessFn(data);
-        }
-      },
+      onSuccess: (data) => onSuccessFn?.(data),
       onError: (error: AxiosError) => {
         if (onErrorFn) {
           onErrorFn(error);
