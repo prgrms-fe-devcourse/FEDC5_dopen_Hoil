@@ -5,7 +5,7 @@ import { setItem } from '@/utils/storage';
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { FormControl, FormErrorMessage } from '@chakra-ui/form-control';
 import { Box, Flex, Input, Text } from '@chakra-ui/react';
-import { Dispatch, Fragment, MutableRefObject, SetStateAction } from 'react';
+import { Fragment, MutableRefObject } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
 
 const checkTimeOut = (value: string) => {
@@ -32,7 +32,7 @@ interface TimerInputMetaDataTypes {
 
 interface TimerSettingModalProps
   extends Pick<MyModalProps, 'isOpen' | 'onClose'> {
-  setTimer: Dispatch<SetStateAction<string>>;
+  setTimer: (time: string) => void;
   currentTargetTime: MutableRefObject<string>;
   originTargetTime: MutableRefObject<string>;
 }

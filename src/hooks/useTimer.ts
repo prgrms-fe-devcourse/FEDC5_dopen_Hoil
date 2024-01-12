@@ -4,10 +4,15 @@ import { useRef, useState } from 'react';
 const useTimer = (initialTime: string = '00:00:00') => {
   //setInterval의 반환 타입 추론
   const setIntervalId = useRef<ReturnType<typeof setInterval>>();
-
-  const [timer, setTimer] = useState(initialTime);
+  const [timer, _setTimer] = useState(initialTime);
   const [isPlay, setIsPlay] = useState(false);
   const [isTimerEnd, setIsTimerEnd] = useState(false);
+  const timerRef = useRef(timer);
+
+  const setTimer = (time: string) => {
+    _setTimer(time);
+    timerRef.current = time;
+  };
 
   const getTimeRemaining = (deadline: Date) => {
     //total밀리초가 1000단위로 딱 떨어지지 않기에 올림처리
@@ -82,6 +87,7 @@ const useTimer = (initialTime: string = '00:00:00') => {
     isPlay,
     setTimer,
     isTimerEnd,
+    timerRef,
   };
 };
 
