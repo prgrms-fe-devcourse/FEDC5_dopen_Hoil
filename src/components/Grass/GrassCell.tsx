@@ -9,7 +9,7 @@ const GrassCell = ({ percentage = 0, ...props }: GrassCellProps) => {
     <GridItem
       bg={`rgba(255,0,0, ${percentage})`}
       border="1px solid black"
-      boxSize="50px"
+      boxSize="20px"
       {...props}
     />
   );
