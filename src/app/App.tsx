@@ -9,8 +9,6 @@ import MyBoardList from '@/pages/MyPage/MyBoardList';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
-import TimerPage from '@/pages/TimerPage';
-import '@fontsource/noto-sans-kr';
 import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
