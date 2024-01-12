@@ -23,6 +23,8 @@ import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { useTodayTimePost } from '@/hooks/useTodayTimePost';
 import { secondsToStringTime } from '@/utils/secondsToStringTime';
 import { convertDateToString } from '@/utils/convertDateToString';
+import { getCurrentStringTime } from '@/utils/getCurrentStringTime';
+import { TIME_OUT_VALUE } from '@/constants/time';
 
 const DUMMY_DATA = {
   userId: '658b73f0fadd1520147a8d64',
@@ -134,7 +136,18 @@ const TimerPage = () => {
     }
   };
 
+  //타이머 끝나면 실행
   if (isTimerEnd) {
+    onPause();
+  }
+
+  //23:45:00되는 순간 실행
+  if (
+    stringTimeToSeconds(timer) <= 0 ||
+    stringTimeToSeconds(TIME_OUT_VALUE) -
+      stringTimeToSeconds(getCurrentStringTime()) <=
+      0
+  ) {
     onPause();
   }
 
@@ -193,7 +206,12 @@ const TimerPage = () => {
             aria-label="재생"
             icon={<Icon as={MdPlayArrow} color="white" boxSize="50px" />}
             onClick={() => startTimer()}
-            isDisabled={stringTimeToSeconds(timer) <= 0}
+            isDisabled={
+              stringTimeToSeconds(timer) <= 0 ||
+              stringTimeToSeconds(TIME_OUT_VALUE) -
+                stringTimeToSeconds(getCurrentStringTime()) <=
+                0
+            }
           />
         )}
       </Center>
