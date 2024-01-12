@@ -33,96 +33,6 @@ const DUMMY_DATA = {
   timerChannelId: '659cbef85b11b0431d028400',
 };
 
-const TimerPage = () => {
-  const { timer, startTimer, stopTimer, isPlay, setTimer } = useTimer();
-  /* const { data } = useTodayTimePost(DUMMY_DATA.timerChannelId); */
-  const timeBenchmark = useRef(timer);
-  useEffect(() => {
-    const { time } = getItem('timer', { time: '00:00:00' });
-    setTimer(time);
-    timeBenchmark.current = time;
-  }, [setTimer]);
-
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
-  const checkTimeOut = (value: string) => {
-    const currentTime = new Date();
-    const currentLimit =
-      stringTimeToSeconds(TIME_OUT_VALUE) -
-      stringTimeToSeconds(
-        `${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`,
-      );
-    const timeDiff = currentLimit - stringTimeToSeconds(value);
-    return timeDiff >= 0 || '23:45까지만 설정 가능합니다.';
-  };
-
-  const timeInputMetaData: TimerInputMetaDataTypes[] = [
-    {
-      name: 'hour',
-      validate: {
-        pattern: {
-          value: /^(0?[0-9]|1[0-9]|2[0-3])$/,
-          message: '00~23사이 숫자만 가능합니다',
-        },
-        maxLength: {
-          value: 2,
-          message: '숫자는 두개까지 입력 가능합니다',
-        },
-        validate: () =>
-          checkTimeOut(
-            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
-          ),
-      },
-    },
-    {
-      name: 'minute',
-      validate: {
-        pattern: {
-          value: /^[0-5]?[0-9]$/,
-          message: '00~59사이 숫자만 가능합니다',
-        },
-        maxLength: {
-          value: 2,
-          message: '숫자는 두개까지 입력 가능합니다',
-        },
-        validate: () =>
-          checkTimeOut(
-            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
-          ),
-      },
-    },
-    {
-      name: 'second',
-      validate: {
-        pattern: {
-          value: /^[0-5]?[0-9]$/,
-          message: '00~59사이 숫자만 가능합니다',
-        },
-        maxLength: {
-          value: 2,
-          message: '숫자는 두개까지 입력 가능합니다',
-        },
-        validate: () =>
-          checkTimeOut(
-            `${getValues().hour}:${getValues().minute}:${getValues().second}`,
-          ),
-      },
-    },
-  ];
-
-  const {
-    handleSubmit,
-    register,
-    getValues,
-    formState: { errors, isValid },
-  } = useForm<TimerInputTypes>({
-    defaultValues: {
-      hour: '00',
-      minute: '00',
-      second: '00',
-    },
-  });
-
 const timerIconStyle: IconButtonProps = {
   position: 'absolute',
   left: '50%',
@@ -310,16 +220,6 @@ const TimerPage = () => {
           currentTargetTime={currentTargetTime}
           originTargetTime={originTargetTime}
         />
-        <Button
-          color="white"
-          bg="pink.300"
-          w="388px"
-          h="70px"
-          _hover={{ bg: 'pink.400' }}
-          disabled={!isValid}
-        >
-          스톱워치로 전환
-        </Button>
       </VStack>
     </Flex>
   );
