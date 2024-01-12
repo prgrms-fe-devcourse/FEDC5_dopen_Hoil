@@ -138,7 +138,7 @@ const TimerSettingModal = ({
       isOpen={isOpen}
       onClose={onClose}
       buttonText="타이머 설정하기"
-      onButtonClick={handleSubmit(() => onSubmit())}
+      onButtonClick={handleSubmit(onSubmit)}
       isCentered
     >
       <Box pl="20px" color="black">
