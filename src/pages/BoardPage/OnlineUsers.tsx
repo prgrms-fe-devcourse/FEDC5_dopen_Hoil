@@ -1,10 +1,11 @@
 import OnlineUserProfile from '@/components/OnlineUserProfile';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { useOnlineUserList } from '@/hooks/useOnlineUserList';
-import { Box, Divider, Flex, Text } from '@chakra-ui/react';
+import { Box, Divider, Text } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 
 const OnlineUsers = () => {
-  const { onlineUsersListData } = useOnlineUserList();
+  const { onlineUsersListData = [] } = useOnlineUserList();
 
   return (
     <Box w={DEFAULT_WIDTH} padding={`10px ${DEFAULT_PAGE_PADDING}`}>
@@ -17,24 +18,35 @@ const OnlineUsers = () => {
       >
         실시간 접속자
       </Text>
-      {onlineUsersListData && !onlineUsersListData.length ? (
+      {!onlineUsersListData.length ? (
         <Text fontSize="1.2rem" fontWeight="medium" cursor="default" mb="10px">
           접속 중인 사용자가 없습니다.
         </Text>
       ) : (
-        <Flex gap="15px" overflowX="auto">
-          {onlineUsersListData?.map((onlineUser) => (
+        <OnlineUsersBox>
+          {onlineUsersListData.map((onlineUser) => (
             <OnlineUserProfile
               key={onlineUser._id}
               username={onlineUser.username}
               image={onlineUser.image}
             />
           ))}
-        </Flex>
+        </OnlineUsersBox>
       )}
       <Divider mt="13px" color="gray.450" />
     </Box>
   );
 };
+
+const OnlineUsersBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export default OnlineUsers;
