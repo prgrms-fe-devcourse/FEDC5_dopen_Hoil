@@ -22,7 +22,7 @@ const OnlineUsers = () => {
           접속 중인 사용자가 없습니다.
         </Text>
       ) : (
-        <Flex gap="8px">
+        <Flex gap="10px" overflowX="auto">
           {onlineUsersListData?.map((onlineUser) => (
             <OnlineUserProfile
               key={onlineUser._id}
