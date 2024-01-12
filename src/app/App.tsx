@@ -17,7 +17,9 @@ import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannelList';
 import NotificationPage from '@/pages/NotificationPage';
+import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
+
 const App = () => {
   const { channelListData } = useChannelList();
 
@@ -52,6 +54,7 @@ const App = () => {
               />
             </>
           ))}
+          <Route path="/board/:boardName/:postId" element={<PostViewPage />} />
           <Route path="/notification" element={<NotificationPage />} />
           <Route path="/timer" element={<TimerPage />} />
         </Route>
