@@ -1,4 +1,4 @@
-import { Grid, GridProps } from '@chakra-ui/react';
+import { Grid, GridProps, Tooltip } from '@chakra-ui/react';
 import GrassCell from './GrassCell';
 import { useMemo } from 'react';
 
@@ -40,7 +40,7 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
 
     timerPosts.forEach(({ time, createdAt }) => {
       const [hours] = time.split(':').map(Number);
-      const [, , createdDay] = new Date(createdAt)
+      const [createdYear, createdMonth, createdDay] = new Date(createdAt)
         .toLocaleDateString('en-CA', {
           year: 'numeric',
           month: '2-digit',
@@ -49,7 +49,10 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
         .split('-');
 
       //0번 인덱스 기준이라 날짜에서 1을 빼줍니다
-      tempData[+createdDay - 1] = { percentage: getGrassPercentage(hours) };
+      tempData[+createdDay - 1] = {
+        percentage: getGrassPercentage(hours),
+        time: `${createdYear}년 ${createdMonth}월 ${createdDay}일`,
+      };
     });
 
     return tempData;
@@ -57,12 +60,10 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
 
   return (
     <Grid templateColumns="repeat(7, fit-content(20px))" gap="5px">
-      {thisMonthTimerData.map(({ percentage }, index) => (
-        <GrassCell
-          key={`day-${index}`}
-          percentage={percentage}
-          borderRadius="2px"
-        />
+      {thisMonthTimerData.map(({ percentage, time }, index) => (
+        <Tooltip key={`day-${index}`} label={time ? time : '회고 기록 없음'}>
+          <GrassCell percentage={percentage} borderRadius="2px" />
+        </Tooltip>
       ))}
     </Grid>
   );
