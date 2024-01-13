@@ -1,144 +1,64 @@
 import { useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { Flex, Box, Text, Button, Avatar } from '@chakra-ui/react';
-import { useMyInfo } from '@/hooks/useAuth';
-import { useCreateFollow, useDeleteFollow } from '@/hooks/useFollow';
+import { Flex, Box, Text, Avatar } from '@chakra-ui/react';
 import { User } from '@/apis/type';
-import { MY_INFO } from '@/constants/queryKeys';
-import { LOGIN_TOKEN } from '@/constants/user';
-import { getItem } from '@/utils/storage';
-import Confirm from '@/components/common/Confirm';
+import UserProfileButton from './UserProfileButton';
 
 interface UserProfileProps {
-  userList: User[];
+  userInfo: User;
+  myInfo: User;
   username: string;
+  isSameUser: boolean;
 }
 
-const UserProfile = ({ userList, username }: UserProfileProps) => {
-  const navigate = useNavigate();
-  const { image, _id: id } = userList.filter(
-    (user) => user.username === username,
-  )[0];
-  const [isConfirm, setIsConfirm] = useState(false);
-  const [isFollowing, setIsFollowing] = useState<null | boolean>(null);
-  const [followId, setFollowId] = useState(id);
+const UserProfile = ({
+  userInfo,
+  myInfo,
+  username,
+  isSameUser,
+}: UserProfileProps) => {
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followId, setFollowId] = useState('');
 
-  const { data: myInfo, isSuccess } = useMyInfo();
+  const { image, _id: userId } = userInfo;
+  const { following } = myInfo;
+
   useEffect(() => {
-    if (!myInfo) {
-      return;
-    }
-
-    const { following } = myInfo;
-    if (isSuccess) {
-      const isAlreadyFollowing = following.some(({ user, _id }) => {
-        if (user === id) {
+    const isAlreadyFollowing = following.some(
+      ({ user: followingUserId, _id }) => {
+        if (followingUserId === userId) {
           setFollowId(_id);
-          return user === id;
+          return followingUserId === userId;
         }
-      });
-      setIsFollowing(isAlreadyFollowing);
-    }
-  }, [myInfo]);
+      },
+    );
+    setIsFollowing(isAlreadyFollowing);
+  }, [following]);
 
-  const queryClient = useQueryClient();
-
-  const onSuccessFn = () => {
-    queryClient.invalidateQueries(MY_INFO);
-  };
-
-  const { mutate: createFollow } = useCreateFollow({
-    id,
-    onSuccessFn,
-  });
-  const { mutate: deleteFollow } = useDeleteFollow({
-    id: followId,
-    onSuccessFn,
-  });
-
-  const onCreateFollow = () => {
-    if (isFollowing) {
-      alert('이미 팔로우 하신 상태 입니다.');
-      return;
-    }
-    if (!getItem(LOGIN_TOKEN, '')) {
-      setIsConfirm(true);
-      return;
-    }
-    createFollow();
-    setIsFollowing(true);
-  };
-
-  const onDeleteFollow = () => {
-    if (isFollowing === false) {
-      alert('다시 시도해주세요.');
-      return;
-    }
-    deleteFollow();
-    setIsFollowing(false);
-  };
-
-  const onConfirm = () => {
-    setIsConfirm(false);
-    navigate('/login');
-  };
-
-  const onCancel = () => {
-    setIsConfirm(false);
+  const onupdateFollowing = (isFollowing: boolean) => {
+    setIsFollowing(isFollowing);
   };
 
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" p="0 20px" mb="30px">
       <Box mr="15px">
         <Avatar src={image} w="118px" h="118px" />
       </Box>
       <Box>
-        <Text
-          as="strong"
-          display="block"
-          fontSize="3xl"
-          color="pink.300"
-          mb="15px"
-        >
+        <Text as="strong" display="block" fontSize="3xl" color="#222" mb="15px">
           {username}
         </Text>
-        {isFollowing ? (
-          <Button
-            w="144px"
-            h="40px"
-            onClick={onDeleteFollow}
-            backgroundColor="pink.300"
-            color="white"
-            _hover={{
-              color: '#222',
-              backgroundColor: 'gray.300',
-            }}
-          >
-            팔로우 취소
-          </Button>
+
+        {isSameUser ? (
+          ''
         ) : (
-          <Button
-            w="144px"
-            h="40px"
-            backgroundColor="gray.300"
-            onClick={onCreateFollow}
-            _hover={{
-              backgroundColor: 'pink.300',
-              color: '#fff',
-            }}
-          >
-            팔로우
-          </Button>
+          <UserProfileButton
+            isFollowing={isFollowing}
+            followId={followId}
+            userId={userId}
+            onupdateFollowing={onupdateFollowing}
+          />
         )}
       </Box>
-      {isConfirm && (
-        <Confirm
-          onCancel={onCancel}
-          onConfirm={onConfirm}
-          comment={`${username}님을 팔로우 하기 위해서는 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까`}
-        />
-      )}
     </Flex>
   );
 };
