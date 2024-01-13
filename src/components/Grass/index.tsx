@@ -1,24 +1,11 @@
 import { Grid, GridProps, Tooltip } from '@chakra-ui/react';
 import GrassCell from './GrassCell';
 import { useMemo } from 'react';
+import { calcGrassPercentage } from '@/utils/calcGrassPercentage';
 
 interface GrassProps extends GridProps {
-  timerPosts: { time: string; createdAt: string }[]; // 추후 Post[]로 변경필요
+  timerPosts: { time: string; createdAt: string }[]; // 추후 TimerPost[]로 변경필요
 }
-
-const getGrassPercentage = (value: number, standard: number = 12) => {
-  const flooredStandard = Math.floor(standard / 4);
-  if (value < flooredStandard) {
-    return 0.25;
-  }
-  if (value < flooredStandard * 2) {
-    return 0.5;
-  }
-  if (value < flooredStandard * 3) {
-    return 0.75;
-  }
-  return 1;
-};
 
 const Grass = ({ timerPosts = [] }: GrassProps) => {
   const today = new Date();
@@ -43,7 +30,7 @@ const Grass = ({ timerPosts = [] }: GrassProps) => {
 
       //0번 인덱스 기준이라 날짜에서 1을 빼줍니다
       tempData[+createdDay - 1] = {
-        percentage: getGrassPercentage(hours),
+        percentage: calcGrassPercentage(hours),
         time: `${createdYear}년 ${createdMonth}월 ${createdDay}일`,
       };
     });
