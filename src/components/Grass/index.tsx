@@ -6,12 +6,15 @@ interface GrassProps extends GridProps {
   timerPosts: Post[];
 }
 
-/* 
+const DUMMY_DATA = [
+  { title: '06:07:00', createdAt: '2024-01-01T20:48:19.816Z' },
+  { title: '02:00:00', createdAt: '2024-01-04T20:48:19.816Z' },
+  { title: '06:07:00', createdAt: '2024-01-05T20:48:19.816Z' },
+  { title: '12:07:00', createdAt: '2024-01-10T20:48:19.816Z' },
+];
 
-[{1월1일자 타이머},{1월 3일자 타이머}] 이런식으로 getPostListByChannel로 가져올텐데, 이걸 가공해서 써야함.
-*/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Grass = ({ timerPosts }: GrassProps) => {
+const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
   const today = new Date();
   const lastDay = new Date(
     today.getFullYear(),
