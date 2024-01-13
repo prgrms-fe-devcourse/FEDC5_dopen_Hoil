@@ -20,6 +20,7 @@ const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
         whiteSpace="nowrap"
         overflow="hidden"
         textOverflow="ellipsis"
+        textAlign="center"
       >
         {username}
       </Text>
