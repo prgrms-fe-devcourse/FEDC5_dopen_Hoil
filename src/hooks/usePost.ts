@@ -21,7 +21,6 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
     async () => await getPostDetail(id),
     {
       suspense: true,
-      retry: 0,
     },
   );
 

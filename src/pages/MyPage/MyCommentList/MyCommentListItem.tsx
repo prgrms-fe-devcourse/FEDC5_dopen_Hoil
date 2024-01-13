@@ -1,10 +1,10 @@
-import { ListItem, Box, Text } from '@chakra-ui/react';
-import { useDeleteComment } from '@/hooks/useMyComment';
-
-import UserContentBlock from '@/components/common/UserContentBlock';
-import Confirm from '@/components/common/Confirm';
 import { useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { ListItem, Box, Text } from '@chakra-ui/react';
+import { useDeleteComment } from '@/hooks/useComment';
+import { MY_COMMENT_LIST } from '@/constants/queryKeys';
+import UserContentBlock from '@/components/common/UserContentBlock';
+import Confirm from '@/components/common/Confirm';
 interface MyCommentListItemProps {
   id: string;
   image: string;
@@ -22,7 +22,12 @@ const MyCommentListItem = ({
 }: MyCommentListItemProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
   const queryClient = useQueryClient();
-  const { mutate } = useDeleteComment({ queryClient });
+
+  const onSuccessFn = () => {
+    queryClient.invalidateQueries(MY_COMMENT_LIST);
+  };
+
+  const { mutate } = useDeleteComment({ onSuccessFn });
 
   const onConfirm = () => {
     mutate(id);
