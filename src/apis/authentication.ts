@@ -39,3 +39,18 @@ export const logOut = async () => await postRequest('/logout');
 
 export const checkAuthenticated = async (): Promise<User> =>
   await getRequest('/auth-user');
+
+export class AuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'AuthError';
+  }
+}
+
+export const checkUserAuthentication = async (): Promise<User> => {
+  const data = await checkAuthenticated();
+  if (!data) {
+    throw new AuthError('권한 없음');
+  }
+  return data;
+};
