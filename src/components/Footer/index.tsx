@@ -2,7 +2,6 @@ import { DEFAULT_HEADER_HEIGHT, DEFAULT_WIDTH } from '@/constants/style';
 import { Flex, FlexProps } from '@chakra-ui/react';
 import {
   MdHome,
-  MdEmojiEvents,
   MdOutlineTimer,
   MdOutlineMessage,
   MdPersonOutline,
@@ -23,10 +22,6 @@ const Footer = ({ ...props }: FlexProps) => {
       text: '홈',
     },
     {
-      icon: MdEmojiEvents,
-      text: '랭킹',
-    },
-    {
       icon: MdOutlineTimer,
       text: '타이머',
     },
@@ -45,7 +40,6 @@ const Footer = ({ ...props }: FlexProps) => {
       getInteractiveMap<string, string>(
         new Map([
           ['', '홈'],
-          ['rank', '랭킹'],
           ['timer', '타이머'],
           ['board', '게시판'],
           ['mypage', '내정보'],
@@ -72,7 +66,7 @@ const Footer = ({ ...props }: FlexProps) => {
     <Flex
       pl="31px"
       pr="31px"
-      justify="space-between"
+      justify="space-around"
       borderTop="1px solid"
       borderColor="gray.450"
       align="center"
