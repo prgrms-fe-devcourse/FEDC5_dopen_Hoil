@@ -1,7 +1,7 @@
 import PageHeader from '@/components/PageHeader';
 import { POST_IMAGE_TYPES } from '@/constants/post';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
-import { useChannel } from '@/hooks/useChannel';
+import { useChannelInfo } from '@/hooks/useChannels';
 import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,7 +21,7 @@ const PostEditPage = () => {
   const [image, setImage] = useState<File | null>(null);
 
   const channelInfo = pathname.split('/')[2];
-  const { channel } = useChannel({ channelInfo });
+  const { channel } = useChannelInfo({ channelInfo });
   const { handleSubmit } = useForm<CreatePostPayload>();
 
   const onPostingImage = (e: React.ChangeEvent<HTMLInputElement>) => {

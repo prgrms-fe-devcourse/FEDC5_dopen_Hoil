@@ -4,7 +4,7 @@ import PageHeader from '@/components/PageHeader';
 import BoardList from '@/components/BoardList';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { useNavigate } from 'react-router-dom';
-import { useChannelList } from '@/hooks/useChannel';
+import { useChannelList } from '@/hooks/useChannels';
 
 const BoardEnterPage = () => {
   const navigate = useNavigate();

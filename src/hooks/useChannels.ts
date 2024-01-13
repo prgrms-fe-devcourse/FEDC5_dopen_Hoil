@@ -31,7 +31,7 @@ interface useChannelProps {
   channelInfo: string;
 }
 
-export const useChannel = ({ channelInfo }: useChannelProps) => {
+export const useChannelInfo = ({ channelInfo }: useChannelProps) => {
   const { data = [], isError } = useQuery<Channel[], AxiosError>(
     CHANNEL,
     getChannelList,
