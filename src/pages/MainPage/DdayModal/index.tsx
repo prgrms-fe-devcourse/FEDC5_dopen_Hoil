@@ -48,7 +48,7 @@ const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
       isOpen={isOpen}
       title="D-DAY"
       buttonText="D-day 등록하기"
-      onButtonClick={handleSubmit(() => onSubmit())}
+      onButtonClick={handleSubmit(onSubmit)}
       isCentered
     >
       <form style={{ padding: '0 20px' }}>
