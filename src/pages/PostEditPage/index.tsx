@@ -1,14 +1,14 @@
-import PageHeader from '@/components/PageHeader';
-import { POST_IMAGE_TYPES } from '@/constants/post';
-import { DEFAULT_PAGE_PADDING } from '@/constants/style';
-import { useChannelInfo } from '@/hooks/useChannels';
 import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from '@emotion/styled';
-import { EditIcon } from '@chakra-ui/icons';
+import PageHeader from '@/components/PageHeader';
 import { CreatePostPayload } from '@/apis/post';
+import { POST_IMAGE_TYPES } from '@/constants/post';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
+import { useChannelInfo } from '@/hooks/useChannels';
 import { usePosting } from '@/hooks/usePost';
 
 const PostEditPage = () => {
