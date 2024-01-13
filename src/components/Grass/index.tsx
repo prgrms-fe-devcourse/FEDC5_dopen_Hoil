@@ -1,9 +1,8 @@
 import { Grid, GridProps } from '@chakra-ui/react';
 import GrassCell from './GrassCell';
-import { Post } from '@/apis/type';
 
 interface GrassProps extends GridProps {
-  timerPosts: Post[];
+  timerPosts: { title: string; createdAt: string }[]; // 추후 Post[]로 변경필요
 }
 
 const DUMMY_DATA = [
@@ -13,7 +12,6 @@ const DUMMY_DATA = [
   { title: '12:07:00', createdAt: '2024-01-10T20:48:19.816Z' },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
   const today = new Date();
   const lastDay = new Date(
@@ -21,17 +19,28 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
     today.getMonth() + 1,
     0,
   ).getDate();
-  //게시글 filter로 뽑아와서 1월달 글 존재하면 percentage계산해서 배열화하면 됨
-  const thisMonthTimerData = [...Array(lastDay)];
+  //회고 게시글을 이번 달 기준으로 filter해서 가져온다. 글 존재하면 percentage계산해서 배열화하면 됨
+  const thisMonthTimerData = Array(lastDay).fill(0);
+  timerPosts.forEach(({ createdAt }) => {
+    const [, , createdDay] = new Date(createdAt)
+      .toLocaleDateString('en-CA', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+      .split('-');
+
+    //0번 인덱스 기준이라 날짜에서 1을 빼줍니다
+    thisMonthTimerData[+createdDay - 1] = 1;
+  });
   return (
-    <Grid
-      templateColumns="repeat(7, fit-content(20px))"
-      gap={2}
-      p={4}
-      maxW="428px"
-    >
-      {thisMonthTimerData.map((_, index) => (
-        <GrassCell key={`day-${index}`} percentage={1} />
+    <Grid templateColumns="repeat(7, fit-content(20px))" gap="5px">
+      {thisMonthTimerData.map((isRecorded, index) => (
+        <GrassCell
+          key={`day-${index}`}
+          percentage={isRecorded ? 1 : 0}
+          borderRadius="2px"
+        />
       ))}
     </Grid>
   );
