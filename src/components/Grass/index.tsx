@@ -6,13 +6,6 @@ interface GrassProps extends GridProps {
   timerPosts: { time: string; createdAt: string }[]; // 추후 Post[]로 변경필요
 }
 
-const DUMMY_DATA = [
-  { time: '06:07:00', createdAt: '2024-01-01T20:48:19.816Z' },
-  { time: '02:00:00', createdAt: '2024-01-04T20:48:19.816Z' },
-  { time: '05:07:00', createdAt: '2024-01-05T20:48:19.816Z' },
-  { time: '12:07:00', createdAt: '2024-01-10T20:48:19.816Z' },
-];
-
 const getGrassPercentage = (value: number, standard: number = 12) => {
   const flooredStandard = Math.floor(standard / 4);
   if (value < flooredStandard) {
@@ -27,7 +20,7 @@ const getGrassPercentage = (value: number, standard: number = 12) => {
   return 1;
 };
 
-const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
+const Grass = ({ timerPosts = [] }: GrassProps) => {
   const today = new Date();
   const lastDay = new Date(
     today.getFullYear(),
