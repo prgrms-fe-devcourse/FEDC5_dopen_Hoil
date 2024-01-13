@@ -1,6 +1,6 @@
 import { getChannelList } from '@/apis/channel';
 import { Channel } from '@/apis/type';
-import { CHANNEL_LIST } from '@/constants/queryKeys';
+import { CHANNEL, CHANNEL_LIST } from '@/constants/queryKeys';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
@@ -25,4 +25,25 @@ export const useChannelList = () => {
   const channelListData = data;
 
   return { channelListData, isError };
+};
+
+interface useChannelProps {
+  channelInfo: string;
+}
+
+export const useChannel = ({ channelInfo }: useChannelProps) => {
+  const { data = [], isError } = useQuery<Channel[], AxiosError>(
+    CHANNEL,
+    getChannelList,
+    {
+      meta: {
+        errorMessage: '채널 정보를 가져올 때 에러가 발생했습니다.',
+      },
+      select: (data) => data.filter((channel) => channel.name === channelInfo),
+    },
+  );
+
+  const channel = data[0];
+
+  return { channel, isError };
 };
