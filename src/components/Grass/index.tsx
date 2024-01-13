@@ -9,9 +9,23 @@ interface GrassProps extends GridProps {
 const DUMMY_DATA = [
   { time: '06:07:00', createdAt: '2024-01-01T20:48:19.816Z' },
   { time: '02:00:00', createdAt: '2024-01-04T20:48:19.816Z' },
-  { time: '06:07:00', createdAt: '2024-01-05T20:48:19.816Z' },
+  { time: '05:07:00', createdAt: '2024-01-05T20:48:19.816Z' },
   { time: '12:07:00', createdAt: '2024-01-10T20:48:19.816Z' },
 ];
+
+const getGrassPercentage = (value: number, standard: number = 12) => {
+  const flooredStandard = Math.floor(standard / 4);
+  if (value < flooredStandard) {
+    return 0.25;
+  }
+  if (value < flooredStandard * 2) {
+    return 0.5;
+  }
+  if (value < flooredStandard * 3) {
+    return 0.75;
+  }
+  return 1;
+};
 
 const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
   const today = new Date();
@@ -24,7 +38,8 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
   const thisMonthTimerData = useMemo(() => {
     const tempData = Array(lastDay).fill(0);
 
-    timerPosts.forEach(({ createdAt }) => {
+    timerPosts.forEach(({ time, createdAt }) => {
+      const [hours] = time.split(':').map(Number);
       const [, , createdDay] = new Date(createdAt)
         .toLocaleDateString('en-CA', {
           year: 'numeric',
@@ -34,7 +49,7 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
         .split('-');
 
       //0번 인덱스 기준이라 날짜에서 1을 빼줍니다
-      tempData[+createdDay - 1] = 1;
+      tempData[+createdDay - 1] = { percentage: getGrassPercentage(hours) };
     });
 
     return tempData;
@@ -42,10 +57,10 @@ const Grass = ({ timerPosts = DUMMY_DATA }: GrassProps) => {
 
   return (
     <Grid templateColumns="repeat(7, fit-content(20px))" gap="5px">
-      {thisMonthTimerData.map((isRecorded, index) => (
+      {thisMonthTimerData.map(({ percentage }, index) => (
         <GrassCell
           key={`day-${index}`}
-          percentage={isRecorded ? 1 : 0}
+          percentage={percentage}
           borderRadius="2px"
         />
       ))}
