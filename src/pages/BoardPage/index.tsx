@@ -4,7 +4,7 @@ import PageHeader from '@/components/PageHeader';
 import OnlineUsers from '@/pages/BoardPage/OnlineUsers';
 import WriteButton from '@/pages/BoardPage/WriteButton';
 import BoardPostList from '@/pages/BoardPage/BoardPostList';
-import { useChannelList } from '@/hooks/useChannel';
+import { useChannelList } from '@/hooks/useChannels';
 
 const BoardPage = () => {
   const { channelListData = [] } = useChannelList();

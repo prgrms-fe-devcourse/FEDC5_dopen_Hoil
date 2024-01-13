@@ -14,7 +14,7 @@ import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
 import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
-import { useChannelList } from '@/hooks/useChannel';
+import { useChannelList } from '@/hooks/useChannels';
 import NotificationPage from '@/pages/NotificationPage';
 import TimerPage from '@/pages/TimerPage';
 import '@fontsource/noto-sans-kr';
