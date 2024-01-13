@@ -1,22 +1,17 @@
-import { useParams } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
-import { usePostDetail } from '@/hooks/usePost';
-import { useMyInfo } from '@/hooks/useAuth';
+import { Box, BoxProps } from '@chakra-ui/react';
 import CommentForm from './CommentForm';
 import CommentText from './CommentText';
+import { Comment, User } from '@/apis/type';
 
-const Comment = () => {
-  const { postid = '' } = useParams();
+interface CommentProps extends BoxProps {
+  comments: Comment[];
+  myInfo: User;
+  _id: string;
+}
 
-  const { data, isLoading } = usePostDetail({ id: postid });
-  const { data: myInfo } = useMyInfo();
-  if (!data || isLoading) {
-    return <Box>로딩중입니다...</Box>;
-  }
-
-  const { comments = [] } = data;
+const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
   return (
-    <Box maxW="428px">
+    <Box {...props}>
       <Box>
         {comments.map(({ _id, comment, author }) => (
           <CommentText
@@ -24,15 +19,15 @@ const Comment = () => {
             id={_id}
             comment={comment}
             author={author}
-            username={myInfo ? myInfo.username : ''}
+            username={myInfo.username}
           />
         ))}
       </Box>
       <Box mt="30px">
-        <CommentForm id={postid} image={myInfo ? myInfo.image : ''} />
+        <CommentForm id={_id} image={myInfo.image} />
       </Box>
     </Box>
   );
 };
 
-export default Comment;
+export default Comments;
