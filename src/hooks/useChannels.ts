@@ -1,6 +1,6 @@
 import { getChannelList } from '@/apis/channel';
 import { Channel } from '@/apis/type';
-import { CHANNEL, CHANNEL_LIST } from '@/constants/queryKeys';
+import { CHANNEL_INFO, CHANNEL_LIST } from '@/constants/queryKeys';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
@@ -33,7 +33,7 @@ interface useChannelProps {
 
 export const useChannelInfo = ({ channelInfo }: useChannelProps) => {
   const { data = [], isError } = useQuery<Channel[], AxiosError>(
-    CHANNEL,
+    CHANNEL_INFO,
     getChannelList,
     {
       meta: {
