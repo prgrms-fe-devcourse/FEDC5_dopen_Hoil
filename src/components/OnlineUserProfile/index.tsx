@@ -7,11 +7,20 @@ interface OnlineUserProfileProps {
 
 const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
   return (
-    <Flex w="60px" h="80px" flexDirection="column" alignItems="center">
+    <Flex w="60px" h="90px" flexDirection="column" alignItems="center">
       <Avatar src={image} w="60px" h="60px" mb="5px">
         <AvatarBadge boxSize="1.25em" bg="#37E97E" />
       </Avatar>
-      <Text color="black" fontSize="1.2rem" fontWeight="semibold">
+      <Text
+        w="60px"
+        color="black"
+        fontSize="1.2rem"
+        fontWeight="semibold"
+        cursor="default"
+        whiteSpace="nowrap"
+        overflow="hidden"
+        textOverflow="ellipsis"
+      >
         {username}
       </Text>
     </Flex>
