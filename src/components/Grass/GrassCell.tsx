@@ -7,8 +7,7 @@ interface GrassCellProps extends GridItemProps {
 const GrassCell = ({ percentage = 0, ...props }: GrassCellProps) => {
   return (
     <GridItem
-      bg={`rgba(255,0,0, ${percentage})`}
-      border="1px solid black"
+      bg={percentage ? `rgba(255,0,0, ${percentage})` : 'gray.300'}
       boxSize="20px"
       {...props}
     />
