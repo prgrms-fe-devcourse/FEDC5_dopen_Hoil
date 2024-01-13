@@ -21,14 +21,22 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
     async () => await getPostDetail(id),
     {
       suspense: true,
-      select: ({ _id, title, likes, comments, author, createdAt }) => {
+      useErrorBoundary: true,
+      meta: {
+        errorMessage: '네트워크 오류',
+      },
+      retry: 0,
+      select: (data) => {
+        if (data._id === '') {
+          throw new Error('해당하는 글이 존재하지 않습니다');
+        }
         return {
-          _id,
-          title,
-          likes,
-          comments,
-          author,
-          createdAt,
+          _id: data._id,
+          title: data.title,
+          likes: data.likes,
+          comments: data.comments,
+          author: data.author,
+          createdAt: data.createdAt,
         };
       },
     },
