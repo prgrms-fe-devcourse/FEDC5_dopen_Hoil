@@ -9,15 +9,27 @@ import Comments from '@/components/Comment';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import Post from './Container';
+import { useLike } from '@/hooks/useLike';
 
 const PostDetail = () => {
   const { postId } = useParams();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
-
+  const { setLike, setDislike } = useLike();
   const { _id, title, likes, comments, author, createdAt } = usePostDetail({
     id: postId!,
   });
+  const isClicked = myInfo!.likes.filter(
+    (likeInfo) => likeInfo.post === postId,
+  );
+
+  const onClickLike = () => {
+    if (isClicked.length > 0) {
+      setDislike(isClicked[0]._id);
+    } else {
+      setLike(postId!);
+    }
+  };
 
   return (
     <>
@@ -43,11 +55,12 @@ const PostDetail = () => {
                 TheIcon={MdFavoriteBorder}
                 textContent={String(likes.length)}
                 boxSize="18px"
-                iconColor="gray.400"
+                iconColor={isClicked.length ? 'pink' : 'gray.400'}
                 fontSize="1.2rem"
                 fontWeight="normal"
                 textColor="gray.800"
                 textLocation="right"
+                onClick={onClickLike}
               />
               <TextIconButton
                 TheIcon={MdArticle}
