@@ -1,3 +1,4 @@
+import { getItem } from '@/utils/storage';
 import { deleteRequest, getRequest, postRequest, putRequest } from './instance';
 import { Like, Post } from './type';
 
@@ -32,9 +33,9 @@ export const getPostListByUser = async ({
     params: { offset, limit },
   });
 
-interface CreatePostPayload {
+export interface CreatePostPayload {
   title: string;
-  image?: BinaryType | null;
+  image?: File | null;
   channelId: string;
 }
 
@@ -43,10 +44,18 @@ export const createPost = async ({
   image = null,
   channelId,
 }: CreatePostPayload) => {
-  await postRequest<Post, CreatePostPayload>('/posts/create', {
-    title,
-    image,
-    channelId,
+  const formData = new FormData();
+  formData.append('title', title);
+  if (image !== null) {
+    formData.append('image', image);
+  }
+  formData.append('channelId', channelId);
+
+  await postRequest<Post, FormData>('/posts/create', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${getItem('login-token', '')}`,
+    },
   });
 };
 

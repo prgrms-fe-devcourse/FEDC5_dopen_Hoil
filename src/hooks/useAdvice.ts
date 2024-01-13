@@ -1,13 +1,20 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 export const useAdvice = () => {
-  const [advice, setAdvice] = useState('');
+  const { data, isError } = useQuery(
+    'advice',
+    async () => {
+      return await axios
+        .get('https://api.adviceslip.com/advice')
+        .then((res) => res.data.slip.advice);
+    },
+    {
+      meta: {
+        errorMessage: '명언을 불러올 때 에러가 발생했습니다.',
+      },
+    },
+  );
 
-  axios
-    .get('https://api.adviceslip.com/advice')
-    .then((res) => setAdvice(res.data.slip.advice))
-    .catch(() => setAdvice('Hi dopen !'));
-
-  return { advice };
+  return { data, isError };
 };

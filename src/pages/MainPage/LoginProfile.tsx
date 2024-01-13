@@ -8,7 +8,7 @@ interface LoginProfileProps {
 }
 
 const LoginProfile = ({ myInfo }: LoginProfileProps) => {
-  const { advice } = useAdvice();
+  const { data = '...', isError } = useAdvice();
 
   return (
     <Flex cursor="default" alignItems="center" maxW={DEFAULT_WIDTH}>
@@ -19,7 +19,7 @@ const LoginProfile = ({ myInfo }: LoginProfileProps) => {
           안녕하세요!
         </Text>
         <Text fontStyle="oblique" fontSize="md">
-          {advice || <Spinner />}
+          {isError ? 'Hi dopen!' : data || <Spinner />}
         </Text>
       </Flex>
     </Flex>
