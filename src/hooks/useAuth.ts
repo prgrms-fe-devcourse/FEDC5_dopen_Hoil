@@ -7,6 +7,7 @@ import {
 } from '@/apis/userInfo';
 import {
   checkAuthenticated,
+  checkUserAuthentication,
   logIn,
   logOut,
   signUp,
@@ -149,5 +150,13 @@ export const useMyInfo = ({ onSuccessFn }: AuthProps = {}) => {
         onSuccessFn();
       }
     },
+  });
+};
+
+export const useCheckUserAuth = () => {
+  return useQuery('auth', checkUserAuthentication, {
+    suspense: true,
+    useErrorBoundary: true,
+    retry: 0,
   });
 };
