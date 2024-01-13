@@ -1,7 +1,17 @@
-import { Grid } from '@chakra-ui/react';
+import { Grid, GridProps } from '@chakra-ui/react';
 import GrassCell from './GrassCell';
+import { Post } from '@/apis/type';
 
-const Grass = () => {
+interface GrassProps extends GridProps {
+  timerPosts: Post[];
+}
+
+/* 
+
+[{1월1일자 타이머},{1월 3일자 타이머}] 이런식으로 getPostListByChannel로 가져올텐데, 이걸 가공해서 써야함.
+*/
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const Grass = ({ timerPosts }: GrassProps) => {
   const today = new Date();
   const lastDay = new Date(
     today.getFullYear(),
