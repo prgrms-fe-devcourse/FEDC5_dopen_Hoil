@@ -19,6 +19,7 @@ import NotificationPage from '@/pages/NotificationPage';
 import TimerPage from '@/pages/TimerPage';
 import '@fontsource/noto-sans-kr';
 import { Fragment } from 'react';
+import UserInfo from '@/pages/UserInfo';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/mypage/account" element={<Account />} />
           <Route path="/mypage/mycommentlist" element={<MyCommentList />} />
           <Route path="/mypage/myboardlist" element={<MyBoardList />} />
+          <Route path="/:username" element={<UserInfo />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/message" element={<MessageListPage />} />
           <Route path="/message/:userId" element={<MessagePage />} />
