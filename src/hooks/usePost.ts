@@ -21,11 +21,21 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
     async () => await getPostDetail(id),
     {
       suspense: true,
+      select: ({ _id, title, likes, comments, author, createdAt }) => {
+        return {
+          _id,
+          title,
+          likes,
+          comments,
+          author,
+          createdAt,
+        };
+      },
     },
   );
 
   return {
-    data,
+    ...data!,
     error,
   };
 };
