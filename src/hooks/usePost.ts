@@ -7,7 +7,7 @@ interface PostDetailProps {
   id: string;
 }
 
-interface PostProps {
+interface PostingProps {
   onSuccessFn?: () => void;
 }
 
@@ -23,7 +23,7 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
   return useQuery(POST_DETAIL, async () => await getPostDetail(id));
 };
 
-export const usePosting = ({ onSuccessFn }: PostProps) => {
+export const usePosting = ({ onSuccessFn }: PostingProps) => {
   return useMutation(createPost, {
     onSuccess: () => {
       if (onSuccessFn) {
