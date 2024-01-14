@@ -14,7 +14,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { Path, RegisterOptions, useForm } from 'react-hook-form';
+import {
+  Path,
+  RegisterOptions,
+  ValidationValueMessage,
+  useForm,
+} from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export interface ReflectionInputTypes {
@@ -30,7 +35,7 @@ export interface ReflectionInputProps {
   type: string;
   required: boolean | string;
   placeholder: string;
-  validate?: RegisterOptions;
+  validate: RegisterOptions;
 }
 
 const ReflectionInputList: ReflectionInputProps[] = [
@@ -118,7 +123,7 @@ const ReflectionPostEditPage = () => {
     handleSubmit,
     getValues,
     reset,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<ReflectionInputTypes>();
 
   useEffect(() => {
@@ -158,7 +163,7 @@ const ReflectionPostEditPage = () => {
       onEditPost({
         postId,
         title,
-        //존재하는 게시판이름과 id 1대1 대응하는 자료구조가 필요함
+        //존재하는 게시판이름과 id 1대1 대응하는 자료구조가 있으면 좋을것 같습니다. 일단 임시로 가져와 넣어두었습니다
         channelId: '659f893e93c1183c6d54ac9c',
       });
     } else {
@@ -231,6 +236,11 @@ const ReflectionPostEditPage = () => {
                     wordBreak="break-all"
                     h={name === 'title' ? '50px' : '100px'}
                     resize="none"
+                    maxLength={
+                      validate.maxLength &&
+                      //타입 추론 안되서 as키워드로 강제 변환
+                      +(validate.maxLength as ValidationValueMessage).value
+                    }
                     {...register(name, { required, ...validate })}
                   />
                   <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
@@ -248,7 +258,6 @@ const ReflectionPostEditPage = () => {
               color="white"
               bg="pink.300"
               _hover={{ bg: 'pink.400' }}
-              disabled={!isValid}
               type="submit"
             >
               글쓰기
