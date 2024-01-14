@@ -32,7 +32,7 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
       retry: 0,
       refetchOnWindowFocus: false,
       select: (data) => {
-        if (data._id === '') {
+        if (!data) {
           throw new Error('해당하는 글이 존재하지 않습니다');
         }
         return {
