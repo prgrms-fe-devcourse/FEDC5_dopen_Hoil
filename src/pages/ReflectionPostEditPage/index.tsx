@@ -1,12 +1,14 @@
 import PageHeader from '@/components/PageHeader';
+import { EditIcon } from '@chakra-ui/icons';
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   HStack,
-  Input,
+  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
@@ -22,7 +24,7 @@ export interface ReflectionInputProps {
   name: Path<ReflectionInputTypes>;
   label: string;
   type: string;
-  required: boolean;
+  required: boolean | string;
   placeholder: string;
   validate?: RegisterOptions;
 }
@@ -32,7 +34,7 @@ const ReflectionInputList: ReflectionInputProps[] = [
     name: 'title',
     label: '한 줄 회고',
     type: 'text',
-    required: true,
+    required: '이 칸을 채워주세요',
     placeholder: '오늘 하루는 어땠나요?',
     validate: {
       minLength: {
@@ -49,7 +51,7 @@ const ReflectionInputList: ReflectionInputProps[] = [
     name: 'favorite',
     label: '오늘 가장 좋았던 일',
     type: 'text',
-    required: true,
+    required: '이 칸을 채워주세요',
     placeholder: '오늘 가장 좋았던 일은 무엇인가요?',
     validate: {
       minLength: {
@@ -66,7 +68,7 @@ const ReflectionInputList: ReflectionInputProps[] = [
     name: 'shame',
     label: '오늘 아쉬웠던 일',
     type: 'text',
-    required: true,
+    required: '이 칸을 채워주세요',
     placeholder: '오늘 아쉬웠던 일은 무엇인가요?',
     validate: {
       minLength: {
@@ -83,7 +85,7 @@ const ReflectionInputList: ReflectionInputProps[] = [
     name: 'sayToMe',
     label: '나에게 한마디',
     type: 'text',
-    required: true,
+    required: '이 칸을 채워주세요',
     placeholder: '나에게 하고 싶은 말을 적어주세요',
     validate: {
       minLength: {
@@ -101,38 +103,68 @@ const ReflectionInputList: ReflectionInputProps[] = [
 const ReflectionPostEditPage = () => {
   const {
     register,
-    /*     handleSubmit,
-    getValues,
-    formState: { errors, isValid }, */
+    handleSubmit,
+    formState: { errors, isValid },
   } = useForm<ReflectionInputTypes>();
+
+  const onPosting = () => {};
 
   return (
     <>
       <PageHeader pageName="회고" />
-      <Flex flexDir="column" align="center" w="100%">
-        <HStack>
+      <Flex flexDir="column" align="center" w="100%" flex={1} color="black">
+        <HStack w="100%" p="0 20px">
           <Box>11</Box>
           <Box>12</Box>
           <Box>13</Box>
           <Box>14</Box>
         </HStack>
-        <VStack>
-          <form>
+        <form
+          style={{ width: '100%', flex: 1 }}
+          onSubmit={handleSubmit(onPosting)}
+        >
+          <VStack w="100%" bg="gray.100" p="0 20px" spacing="14px" pt="47px">
             {ReflectionInputList.map(
-              ({ name, label, type, required, placeholder, validate }) => (
-                <FormControl key={name}>
-                  <FormLabel>{label}</FormLabel>
-                  <Input
-                    type={type}
+              ({ name, label, required, placeholder, validate }) => (
+                <FormControl key={name} isInvalid={!!errors?.[name]?.message}>
+                  <FormLabel fontSize="1.6rem" fontWeight="bold">
+                    {label}
+                  </FormLabel>
+                  <Textarea
+                    id={name}
+                    p="10px"
                     placeholder={placeholder}
+                    _placeholder={{ color: 'gray.700' }}
+                    borderRadius="5px"
+                    bg="white"
+                    wordBreak="break-all"
+                    h={name === 'title' ? '50px' : '100px'}
+                    resize="none"
                     {...register(name, { required, ...validate })}
                   />
-                  <FormErrorMessage>{}</FormErrorMessage>
+                  <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
                 </FormControl>
               ),
             )}
-          </form>
-        </VStack>
+            <Button
+              h="50px"
+              mt="27px"
+              mb="128px"
+              w="100%"
+              borderRadius="50px"
+              fontSize="1.6rem"
+              fontWeight="medium"
+              color="white"
+              bg="pink.300"
+              _hover={{ bg: 'pink.400' }}
+              disabled={!isValid}
+              type="submit"
+            >
+              글쓰기
+              <EditIcon ml="5px" />
+            </Button>
+          </VStack>
+        </form>
       </Flex>
     </>
   );
