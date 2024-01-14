@@ -32,6 +32,8 @@ const PostDetail = () => {
   const settingsOption = [
     {
       text: '수정하기',
+      show: true,
+      confirmText: '수정하시겠습니까?',
       icon: <EditIcon />,
       onClick: () => {
         navigate('/board');
@@ -39,6 +41,7 @@ const PostDetail = () => {
     },
     {
       text: '삭제하기',
+      show: author._id === myInfo?._id,
       confirmText: '삭제하시겠습니까?',
       icon: <DeleteIcon />,
       onClick: async () => {
@@ -56,17 +59,22 @@ const PostDetail = () => {
             <Flex justifyContent="space-between">
               <Box>{title}</Box>
               <Settings>
-                {settingsOption.map(({ text, icon, onClick, confirmText }) => {
-                  return (
-                    <Button
-                      key={text}
-                      onClick={() => open(onClick, confirmText || '')}
-                    >
-                      {icon}
-                      {text}
-                    </Button>
-                  );
-                })}
+                {settingsOption.map(
+                  ({ text, icon, onClick, confirmText, show }) => {
+                    if (!show) {
+                      return null;
+                    }
+                    return (
+                      <Button
+                        key={text}
+                        onClick={() => open(onClick, confirmText || '')}
+                      >
+                        {icon}
+                        {text}
+                      </Button>
+                    );
+                  },
+                )}
               </Settings>
             </Flex>
           </Post.Header>
