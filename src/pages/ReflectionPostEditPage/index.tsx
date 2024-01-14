@@ -34,6 +34,16 @@ const ReflectionInputList: ReflectionInputProps[] = [
     type: 'text',
     required: true,
     placeholder: '오늘 하루는 어땠나요?',
+    validate: {
+      minLength: {
+        value: 2,
+        message: '최소 2글자 이상 입력해주세요',
+      },
+      maxLength: {
+        value: 20,
+        message: '최대 20글자까지 입력 가능합니다',
+      },
+    },
   },
   {
     name: 'favorite',
@@ -41,6 +51,16 @@ const ReflectionInputList: ReflectionInputProps[] = [
     type: 'text',
     required: true,
     placeholder: '오늘 가장 좋았던 일은 무엇인가요?',
+    validate: {
+      minLength: {
+        value: 1,
+        message: '최소 1글자 이상 입력해주세요',
+      },
+      maxLength: {
+        value: 300,
+        message: '최대 300글자까지 입력 가능합니다',
+      },
+    },
   },
   {
     name: 'shame',
@@ -48,6 +68,16 @@ const ReflectionInputList: ReflectionInputProps[] = [
     type: 'text',
     required: true,
     placeholder: '오늘 아쉬웠던 일은 무엇인가요?',
+    validate: {
+      minLength: {
+        value: 1,
+        message: '최소 1글자 이상 입력해주세요',
+      },
+      maxLength: {
+        value: 300,
+        message: '최대 300글자까지 입력 가능합니다',
+      },
+    },
   },
   {
     name: 'sayToMe',
@@ -55,6 +85,16 @@ const ReflectionInputList: ReflectionInputProps[] = [
     type: 'text',
     required: true,
     placeholder: '나에게 하고 싶은 말을 적어주세요',
+    validate: {
+      minLength: {
+        value: 2,
+        message: '최소 2글자 이상 입력해주세요',
+      },
+      maxLength: {
+        value: 40,
+        message: '최대 40글자까지 입력 가능합니다',
+      },
+    },
   },
 ];
 
@@ -79,15 +119,15 @@ const ReflectionPostEditPage = () => {
         <VStack>
           <form>
             {ReflectionInputList.map(
-              ({ name, label, type, required, placeholder }) => (
+              ({ name, label, type, required, placeholder, validate }) => (
                 <FormControl key={name}>
                   <FormLabel>{label}</FormLabel>
                   <Input
                     type={type}
                     placeholder={placeholder}
-                    {...register(name, { required })}
+                    {...register(name, { required, ...validate })}
                   />
-                  <FormErrorMessage></FormErrorMessage>
+                  <FormErrorMessage>{}</FormErrorMessage>
                 </FormControl>
               ),
             )}
