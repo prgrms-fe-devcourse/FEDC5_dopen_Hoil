@@ -98,6 +98,10 @@ export const deleteLike = async (id: string) => {
 
 export const getPost = async (postId: string) => {
   const data = await getPostDetail(postId);
-  const { title, content } = JSON.parse(data.title);
-  return { ...data, title, content } as Post;
+  try {
+    const { title, content } = JSON.parse(data.title);
+    return { ...data, title, content } as Post;
+  } catch {
+    return data;
+  }
 };
