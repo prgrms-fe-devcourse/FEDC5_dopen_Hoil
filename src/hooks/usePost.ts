@@ -5,6 +5,7 @@ import { createPost, editPost, getPostDetail } from '@/apis/post';
 
 interface PostDetailProps {
   id: string;
+  enabled?: boolean;
 }
 
 interface PostingProps {
@@ -19,8 +20,10 @@ export const useMyPostList = () => {
   });
 };
 
-export const usePostDetail = ({ id }: PostDetailProps) => {
-  return useQuery(POST_DETAIL, async () => await getPostDetail(id));
+export const usePostDetail = ({ id, enabled }: PostDetailProps) => {
+  return useQuery(POST_DETAIL, async () => await getPostDetail(id), {
+    enabled,
+  });
 };
 
 export const usePosting = ({ onSuccessFn }: PostingProps) => {
