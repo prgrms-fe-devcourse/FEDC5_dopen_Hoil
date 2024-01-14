@@ -8,7 +8,7 @@ import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 
 interface PostListProps extends ChannelPayload, StackProps {
-  keyword: string;
+  keyword?: string;
 }
 
 const PostList = ({
@@ -28,7 +28,11 @@ const PostList = ({
       meta: {
         errorMessage: '게시글 목록 가져올때 에러 발생하였습니다',
       },
-      select: (data) => data.filter((post) => post.title.includes(keyword)),
+      select: (data) => {
+        return keyword
+          ? data.filter((post) => post.title.includes(keyword))
+          : data;
+      },
     },
   );
 
