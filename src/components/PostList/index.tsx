@@ -11,6 +11,15 @@ interface PostListProps extends ChannelPayload, StackProps {
   keyword?: string;
 }
 
+const checkIsJson = (str: string) => {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+};
+
 const PostList = ({
   keyword,
   channelId,
@@ -50,7 +59,9 @@ const PostList = ({
       {data?.map((post) => (
         <PostListItem
           key={post._id}
-          title={post.title}
+          title={
+            checkIsJson(post.title) ? JSON.parse(post.title).title : post.title
+          }
           timeAgo={calculateTimeDiff(post.createdAt) || '날짜계산 불가'}
           username={post.author.username}
           likeCount={post.likes.length}
