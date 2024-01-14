@@ -1,13 +1,13 @@
 import PageHeader from '@/components/PageHeader';
+import { DEFAULT_HEADER_HEIGHT } from '@/constants/style';
 import { EditIcon } from '@chakra-ui/icons';
 import {
-  Box,
   Button,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  HStack,
+  Text,
   Textarea,
   VStack,
 } from '@chakra-ui/react';
@@ -109,16 +109,59 @@ const ReflectionPostEditPage = () => {
 
   const onPosting = () => {};
 
+  const getDatesAndDays = () => {
+    const today = new Date();
+
+    // 이전 3일과 다음 4일 계산
+    const previousDays = Array.from({ length: 3 }, (_, i) => {
+      const date = new Date(today);
+      date.setDate(today.getDate() - (i + 1));
+      return {
+        date: date.getDate(),
+        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      };
+    });
+
+    const nextDays = Array.from({ length: 4 }, (_, i) => {
+      const date = new Date(today);
+      date.setDate(today.getDate() + (i + 1));
+      return {
+        date: date.getDate(),
+        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      };
+    });
+
+    return [
+      ...previousDays.reverse(),
+      {
+        date: today.getDate(),
+        day: today.toLocaleDateString('en-US', { weekday: 'short' }),
+      },
+      ...nextDays,
+    ];
+  };
+
   return (
     <>
       <PageHeader pageName="회고" />
       <Flex flexDir="column" align="center" w="100%" flex={1} color="black">
-        <HStack w="100%" p="0 20px">
-          <Box>11</Box>
-          <Box>12</Box>
-          <Box>13</Box>
-          <Box>14</Box>
-        </HStack>
+        <Flex
+          w="100%"
+          p="0 20px"
+          h={DEFAULT_HEADER_HEIGHT}
+          justify="space-between"
+        >
+          {getDatesAndDays().map(({ date, day }, index) => (
+            <VStack key={index} spacing={0}>
+              <Text fontSize="1.8rem" fontWeight="semibold">
+                {date}
+              </Text>
+              <Text fontSize="1.2rem" color="gray.800">
+                {day}
+              </Text>
+            </VStack>
+          ))}
+        </Flex>
         <form
           style={{ width: '100%', flex: 1 }}
           onSubmit={handleSubmit(onPosting)}
