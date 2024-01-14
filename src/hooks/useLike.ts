@@ -4,8 +4,6 @@ import { AUTH, POST_DETAIL } from '@/constants/queryKeys';
 import { usePostDetail } from './usePost';
 import { useCheckUserAuth } from './useAuth';
 
-//일단 유저의 Like에서 눌렀는지를 찾아야함
-
 export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
   const { data: myInfo } = useCheckUserAuth();
