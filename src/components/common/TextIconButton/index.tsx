@@ -23,7 +23,6 @@ const TextIconButton = ({
   textLocation = 'bottom',
   boxSize = 'icon',
   iconColor = 'black',
-  onClick,
   ...props
 }: TextIconButtonProps) => {
   const calculateFlexDir = (
@@ -58,7 +57,6 @@ const TextIconButton = ({
         aria-label="home"
         icon={<Icon as={TheIcon} boxSize={boxSize} color={iconColor} />}
         bg="transparent"
-        onClick={onClick}
         _groupHover={{ background: 'gray.450' }}
       />
       <Text textAlign="center">{textContent}</Text>
