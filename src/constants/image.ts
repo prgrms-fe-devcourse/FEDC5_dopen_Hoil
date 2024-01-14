@@ -1,4 +1,4 @@
-export const POST_IMAGE_TYPES: { [key: string]: boolean } = {
+export const IMAGE_FILE_TYPES: { [key: string]: boolean } = {
   'image/gif': true,
   'image/jpeg': true,
   'image/png': true,

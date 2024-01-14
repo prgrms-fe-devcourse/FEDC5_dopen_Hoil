@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PageHeader from '@/components/PageHeader';
 import { CreatePostPayload } from '@/apis/post';
-import { POST_IMAGE_TYPES } from '@/constants/post';
+import { IMAGE_FILE_TYPES } from '@/constants/image';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { useChannelInfo } from '@/hooks/useChannels';
 import { usePosting } from '@/hooks/usePost';
@@ -29,7 +29,7 @@ const PostEditPage = () => {
       const file: File = e.target.files[0];
       const fileType = file.type;
 
-      if (POST_IMAGE_TYPES[fileType]) {
+      if (IMAGE_FILE_TYPES[fileType]) {
         setImage(file);
       } else {
         alert('파일 형식이 올바르지 않습니다. 이미지 파일을 업로드해 주세요.');
