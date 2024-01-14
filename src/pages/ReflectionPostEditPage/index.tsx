@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { DEFAULT_HEADER_HEIGHT } from '@/constants/style';
+import { useEditPost, usePostDetail, usePosting } from '@/hooks/usePost';
 import { getRecentEightDates } from '@/utils/getRecentEightDates';
 import { EditIcon } from '@chakra-ui/icons';
 import {
@@ -12,7 +13,9 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { Path, RegisterOptions, useForm } from 'react-hook-form';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export interface ReflectionInputTypes {
   title: string;
@@ -102,13 +105,35 @@ const ReflectionInputList: ReflectionInputProps[] = [
 ];
 
 const ReflectionPostEditPage = () => {
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get('id') || '';
+
+  const { data: postData, isSuccess: isGetPostDetailSuccess } = usePostDetail({
+    id: postId,
+    enabled: !!postId,
+  });
+
   const {
     register,
     handleSubmit,
+    getValues,
+    reset,
     formState: { errors, isValid },
   } = useForm<ReflectionInputTypes>();
 
-  /*   const navigate = useNavigate();
+  useEffect(() => {
+    if (!isGetPostDetailSuccess) {
+      return;
+    }
+    const {
+      title,
+      content: { favorite, shame, sayToMe },
+    } = JSON.parse(postData.title);
+
+    reset({ title, favorite, shame, sayToMe });
+  }, [postData, isGetPostDetailSuccess, reset]);
+
+  const navigate = useNavigate();
 
   const onSuccessFn = () => {
     alert('글 등록 성공!');
@@ -117,9 +142,29 @@ const ReflectionPostEditPage = () => {
 
   const { mutate: onCreatePost } = usePosting({ onSuccessFn });
 
-  const { mutate: onEditPost } = useEditPost({ onSuccessFn }); */
+  const { mutate: onEditPost } = useEditPost({ onSuccessFn });
 
-  const onPosting = () => {};
+  const onSubmit = () => {
+    const title = JSON.stringify({
+      title: getValues('title'),
+      content: {
+        favorite: getValues('favorite'),
+        shame: getValues('shame'),
+        sayToMe: getValues('sayToMe'),
+      },
+    });
+    if (postId) {
+      //수정
+      onEditPost({
+        postId,
+        title,
+        //존재하는 게시판이름과 id 1대1 대응하는 자료구조가 필요함
+        channelId: '659f893e93c1183c6d54ac9c',
+      });
+    } else {
+      onCreatePost({ title, channelId: '659f893e93c1183c6d54ac9c' });
+    }
+  };
 
   return (
     <>
@@ -167,7 +212,7 @@ const ReflectionPostEditPage = () => {
         </Flex>
         <form
           style={{ width: '100%', flex: 1 }}
-          onSubmit={handleSubmit(onPosting)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <VStack w="100%" bg="gray.100" p="0 20px" spacing="14px" pt="47px">
             {ReflectionInputList.map(
