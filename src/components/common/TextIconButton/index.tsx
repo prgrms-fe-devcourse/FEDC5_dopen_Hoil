@@ -14,7 +14,6 @@ interface TextIconButtonProps extends FlexProps {
   textLocation?: 'left' | 'right' | 'top' | 'bottom';
   boxSize?: IconProps['boxSize'];
   iconColor?: IconProps['color'];
-  onClick?: () => void;
 }
 
 const TextIconButton = ({
