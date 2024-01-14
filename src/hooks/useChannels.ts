@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 export const useChannelList = () => {
-  const { data, isError } = useQuery<Channel[], AxiosError>(
+  const { data, isError, isLoading } = useQuery<Channel[], AxiosError>(
     CHANNEL_LIST,
     getChannelList,
     {
@@ -24,7 +24,7 @@ export const useChannelList = () => {
 
   const channelListData = data;
 
-  return { channelListData, isError };
+  return { channelListData, isError, isLoading };
 };
 
 interface useChannelInfoProps {

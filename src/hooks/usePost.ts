@@ -1,7 +1,15 @@
+import { AxiosError } from 'axios';
 import { useMutation, useQuery } from 'react-query';
 import { MYPOST_LIST, POST_DETAIL } from '@/constants/queryKeys';
 import { checkAuthenticated } from '@/apis/authentication';
-import { createPost, editPost, getPostDetail } from '@/apis/post';
+import {
+  createPost,
+  editPost,
+  getPostDetail,
+  ChannelPayload,
+  getPostListByChannel,
+} from '@/apis/post';
+import { Post } from '@/apis/type';
 
 interface PostDetailProps {
   id: string;
@@ -44,4 +52,22 @@ export const useEditPost = ({ onSuccessFn }: PostingProps) => {
     onSuccess: () => onSuccessFn?.(),
     //인증관련 에러일때만 useBoundaryTrue로
   });
+};
+
+export const useFirstPost = ({
+  channelId,
+  offset = 0,
+  limit = 1,
+}: ChannelPayload) => {
+  const {
+    data = [],
+    isError,
+    isLoading,
+  } = useQuery<Post[], AxiosError>(`${channelId}`, async () => {
+    return await getPostListByChannel({ channelId, offset, limit });
+  });
+
+  const firstPost = data[0];
+
+  return { firstPost, isError, isLoading };
 };
