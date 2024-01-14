@@ -27,18 +27,19 @@ const PostDetail = () => {
   });
   const { countLike, setLike } = useLike(postId!);
 
-  const { isOpen, open, close, handleConfirm } = useConfirmModal();
+  const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
 
   const settingsOption = [
     {
       text: '수정하기',
       icon: <EditIcon />,
       onClick: () => {
-        navigate('/post');
+        navigate('/board');
       },
     },
     {
       text: '삭제하기',
+      confirmText: '삭제하시겠습니까?',
       icon: <DeleteIcon />,
       onClick: async () => {
         await deletePost(postId!);
@@ -55,9 +56,12 @@ const PostDetail = () => {
             <Flex justifyContent="space-between">
               <Box>{title}</Box>
               <Settings>
-                {settingsOption.map(({ text, icon, onClick }) => {
+                {settingsOption.map(({ text, icon, onClick, confirmText }) => {
                   return (
-                    <Button key={text} onClick={() => open(onClick)}>
+                    <Button
+                      key={text}
+                      onClick={() => open(onClick, confirmText || '')}
+                    >
                       {icon}
                       {text}
                     </Button>
@@ -111,7 +115,11 @@ const PostDetail = () => {
       )}
 
       {isOpen && (
-        <Confirm onConfirm={handleConfirm} onCancel={close} comment="할거임?" />
+        <Confirm
+          onConfirm={handleConfirm}
+          onCancel={close}
+          comment={message || '진행하시겠습니까?'}
+        />
       )}
     </>
   );
