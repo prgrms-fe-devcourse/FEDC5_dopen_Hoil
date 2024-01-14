@@ -1,29 +1,71 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { usePostDetail } from '@/hooks/usePost';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { useCheckUserAuth } from '@/hooks/useAuth';
-import TextIconButton from '@/components/common/TextIconButton';
-import Comments from '@/components/Comment';
-import UserContentBlock from '@/components/common/UserContentBlock';
-import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
-import Post from './Container';
 import { useLike } from '@/hooks/useLike';
+import { usePostDetail } from '@/hooks/usePost';
+import { useConfirmModal } from '@/hooks/useConfirmModal';
+import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+import { deletePost } from '@/apis/post';
+
+import Confirm from '@/components/common/Confirm';
+import Comments from '@/components/Comment';
+import TextIconButton from '@/components/common/TextIconButton';
+import UserContentBlock from '@/components/common/UserContentBlock';
+import Post from './Container';
+import Settings from './Settings';
 
 const PostDetail = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
-  const { countLike, setLike } = useLike(postId!);
   const { _id, title, comments, author, createdAt, content } = usePostDetail({
     id: postId!,
   });
+  const { countLike, setLike } = useLike(postId!);
+
+  const { isOpen, open, close, handleConfirm } = useConfirmModal();
+
+  const settingsOption = [
+    {
+      text: '수정하기',
+      icon: <EditIcon />,
+      onClick: () => {
+        navigate('/post');
+      },
+    },
+    {
+      text: '삭제하기',
+      icon: <DeleteIcon />,
+      onClick: async () => {
+        await deletePost(postId!);
+        navigate(-1);
+      },
+    },
+  ];
+
   return (
     <>
       <Post>
         <Flex flexDir="column" pos="relative" gap="10px">
-          <Post.Header minH="30px">{title}</Post.Header>
+          <Post.Header minH="30px">
+            <Flex justifyContent="space-between">
+              <Box>{title}</Box>
+              <Settings>
+                {settingsOption.map(({ text, icon, onClick }) => {
+                  return (
+                    <Button key={text} onClick={() => open(onClick)}>
+                      {icon}
+                      {text}
+                    </Button>
+                  );
+                })}
+              </Settings>
+            </Flex>
+          </Post.Header>
           <UserContentBlock
             username={author.username}
             userImage={author.coverImage}
@@ -63,8 +105,13 @@ const PostDetail = () => {
       <Button onClick={() => setIsFold(!isFold)}>
         {isFold ? '댓글 펼치기' : '댓글 접기'}
       </Button>
+
       {!isFold && (
         <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+      )}
+
+      {isOpen && (
+        <Confirm onConfirm={handleConfirm} onCancel={close} comment="할거임?" />
       )}
     </>
   );
