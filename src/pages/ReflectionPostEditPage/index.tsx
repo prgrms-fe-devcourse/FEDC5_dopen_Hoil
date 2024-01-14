@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { DEFAULT_HEADER_HEIGHT } from '@/constants/style';
+import { getRecentEightDates } from '@/utils/getRecentEightDates';
 import { EditIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -107,39 +108,18 @@ const ReflectionPostEditPage = () => {
     formState: { errors, isValid },
   } = useForm<ReflectionInputTypes>();
 
-  const onPosting = () => {};
+  /*   const navigate = useNavigate();
 
-  const getDatesAndDays = () => {
-    const today = new Date();
-
-    // 이전 3일과 다음 4일 계산
-    const previousDays = Array.from({ length: 3 }, (_, i) => {
-      const date = new Date(today);
-      date.setDate(today.getDate() - (i + 1));
-      return {
-        date: date.getDate(),
-        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
-      };
-    });
-
-    const nextDays = Array.from({ length: 4 }, (_, i) => {
-      const date = new Date(today);
-      date.setDate(today.getDate() + (i + 1));
-      return {
-        date: date.getDate(),
-        day: date.toLocaleDateString('en-US', { weekday: 'short' }),
-      };
-    });
-
-    return [
-      ...previousDays.reverse(),
-      {
-        date: today.getDate(),
-        day: today.toLocaleDateString('en-US', { weekday: 'short' }),
-      },
-      ...nextDays,
-    ];
+  const onSuccessFn = () => {
+    alert('글 등록 성공!');
+    navigate('/board/reflection');
   };
+
+  const { mutate: onCreatePost } = usePosting({ onSuccessFn });
+
+  const { mutate: onEditPost } = useEditPost({ onSuccessFn }); */
+
+  const onPosting = () => {};
 
   return (
     <>
@@ -151,7 +131,7 @@ const ReflectionPostEditPage = () => {
           h={DEFAULT_HEADER_HEIGHT}
           justify="space-between"
         >
-          {getDatesAndDays().map(({ date, day }, index) => (
+          {getRecentEightDates().map(({ date, day }, index) => (
             <Flex
               key={index}
               flexDir="column"
