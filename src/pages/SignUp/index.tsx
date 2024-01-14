@@ -4,14 +4,48 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Box, Text, Heading, Image } from '@chakra-ui/react';
 
-import { useSignUp } from '@/hooks/useAuth';
-import { UserInfoInput } from '@/types/user';
+import { useLogin, useSignUp } from '@/hooks/useAuth';
+import { UserInfoInput, UserResponse } from '@/types/user';
 
 import { USER_INPUT_LIST } from './userInputList';
 import { validateUserInfo } from './validateUserInfo';
+import { useEffect, useRef } from 'react';
+import { LOGIN_TOKEN } from '@/constants/user';
+import { removeItem, setItem } from '@/utils/storage';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const isAdminLogin = useRef(false);
+  const isSignedUp = useRef(false);
+
+  const { mutate: logIn } = useLogin({
+    onSuccessFn: () => {},
+    isSavedId: false,
+  });
+
+  useEffect(() => {
+    if (!isAdminLogin.current) {
+      logIn({
+        email: import.meta.env.VITE_ADMIN_ID,
+        password: import.meta.env.VITE_ADMIN_PW,
+      });
+      isAdminLogin.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    const onBeforeUnload = () => {
+      if (!isSignedUp.current) {
+        removeItem(LOGIN_TOKEN);
+      }
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+    };
+  }, []);
 
   const {
     register,
@@ -21,9 +55,11 @@ const SignUp = () => {
     setError,
   } = useForm<UserInfoInput>();
 
-  const onSuccessFn = () => {
+  const onSuccessFn = (data: UserResponse) => {
+    setItem(LOGIN_TOKEN, data.token);
+    isSignedUp.current = true;
     alert('회원가입 성공');
-    navigate('/', { replace: true });
+    setTimeout(() => navigate('/', { replace: true }), 0);
   };
 
   const onErrorFn = (error: AxiosError) => {

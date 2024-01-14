@@ -42,13 +42,24 @@ const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
     onClose();
   };
 
+  const getTomorrow = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow.toLocaleDateString('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  };
+
   return (
     <MyModal
       onClose={onClose}
       isOpen={isOpen}
       title="D-DAY"
       buttonText="D-day 등록하기"
-      onButtonClick={handleSubmit(() => onSubmit())}
+      onButtonClick={handleSubmit(onSubmit)}
       isCentered
     >
       <form style={{ padding: '0 20px' }}>
@@ -94,6 +105,7 @@ const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
             p="0 18px"
             h="40px"
             w="150px"
+            min={getTomorrow()}
             {...register('dDayDate', {
               required: 'd-day날짜를 기입해주세요',
             })}

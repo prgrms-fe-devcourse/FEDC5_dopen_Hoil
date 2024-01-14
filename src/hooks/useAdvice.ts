@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 export const useAdvice = () => {
-  const [advice, setAdvice] = useState('');
+  const { data, isError, isLoading } = useQuery('advice', async () => {
+    return await axios
+      .get('https://api.adviceslip.com/advice')
+      .then((res) => res.data.slip.advice);
+  });
 
-  axios
-    .get('https://api.adviceslip.com/advice')
-    .then((res) => setAdvice(res.data.slip.advice))
-    .catch(() => setAdvice('Hi dopen !'));
-
-  return { advice };
+  return { data, isError, isLoading };
 };

@@ -1,10 +1,14 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { MYPOST_LIST, POST_DETAIL } from '@/constants/queryKeys';
 import { checkAuthenticated } from '@/apis/authentication';
-import { getPostDetail } from '@/apis/post';
+import { createPost, getPostDetail } from '@/apis/post';
 
 interface PostDetailProps {
   id: string;
+}
+
+interface PostingProps {
+  onSuccessFn?: () => void;
 }
 
 export const useMyPostList = () => {
@@ -46,4 +50,17 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
     ...data!,
     error,
   };
+};
+
+export const usePosting = ({ onSuccessFn }: PostingProps) => {
+  return useMutation(createPost, {
+    onSuccess: () => {
+      if (onSuccessFn) {
+        onSuccessFn();
+      }
+    },
+    onError: () => {
+      alert('글 등록 중 문제가 발생하였습니다. 잠시 후 다시 시도해주세요.');
+    },
+  });
 };

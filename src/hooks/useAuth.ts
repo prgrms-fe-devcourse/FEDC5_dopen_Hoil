@@ -20,6 +20,7 @@ import { LOGIN_TOKEN } from '@/constants/user';
 
 import { saveLoginId } from '@/pages/Login/saveLoginId';
 import { UserInfoInput, UserResponse } from '@/types/user';
+import { createChannel } from '@/apis/channel';
 
 interface AuthProps {
   onSuccessFn?: () => void;
@@ -39,7 +40,9 @@ interface UpdateUserInfoProps extends AuthProps {
   newUserInfo: UserInfoInput;
 }
 
-interface SignUpProps extends AuthProps {
+interface SignUpProps {
+  onSuccessFn: (data: UserResponse) => void;
+  onErrorFn?: (error: AxiosError) => void;
   userInfo: UserInfoInput;
 }
 
@@ -77,19 +80,26 @@ export const useSignUp = ({
 }: SignUpProps) => {
   return useMutation(
     async () => {
-      const { token } = await signUp({ ...userInfo });
-      setItem(LOGIN_TOKEN, token);
+      const { username, fullName } = userInfo;
+
+      const { _id: id } = await createChannel(username);
+
+      const data = await signUp({
+        ...userInfo,
+        fullName: JSON.stringify({ name: fullName, timerChannelId: id }),
+      });
+
+      return data;
     },
     {
-      onSuccess: () => {
-        if (onSuccessFn) {
-          onSuccessFn();
-        }
-      },
+      onSuccess: (data) => onSuccessFn?.(data),
       onError: (error: AxiosError) => {
         if (onErrorFn) {
           onErrorFn(error);
         }
+      },
+      meta: {
+        errorMessage: '회원가입 과정에서 오류가 발생했습니다.',
       },
     },
   );
@@ -102,10 +112,16 @@ export const useUpdateInfo = ({
 }: UpdateUserInfoProps) => {
   return useMutation(
     async () => {
-      const { fullName, username, password } = newUserInfo;
+      const { fullName, username, password, timerChannelId } = newUserInfo;
 
       // 1차 내 정보 변경
-      await changeUserName({ fullName, username });
+      await changeUserName({
+        fullName: JSON.stringify({
+          name: fullName,
+          timerChannelId,
+        }),
+        username,
+      });
       // // 2차 비밀번호 변경
       await changePassword(password);
 

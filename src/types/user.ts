@@ -27,6 +27,7 @@ export interface UserInfoInput {
   username: string;
   password: string;
   passwordConfirm: string;
+  timerChannelId?: string;
 }
 
 export interface UserResponse {

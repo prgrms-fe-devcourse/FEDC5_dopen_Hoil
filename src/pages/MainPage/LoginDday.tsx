@@ -36,7 +36,7 @@ const LoginDday = () => {
     >
       <Text fontSize="2xl">{dDay.dDayTitle}</Text>
       <Box>
-        <Text fontSize="2xl">{`D-${dDayRemain}`}</Text>
+        <Text fontSize="2xl">{`D-${dDayRemain ? dDayRemain : 'Day'}`}</Text>
         <Text fontSize="lg" fontWeight="normal">
           {dDay.dDayDate}
         </Text>

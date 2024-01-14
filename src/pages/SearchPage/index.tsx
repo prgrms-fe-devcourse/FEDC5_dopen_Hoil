@@ -11,7 +11,7 @@ import PostList from '@/components/PostList';
 import UserList from '@/components/UserList';
 import OptionSelector from '@/pages/SearchPage/OptionSelector';
 import SearchInput from '@/pages/SearchPage/SearchInput';
-import { useChannelList } from '@/hooks/useChannelList';
+import { useChannelList } from '@/hooks/useChannels';
 
 export interface SearchDataTypes {
   keyword: string;

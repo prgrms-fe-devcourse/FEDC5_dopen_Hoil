@@ -30,6 +30,12 @@ export interface Channel {
   updatedAt: string;
 }
 
+export interface CreateChannelRequestBody {
+  authRequired: boolean;
+  description: string;
+  name: string;
+}
+
 export interface Post {
   likes: Like[]; //likes의 길이로 like 수 알 수 있음
   comments: Comment[];
