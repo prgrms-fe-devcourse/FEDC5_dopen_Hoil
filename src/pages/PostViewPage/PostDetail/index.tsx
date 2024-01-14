@@ -16,9 +16,10 @@ const PostDetail = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
   const { setLike, setDislike } = useLike();
-  const { _id, title, likes, comments, author, createdAt } = usePostDetail({
-    id: postId!,
-  });
+  const { _id, title, likes, comments, author, createdAt, content } =
+    usePostDetail({
+      id: postId!,
+    });
   const isClicked = myInfo!.likes.filter(
     (likeInfo) => likeInfo.post === postId,
   );
@@ -42,12 +43,7 @@ const PostDetail = () => {
             content=""
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
-            <Text fontSize="1.5rem">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui, ut
-              quos? Hic, eum. Laborum commodi nam sit neque necessitatibus
-              velit. Quasi nihil assumenda totam ad molestiae officiis at, enim
-              ex.
-            </Text>
+            <Text fontSize="1.5rem">{content}</Text>
           </Post.Content>
           <Post.Footer justifyContent="space-between">
             <Flex>
