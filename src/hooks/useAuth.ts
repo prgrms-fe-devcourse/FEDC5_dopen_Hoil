@@ -15,7 +15,7 @@ import {
 
 import { setItem } from '@/utils/storage';
 
-import { MY_INFO } from '@/constants/queryKeys';
+import { AUTH, MY_INFO } from '@/constants/queryKeys';
 import { LOGIN_TOKEN } from '@/constants/user';
 
 import { saveLoginId } from '@/pages/Login/saveLoginId';
@@ -154,7 +154,7 @@ export const useMyInfo = ({ onSuccessFn }: AuthProps = {}) => {
 };
 
 export const useCheckUserAuth = () => {
-  return useQuery('auth', checkUserAuthentication, {
+  return useQuery(AUTH, checkUserAuthentication, {
     suspense: true,
     useErrorBoundary: true,
     retry: 0,
