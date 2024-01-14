@@ -1,39 +1,32 @@
-import { createLike, deleteLike } from '@/apis/post';
-import { POST_DETAIL } from '@/constants/queryKeys';
 import { useMutation, useQueryClient } from 'react-query';
+import { createLike, deleteLike } from '@/apis/post';
+import { AUTH, POST_DETAIL } from '@/constants/queryKeys';
+import { usePostDetail } from './usePost';
+import { useCheckUserAuth } from './useAuth';
 
 //일단 유저의 Like에서 눌렀는지를 찾아야함
 
-const useCreateLike = () => {
+export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(async (id: string) => await createLike(id), {
-    retry: 0,
-    onSuccess: () => {
-      queryClient.refetchQueries(POST_DETAIL);
-    },
-    onError: () => {
-      alert('잠시후에 다시 시도해주세요');
-    },
+  const { data: myInfo } = useCheckUserAuth();
+  const { likes } = usePostDetail({
+    id: postId!,
   });
-  return mutate;
-};
-
-const useDeleteLike = () => {
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation(async (id: string) => await deleteLike(id), {
-    retry: 0,
-    onSuccess: () => {
-      queryClient.refetchQueries(POST_DETAIL);
+  const clicked = likes.filter((like) => like.user === myInfo?._id);
+  const { mutate: setLike } = useMutation(
+    async () => {
+      if (!clicked.length) {
+        await createLike(postId);
+      } else {
+        await deleteLike(clicked[0]._id);
+      }
     },
-    onError: () => {
-      alert('잠시후에 다시 시도해주세요');
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([POST_DETAIL, postId]);
+        queryClient.invalidateQueries(AUTH);
+      },
     },
-  });
-  return mutate;
-};
-
-export const useLike = () => {
-  const setLike = useCreateLike();
-  const setDislike = useDeleteLike();
-  return { setLike, setDislike };
+  );
+  return { countLike: likes.length, setLike };
 };
