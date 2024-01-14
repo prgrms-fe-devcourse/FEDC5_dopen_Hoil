@@ -8,7 +8,7 @@ interface LoginProfileProps {
 }
 
 const LoginProfile = ({ myInfo }: LoginProfileProps) => {
-  const { data = '...', isError, isLoading } = useAdvice();
+  const { data = '', isError, isLoading } = useAdvice();
 
   return (
     <Flex cursor="default" alignItems="center" maxW={DEFAULT_WIDTH}>
