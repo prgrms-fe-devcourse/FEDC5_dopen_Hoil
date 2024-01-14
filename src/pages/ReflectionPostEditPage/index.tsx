@@ -152,14 +152,37 @@ const ReflectionPostEditPage = () => {
           justify="space-between"
         >
           {getDatesAndDays().map(({ date, day }, index) => (
-            <VStack key={index} spacing={0}>
+            <Flex
+              key={index}
+              flexDir="column"
+              justify="center"
+              align="center"
+              w="53px"
+              h="70px"
+              borderRadius="16px"
+              bg={date === new Date().getDate() ? 'pink.100' : 'transparent'}
+              color={date === new Date().getDate() ? 'pink.300' : 'inherit'}
+              position="relative"
+            >
+              {date === new Date().getDate() && (
+                <Text
+                  bg="pink.300"
+                  boxSize="6px"
+                  borderRadius="50%"
+                  position="absolute"
+                  top="8px"
+                />
+              )}
               <Text fontSize="1.8rem" fontWeight="semibold">
                 {date}
               </Text>
-              <Text fontSize="1.2rem" color="gray.800">
+              <Text
+                fontSize="1.2rem"
+                color={date === new Date().getDate() ? 'pink.300' : 'gray.800'}
+              >
                 {day}
               </Text>
-            </VStack>
+            </Flex>
           ))}
         </Flex>
         <form
