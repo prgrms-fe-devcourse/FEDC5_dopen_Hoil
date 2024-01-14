@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
 import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 
 interface PostListProps extends ChannelPayload, StackProps {
   keyword: string;
@@ -46,7 +47,7 @@ const PostList = ({
         <PostListItem
           key={post._id}
           title={post.title}
-          timeAgo="2일 전"
+          timeAgo={calculateTimeDiff(post.createdAt) || '날짜계산 불가'}
           username={post.author.username}
           likeCount={post.likes.length}
           commentCount={post.comments.length}
