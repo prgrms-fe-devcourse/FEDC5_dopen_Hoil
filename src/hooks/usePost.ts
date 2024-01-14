@@ -30,6 +30,7 @@ export const usePostDetail = ({ id }: PostDetailProps) => {
         errorMessage: '네트워크 오류',
       },
       retry: 0,
+      refetchOnWindowFocus: false,
       select: (data) => {
         if (data._id === '') {
           throw new Error('해당하는 글이 존재하지 않습니다');

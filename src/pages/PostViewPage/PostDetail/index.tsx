@@ -15,23 +15,10 @@ const PostDetail = () => {
   const { postId } = useParams();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
-  const { setLike, setDislike } = useLike();
-  const { _id, title, likes, comments, author, createdAt, content } =
-    usePostDetail({
-      id: postId!,
-    });
-  const isClicked = myInfo!.likes.filter(
-    (likeInfo) => likeInfo.post === postId,
-  );
-
-  const onClickLike = () => {
-    if (isClicked.length > 0) {
-      setDislike(isClicked[0]._id);
-    } else {
-      setLike(postId!);
-    }
-  };
-
+  const { countLike, setLike } = useLike(postId!);
+  const { _id, title, comments, author, createdAt, content } = usePostDetail({
+    id: postId!,
+  });
   return (
     <>
       <Post>
@@ -49,14 +36,14 @@ const PostDetail = () => {
             <Flex>
               <TextIconButton
                 TheIcon={MdFavoriteBorder}
-                textContent={String(likes.length)}
+                textContent={String(countLike)}
                 boxSize="18px"
-                iconColor={isClicked.length ? 'pink' : 'gray.400'}
+                iconColor={countLike > 0 ? 'pink' : 'gray.400'}
                 fontSize="1.2rem"
                 fontWeight="normal"
                 textColor="gray.800"
                 textLocation="right"
-                onClick={onClickLike}
+                onClick={() => setLike()}
               />
               <TextIconButton
                 TheIcon={MdArticle}
