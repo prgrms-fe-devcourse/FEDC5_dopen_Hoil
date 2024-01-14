@@ -20,28 +20,32 @@ export const useMyPostList = () => {
 };
 
 export const usePostDetail = ({ id }: PostDetailProps) => {
-  const { data, error } = useQuery(POST_DETAIL, async () => await getPost(id), {
-    suspense: true,
-    useErrorBoundary: true,
-    meta: {
-      errorMessage: '네트워크 오류',
+  const { data, error } = useQuery(
+    [POST_DETAIL, id],
+    async () => await getPost(id),
+    {
+      suspense: true,
+      useErrorBoundary: true,
+      meta: {
+        errorMessage: '네트워크 오류',
+      },
+      retry: 0,
+      select: (data) => {
+        if (data._id === '') {
+          throw new Error('해당하는 글이 존재하지 않습니다');
+        }
+        return {
+          _id: data._id,
+          title: data.title,
+          content: data.content,
+          likes: data.likes,
+          comments: data.comments,
+          author: data.author,
+          createdAt: data.createdAt,
+        };
+      },
     },
-    retry: 0,
-    select: (data) => {
-      if (data._id === '') {
-        throw new Error('해당하는 글이 존재하지 않습니다');
-      }
-      return {
-        _id: data._id,
-        title: data.title,
-        content: data.content,
-        likes: data.likes,
-        comments: data.comments,
-        author: data.author,
-        createdAt: data.createdAt,
-      };
-    },
-  });
+  );
 
   return {
     ...data!,
