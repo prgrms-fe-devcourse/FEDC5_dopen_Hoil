@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import TextCard from '@/pages/ReflectionViewPage/TextCard';
+import TextCard from '@/pages/ReflectionViewPage/ReflectionDetail/TextCard';
 
 const meta: Meta<typeof TextCard> = {
   component: TextCard,
