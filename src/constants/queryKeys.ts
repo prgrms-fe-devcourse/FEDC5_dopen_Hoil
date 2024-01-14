@@ -12,3 +12,4 @@ export const MYBOARD_LIST = 'myboard-list';
 export const CHANNEL_LIST = 'channel-list';
 export const CHANNEL_INFO = 'channel-info';
 export const NOTIFICATION_LIST = 'notification-list';
+export const AUTH = 'auth';
