@@ -173,7 +173,7 @@ const ReflectionPostEditPage = () => {
                   top="8px"
                 />
               )}
-              <Text fontSize="1.8rem" fontWeight="semibold">
+              <Text fontSize="1.8rem" fontWeight="bold">
                 {date}
               </Text>
               <Text
