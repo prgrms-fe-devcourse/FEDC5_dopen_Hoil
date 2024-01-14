@@ -6,19 +6,11 @@ import PostListItem from './PostListItem';
 import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+import { checkIsJson } from '@/utils/checkIsJson';
 
 interface PostListProps extends ChannelPayload, StackProps {
   keyword?: string;
 }
-
-const checkIsJson = (str: string) => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
 
 const PostList = ({
   keyword,
