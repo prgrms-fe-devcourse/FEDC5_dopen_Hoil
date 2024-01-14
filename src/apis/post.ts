@@ -1,6 +1,7 @@
 import { getItem } from '@/utils/storage';
 import { deleteRequest, getRequest, postRequest, putRequest } from './instance';
 import { Like, Post } from './type';
+import { LOGIN_TOKEN } from '@/constants/user';
 
 interface Limit {
   offset?: number;
@@ -54,7 +55,7 @@ export const createPost = async ({
   await postRequest<Post, FormData>('/posts/create', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${getItem('login-token', '')}`,
+      Authorization: `Bearer ${getItem(LOGIN_TOKEN, '')}`,
     },
   });
 };
