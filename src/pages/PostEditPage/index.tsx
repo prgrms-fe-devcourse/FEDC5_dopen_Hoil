@@ -9,13 +9,13 @@ import {
 import { EditIcon } from '@chakra-ui/icons';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import PageHeader from '@/components/PageHeader';
 import { IMAGE_FILE_TYPES } from '@/constants/image';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { useChannelInfo } from '@/hooks/useChannels';
-import { usePosting } from '@/hooks/usePost';
-import { useState } from 'react';
+import { useEditPost, usePostDetail, usePosting } from '@/hooks/usePost';
+import { useEffect, useState } from 'react';
 
 interface PostEditInputTypes {
   title: string;
@@ -35,6 +35,7 @@ const PostEditPage = () => {
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<PostEditInputTypes>({
     mode: 'onBlur',
@@ -60,28 +61,61 @@ const PostEditPage = () => {
   };
 
   const onSuccessFn = () => {
-    alert('글 등록 성공!');
+    alert(`글 ${postId ? '수정' : '등록'} 성공!`);
     navigate(`/board/${channel.name}`);
   };
 
-  const { mutate } = usePosting({ onSuccessFn });
+  const { mutate: onCreatePost } = usePosting({ onSuccessFn });
+  const { mutate: onEditPost } = useEditPost({ onSuccessFn });
   const onPosting = () => {
-    if (errors) {
+    if (errors.title || errors.content) {
       return;
     }
-    if (confirm(`[${getValues('title')}] 글을 등록 하시겠습니까?`)) {
-      mutate({
-        title: JSON.stringify({
-          title: getValues('title'),
-          content: getValues('content'),
-        }),
-        image: image,
-        channelId: channel._id,
-      });
+    if (postId) {
+      if (confirm(`[${getValues('title')}] 글을 수정 하시겠습니까?`)) {
+        onEditPost({
+          postId,
+          title: JSON.stringify({
+            title: getValues('title'),
+            content: getValues('content'),
+          }),
+          image: image,
+          channelId: channel._id,
+        });
+      } else {
+        alert(`[${getValues('title')}] 글 수정이 취소되었습니다.`);
+      }
     } else {
-      alert(`[${getValues('title')}] 글 등록이 취소되었습니다.`);
+      if (confirm(`[${getValues('title')}] 글을 등록 하시겠습니까?`)) {
+        onCreatePost({
+          title: JSON.stringify({
+            title: getValues('title'),
+            content: getValues('content'),
+          }),
+          image: image,
+          channelId: channel._id,
+        });
+      } else {
+        alert(`[${getValues('title')}] 글 등록이 취소되었습니다.`);
+      }
     }
   };
+
+  const [searchParams] = useSearchParams();
+  const postId = searchParams.get('id') || '';
+
+  const { data: postData, isSuccess: isGetPostDetailSuccess } = usePostDetail({
+    id: postId,
+    enabled: !!postId,
+  });
+
+  useEffect(() => {
+    if (!isGetPostDetailSuccess) {
+      return;
+    }
+    const { title, content } = JSON.parse(postData.title);
+    reset({ title, content });
+  }, [postData, isGetPostDetailSuccess, reset]);
 
   return (
     <>
@@ -169,7 +203,7 @@ const PostEditPage = () => {
           _hover={{ bg: 'pink.400' }}
           onClick={() => onPosting()}
         >
-          글쓰기
+          {postId ? '글 수정하기' : '글쓰기'}
           <EditIcon ml="5px" />
         </Button>
       </Flex>
