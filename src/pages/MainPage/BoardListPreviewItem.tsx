@@ -26,7 +26,14 @@ const BoardListPreviewItem = ({
       <Box width="140px" fontSize="1.5rem" fontWeight="medium">
         {boardName}
       </Box>
-      <Box fontSize="1.2rem" fontWeight="medium">
+      <Box
+        width="200px"
+        fontSize="1.2rem"
+        fontWeight="medium"
+        whiteSpace="nowrap"
+        overflow="hidden"
+        textOverflow="ellipsis"
+      >
         {!isLoading && firstPostTitle}
       </Box>
     </Flex>
