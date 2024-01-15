@@ -1,32 +1,36 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { createComment, deleteComment } from '@/apis/comment';
+import { pushNotification } from '@/apis/notifications';
+import { POST_DETAIL } from '@/constants/queryKeys';
 
-interface CommentProps {
-  onSuccessFn?: () => void;
-}
-
-export const useCreateComment = ({ onSuccessFn }: CommentProps) => {
-  return useMutation(createComment, {
-    onSuccess: () => {
-      if (onSuccessFn) {
-        onSuccessFn();
-      }
+export const useCreateComment = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(createComment, {
+    onSuccess: async (data) => {
+      await pushNotification({
+        notificationType: 'COMMENT',
+        notificationTypeId: data._id,
+        userId: data.author._id,
+        postId: data.post,
+      });
+      queryClient.invalidateQueries([POST_DETAIL, data.post]);
     },
     onError: () => {
       alert('저장에 실패했습니다. 다시 시도해주세요');
     },
   });
+  return mutate;
 };
 
-export const useDeleteComment = ({ onSuccessFn }: CommentProps) => {
-  return useMutation(deleteComment, {
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(deleteComment, {
     onSuccess: () => {
-      if (onSuccessFn) {
-        onSuccessFn();
-      }
+      queryClient.invalidateQueries(POST_DETAIL);
     },
     onError: () => {
       alert('삭제에 실패했습니다. 다시 시도해주세요');
     },
   });
+  return mutate;
 };
