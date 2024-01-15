@@ -11,11 +11,12 @@ const PostViewPage = () => {
   return (
     <>
       <PageHeader pageName="post" />
-      <Suspense fallback={<Spinner />}>
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+        <Suspense fallback={<Spinner />}>
           <PostDetail />
-        </ErrorBoundary>
-      </Suspense>
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 };
