@@ -1,4 +1,3 @@
-import { DEFAULT_WIDTH } from '@/constants/style';
 import { Avatar, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +5,7 @@ const GuestProfile = () => {
   const navigate = useNavigate();
 
   return (
-    <Flex alignItems="center" maxW={DEFAULT_WIDTH}>
+    <Flex alignItems="center" w="100%">
       <Avatar size="2xl" />
       <Flex direction="column" marginLeft="20px">
         <Text
