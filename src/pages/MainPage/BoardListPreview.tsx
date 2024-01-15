@@ -2,7 +2,7 @@ import { DEFAULT_WIDTH } from '@/constants/style';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Button, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import MainBoardItem from './MainBoardItem';
+import BoardListPreviewItem from '@/pages/MainPage/BoardListPreviewItem';
 import { useChannelList } from '@/hooks/useChannels';
 
 const BoardListPreview = () => {
@@ -34,7 +34,7 @@ const BoardListPreview = () => {
           <Spinner />
         ) : (
           channelListData.map((item) => (
-            <MainBoardItem
+            <BoardListPreviewItem
               key={item._id}
               channel={item.name}
               channelId={item._id}
