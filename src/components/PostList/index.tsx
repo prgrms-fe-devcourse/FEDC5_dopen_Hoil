@@ -7,6 +7,7 @@ import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { checkIsJson } from '@/utils/checkIsJson';
+import { useNavigate } from 'react-router-dom';
 
 interface PostListProps extends ChannelPayload, StackProps {
   keyword?: string;
@@ -36,7 +37,7 @@ const PostList = ({
       },
     },
   );
-
+  const navigate = useNavigate();
   /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
   if (data && !data.length) {
     return (
@@ -58,6 +59,7 @@ const PostList = ({
           username={post.author.username}
           likeCount={post.likes.length}
           commentCount={post.comments.length}
+          onClick={() => navigate(`./${post._id}`)}
         />
       ))}
     </VStack>
