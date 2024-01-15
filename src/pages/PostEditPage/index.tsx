@@ -79,7 +79,7 @@ const PostEditPage = () => {
             title: getValues('title'),
             content: getValues('content'),
           }),
-          image: image,
+          image,
           channelId: channel._id,
         });
       } else {
