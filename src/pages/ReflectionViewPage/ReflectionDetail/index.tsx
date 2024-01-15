@@ -10,6 +10,7 @@ import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { useLike } from '@/hooks/useLike';
 import Comments from '@/components/Comment';
 import { useCheckUserAuth } from '@/hooks/useAuth';
+import { convertDateToString } from '@/utils/convertDateToString';
 
 const ReflectionDetail = () => {
   const { postId } = useParams();
@@ -21,7 +22,7 @@ const ReflectionDetail = () => {
   const { data: myInfo } = useCheckUserAuth();
   const postData = JSON.parse(title);
   const { countLike, setLike } = useLike(postId!);
-
+  const { date, time } = convertDateToString(new Date(createdAt));
   const reflectionLists = [
     {
       title: '좋았던 일',
@@ -43,7 +44,7 @@ const ReflectionDetail = () => {
         <UserContentBlock
           username={author.username}
           userImage={author.coverImage}
-          content=""
+          content={`${date} ${time}`}
         />
         <Post.Content>
           <Flex flexDir="column" gap="10px">
