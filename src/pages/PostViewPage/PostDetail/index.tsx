@@ -24,11 +24,12 @@ const PostDetail = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { _id, title, comments, author, content, createdAt },
+    data: { _id, title, comments, author, createdAt },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
   })!;
+  const postData = JSON.parse(title);
   const { date, time } = convertDateToString(new Date(createdAt));
   const { countLike, setLike, clicked } = useLike(postId!);
 
@@ -58,11 +59,11 @@ const PostDetail = () => {
 
   return (
     <>
-      <Post>
+      <Post gap="10px">
         <Flex flexDir="column" pos="relative" gap="10px">
           <Post.Header minH="30px">
             <Flex justifyContent="space-between">
-              <Box>{title}</Box>
+              <Box>{postData.title}</Box>
               <Settings>
                 {settingsOption.map(
                   ({ text, icon, onClick, confirmText, show }) => {
@@ -89,7 +90,7 @@ const PostDetail = () => {
             content={`${date} ${time}`}
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
-            <Text fontSize="1.5rem">{content}</Text>
+            <Text fontSize="1.5rem">{postData.content}</Text>
           </Post.Content>
           <Post.Footer justifyContent="space-between">
             <Flex>
@@ -122,11 +123,11 @@ const PostDetail = () => {
       <Button onClick={() => setIsFold(!isFold)}>
         {isFold ? '댓글 펼치기' : '댓글 접기'}
       </Button>
-
-      {!isFold && (
-        <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
-      )}
-
+      <Box>
+        {!isFold && (
+          <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+        )}
+      </Box>
       {isOpen && (
         <Confirm
           onConfirm={handleConfirm}
