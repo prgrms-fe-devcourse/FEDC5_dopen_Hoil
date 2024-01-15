@@ -37,7 +37,7 @@ const MyBoardList = () => {
         {myPostList.map((post) => (
           <PostListItem
             key={post._id}
-            title={post.title}
+            title={JSON.parse(post.title).title}
             timeAgo={calculateTimeDiff(post.createdAt) || ''}
             username=""
             likeCount={post.likes.length}
