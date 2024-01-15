@@ -47,6 +47,7 @@ export interface Post {
   author: User; //작성자 정보
   createdAt: string;
   updatedAt: string;
+  content: string;
 }
 
 export interface Like {

@@ -9,6 +9,7 @@ import MyBoardList from '@/pages/MyPage/MyBoardList';
 import MessagePage from '@/pages/MessagePage';
 import MessageListPage from '@/pages/MessageListPage';
 import PageLayout from '@/components/PageLayout';
+import TimerPage from '@/pages/TimerPage';
 import ErrorPage from '@/pages/404Page';
 import SearchPage from '@/pages/SearchPage';
 import BoardEnterPage from '@/pages/BoardEnterPage';
@@ -16,7 +17,7 @@ import BoardPage from '@/pages/BoardPage';
 import PostEditPage from '@/pages/PostEditPage';
 import { useChannelList } from '@/hooks/useChannels';
 import NotificationPage from '@/pages/NotificationPage';
-import TimerPage from '@/pages/TimerPage';
+import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
 import { Fragment } from 'react';
 import UserInfo from '@/pages/UserInfo';
@@ -51,6 +52,7 @@ const App = () => {
               />
             </Fragment>
           ))}
+          <Route path="/board/:boardName/:postId" element={<PostViewPage />} />
           <Route path="/notification" element={<NotificationPage />} />
           <Route path="/timer" element={<TimerPage />} />
         </Route>
