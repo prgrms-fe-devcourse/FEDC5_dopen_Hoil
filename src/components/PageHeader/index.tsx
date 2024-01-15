@@ -5,10 +5,13 @@ import {
 } from '@/constants/style';
 import { IconButton } from '@chakra-ui/button';
 import { Icon } from '@chakra-ui/icon';
-import { BellIcon, SearchIcon } from '@chakra-ui/icons';
 import { Flex, Text } from '@chakra-ui/layout';
 import { FlexProps } from '@chakra-ui/react';
-import { MdArrowBackIos } from 'react-icons/md';
+import {
+  MdArrowBackIos,
+  MdOutlineNotifications,
+  MdOutlineSearch,
+} from 'react-icons/md';
 import Badge from '../common/Badge';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +48,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
       <Flex w="69px" justify="space-between">
         <IconButton
           aria-label="search"
-          icon={<SearchIcon color="black" boxSize="icon" />}
+          icon={<Icon as={MdOutlineSearch} color="black" boxSize="icon" />}
           bg="transparent"
           onClick={() => navigate('/search')}
         />
@@ -53,7 +56,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
           aria-label="notify"
           icon={
             <Badge count={1}>
-              <BellIcon color="black" boxSize="icon" />
+              <Icon as={MdOutlineNotifications} color="black" boxSize="icon" />
             </Badge>
           }
           bg="transparent"
