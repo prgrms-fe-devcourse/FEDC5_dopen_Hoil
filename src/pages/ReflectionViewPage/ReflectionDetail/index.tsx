@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { usePostDetail } from '@/hooks/usePost';
 import TextCard from './TextCard';
 import Post from '@/pages/PostViewPage/PostDetail/Container';
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, Button } from '@chakra-ui/react';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import TextIconButton from '@/components/common/TextIconButton';
@@ -11,6 +11,7 @@ import { useLike } from '@/hooks/useLike';
 import Comments from '@/components/Comment';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { convertDateToString } from '@/utils/convertDateToString';
+import { useState } from 'react';
 
 const ReflectionDetail = () => {
   const { postId } = useParams();
@@ -23,6 +24,7 @@ const ReflectionDetail = () => {
   const postData = JSON.parse(title);
   const { countLike, setLike, clicked } = useLike(postId!);
   const { date, time } = convertDateToString(new Date(createdAt));
+  const [isFold, setIsFold] = useState(false);
   const reflectionLists = [
     {
       title: '좋았던 일',
@@ -79,8 +81,13 @@ const ReflectionDetail = () => {
           </Flex>
           <Box>{calculateTimeDiff(createdAt)}</Box>
         </Post.Footer>
-        <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
       </Post>
+      <Button onClick={() => setIsFold(!isFold)}>
+        {isFold ? '댓글 펼치기' : '댓글 접기'}
+      </Button>
+      {!isFold && (
+        <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+      )}
     </>
   );
 };
