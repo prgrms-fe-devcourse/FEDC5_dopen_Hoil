@@ -29,5 +29,5 @@ export const useLike = (postId: string) => {
       },
     },
   );
-  return { countLike: likes.length, setLike };
+  return { countLike: likes.length, setLike, clicked: clicked.length > 0 };
 };
