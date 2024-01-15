@@ -22,9 +22,13 @@ const PostDetail = () => {
   const navigate = useNavigate();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
-  const { _id, title, comments, author, createdAt, content } = usePostDetail({
+  const {
+    data: { _id, title, comments, author, content, createdAt },
+  } = usePostDetail({
     id: postId!,
-  });
+    enabled: !!postId,
+  })!;
+
   const { countLike, setLike } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
