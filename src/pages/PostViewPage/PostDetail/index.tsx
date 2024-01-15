@@ -30,7 +30,7 @@ const PostDetail = () => {
     enabled: !!postId,
   })!;
   const { date, time } = convertDateToString(new Date(createdAt));
-  const { countLike, setLike } = useLike(postId!);
+  const { countLike, setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
 
@@ -97,7 +97,7 @@ const PostDetail = () => {
                 TheIcon={MdFavoriteBorder}
                 textContent={String(countLike)}
                 boxSize="18px"
-                iconColor={countLike > 0 ? 'pink' : 'gray.400'}
+                iconColor={clicked ? 'pink' : 'gray.400'}
                 fontSize="1.2rem"
                 fontWeight="normal"
                 textColor="gray.800"
