@@ -16,6 +16,7 @@ import TextIconButton from '@/components/common/TextIconButton';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import Post from './Container';
 import Settings from './Settings';
+import { convertDateToString } from '@/utils/convertDateToString';
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -28,7 +29,7 @@ const PostDetail = () => {
     id: postId!,
     enabled: !!postId,
   })!;
-
+  const { date, time } = convertDateToString(new Date(createdAt));
   const { countLike, setLike } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
@@ -85,7 +86,7 @@ const PostDetail = () => {
           <UserContentBlock
             username={author.username}
             userImage={author.coverImage}
-            content=""
+            content={`${date} ${time}`}
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
             <Text fontSize="1.5rem">{content}</Text>
