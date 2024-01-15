@@ -1,4 +1,5 @@
 import { deleteRequest, postRequest } from './instance';
+import { TComment } from './type';
 
 interface CreateCommentPayload {
   comment: string;
@@ -9,11 +10,11 @@ export const createComment = async ({
   comment,
   postId,
 }: CreateCommentPayload) =>
-  await postRequest<Comment, CreateCommentPayload>('/comments/create', {
+  await postRequest<TComment, CreateCommentPayload>('/comments/create', {
     comment,
     postId,
   });
 
 export const deleteComment = async (id: string) => {
-  await deleteRequest<Comment, { id: string }>('/comments/delete', { id });
+  await deleteRequest<TComment, { id: string }>('/comments/delete', { id });
 };

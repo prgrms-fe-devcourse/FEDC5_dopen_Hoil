@@ -1,10 +1,10 @@
 import { Box, BoxProps } from '@chakra-ui/react';
 import CommentForm from './CommentForm';
 import CommentText from './CommentText';
-import { Comment, User } from '@/apis/type';
+import { TComment, User } from '@/apis/type';
 
 interface CommentProps extends BoxProps {
-  comments: Comment[];
+  comments: TComment[];
   myInfo: User;
   _id: string;
 }

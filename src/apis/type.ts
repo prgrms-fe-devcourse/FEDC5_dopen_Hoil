@@ -7,7 +7,7 @@ export interface User {
   isOnline: boolean;
   posts: Post[];
   likes: Like[];
-  comments: string[] | Comment[];
+  comments: string[] | TComment[];
   followers: [];
   following: Follow[];
   notifications: Notification[];
@@ -38,7 +38,7 @@ export interface CreateChannelRequestBody {
 
 export interface Post {
   likes: Like[]; //likes의 길이로 like 수 알 수 있음
-  comments: Comment[];
+  comments: TComment[];
   _id: string; //post에 대한 id
   image?: string;
   imagePublicId?: string;
@@ -65,7 +65,7 @@ export interface Notification {
   user: User | string;
   post: string | null; // 포스트 id
   follow?: string; // 사용자 id
-  comment?: Comment;
+  comment?: TComment;
   message?: string; // 메시지 id
   createdAt: string;
   updatedAt: string;
@@ -89,7 +89,7 @@ export interface Message {
   updatedAt: string;
 }
 
-export interface Comment {
+export interface TComment {
   _id: string;
   comment: string;
   author: User;
