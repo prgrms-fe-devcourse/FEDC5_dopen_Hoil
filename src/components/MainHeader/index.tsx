@@ -5,13 +5,6 @@ import {
   DEFAULT_WIDTH,
 } from '@/constants/style';
 import {
-  BellIcon,
-  ChatIcon,
-  MoonIcon,
-  SearchIcon,
-  SunIcon,
-} from '@chakra-ui/icons';
-import {
   Flex,
   FlexProps,
   Icon,
@@ -20,18 +13,25 @@ import {
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import {
+  MdMailOutline,
+  MdOutlineDarkMode,
+  MdOutlineLightMode,
+  MdOutlineNotifications,
+  MdOutlineSearch,
+} from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 const MainHeader = ({ ...props }: FlexProps) => {
   const { toggleColorMode } = useColorMode();
-  const DarkModeIcon = useColorModeValue(MoonIcon, SunIcon);
+  const DarkModeIcon = useColorModeValue(MdOutlineDarkMode, MdOutlineLightMode);
 
   const navigate = useNavigate();
 
   const BadgedIcon = () => {
     return (
       <Badge count={1}>
-        <BellIcon color="black" boxSize="icon" />
+        <Icon as={MdOutlineNotifications} color="black" boxSize="icon" />
       </Badge>
     );
   };
@@ -43,12 +43,12 @@ const MainHeader = ({ ...props }: FlexProps) => {
       onClick: () => toggleColorMode(),
     },
     {
-      icon: ChatIcon,
+      icon: MdMailOutline,
       description: 'message',
       onClick: () => navigate('/message'),
     },
     {
-      icon: SearchIcon,
+      icon: MdOutlineSearch,
       description: 'search',
       onClick: () => navigate('/search'),
     },
