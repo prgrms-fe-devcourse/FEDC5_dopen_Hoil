@@ -2,19 +2,19 @@ import { useFirstPost } from '@/hooks/usePost';
 import { Box, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-interface MainBoardItemProps {
+interface BoardListPreviewItemProps {
   boardName: string;
   channel: string;
   channelId: string;
 }
 
-const MainBoardItem = ({
+const BoardListPreviewItem = ({
   boardName,
   channel,
   channelId,
-}: MainBoardItemProps) => {
+}: BoardListPreviewItemProps) => {
   const navigate = useNavigate();
-  const { firstPost, isLoading } = useFirstPost({ channelId });
+  const { firstPostTitle, isLoading } = useFirstPost({ channelId });
 
   return (
     <Flex
@@ -27,12 +27,10 @@ const MainBoardItem = ({
         {boardName}
       </Box>
       <Box fontSize="1.2rem" fontWeight="medium">
-        {firstPost
-          ? !isLoading && JSON.parse(firstPost.title).title
-          : '등록된 글이 없습니다.'}
+        {!isLoading && firstPostTitle}
       </Box>
     </Flex>
   );
 };
 
-export default MainBoardItem;
+export default BoardListPreviewItem;

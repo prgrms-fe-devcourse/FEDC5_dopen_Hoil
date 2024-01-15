@@ -68,6 +68,9 @@ export const useFirstPost = ({
   });
 
   const firstPost = data[0];
+  const firstPostTitle = firstPost
+    ? JSON.parse(firstPost.title).title
+    : '등록된 글이 없습니다.';
 
-  return { firstPost, isError, isLoading };
+  return { firstPostTitle, isError, isLoading };
 };
