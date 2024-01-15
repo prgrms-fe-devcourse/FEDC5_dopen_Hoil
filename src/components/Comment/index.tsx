@@ -23,7 +23,7 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
           />
         ))}
       </Box>
-      <Box mt="30px">
+      <Box mt="30px" pos="sticky" bottom="0" zIndex="9">
         <CommentForm id={_id} image={myInfo.image} />
       </Box>
     </Box>
