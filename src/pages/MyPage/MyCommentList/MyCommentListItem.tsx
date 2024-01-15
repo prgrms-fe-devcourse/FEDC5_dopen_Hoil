@@ -5,11 +5,13 @@ import { useDeleteComment } from '@/hooks/useComment';
 import { MY_COMMENT_LIST } from '@/constants/queryKeys';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import Confirm from '@/components/common/Confirm';
+import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 interface MyCommentListItemProps {
   id: string;
   image: string;
   username: string;
   comment: string;
+  createdAt: string;
   lineClamp: number;
 }
 
@@ -18,6 +20,7 @@ const MyCommentListItem = ({
   image,
   username,
   comment,
+  createdAt,
   lineClamp = 1,
 }: MyCommentListItemProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
@@ -37,6 +40,8 @@ const MyCommentListItem = ({
     setIsConfirm(false);
   };
 
+  const timeAgo = calculateTimeDiff(createdAt) || '';
+
   return (
     <ListItem key={id} p="10px 0 10px" borderBottom="1px solid #D9D9D9">
       <UserContentBlock
@@ -47,8 +52,8 @@ const MyCommentListItem = ({
         userImageSize="40px"
         username={username}
         isOnline={false}
-        content="2일전"
-        subContent="취소"
+        content={timeAgo}
+        subContent="삭제"
         onSubContentClick={() => setIsConfirm(true)}
       />
       <Box mt="10px">

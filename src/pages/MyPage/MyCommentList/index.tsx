@@ -8,26 +8,23 @@ import MyCommentListItem from './MyCommentListItem';
 
 const MyCommentList = () => {
   const { data: myInfo } = useMyInfo();
-  const { data: myCommentList, isLoading, isError } = useMyComment();
+  const { data: myCommentList } = useMyComment();
 
-  if (isLoading) {
-    return <Box>로딩중입니다...</Box>;
-  }
-
-  if (isError || !myCommentList) {
-    return <Box>예상치 못한 오류가 발생했습니다.</Box>;
-  }
-
-  if (!myInfo) {
-    return <Box>예상치 못한 오류가 발생했습니다.</Box>;
+  if (!myInfo || !myCommentList) {
+    return;
   }
   const { username, image } = myInfo;
 
   return (
     <Box>
       <PageHeader pageName="내가 작성한 댓글" />
-      <UnorderedList listStyleType="none" ml="0" p="0 20px">
-        {myCommentList.map(({ _id, comment }) => (
+      <UnorderedList listStyleType="none" ml="0" p="20px">
+        {myCommentList.length === 0 && (
+          <Box textAlign="center" fontSize="14px" p="50px 0">
+            작성한 댓글이 없습니다.
+          </Box>
+        )}
+        {myCommentList.map(({ _id, comment, createdAt }) => (
           <MyCommentListItem
             key={_id}
             id={_id}
@@ -35,6 +32,7 @@ const MyCommentList = () => {
             image={image}
             username={username}
             lineClamp={3}
+            createdAt={createdAt}
           />
         ))}
       </UnorderedList>
