@@ -30,7 +30,7 @@ export const useMyPostList = () => {
 
 export const usePostDetail = ({ id, enabled }: PostDetailProps) => {
   const { data, isSuccess } = useQuery(
-    POST_DETAIL,
+    [POST_DETAIL, id],
     async () => await getPostDetail(id),
     {
       enabled,
