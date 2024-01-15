@@ -35,21 +35,29 @@ const App = () => {
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
       <Routes>
         <Route element={<PageLayout />}>
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route element={<PrivateRoute />}>
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mypage/account" element={<Account />} />
+            <Route path="/mypage/mycommentlist" element={<MyCommentList />} />
+            <Route path="/mypage/myboardlist" element={<MyBoardList />} />
+            <Route path="/message" element={<MessageListPage />} />
+            <Route path="/message/:userId" element={<MessagePage />} />
+            <Route
+              path="/board/:boardName/:postId"
+              element={<PostViewPage />}
+            />
+            <Route
+              path="/board/reflection/:postId"
+              element={<ReflectionViewPage />}
+            />
+            <Route path="/notification" element={<NotificationPage />} />
+            <Route path="/timer" element={<TimerPage />} />
           </Route>
-          <Route path="/mypage/account" element={<Account />} />
-          <Route path="/mypage/mycommentlist" element={<MyCommentList />} />
-          <Route path="/mypage/myboardlist" element={<MyBoardList />} />
           <Route path="/:username" element={<UserInfo />} />
-          <Route path="/" element={<MainPage />} />
-          <Route path="/message" element={<MessageListPage />} />
-          <Route path="/message/:userId" element={<MessagePage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/timer" element={<TimerPage />} />
-          <Route path="*" element={<ErrorPage />} />
           <Route path="/board" element={<BoardEnterPage />} />
           {channelListData?.map((board) => (
             <Fragment key={board._id}>
@@ -60,13 +68,7 @@ const App = () => {
               />
             </Fragment>
           ))}
-          <Route path="/board/:boardname/:postId" element={<PostViewPage />} />
-          <Route
-            path="/board/reflection/:postId"
-            element={<ReflectionViewPage />}
-          />
-          <Route path="/notification" element={<NotificationPage />} />
-          <Route path="/timer" element={<TimerPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </ErrorBoundary>
