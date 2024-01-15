@@ -1,28 +1,49 @@
-import { Button, Flex, Input, Textarea } from '@chakra-ui/react';
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  Input,
+  Textarea,
+} from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PageHeader from '@/components/PageHeader';
-import { CreatePostPayload } from '@/apis/post';
 import { IMAGE_FILE_TYPES } from '@/constants/image';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { useChannelInfo } from '@/hooks/useChannels';
 import { usePosting } from '@/hooks/usePost';
+import { useState } from 'react';
+
+interface PostEditInputTypes {
+  title: string;
+  image?: File | null;
+  content: string;
+}
 
 const PostEditPage = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [contents, setContents] = useState({
-    title: '',
-    content: '',
-  });
+
   const [image, setImage] = useState<File | null>(null);
 
   const channelInfo = pathname.split('/')[2];
   const { channel } = useChannelInfo({ channelInfo });
-  const { handleSubmit } = useForm<CreatePostPayload>();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<PostEditInputTypes>({
+    mode: 'onBlur',
+    defaultValues: {
+      title: '',
+      image: null,
+      content: '',
+    },
+  });
 
   const onPostingImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -45,14 +66,20 @@ const PostEditPage = () => {
 
   const { mutate } = usePosting({ onSuccessFn });
   const onPosting = () => {
-    if (confirm(`[${contents.title}] 글을 등록 하시겠습니까?`)) {
+    if (errors) {
+      return;
+    }
+    if (confirm(`[${getValues('title')}] 글을 등록 하시겠습니까?`)) {
       mutate({
-        title: JSON.stringify(contents),
+        title: JSON.stringify({
+          title: getValues('title'),
+          content: getValues('content'),
+        }),
         image: image,
         channelId: channel._id,
       });
     } else {
-      alert(`[${contents.title}] 글 등록이 취소되었습니다.`);
+      alert(`[${getValues('title')}] 글 등록이 취소되었습니다.`);
     }
   };
 
@@ -67,19 +94,31 @@ const PostEditPage = () => {
         bg="gray.100"
       >
         <form onSubmit={handleSubmit(onPosting)}>
-          <Input
-            fontSize="1.8rem"
-            fontWeight="bold"
-            color="black"
-            p="15px 5px"
-            variant="flushed"
-            focusBorderColor="black"
-            placeholder="제목을 입력해주세요."
-            value={contents.title}
-            onChange={(e) =>
-              setContents({ ...contents, title: e.target.value })
-            }
-          />
+          <FormControl isInvalid={!!errors?.title?.message}>
+            <Input
+              fontSize="1.8rem"
+              fontWeight="bold"
+              color="black"
+              p="15px 5px"
+              variant="flushed"
+              focusBorderColor="black"
+              placeholder="제목을 입력해주세요."
+              {...register('title', {
+                required: '글의 제목은 필수입니다.',
+                minLength: {
+                  value: 1,
+                  message: '최소 1글자 이상 입력 해주세요.',
+                },
+                maxLength: {
+                  value: 30,
+                  message: '최대 30글자까지 입력 가능합니다.',
+                },
+              })}
+            />
+            <FormErrorMessage>
+              {errors?.title && errors.title.message}
+            </FormErrorMessage>
+          </FormControl>
           <PostingImageFileBox>
             <label htmlFor="file">
               {image
@@ -93,19 +132,31 @@ const PostEditPage = () => {
               onChange={onPostingImage}
             />
           </PostingImageFileBox>
-          <Textarea
-            h="388px"
-            p="10px"
-            fontSize="1.3rem"
-            color="black"
-            bg="white"
-            focusBorderColor="black"
-            value={contents.content}
-            onChange={(e) =>
-              setContents({ ...contents, content: e.target.value })
-            }
-            placeholder="내용을 입력하세요."
-          ></Textarea>
+          <FormControl isInvalid={!!errors?.content?.message}>
+            <Textarea
+              h="388px"
+              p="10px"
+              fontSize="1.3rem"
+              color="black"
+              bg="white"
+              focusBorderColor="black"
+              placeholder="내용을 입력하세요."
+              {...register('content', {
+                required: '글의 내용은 필수 입니다.',
+                minLength: {
+                  value: 1,
+                  message: '최소 1글자 이상 입력 해주세요.',
+                },
+                maxLength: {
+                  value: 500,
+                  message: '최대 500글자까지 입력 가능합니다.',
+                },
+              })}
+            ></Textarea>
+            <FormErrorMessage>
+              {errors?.content && errors.content.message}
+            </FormErrorMessage>
+          </FormControl>
         </form>
         <Button
           h="50px"
