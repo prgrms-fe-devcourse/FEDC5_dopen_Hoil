@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { Avatar, FormLabel, Textarea, Image } from '@chakra-ui/react';
 import { useCreateComment } from '@/hooks/useComment';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useQueryClient } from 'react-query';
-import { POST_DETAIL } from '@/constants/queryKeys';
 
 interface CommentFormProps {
   id: string;
@@ -16,16 +14,11 @@ export interface CommentInput {
 
 const CommentForm = ({ id, image }: CommentFormProps) => {
   const { register, handleSubmit } = useForm<CommentInput>();
-  const queryClient = useQueryClient();
 
-  const onSuccessFn = () => {
-    queryClient.invalidateQueries([POST_DETAIL, id]);
-  };
-
-  const { mutate } = useCreateComment({ onSuccessFn });
+  const pushComment = useCreateComment();
 
   const onCommentValid: SubmitHandler<CommentInput> = ({ comment }) => {
-    mutate({ comment, postId: id });
+    pushComment({ comment, postId: id });
   };
 
   return (

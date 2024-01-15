@@ -1,11 +1,9 @@
-import { useQueryClient } from 'react-query';
 import { Box } from '@chakra-ui/react';
 import UserContentBlock from '../common/UserContentBlock';
 import { User } from '@/apis/type';
 import { useDeleteComment } from '@/hooks/useComment';
 import Confirm from '../common/Confirm';
 import { useState } from 'react';
-import { POST_DETAIL } from '@/constants/queryKeys';
 
 interface CommentTextProps {
   id: string;
@@ -16,15 +14,9 @@ interface CommentTextProps {
 
 const CommentText = ({ id, comment, author, username }: CommentTextProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
-  const queryClient = useQueryClient();
-
-  const onSuccessFn = () => {
-    queryClient.invalidateQueries(POST_DETAIL);
-  };
-  const { mutate } = useDeleteComment({ onSuccessFn });
-
+  const deleteCommentMutate = useDeleteComment();
   const onConfirm = () => {
-    mutate(id);
+    deleteCommentMutate(id);
     setIsConfirm(false);
   };
 
