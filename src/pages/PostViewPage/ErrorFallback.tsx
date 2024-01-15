@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
-import { AuthError } from '@/apis/authentication';
 import { Box, Button } from '@chakra-ui/react';
+import { AuthError } from '@/apis/authentication';
 
 interface ErrorFallbackProps {
   error: AxiosError;
@@ -10,7 +10,7 @@ interface ErrorFallbackProps {
 
 const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
   const navigate = useNavigate();
-  if (error instanceof AuthError || error?.response?.status === 401) {
+  if (error?.response?.status === 401) {
     return (
       <Box>
         <Box>권한이 없습니다</Box>
@@ -21,7 +21,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
     );
   }
 
-  if (!error?.response) {
+  if (!error?.response && !(error instanceof AuthError)) {
     return (
       <Box>
         <Box>에러가 발생했습니다</Box>

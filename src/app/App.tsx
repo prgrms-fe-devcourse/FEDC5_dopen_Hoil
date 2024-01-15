@@ -21,18 +21,25 @@ import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
 import { Fragment } from 'react';
 import UserInfo from '@/pages/UserInfo';
+import PrivateRoute from '@/components/common/PrivateRoute';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@/pages/PostViewPage/ErrorFallback';
+import { useQueryErrorResetBoundary } from 'react-query';
 import ReflectionViewPage from '@/pages/ReflectionViewPage';
 
 const App = () => {
   const { channelListData } = useChannelList();
+  const { reset } = useQueryErrorResetBoundary();
 
   return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/mypage" element={<MyPage />} />
+          </Route>
           <Route path="/mypage/account" element={<Account />} />
           <Route path="/mypage/mycommentlist" element={<MyCommentList />} />
           <Route path="/mypage/myboardlist" element={<MyBoardList />} />
@@ -62,7 +69,7 @@ const App = () => {
           <Route path="/timer" element={<TimerPage />} />
         </Route>
       </Routes>
-    </>
+    </ErrorBoundary>
   );
 };
 
