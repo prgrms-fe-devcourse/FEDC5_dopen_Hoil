@@ -19,7 +19,7 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
   const queryClient = useQueryClient();
 
   const onSuccessFn = () => {
-    queryClient.invalidateQueries(POST_DETAIL);
+    queryClient.invalidateQueries([POST_DETAIL, id]);
   };
 
   const { mutate } = useCreateComment({ onSuccessFn });
