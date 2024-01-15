@@ -1,5 +1,4 @@
 import { User } from '@/apis/type';
-import { DEFAULT_WIDTH } from '@/constants/style';
 import { useAdvice } from '@/hooks/useAdvice';
 import { Avatar, Flex, Spinner, Text } from '@chakra-ui/react';
 
@@ -11,7 +10,7 @@ const LoginProfile = ({ myInfo }: LoginProfileProps) => {
   const { data = '', isError, isLoading } = useAdvice();
 
   return (
-    <Flex cursor="default" alignItems="center" maxW={DEFAULT_WIDTH}>
+    <Flex cursor="default" alignItems="center" w="100%">
       <Avatar size="2xl" src={myInfo.image || ''} />
       <Flex direction="column" marginLeft="20px">
         <Text width="fit-content" fontSize="3xl" fontWeight="bold">
