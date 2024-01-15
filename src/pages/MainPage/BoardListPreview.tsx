@@ -1,4 +1,3 @@
-import { DEFAULT_WIDTH } from '@/constants/style';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Button, Flex, Spinner, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +9,7 @@ const BoardListPreview = () => {
   const navigate = useNavigate();
 
   return (
-    <Flex maxW={DEFAULT_WIDTH} marginTop="30px" direction="column">
+    <Flex w="100%" marginTop="30px" direction="column">
       <Flex
         borderBottom="1px"
         borderColor="gray.450"

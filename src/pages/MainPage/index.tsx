@@ -8,6 +8,7 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 import Dday from '@/pages/MainPage/Dday';
 import BoardListPreview from '@/pages/MainPage/BoardListPreview';
+// import Grass from '@/components/Grass';
 
 const MainPage = () => {
   const { data: myInfo } = useMyInfo();
@@ -25,6 +26,7 @@ const MainPage = () => {
         <MainPageBody>
           {myInfo ? <LoginProfile myInfo={myInfo} /> : <GuestProfile />}
           <Dday myInfo={myInfo} />
+          {/* <Grass /> */}
           <BoardListPreview />
         </MainPageBody>
         <Footer position="sticky" bottom="0" />
@@ -36,6 +38,7 @@ const MainPage = () => {
 const MainPageBody = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100vh;
   padding: 20px ${DEFAULT_PAGE_PADDING};
