@@ -40,8 +40,6 @@ const MyCommentListItem = ({
     setIsConfirm(false);
   };
 
-  const timeAgo = calculateTimeDiff(createdAt) || '';
-
   return (
     <ListItem key={id} p="10px 0 10px" borderBottom="1px solid #D9D9D9">
       <UserContentBlock
@@ -52,7 +50,7 @@ const MyCommentListItem = ({
         userImageSize="40px"
         username={username}
         isOnline={false}
-        content={timeAgo}
+        content={calculateTimeDiff(createdAt) || ''}
         subContent="삭제"
         onSubContentClick={() => setIsConfirm(true)}
       />
