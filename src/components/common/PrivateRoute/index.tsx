@@ -7,5 +7,6 @@ export default function PrivateRoute() {
   if (isSuccess && userInfo) {
     return <Outlet context={{ userInfo }} />;
   }
+
   return <Navigate replace to="/login" />;
 }
