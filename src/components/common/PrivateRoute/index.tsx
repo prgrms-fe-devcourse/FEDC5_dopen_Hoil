@@ -2,10 +2,10 @@ import { useCheckUserAuth } from '@/hooks/useAuth';
 import { Navigate, Outlet } from 'react-router-dom';
 
 export default function PrivateRoute() {
-  const { data: userInfo, isSuccess } = useCheckUserAuth();
+  const result = useCheckUserAuth();
 
-  if (isSuccess && userInfo) {
-    return <Outlet context={{ userInfo }} />;
+  if (result.isSuccess && result.data) {
+    return <Outlet context={result} />;
   }
 
   return <Navigate replace to="/login" />;
