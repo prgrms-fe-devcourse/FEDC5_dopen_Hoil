@@ -154,7 +154,7 @@ export const useMyInfo = ({ onSuccessFn }: AuthProps = {}) => {
 };
 
 export const useCheckUserAuth = () => {
-  return useQuery(AUTH, checkUserAuthentication, {
+  return useQuery([AUTH], checkUserAuthentication, {
     suspense: true,
     useErrorBoundary: ({ query }) => {
       if (!query) {
