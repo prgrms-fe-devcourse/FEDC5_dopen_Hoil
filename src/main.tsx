@@ -24,9 +24,8 @@ const queryClient = new QueryClient({
         if (error.response?.status === 401 || error.response?.status === 400) {
           return;
         }
-
-        alert(error.message);
       }
+      alert(query.meta.errorMessage);
     },
   }),
 });
