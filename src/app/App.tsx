@@ -21,6 +21,7 @@ import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
 import { Fragment } from 'react';
 import UserInfo from '@/pages/UserInfo';
+import ReflectionViewPage from '@/pages/ReflectionViewPage';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -52,7 +53,11 @@ const App = () => {
               />
             </Fragment>
           ))}
-          <Route path="/board/:boardName/:postId" element={<PostViewPage />} />
+          <Route path="/board/:boardname/:postId" element={<PostViewPage />} />
+          <Route
+            path="/board/reflection/:postId"
+            element={<ReflectionViewPage />}
+          />
           <Route path="/notification" element={<NotificationPage />} />
           <Route path="/timer" element={<TimerPage />} />
         </Route>
