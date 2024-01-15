@@ -63,7 +63,7 @@ export const createPost = async ({
 interface EditPostPayload {
   postId: string;
   title: string;
-  image?: BinaryType | null;
+  image?: File | null;
   imageToDeletePublicId?: string;
   channelId: string;
 }
