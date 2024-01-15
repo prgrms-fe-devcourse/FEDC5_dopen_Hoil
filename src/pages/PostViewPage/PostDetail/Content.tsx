@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { FlexProps, Box } from '@chakra-ui/react';
+import { Box, BoxProps } from '@chakra-ui/react';
 
-interface ContentProps extends FlexProps {
+interface ContentProps extends BoxProps {
   children?: ReactNode;
 }
 
