@@ -1,28 +1,19 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  CardProps,
-  Heading,
-  Text,
-} from '@chakra-ui/react';
+import { Box, BoxProps, Heading, Text } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-interface TextCardProps extends CardProps {
+interface TextCardProps extends BoxProps {
   header: string | ReactNode;
   body: string | ReactNode;
 }
 
 const TextCard = ({ header, body, ...props }: TextCardProps) => {
   return (
-    <Card {...props}>
-      <CardHeader>
-        <Heading size="xl">{header}</Heading>
-      </CardHeader>
-      <CardBody>
-        <Text size="lg">{body}</Text>
-      </CardBody>
-    </Card>
+    <Box minH="100px" {...props}>
+      <Heading as="h3" textColor="black">
+        {header}
+      </Heading>
+      <Text textColor="gray.700">{body}</Text>
+    </Box>
   );
 };
 
