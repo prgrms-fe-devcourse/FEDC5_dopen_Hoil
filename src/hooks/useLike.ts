@@ -24,7 +24,7 @@ export const useLike = (postId: string) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([POST_DETAIL, postId]);
+        queryClient.invalidateQueries(POST_DETAIL);
         queryClient.invalidateQueries(AUTH);
       },
     },
