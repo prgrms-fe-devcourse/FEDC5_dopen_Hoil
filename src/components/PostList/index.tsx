@@ -5,9 +5,11 @@ import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
 import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+import { checkIsJson } from '@/utils/checkIsJson';
 
 interface PostListProps extends ChannelPayload, StackProps {
-  keyword: string;
+  keyword?: string;
 }
 
 const PostList = ({
@@ -27,7 +29,11 @@ const PostList = ({
       meta: {
         errorMessage: '게시글 목록 가져올때 에러 발생하였습니다',
       },
-      select: (data) => data.filter((post) => post.title.includes(keyword)),
+      select: (data) => {
+        return keyword
+          ? data.filter((post) => post.title.includes(keyword))
+          : data;
+      },
     },
   );
 
@@ -45,8 +51,10 @@ const PostList = ({
       {data?.map((post) => (
         <PostListItem
           key={post._id}
-          title={post.title}
-          timeAgo="2일 전"
+          title={
+            checkIsJson(post.title) ? JSON.parse(post.title).title : post.title
+          }
+          timeAgo={calculateTimeDiff(post.createdAt) || '날짜계산 불가'}
           username={post.author.username}
           likeCount={post.likes.length}
           commentCount={post.comments.length}

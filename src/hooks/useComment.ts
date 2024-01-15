@@ -12,6 +12,9 @@ export const useCreateComment = ({ onSuccessFn }: CommentProps) => {
         onSuccessFn();
       }
     },
+    onError: () => {
+      alert('저장에 실패했습니다. 다시 시도해주세요');
+    },
   });
 };
 
@@ -21,6 +24,9 @@ export const useDeleteComment = ({ onSuccessFn }: CommentProps) => {
       if (onSuccessFn) {
         onSuccessFn();
       }
+    },
+    onError: () => {
+      alert('삭제에 실패했습니다. 다시 시도해주세요');
     },
   });
 };
