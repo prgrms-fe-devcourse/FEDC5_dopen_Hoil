@@ -14,15 +14,50 @@ import {
 import {
   Flex,
   FlexProps,
+  Icon,
   IconButton,
   Image,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const MainHeader = ({ ...props }: FlexProps) => {
   const { toggleColorMode } = useColorMode();
   const DarkModeIcon = useColorModeValue(MoonIcon, SunIcon);
+
+  const navigate = useNavigate();
+
+  const BadgedIcon = () => {
+    return (
+      <Badge count={1}>
+        <BellIcon color="black" boxSize="icon" />
+      </Badge>
+    );
+  };
+
+  const mainHeaderIconPath = [
+    {
+      icon: DarkModeIcon,
+      description: 'toggleDarkMode',
+      onClick: () => toggleColorMode(),
+    },
+    {
+      icon: ChatIcon,
+      description: 'message',
+      onClick: () => navigate('/message'),
+    },
+    {
+      icon: SearchIcon,
+      description: 'search',
+      onClick: () => navigate('/search'),
+    },
+    {
+      icon: BadgedIcon,
+      description: 'notification',
+      onClick: () => navigate('/search'),
+    },
+  ];
 
   return (
     <Flex
@@ -42,35 +77,16 @@ const MainHeader = ({ ...props }: FlexProps) => {
         src="/assets/dopenLogo.svg"
       />
       <Flex gap="20px">
-        <IconButton
-          aria-label="toggleDarkMode"
-          icon={<DarkModeIcon color="black" boxSize="icon" />}
-          bg="transparent"
-          size="md"
-          onClick={toggleColorMode}
-        />
-        <IconButton
-          aria-label="message"
-          icon={<ChatIcon color="black" boxSize="icon" />}
-          bg="transparent"
-          size="md"
-        />
-        <IconButton
-          aria-label="search"
-          icon={<SearchIcon color="black" boxSize="icon" />}
-          bg="transparent"
-          size="md"
-        />
-        <IconButton
-          aria-label="notify"
-          icon={
-            <Badge count={1}>
-              <BellIcon color="black" boxSize="icon" />
-            </Badge>
-          }
-          bg="transparent"
-          size="md"
-        />
+        {mainHeaderIconPath.map(({ icon, onClick, description }) => (
+          <IconButton
+            key={description}
+            bg="transparent"
+            size="md"
+            aria-label={description}
+            icon={<Icon as={icon} color="black" boxSize="icon" />}
+            onClick={onClick}
+          />
+        ))}
       </Flex>
     </Flex>
   );
