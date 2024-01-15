@@ -110,11 +110,13 @@ const PostEditPage = () => {
   });
 
   useEffect(() => {
-    if (!isGetPostDetailSuccess) {
-      return;
+    if (postId) {
+      if (!isGetPostDetailSuccess) {
+        return;
+      }
+      const { title, content } = JSON.parse(postData.title);
+      reset({ title, content });
     }
-    const { title, content } = JSON.parse(postData.title);
-    reset({ title, content });
   }, [postData, isGetPostDetailSuccess, reset]);
 
   return (
