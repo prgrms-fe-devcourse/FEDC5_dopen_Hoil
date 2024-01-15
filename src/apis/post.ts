@@ -71,17 +71,25 @@ interface EditPostPayload {
 export const editPost = async ({
   postId,
   title,
-  image,
-  imageToDeletePublicId,
+  image = null,
+  imageToDeletePublicId = '',
   channelId,
-}: EditPostPayload) =>
-  await putRequest('/posts/update', {
-    postId,
-    title,
-    image,
-    imageToDeletePublicId,
-    channelId,
+}: EditPostPayload) => {
+  const formData = new FormData();
+  formData.append('postId', postId);
+  formData.append('title', title);
+  if (image !== null) {
+    formData.append('image', image);
+  }
+  formData.append('channelId', channelId);
+  formData.append('imageToDeletePublicId', imageToDeletePublicId);
+  await putRequest('/posts/update', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${getItem(LOGIN_TOKEN, '')}`,
+    },
   });
+};
 
 export const deletePost = async (id: string) =>
   await deleteRequest('/posts/delete', { id });
