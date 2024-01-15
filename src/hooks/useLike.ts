@@ -7,8 +7,11 @@ import { useCheckUserAuth } from './useAuth';
 export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
   const { data: myInfo } = useCheckUserAuth();
-  const { likes } = usePostDetail({
+  const {
+    data: { likes },
+  } = usePostDetail({
     id: postId!,
+    enabled: !!postId,
   });
   const clicked = likes.filter((like) => like.user === myInfo?._id);
   const { mutate: setLike } = useMutation(

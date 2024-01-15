@@ -21,9 +21,23 @@ export const useMyPostList = () => {
 };
 
 export const usePostDetail = ({ id, enabled }: PostDetailProps) => {
-  return useQuery(POST_DETAIL, async () => await getPostDetail(id), {
-    enabled,
-  });
+  const { data, isSuccess } = useQuery(
+    POST_DETAIL,
+    async () => await getPostDetail(id),
+    {
+      enabled,
+      suspense: true,
+      useErrorBoundary: true,
+      select: (data) => {
+        if (!data) {
+          throw new Error('해당하는 포스트가 존재하지 않습니다');
+        } else {
+          return data;
+        }
+      },
+    },
+  );
+  return { data: data!, isSuccess };
 };
 
 export const usePosting = ({ onSuccessFn }: PostingProps) => {
