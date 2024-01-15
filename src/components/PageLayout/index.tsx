@@ -12,7 +12,7 @@ const PageLayout = () => {
       height="100vh"
       margin="0 auto"
     >
-      <Outlet></Outlet>
+      <Outlet />
     </Flex>
   );
 };
