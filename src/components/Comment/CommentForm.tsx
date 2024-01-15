@@ -34,6 +34,8 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
         <Avatar w="40px" h="40px" src={image} />
       </FormLabel>
       <Textarea
+        resize="none"
+        bgColor="gray.200"
         w="calc(100% - 84px)"
         h="40px"
         borderRadius="5px"
