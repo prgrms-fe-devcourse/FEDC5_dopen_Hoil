@@ -55,7 +55,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
     {
       icon: BadgedIcon,
       description: 'notification',
-      onClick: () => navigate('/search'),
+      onClick: () => navigate('/notification'),
     },
   ];
 
