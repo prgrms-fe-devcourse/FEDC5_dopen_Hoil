@@ -1,4 +1,3 @@
-import { DEFAULT_WIDTH } from '@/constants/style';
 import { Box } from '@chakra-ui/react';
 import LoginDday from '@/pages/MainPage/LoginDday';
 import GuestDday from '@/pages/MainPage/GuestDday';
@@ -10,8 +9,8 @@ interface DdayProps {
 const Dday = ({ myInfo = {} }: DdayProps) => {
   return (
     <Box
-      maxW={DEFAULT_WIDTH}
-      marginTop="25px"
+      w="100%"
+      margin="25px 0"
       bg="pink.300"
       borderRadius="5px"
       _hover={{ cursor: 'pointer', bg: '#eb7e7e' }}
