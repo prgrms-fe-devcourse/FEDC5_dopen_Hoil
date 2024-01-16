@@ -27,6 +27,7 @@ import ErrorFallback from '@/pages/PostViewPage/ErrorFallback';
 import { useQueryErrorResetBoundary } from 'react-query';
 import { Spinner } from '@chakra-ui/react';
 import ReflectionViewPage from '@/pages/ReflectionViewPage';
+import ReflectionPostEditPage from '@/pages/ReflectionPostEditPage';
 
 const App = () => {
   const { channelListData } = useChannelList();
@@ -48,12 +49,12 @@ const App = () => {
               <Route path="/message" element={<MessageListPage />} />
               <Route path="/message/:userId" element={<MessagePage />} />
               <Route
-                path="/board/:boardName/:postId"
-                element={<PostViewPage />}
-              />
-              <Route
                 path="/board/reflection/:postId"
                 element={<ReflectionViewPage />}
+              />
+              <Route
+                path="/board/:boardName/:postId"
+                element={<PostViewPage />}
               />
               <Route path="/notification" element={<NotificationPage />} />
               <Route path="/timer" element={<TimerPage />} />
@@ -61,6 +62,10 @@ const App = () => {
             <Route path="/:username" element={<UserInfo />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/board" element={<BoardEnterPage />} />
+            <Route
+              path="/board/reflection/post"
+              element={<ReflectionPostEditPage />}
+            />
             {channelListData?.map((board) => (
               <Fragment key={board._id}>
                 <Route path={`/board/${board.name}`} element={<BoardPage />} />
