@@ -18,7 +18,7 @@ export interface SearchDataTypes {
 const SearchPage = () => {
   const { channelListData } = useChannelList();
 
-  const [option, setOption] = useState('');
+  const [option, setOption] = useState('유저');
   const [keyword, setKeyword] = useState('');
   const [searchData, setSearchData] = useState<SearchDataTypes>({
     keyword: '',
@@ -27,8 +27,8 @@ const SearchPage = () => {
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (option === '' || keyword === '') {
-      alert('검색 조건을 입력해주세요.');
+    if (keyword === '') {
+      alert('검색어를 입력해주세요.');
       return;
     }
 
