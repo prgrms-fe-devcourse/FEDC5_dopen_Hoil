@@ -11,7 +11,7 @@ export const useStudyPost = ({ channelId }: StudyProps) => {
     if (!channelId) {
       return [];
     }
-    await getPostListByChannel({ channelId });
+    return await getPostListByChannel({ channelId });
   });
 
   return {
