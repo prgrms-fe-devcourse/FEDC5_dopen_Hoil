@@ -44,12 +44,12 @@ export const useMessage = (userId: string) => {
 
 export const useSendMessage = () => {
   const queryClient = useQueryClient();
-  const { mutate: sendMessageMutation } = useMutation(sendMessage, {
+  const mutate = useMutation(sendMessage, {
     onSuccess: async (data, { receiver }) => {
       queryClient.invalidateQueries([MESSAGE, receiver]);
       return data;
     },
   });
 
-  return sendMessageMutation;
+  return mutate;
 };
