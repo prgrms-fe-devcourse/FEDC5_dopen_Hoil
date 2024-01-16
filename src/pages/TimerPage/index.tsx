@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import { MdPause, MdPlayArrow } from 'react-icons/md';
-import { useMutation } from 'react-query';
+import { UseQueryResult, useMutation } from 'react-query';
 import TimerSettingModal from './TimerSettingModal';
 import { stringTimeToSeconds } from '@/utils/stringTimeToSeconds';
 import { useTodayTimePost } from '@/hooks/useTodayTimePost';
@@ -25,13 +25,8 @@ import { secondsToStringTime } from '@/utils/secondsToStringTime';
 import { convertDateToString } from '@/utils/convertDateToString';
 import { getCurrentStringTime } from '@/utils/getCurrentStringTime';
 import { TIME_OUT_VALUE } from '@/constants/time';
-
-const DUMMY_DATA = {
-  userId: '658b73f0fadd1520147a8d64',
-  email: 'test@test.com',
-  password: '12341234',
-  timerChannelId: '659cbef85b11b0431d028400',
-};
+import { useOutletContext } from 'react-router-dom';
+import { User } from '@/apis/type';
 
 const timerIconStyle: IconButtonProps = {
   position: 'absolute',
@@ -53,11 +48,15 @@ const TimerPage = () => {
     },
   );
 
+  const { data: myInfo, isSuccess } = useOutletContext<UseQueryResult<User>>();
+
+  const { timerChannelId } = isSuccess && JSON.parse(myInfo?.fullName);
+
   const {
     data: todayTimePost,
     refetch,
     isError: isTodayTimePostError,
-  } = useTodayTimePost(DUMMY_DATA.timerChannelId);
+  } = useTodayTimePost(timerChannelId);
 
   const currentTargetTime = useRef(timer);
   const originTargetTime = useRef(timer);
@@ -69,7 +68,7 @@ const TimerPage = () => {
     (time: string) =>
       createPost({
         title: time,
-        channelId: DUMMY_DATA.timerChannelId,
+        channelId: timerChannelId,
       }),
     {
       onSuccess: () => refetch(),
@@ -82,7 +81,7 @@ const TimerPage = () => {
       editPost({
         postId,
         title,
-        channelId: DUMMY_DATA.timerChannelId,
+        channelId: timerChannelId,
       }),
     { onSuccess: () => refetch() },
   );
