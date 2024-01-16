@@ -24,11 +24,7 @@ const OptionSelector = ({
   return (
     <Box p={`0 ${DEFAULT_PAGE_PADDING}`}>
       <FormControl isInvalid={!option}>
-        <Select
-          placeholder="검색 조건"
-          onChange={(e) => setOption(e.target.value)}
-          {...props}
-        >
+        <Select onChange={(e) => setOption(e.target.value)} {...props}>
           <option value="유저">유저</option>
           {channelListData?.map((option) => (
             <option value={option.name} key={option._id}>
