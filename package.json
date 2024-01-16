@@ -14,17 +14,24 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/noto-sans-kr": "^5.0.17",
     "axios": "^1.6.3",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.12",
+    "react-hook-form": "^7.49.2",
+    "react-icons": "^4.12.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "storybook-addon-react-router-v6": "^2.0.10"
   },
   "devDependencies": {
+    "@chakra-ui/storybook-addon": "^5.1.0",
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/addon-interactions": "^7.6.6",
     "@storybook/addon-links": "^7.6.6",
@@ -49,6 +56,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",
     "storybook": "^7.6.6",
+    "storybook-addon-react-router-v6": "^2.0.10",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vitest": "^1.1.0"

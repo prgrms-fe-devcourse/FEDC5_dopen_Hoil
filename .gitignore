@@ -25,3 +25,4 @@ dist-ssr
 
 # 기타 파일
 .eslintcache
+.env
