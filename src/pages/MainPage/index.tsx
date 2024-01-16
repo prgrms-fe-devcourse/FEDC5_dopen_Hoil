@@ -10,6 +10,7 @@ import Dday from '@/pages/MainPage/Dday';
 import BoardListPreview from '@/pages/MainPage/BoardListPreview';
 import { useStudyPost } from '@/hooks/useStudy';
 import Grass from '@/components/Grass';
+import { GRASS_DUMMY } from '@/constants/GrassDummy';
 
 const MainPage = () => {
   const { data: myInfo } = useMyInfo();
@@ -19,28 +20,12 @@ const MainPage = () => {
     channelId: timerChannelId,
   });
 
-  const studyPosts = (studyPost.length &&
-    studyPost.map(({ title, createdAt }) => ({
-      time: title,
-      createdAt,
-    }))) || [
-    {
-      time: '01:00:00',
-      createdAt: '2024-01-12T07:58:20.808Z',
-    },
-    {
-      time: '00:30:00',
-      createdAt: '2024-01-15T07:58:20.808Z',
-    },
-    {
-      time: '10:00:00',
-      createdAt: '2024-01-27T07:58:20.808Z',
-    },
-    {
-      time: '00:00:30',
-      createdAt: '2024-01-01T07:58:20.808Z',
-    },
-  ];
+  const studyPosts = myInfo
+    ? studyPost.map(({ title, createdAt }) => ({
+        time: title,
+        createdAt,
+      }))
+    : GRASS_DUMMY;
 
   return (
     <>
