@@ -12,7 +12,6 @@ import { FREE, INFOSHARE, REFLECTION } from './boardChannelId';
 
 type Channel = typeof FREE | typeof REFLECTION | typeof INFOSHARE;
 
-
 const MyBoardList = () => {
   const navigate = useNavigate();
   const { data: myInfo } = useMyInfo();
@@ -24,7 +23,6 @@ const MyBoardList = () => {
 
   const { timerChannelId } = JSON.parse(myInfo.fullName);
   const myPostList = postList.filter((post) => post.channel !== timerChannelId);
-
 
   const onPostDetail = (id: string, channel: Channel) => {
     switch (channel) {
@@ -38,6 +36,7 @@ const MyBoardList = () => {
         navigate(`/board/infoshare/${id}`);
         break;
     }
+  };
 
   return (
     <Box>
