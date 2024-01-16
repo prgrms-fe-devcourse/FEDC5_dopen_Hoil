@@ -14,9 +14,13 @@ interface MessageFormProps extends BoxProps {
 }
 
 const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
-  const { registeredOption, onSubmit, isSubmitting, isValid } = useMessageForm({
-    onSubmit: (message) => onSuccess(message),
-  });
+  const { registeredOption, onSubmit, isSubmitting, isValid, reset } =
+    useMessageForm({
+      onSubmit: (message) => {
+        onSuccess(message);
+        reset();
+      },
+    });
 
   return (
     <Box {...props}>
