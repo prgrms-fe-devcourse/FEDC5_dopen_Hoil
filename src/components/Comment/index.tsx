@@ -29,7 +29,6 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
         left="0"
         bottom="0"
         width="100%"
-        maxWidth="428px"
         p="10px 0"
         zIndex="100"
         backgroundColor="white"
