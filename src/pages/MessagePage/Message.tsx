@@ -74,7 +74,8 @@ const Message = ({ ...props }: BoxProps) => {
         bgColor="white"
         pos="absolute"
         bottom="0"
-        w="100%"
+        left="0"
+        width="100%"
       />
     </Flex>
   );

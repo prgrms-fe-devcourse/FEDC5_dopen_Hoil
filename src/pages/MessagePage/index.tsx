@@ -6,7 +6,13 @@ const MessagePage = () => {
   return (
     <Flex flexDir="column" h="100%">
       <PageHeader pageName="DM" flexShrink="0" />
-      <Message flexGrow="1" bgColor="gray.300" overflowY="auto" />
+      <Message
+        flexGrow="1"
+        bgColor="gray.300"
+        overflowY="auto"
+        paddingLeft="20px"
+        paddingRight="20px"
+      />
     </Flex>
   );
 };
