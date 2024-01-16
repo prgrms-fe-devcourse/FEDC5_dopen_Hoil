@@ -76,7 +76,7 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
           })}
         />
         <Button>
-          <Image src="/src/assets/send.svg" alt="comment send" />
+          <Image src="/assets/send.svg" alt="comment send" />
         </Button>
       </Form>
       <Text m="5px 0 0 55px" fontSize="1.2rem" color="pink.300">

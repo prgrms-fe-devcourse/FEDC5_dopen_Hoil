@@ -23,13 +23,13 @@ export const SOCIAL_LOGIN_LIST = [
   {
     name: '네이버',
     title: '네이버 로그인',
-    src: 'src/assets/naver.png',
+    src: '/assets/naver.png',
     href: 'https://naver.com',
   },
   {
     name: '카카오',
     title: '카카오 로그인',
-    src: 'src/assets/kakao.png',
+    src: '/assets/kakao.png',
     href: 'https://www.kakaocorp.com/',
   },
 ];
