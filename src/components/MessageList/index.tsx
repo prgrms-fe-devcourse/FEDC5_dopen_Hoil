@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Box, Flex, FlexProps } from '@chakra-ui/react';
+import { AbsoluteCenter, Flex, FlexProps, Text } from '@chakra-ui/react';
 import { useMessageList } from '@/hooks/useMessageList';
 import UserContentBlock from '../common/UserContentBlock';
 
@@ -28,7 +28,11 @@ const MessageList = ({ ...props }: MessageListProps) => {
           },
         )
       ) : (
-        <Box>메시지가 없습니다</Box>
+        <AbsoluteCenter>
+          <Text fontSize="1.5rem" as="b">
+            표시할 알림이 없습니다
+          </Text>
+        </AbsoluteCenter>
       )}
     </Flex>
   );
