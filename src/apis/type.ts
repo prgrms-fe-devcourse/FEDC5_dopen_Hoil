@@ -69,6 +69,7 @@ export interface Notification {
   message?: string; // 메시지 id
   createdAt: string;
   updatedAt: string;
+  like: Like;
 }
 
 export interface Follow {
