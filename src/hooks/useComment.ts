@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { createComment, deleteComment } from '@/apis/comment';
 import { pushNotification } from '@/apis/notifications';
+import { MY_COMMENT_LIST, POST_DETAIL } from '@/constants/queryKeys';
 import { POST_DETAIL } from '@/constants/queryKeys';
 
 export const useCreateComment = () => {
@@ -30,6 +31,7 @@ export const useDeleteComment = () => {
   const { mutate } = useMutation(deleteComment, {
     onSuccess: () => {
       queryClient.invalidateQueries(POST_DETAIL);
+      queryClient.invalidateQueries(MY_COMMENT_LIST);
     },
     onError: () => {
       alert('삭제에 실패했습니다. 다시 시도해주세요');
