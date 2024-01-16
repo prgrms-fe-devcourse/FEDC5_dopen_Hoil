@@ -156,7 +156,7 @@ const TimerPage = () => {
   }, []);
 
   return (
-    <Flex flexDir="column" align="center" w="100%" bg="pink.200">
+    <Flex flexDir="column" align="center" w="100%" bg="pink.200" flex={1}>
       <PageHeader pageName="타이머" />
       <Center p="97px 0" position="relative" w="100%">
         <CircularProgress
