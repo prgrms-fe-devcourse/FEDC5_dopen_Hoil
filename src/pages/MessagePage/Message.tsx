@@ -5,17 +5,29 @@ import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
 import MessageForm from './MessageForm';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
   const messageLogs = useMessage(userId!);
   const sendMessageMutate = useSendMessage();
+  const pushNotificationMutate = usePushNotification();
 
   const onSendMessage = async (message: string) => {
     if (!userId) {
       return;
     }
-    sendMessageMutate({ message, receiver: userId });
+    const data = await sendMessageMutate.mutateAsync({
+      message,
+      receiver: userId,
+    });
+
+    pushNotificationMutate({
+      notificationType: 'MESSAGE',
+      notificationTypeId: data._id,
+      userId,
+      postId: data._id,
+    });
   };
 
   return (
