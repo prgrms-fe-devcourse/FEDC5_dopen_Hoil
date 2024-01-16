@@ -19,6 +19,7 @@ interface UserContentBlockProps extends FlexProps {
   ellipsis?: number | number[];
   subContent?: string;
   contentFontSize?: string | number;
+  onImageClick: () => void;
   onSubContentClick?: () => void;
 }
 
@@ -33,6 +34,7 @@ const UserContentBlock = ({
   subContent,
   contentFontSize = '1.2rem',
   onSubContentClick,
+  onImageClick,
   ...props
 }: UserContentBlockProps) => {
   return (
@@ -53,6 +55,7 @@ const UserContentBlock = ({
             : `${userImageSize}px`
         }
         boxShadow="0px 5px 15px -5px gray"
+        onClick={() => onImageClick && onImageClick()}
       >
         {isOnline && (
           <AvatarBadge
