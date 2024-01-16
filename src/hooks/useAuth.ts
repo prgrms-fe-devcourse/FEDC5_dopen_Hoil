@@ -154,9 +154,18 @@ export const useMyInfo = ({ onSuccessFn }: AuthProps = {}) => {
 };
 
 export const useCheckUserAuth = () => {
-  return useQuery(AUTH, checkUserAuthentication, {
+  return useQuery([AUTH], checkUserAuthentication, {
     suspense: true,
-    useErrorBoundary: true,
+    useErrorBoundary: ({ query }) => {
+      if (!query) {
+        return false;
+      }
+      return true;
+    },
     retry: 0,
+    meta: {
+      errorMessage: '로그인이 필요한 페이지입니다',
+    },
+    cacheTime: 0,
   });
 };
