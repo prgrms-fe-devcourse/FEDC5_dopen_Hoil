@@ -19,7 +19,7 @@ interface UserContentBlockProps extends FlexProps {
   ellipsis?: number | number[];
   subContent?: string;
   contentFontSize?: string | number;
-  onImageClick: () => void;
+  onImageClick?: () => void;
   onSubContentClick?: () => void;
 }
 
