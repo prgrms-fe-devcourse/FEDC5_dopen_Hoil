@@ -2,7 +2,6 @@ import { useQueryClient, useQuery, useMutation } from 'react-query';
 import { getMessageListByUser, sendMessage } from '@/apis/message';
 import { convertDateToString } from '@/utils/convertDateToString';
 import { MESSAGE } from '@/constants/queryKeys';
-import { pushNotification } from '@/apis/notifications';
 
 interface MessageLog {
   time: string;
@@ -12,8 +11,7 @@ interface MessageLog {
 }
 
 export const useMessage = (userId: string) => {
-  const queryClient = useQueryClient();
-  const { data } = useQuery(
+  const { data: messageList } = useQuery(
     [MESSAGE, userId],
     async () => await getMessageListByUser(userId),
     {
@@ -41,24 +39,17 @@ export const useMessage = (userId: string) => {
     },
   );
 
-  const { mutate } = useMutation(sendMessage, {
-    onSuccess: async (data) => {
-      queryClient.invalidateQueries([MESSAGE, userId]);
-      await pushNotification({
-        notificationType: 'MESSAGE',
-        notificationTypeId: data._id,
-        userId: userId,
-        postId: data._id,
-      });
+  return messageList || [];
+};
+
+export const useSendMessage = () => {
+  const queryClient = useQueryClient();
+  const { mutate: sendMessageMutation } = useMutation(sendMessage, {
+    onSuccess: async (data, { receiver }) => {
+      queryClient.invalidateQueries([MESSAGE, receiver]);
+      return data;
     },
   });
 
-  if (data === undefined) {
-    throw new Error('해당하는 메시지가 없습니다');
-  }
-
-  return {
-    messageLogs: data,
-    sendMessageMutate: mutate,
-  };
+  return sendMessageMutation;
 };

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage, useSendMessage } from '@/hooks/useMessage';
 import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
@@ -8,7 +8,8 @@ import MessageForm from './MessageForm';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
-  const { messageLogs, sendMessageMutate } = useMessage(userId!);
+  const messageLogs = useMessage(userId!);
+  const sendMessageMutate = useSendMessage();
 
   const onSendMessage = async (message: string) => {
     if (!userId) {
