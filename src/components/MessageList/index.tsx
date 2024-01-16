@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Flex, FlexProps } from '@chakra-ui/react';
+import { AbsoluteCenter, Flex, FlexProps, Text } from '@chakra-ui/react';
 import { useMessageList } from '@/hooks/useMessageList';
 import UserContentBlock from '../common/UserContentBlock';
 
@@ -7,32 +7,32 @@ interface MessageListProps extends FlexProps {}
 
 const MessageList = ({ ...props }: MessageListProps) => {
   const navigate = useNavigate();
-  const { isLoading, error, userDataList } = useMessageList();
-  //TODO: 로딩 및 에러처리 세부 구현
-  if (isLoading) {
-    return <div>로딩중...</div>;
-  }
-
-  if (error) {
-    return <div>에러가 발생했습니다</div>;
-  }
+  const messageLogList = useMessageList();
 
   return (
     <Flex flexDir="column" overflowY="auto" {...props}>
-      {userDataList?.map(
-        ({ key, userImage, username, content, subContent, userId }) => {
-          return (
-            <UserContentBlock
-              key={key}
-              userImage={userImage}
-              username={username}
-              content={content}
-              subContent={subContent}
-              onClick={() => navigate(`./${userId}`)}
-              ellipsis={2}
-            ></UserContentBlock>
-          );
-        },
+      {messageLogList.length ? (
+        messageLogList.map(
+          ({ key, userImage, username, content, subContent, userId }) => {
+            return (
+              <UserContentBlock
+                key={key}
+                userImage={userImage}
+                username={username}
+                content={content}
+                subContent={subContent}
+                onClick={() => navigate(`./${userId}`)}
+                ellipsis={2}
+              ></UserContentBlock>
+            );
+          },
+        )
+      ) : (
+        <AbsoluteCenter>
+          <Text fontSize="1.5rem" as="b">
+            표시할 알림이 없습니다
+          </Text>
+        </AbsoluteCenter>
       )}
     </Flex>
   );

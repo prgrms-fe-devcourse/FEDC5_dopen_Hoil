@@ -9,13 +9,16 @@ import { useCheckUserAuth } from './useAuth';
 export const useMessageList = () => {
   const { data: myInfo } = useCheckUserAuth();
 
-  const {
-    isLoading,
-    error,
-    data: messageList,
-  } = useQuery<Conversation[], AxiosError>(MESSAGE_LIST, getMessageList);
+  const { data } = useQuery<Conversation[], AxiosError>(
+    [MESSAGE_LIST, myInfo?._id],
+    getMessageList,
+    {
+      useErrorBoundary: true,
+      suspense: true,
+    },
+  );
 
-  const userDataList = messageList?.map(
+  const messageLogList = data?.map(
     ({ createdAt, message, sender, receiver }) => {
       const otherType = sender._id === myInfo?._id ? receiver : sender;
 
@@ -29,5 +32,5 @@ export const useMessageList = () => {
       };
     },
   );
-  return { isLoading, error, userDataList };
+  return messageLogList ? messageLogList : [];
 };

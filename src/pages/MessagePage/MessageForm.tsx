@@ -1,13 +1,12 @@
 import {
   Input,
-  Icon,
   Button,
   Flex,
   Box,
   BoxProps,
   FormControl,
+  Image,
 } from '@chakra-ui/react';
-import { LuSend } from 'react-icons/lu';
 import { useMessageForm } from '@/hooks/useMessageForm';
 
 interface MessageFormProps extends BoxProps {
@@ -15,9 +14,13 @@ interface MessageFormProps extends BoxProps {
 }
 
 const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
-  const { registeredOption, onSubmit, isSubmitting, isValid } = useMessageForm({
-    onSubmit: (message) => onSuccess(message),
-  });
+  const { registeredOption, onSubmit, isSubmitting, isValid, reset } =
+    useMessageForm({
+      onSubmit: (message) => {
+        onSuccess(message);
+        reset();
+      },
+    });
 
   return (
     <Box {...props}>
@@ -32,12 +35,12 @@ const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
               borderRadius="10px"
             />
             <Button
-              bgColor="white"
-              type="submit"
               isLoading={isSubmitting}
               isDisabled={!isValid}
+              bgColor="white"
+              type="submit"
             >
-              <Icon as={LuSend} color="pink" />
+              <Image src="/src/assets/send.svg" alt="comment send" />
             </Button>
           </Flex>
         </FormControl>

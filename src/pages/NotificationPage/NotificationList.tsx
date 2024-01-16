@@ -9,8 +9,7 @@ import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 interface NotificationListProps extends FlexProps {}
 
 const NotificationList = ({ ...props }: NotificationListProps) => {
-  const { myNotificationList } = useNotificationList();
-
+  const { myNotificationList, readNotification } = useNotificationList();
   return (
     <Flex flexDir="column" overflowY="auto" {...props}>
       {myNotificationList.length ? (
@@ -21,6 +20,9 @@ const NotificationList = ({ ...props }: NotificationListProps) => {
               username={author.username}
               content={messageByTypes[type]}
               subContent={calculateTimeDiff(date)}
+              onClick={async () => {
+                readNotification(author._id);
+              }}
             ></UserContentBlock>
           );
         })
