@@ -1,7 +1,16 @@
-import { FaUserCircle, FaClipboardList, FaPen } from 'react-icons/fa';
+import {
+  FaUserCircle,
+  FaClipboardList,
+  FaPen,
+  FaAddressCard,
+} from 'react-icons/fa';
 
 export const MYPAGE_LIST = [
   [
+    {
+      icon: FaAddressCard,
+      title: '내 정보 보기',
+    },
     {
       icon: FaUserCircle,
       title: '회원정보 수정',

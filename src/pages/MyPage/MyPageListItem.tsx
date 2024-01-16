@@ -6,14 +6,20 @@ import { useNavigate } from 'react-router-dom';
 interface MyPageListItemProps {
   icon: IconType;
   title: string;
-  href: string;
+  href?: string;
+  username?: string;
 }
 
-const MyPageListItem = ({ icon, title, href }: MyPageListItemProps) => {
+const MyPageListItem = ({
+  icon,
+  title,
+  href,
+  username,
+}: MyPageListItemProps) => {
   const navigator = useNavigate();
 
   return (
-    <li onClick={() => navigator(href)}>
+    <li onClick={() => navigator(href || `/${username}`)}>
       <Flex alignItems="center">
         <Flex
           alignItems="center"

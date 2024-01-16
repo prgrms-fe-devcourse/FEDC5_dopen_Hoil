@@ -1,7 +1,8 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { User } from '@/apis/type';
 import UserProfile from './UserProfile';
 import UserFollowInfo from './UserFollowInfo';
+import UserGrass from './UserGrass';
 
 interface UserInfoContainerProps {
   userList: User[];
@@ -27,10 +28,7 @@ const UserInfoContainer = ({
         isSameUser={isSameUser}
       />
       <UserFollowInfo followInfo={userInfo ?? myInfo} />
-      <Box mt="55px">
-        <Heading></Heading>
-        <Box>잔디 자리</Box>
-      </Box>
+      <UserGrass userInfo={userInfo ?? myInfo} />
     </Box>
   );
 };
