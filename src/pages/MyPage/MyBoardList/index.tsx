@@ -8,6 +8,9 @@ import PostListItem from '@/components/PostList/PostListItem';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+import { FREE, INFOSHARE, REFLECTION } from './boardChannelId';
+
+type Channel = typeof FREE | typeof REFLECTION | typeof INFOSHARE;
 
 const MyBoardList = () => {
   const navigate = useNavigate();
@@ -21,8 +24,18 @@ const MyBoardList = () => {
   const { timerChannelId } = JSON.parse(myInfo.fullName);
   const myPostList = postList.filter((post) => post.channel !== timerChannelId);
 
-  const onPostDetail = (id: string) => {
-    navigate(`./${id}`);
+  const onPostDetail = (id: string, channel: Channel) => {
+    switch (channel) {
+      case FREE:
+        navigate(`/board/free/${id}`);
+        break;
+      case REFLECTION:
+        navigate(`/board/reflection/${id}`);
+        break;
+      case INFOSHARE:
+        navigate(`/board/infoshare/${id}`);
+        break;
+    }
   };
 
   return (
@@ -34,18 +47,20 @@ const MyBoardList = () => {
             작성한 게시글이 없습니다.
           </Box>
         )}
-        {myPostList.map((post) => (
-          <PostListItem
-            key={post._id}
-            title={JSON.parse(post.title).title}
-            timeAgo={calculateTimeDiff(post.createdAt) || ''}
-            username=""
-            likeCount={post.likes.length}
-            commentCount={post.comments.length}
-            style={{ borderBottom: '1px solid' }}
-            onClick={() => onPostDetail(post._id)}
-          />
-        ))}
+        {myPostList.map(
+          ({ _id: id, title, createdAt, likes, comments, channel }) => (
+            <PostListItem
+              key={id}
+              title={JSON.parse(title).title}
+              timeAgo={calculateTimeDiff(createdAt) || ''}
+              username=""
+              likeCount={likes.length}
+              commentCount={comments.length}
+              style={{ borderBottom: '1px solid' }}
+              onClick={() => onPostDetail(id, channel as unknown as Channel)}
+            />
+          ),
+        )}
       </Box>
       <Footer />
     </Box>
