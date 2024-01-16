@@ -9,7 +9,7 @@ export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { likes },
+    data: { likes, author },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
@@ -29,7 +29,7 @@ export const useLike = (postId: string) => {
           await pushNotification({
             notificationType: 'LIKE',
             notificationTypeId: data._id,
-            userId: data.user,
+            userId: author._id,
             postId: data.post,
           });
         }
