@@ -5,12 +5,12 @@ import {
 } from '@/hooks/useNotificationList';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
+import { checkNotification } from '@/apis/notifications';
 
 interface NotificationListProps extends FlexProps {}
 
 const NotificationList = ({ ...props }: NotificationListProps) => {
   const { myNotificationList } = useNotificationList();
-
   return (
     <Flex flexDir="column" overflowY="auto" {...props}>
       {myNotificationList.length ? (
@@ -21,6 +21,9 @@ const NotificationList = ({ ...props }: NotificationListProps) => {
               username={author.username}
               content={messageByTypes[type]}
               subContent={calculateTimeDiff(date)}
+              onClick={async () => {
+                await checkNotification(author._id);
+              }}
             ></UserContentBlock>
           );
         })
