@@ -1,6 +1,7 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { AxiosError } from 'axios';
 import {
+  checkNotification,
   getUserNotificationList,
   NotificationType,
 } from '@/apis/notifications';
@@ -24,7 +25,7 @@ export const messageByTypes: { [key in NotificationType]: string } = {
 
 export const useNotificationList = () => {
   const { data: myInfo } = useCheckUserAuth();
-  const { data, isLoading, error } = useQuery<
+  const { data } = useQuery<
     Notification[],
     AxiosError,
     MyNotificationListItem[]
@@ -59,9 +60,14 @@ export const useNotificationList = () => {
 
   const myNotificationList = data ?? [];
 
+  const { mutate } = useMutation(checkNotification, {
+    onError: () => {
+      alert('서버 오류입니다');
+    },
+  });
+
   return {
     myNotificationList,
-    isLoading,
-    error,
+    readNotification: mutate,
   };
 };
