@@ -8,10 +8,14 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 import Dday from '@/pages/MainPage/Dday';
 import BoardListPreview from '@/pages/MainPage/BoardListPreview';
-// import Grass from '@/components/Grass';
+import GrassBox from '@/pages/MainPage/GrassBox';
 
 const MainPage = () => {
   const { data: myInfo } = useMyInfo();
+
+  if (!myInfo) {
+    return null;
+  }
 
   return (
     <>
@@ -26,7 +30,7 @@ const MainPage = () => {
         <MainPageBody>
           {myInfo ? <LoginProfile myInfo={myInfo} /> : <GuestProfile />}
           <Dday myInfo={myInfo} />
-          {/* <Grass /> */}
+          <GrassBox myInfo={myInfo} />
           <BoardListPreview />
         </MainPageBody>
         <Footer position="sticky" bottom="0" />
