@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Avatar, FormLabel, Textarea, Image } from '@chakra-ui/react';
 import { useCreateComment } from '@/hooks/useComment';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
 interface CommentFormProps {
   id: string;
@@ -13,13 +14,23 @@ export interface CommentInput {
 }
 
 const CommentForm = ({ id, image }: CommentFormProps) => {
-  const { register, handleSubmit } = useForm<CommentInput>();
+  const { register, handleSubmit, reset } = useForm<CommentInput>();
 
-  const pushComment = useCreateComment();
+  const { pushComment, isSuccess } = useCreateComment();
 
   const onCommentValid: SubmitHandler<CommentInput> = ({ comment }) => {
     pushComment({ comment, postId: id });
+    reset();
   };
+
+  useEffect(() => {
+    if (!isSuccess) {
+      return;
+    }
+
+    const scrollPosition = document.body.scrollHeight + 70;
+    setTimeout(() => window.scrollTo(0, scrollPosition), 100);
+  }, [isSuccess]);
 
   return (
     <Form onSubmit={handleSubmit(onCommentValid)}>
