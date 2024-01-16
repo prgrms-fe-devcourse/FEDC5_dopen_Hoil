@@ -6,6 +6,8 @@ import { removeItem } from '@/utils/storage';
 import { useLogOut, useMyInfo } from '@/hooks/useAuth';
 import MyPageListItem from './MyPageListItem';
 import { MYPAGE_LIST } from './myPageList';
+import PageHeader from '@/components/PageHeader';
+import Footer from '@/components/Footer';
 
 const MyPage = () => {
   const navigator = useNavigate();
@@ -15,53 +17,58 @@ const MyPage = () => {
     navigator('/', { replace: true });
   };
   const { mutate } = useLogOut({ onSuccessFn });
+  const { data: myInfo } = useMyInfo();
 
   const onLogOut = () => {
     mutate();
   };
 
-  const { data: myInfo, isLoading } = useMyInfo();
-
-  if (isLoading || !myInfo) {
-    return <Box>로딩중입니다...</Box>;
-  }
-
   return (
-    <Box w="100%" h="100vh" m="0 auto" textAlign="center" padding="0 20px">
-      <Box>
-        <Box mt={15}>
-          <Avatar
-            w="118px"
-            h="118px"
-            name={myInfo.username + '님의 프로필 이미지입니다.'}
-            src={myInfo.image || 'https://via.placeholder.com/118x118'}
-          />
+    <Box w="100%" h="100vh" m="0 auto" textAlign="center">
+      <PageHeader pageName="마이페이지" />
+      <Box padding="20px" h="calc(100% - 160px)">
+        <Box
+          width="fit-content"
+          margin="15px auto 0"
+          cursor="pointer"
+          onClick={() => navigator(`/${myInfo?.username}`)}
+        >
+          <Box>
+            <Avatar
+              w="118px"
+              h="118px"
+              name={myInfo?.username + '님의 프로필 이미지입니다.'}
+              src={myInfo?.image || 'https://via.placeholder.com/118x118'}
+            />
+          </Box>
+          <ProfileName>{myInfo?.username}</ProfileName>
         </Box>
-        <ProfileName>{myInfo.username}</ProfileName>
+        {MYPAGE_LIST.map((mypage, index) => {
+          return (
+            <MyPageUl key={index}>
+              {mypage.map(({ icon, title, href }, index) => {
+                return (
+                  <MyPageListItem
+                    key={index}
+                    icon={icon}
+                    title={title}
+                    href={href}
+                    username={myInfo?.username}
+                  />
+                );
+              })}
+            </MyPageUl>
+          );
+        })}
+        <MyPageUl>
+          <li onClick={onLogOut}>
+            <Text as="strong" fontSize="lg" color="pink.400">
+              로그아웃
+            </Text>
+          </li>
+        </MyPageUl>
       </Box>
-      {MYPAGE_LIST.map((mypage, index) => {
-        return (
-          <MyPageUl key={index}>
-            {mypage.map(({ icon, title, href }, index) => {
-              return (
-                <MyPageListItem
-                  key={index}
-                  icon={icon}
-                  title={title}
-                  href={href}
-                />
-              );
-            })}
-          </MyPageUl>
-        );
-      })}
-      <MyPageUl>
-        <li onClick={onLogOut}>
-          <Text as="strong" fontSize="lg" color="pink.400">
-            로그아웃
-          </Text>
-        </li>
-      </MyPageUl>
+      <Footer />
     </Box>
   );
 };
