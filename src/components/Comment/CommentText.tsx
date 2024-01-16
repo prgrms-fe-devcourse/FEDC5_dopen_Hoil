@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Box } from '@chakra-ui/react';
-import UserContentBlock from '../common/UserContentBlock';
 import { User } from '@/apis/type';
 import { useDeleteComment } from '@/hooks/useComment';
+import UserContentBlock from '../common/UserContentBlock';
 import Confirm from '../common/Confirm';
-import { useState } from 'react';
 
 interface CommentTextProps {
   id: string;
@@ -14,6 +15,7 @@ interface CommentTextProps {
 
 const CommentText = ({ id, comment, author, username }: CommentTextProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
+  const navigate = useNavigate();
   const deleteCommentMutate = useDeleteComment();
   const onConfirm = () => {
     deleteCommentMutate(id);
@@ -27,6 +29,7 @@ const CommentText = ({ id, comment, author, username }: CommentTextProps) => {
   return (
     <Box p="10px 0" borderBottom="1px solid #D4D4D4">
       <UserContentBlock
+        w="100%"
         userImage={author.image}
         userImageSize="40px"
         username={author.username}
@@ -37,6 +40,7 @@ const CommentText = ({ id, comment, author, username }: CommentTextProps) => {
         padding={0}
         alignItems="none"
         cursor="default"
+        onImageClick={() => navigate(`/${author.username}`)}
         onSubContentClick={() => setIsConfirm(true)}
       />
 
