@@ -22,10 +22,7 @@ export const useMessage = (userId: string) => {
 
         data?.forEach(({ message, sender, _id, createdAt }) => {
           const { date, time } = convertDateToString(new Date(createdAt));
-          const type =
-            import.meta.env.VITE_APP_TESTID === sender._id
-              ? 'sent'
-              : 'received';
+          const type = userId === sender._id ? 'sent' : 'received';
 
           const existingMessages = messageLogs.get(date);
           if (existingMessages) {
