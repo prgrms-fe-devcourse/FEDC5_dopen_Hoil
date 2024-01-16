@@ -1,8 +1,19 @@
 import Grass from '@/components/Grass';
+import PageLayout from '@/components/PageLayout';
 import { Meta, StoryObj } from '@storybook/react';
+import {
+  reactRouterNestedAncestors,
+  reactRouterParameters,
+} from 'storybook-addon-react-router-v6';
 
 const meta: Meta<typeof Grass> = {
   component: Grass,
+  parameters: {
+    reactRouter: reactRouterParameters({
+      routing: reactRouterNestedAncestors(<PageLayout />),
+    }),
+  },
+
   argTypes: {
     timerPosts: {
       control: 'array',
