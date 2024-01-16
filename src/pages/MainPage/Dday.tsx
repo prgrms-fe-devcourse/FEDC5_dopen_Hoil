@@ -1,12 +1,13 @@
 import { Box } from '@chakra-ui/react';
 import LoginDday from '@/pages/MainPage/LoginDday';
 import GuestDday from '@/pages/MainPage/GuestDday';
+import { User } from '@/apis/type';
 
 interface DdayProps {
-  myInfo?: object;
+  myInfo: User | undefined;
 }
 
-const Dday = ({ myInfo = {} }: DdayProps) => {
+const Dday = ({ myInfo }: DdayProps) => {
   return (
     <Box
       w="100%"
@@ -15,9 +16,6 @@ const Dday = ({ myInfo = {} }: DdayProps) => {
       borderRadius="5px"
       _hover={{ cursor: 'pointer', bg: '#eb7e7e' }}
     >
-      {/* TODO
-      - D-Day 설정 모달 추가
-      - 비로그인일 때 클릭 시 로그인 페이지, 로그인일 때 클릭 시 D-Day 설정 모달 띄우기*/}
       {myInfo ? <LoginDday /> : <GuestDday />}
     </Box>
   );
