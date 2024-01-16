@@ -15,7 +15,7 @@ export const useLike = (postId: string) => {
     enabled: !!postId,
   });
   const clicked = likes.filter((like) => like.user === myInfo?._id);
-  const { mutate: setLike } = useMutation(
+  const mutate = useMutation(
     async () => {
       if (!clicked.length) {
         return await createLike(postId);
@@ -43,5 +43,10 @@ export const useLike = (postId: string) => {
       },
     },
   );
-  return { countLike: likes.length, setLike, clicked: clicked.length > 0 };
+
+  return {
+    countLike: likes.length,
+    mutateAsync: mutate.mutateAsync,
+    clicked: clicked.length > 0,
+  };
 };
