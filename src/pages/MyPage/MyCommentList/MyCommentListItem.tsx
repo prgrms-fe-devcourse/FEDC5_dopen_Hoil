@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useQueryClient } from 'react-query';
 import { ListItem, Box, Text } from '@chakra-ui/react';
 import { useDeleteComment } from '@/hooks/useComment';
-import { MY_COMMENT_LIST } from '@/constants/queryKeys';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import Confirm from '@/components/common/Confirm';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
@@ -24,16 +22,11 @@ const MyCommentListItem = ({
   lineClamp = 1,
 }: MyCommentListItemProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
-  const queryClient = useQueryClient();
-
-  const onSuccessFn = () => {
-    queryClient.invalidateQueries(MY_COMMENT_LIST);
-  };
-
-  const { mutate } = useDeleteComment({ onSuccessFn });
+  const deleteCommentMutate = useDeleteComment();
 
   const onConfirm = () => {
-    mutate(id);
+    deleteCommentMutate(id);
+    setIsConfirm(false);
   };
 
   const onCancel = () => {
