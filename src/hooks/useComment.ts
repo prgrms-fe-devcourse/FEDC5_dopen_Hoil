@@ -5,7 +5,7 @@ import { POST_DETAIL } from '@/constants/queryKeys';
 
 export const useCreateComment = () => {
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(createComment, {
+  const { mutate, isSuccess } = useMutation(createComment, {
     onSuccess: async (data) => {
       await pushNotification({
         notificationType: 'COMMENT',
@@ -19,7 +19,10 @@ export const useCreateComment = () => {
       alert('저장에 실패했습니다. 다시 시도해주세요');
     },
   });
-  return mutate;
+  return {
+    pushComment: mutate,
+    isSuccess,
+  };
 };
 
 export const useDeleteComment = () => {
