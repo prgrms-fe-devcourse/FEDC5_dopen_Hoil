@@ -55,7 +55,7 @@ const SearchPage = () => {
       <PageHeader pageName="검색" />
       <SearchPageBody>
         <OptionSelector
-          w="132px"
+          w="155px"
           mb="5px"
           option={option}
           setOption={setOption}
