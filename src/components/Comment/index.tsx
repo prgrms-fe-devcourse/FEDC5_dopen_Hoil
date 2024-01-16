@@ -2,6 +2,7 @@ import { Box, BoxProps } from '@chakra-ui/react';
 import CommentForm from './CommentForm';
 import CommentText from './CommentText';
 import { TComment, User } from '@/apis/type';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 
 interface CommentProps extends BoxProps {
   comments: TComment[];
@@ -11,8 +12,8 @@ interface CommentProps extends BoxProps {
 
 const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
   return (
-    <Box {...props} padding="0 20px">
-      <Box pb="70px">
+    <Box {...props} padding={`0 ${DEFAULT_PAGE_PADDING}`}>
+      <Box>
         {comments.map(({ _id, comment, author }) => (
           <CommentText
             key={_id}
@@ -24,13 +25,12 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
         ))}
       </Box>
       <Box
-        pos="fixed"
-        left="50%"
+        pos="sticky"
+        left="0"
         bottom="0"
-        transform="translateX(-50%)"
         width="100%"
         maxWidth="428px"
-        p="10px 20px"
+        p="10px 0"
         zIndex="100"
         backgroundColor="white"
       >
