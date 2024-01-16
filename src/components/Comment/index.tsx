@@ -11,8 +11,8 @@ interface CommentProps extends BoxProps {
 
 const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
   return (
-    <Box {...props}>
-      <Box>
+    <Box {...props} padding="0 20px">
+      <Box pb="70px">
         {comments.map(({ _id, comment, author }) => (
           <CommentText
             key={_id}
@@ -23,7 +23,17 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
           />
         ))}
       </Box>
-      <Box mt="30px" pos="sticky" bottom="0" zIndex="9">
+      <Box
+        pos="fixed"
+        left="50%"
+        bottom="0"
+        transform="translateX(-50%)"
+        width="100%"
+        maxWidth="428px"
+        p="10px 20px"
+        zIndex="100"
+        backgroundColor="white"
+      >
         <CommentForm id={_id} image={myInfo.image} />
       </Box>
     </Box>
