@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { createComment, deleteComment } from '@/apis/comment';
 import { pushNotification } from '@/apis/notifications';
 import { MY_COMMENT_LIST, POST_DETAIL } from '@/constants/queryKeys';
+import { POST_DETAIL } from '@/constants/queryKeys';
 
 export const useCreateComment = () => {
   const queryClient = useQueryClient();
