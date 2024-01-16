@@ -7,10 +7,12 @@ interface StudyProps {
 }
 
 export const useStudyPost = ({ channelId }: StudyProps) => {
-  const { data } = useQuery(
-    STUDY_POST,
-    async () => await getPostListByChannel({ channelId }),
-  );
+  const { data } = useQuery(STUDY_POST, async () => {
+    if (!channelId) {
+      return [];
+    }
+    await getPostListByChannel({ channelId });
+  });
 
   return {
     studyPost: data,

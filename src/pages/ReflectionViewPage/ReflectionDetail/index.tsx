@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { usePostDetail } from '@/hooks/usePost';
 import TextCard from './TextCard';
 import Post from '@/pages/PostViewPage/PostDetail/Container';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 const ReflectionDetail = () => {
   const { postId } = useParams();
+  const navigate = useNavigate();
   const {
     data: { _id, title, comments, author, createdAt },
   } = usePostDetail({
@@ -47,6 +48,7 @@ const ReflectionDetail = () => {
           username={author.username}
           userImage={author.coverImage}
           content={`${date} ${time}`}
+          onClick={() => navigate(`/${author.username}`)}
         />
         <Post.Content>
           <Flex flexDir="column" gap="10px">
