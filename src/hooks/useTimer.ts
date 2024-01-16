@@ -63,6 +63,7 @@ const useTimer = ({
     setIsPlay(true);
     const id = setInterval(() => {
       const { total, hours, minutes, seconds } = getTimeRemaining(deadline);
+      setTimer(`${hours}:${minutes}:${seconds}`);
       if (
         limitTime &&
         Date.parse(`1970-01-01T${limitTime}`) -
@@ -81,7 +82,6 @@ const useTimer = ({
         timerEndCallback?.();
         setTimeout(() => setIsTimerEnd(false));
       }
-      setTimer(`${hours}:${minutes}:${seconds}`);
     }, 1000);
 
     setIntervalId.current = id;
