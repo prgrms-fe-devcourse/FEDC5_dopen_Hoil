@@ -25,6 +25,10 @@ import { useNavigate } from 'react-router-dom';
 const MainHeader = ({ ...props }: FlexProps) => {
   const { toggleColorMode } = useColorMode();
   const DarkModeIcon = useColorModeValue(MdOutlineDarkMode, MdOutlineLightMode);
+  const DarkModeLogo = useColorModeValue(
+    '/assets/dopenLogo.svg',
+    '/assets/dopenWhiteLogo.svg',
+  );
 
   const navigate = useNavigate();
 
@@ -74,7 +78,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
         alt="dopen logo"
         w="130px"
         h={DEFAULT_HEADER_HEIGHT}
-        src="/assets/dopenLogo.svg"
+        src={DarkModeLogo}
       />
       <Flex gap="20px">
         {mainHeaderIconPath.map(({ icon, onClick, description }) => (
