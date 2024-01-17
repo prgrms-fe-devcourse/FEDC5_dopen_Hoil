@@ -141,6 +141,9 @@ const PostEditPage = () => {
               _placeholder={{ color: 'gray800' }}
               {...register('title', {
                 required: '글의 제목은 필수입니다.',
+                validate: (value) =>
+                  value.trim() !== '' ||
+                  '제목은 1글자 ~ 30글자까지 작성 가능합니다.',
                 minLength: {
                   value: 1,
                   message: '최소 1글자 이상 입력 해주세요.',
