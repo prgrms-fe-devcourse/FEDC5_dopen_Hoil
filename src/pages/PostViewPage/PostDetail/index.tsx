@@ -164,13 +164,15 @@ const PostDetail = () => {
       <Portal>
         <Box pos="absolute" top="5" left="5">
           <ArrowDownIcon
-            color="gray.500"
+            bgColor="white"
             w="30"
             h="30"
             onClick={() => {
               pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
             }}
-          ></ArrowDownIcon>
+          >
+            보임?
+          </ArrowDownIcon>
         </Box>
       </Portal>
     </>
