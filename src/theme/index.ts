@@ -48,6 +48,18 @@ export const theme = extendTheme({
 
     white: '#FFFFFF',
   },
+  semanticTokens: {
+    colors: {
+      gray200: {
+        default: 'gray.200',
+        _dark: 'gray.800',
+      },
+      gray800: {
+        default: 'gray.800',
+        _dark: '#f6f6f6',
+      },
+    },
+  },
   fonts: {
     heading: 'Noto Sans KR',
     body: 'Noto Sans KR',
