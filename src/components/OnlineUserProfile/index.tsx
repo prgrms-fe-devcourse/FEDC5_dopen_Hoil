@@ -3,11 +3,23 @@ import { Avatar, AvatarBadge, Flex, Text } from '@chakra-ui/react';
 interface OnlineUserProfileProps {
   username: string;
   image: string;
+  onClick: () => void;
 }
 
-const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
+const OnlineUserProfile = ({
+  username,
+  image,
+  onClick,
+}: OnlineUserProfileProps) => {
   return (
-    <Flex w="60px" h="90px" flexDirection="column" alignItems="center">
+    <Flex
+      w="60px"
+      h="90px"
+      flexDirection="column"
+      alignItems="center"
+      cursor="pointer"
+      onClick={onClick}
+    >
       <Avatar src={image} w="60px" h="60px" mb="5px">
         <AvatarBadge boxSize="1.25em" bg="#37E97E" />
       </Avatar>
