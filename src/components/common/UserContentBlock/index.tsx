@@ -67,7 +67,7 @@ const UserContentBlock = ({
           />
         )}
       </Avatar>
-      <VStack flex="1" align="left" color="black">
+      <VStack flex="1" align="left">
         <Flex w="100%" position="relative">
           <Text
             fontWeight="semibold"
