@@ -1,5 +1,5 @@
 import { DEFAULT_HEADER_HEIGHT, DEFAULT_WIDTH } from '@/constants/style';
-import { Flex, FlexProps } from '@chakra-ui/react';
+import { Flex, FlexProps, useColorModeValue } from '@chakra-ui/react';
 import {
   MdHome,
   MdOutlineTimer,
@@ -15,6 +15,8 @@ const Footer = ({ ...props }: FlexProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [currentPageName, setCurrentPageName] = useState('');
+
+  const footerBg = useColorModeValue('gray.50', 'gray.800');
 
   const elementsData = [
     {
@@ -70,7 +72,7 @@ const Footer = ({ ...props }: FlexProps) => {
       borderTop="1px solid"
       borderColor="gray.450"
       align="center"
-      bg="gray.50"
+      bgColor={footerBg}
       w={DEFAULT_WIDTH}
       h={DEFAULT_HEADER_HEIGHT}
       shrink="0"
