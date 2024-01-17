@@ -54,6 +54,7 @@ const CommentForm = ({ id, author }: CommentFormProps) => {
           bgColor="gray200"
           w="100%"
           h="50px"
+          mr="10px"
           borderRadius="5px"
           placeholder="댓글을 입력해주세요."
           id="comment"
@@ -68,7 +69,7 @@ const CommentForm = ({ id, author }: CommentFormProps) => {
           <Image src="/assets/send.svg" alt="comment send" />
         </Button>
       </Form>
-      <Text m="5px 0 0 55px" fontSize="1.2rem" color="pink.300">
+      <Text mt="5px" fontSize="1.2rem" color="pink.300">
         {errors && errors['comment'] && errors['comment']?.message}
       </Text>
     </Box>
