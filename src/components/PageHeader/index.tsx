@@ -16,7 +16,7 @@ import {
   MdOutlineNotifications,
   MdOutlineSearch,
 } from 'react-icons/md';
-import Badge from '../common/Badge';
+// import Badge from '../common/Badge';
 import { useNavigate } from 'react-router-dom';
 
 interface PageHeaderProps extends FlexProps {
@@ -74,11 +74,12 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
           aria-label="notify"
           bg="transparent"
           onClick={() => navigate('/notification')}
-          icon={
-            <Badge count={1}>
-              <Icon as={MdOutlineNotifications} boxSize="icon" />
-            </Badge>
-          }
+          icon={<Icon as={MdOutlineNotifications} boxSize="icon" />}
+          // icon={
+          //   <Badge count={1}>
+          //     <Icon as={MdOutlineNotifications} boxSize="icon" />
+          //   </Badge>
+          // }
         />
       </Flex>
     </Flex>
