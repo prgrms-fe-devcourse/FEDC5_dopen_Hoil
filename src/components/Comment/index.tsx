@@ -29,7 +29,8 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
         left="0"
         bottom="0"
         width="100%"
-        p="10px 0"
+        mt="10px"
+        bg="customBgWhite"
         zIndex="100"
       >
         <CommentForm id={_id} image={myInfo.image} />

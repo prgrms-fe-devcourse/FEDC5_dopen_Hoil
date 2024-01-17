@@ -55,6 +55,7 @@ const UserContentBlock = ({
             : `${userImageSize}px`
         }
         boxShadow="0px 5px 15px -5px gray"
+        cursor={onImageClick && 'pointer'}
         onClick={() => onImageClick && onImageClick()}
       >
         {isOnline && (
