@@ -48,7 +48,7 @@ const Grass = ({ timerPosts = [] }: GrassProps) => {
 
   return (
     <>
-      <HStack color="black" justify="center" mb="10px">
+      <HStack justify="center" mb="10px">
         <Text
           fontSize="1.8rem"
           fontWeight="bold"
