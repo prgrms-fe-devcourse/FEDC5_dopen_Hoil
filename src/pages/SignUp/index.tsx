@@ -111,6 +111,7 @@ const SignUp = () => {
             ({ name, type, required, placeholder, validate }) => (
               <li key={name}>
                 <Input
+                  bgColor="red"
                   type={type}
                   placeholder={placeholder}
                   {...register(name, {
@@ -167,12 +168,12 @@ export const Form = styled.form`
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ bgColor: string }>`
   width: 100%;
   height: 50px;
   font-size: 14px;
   border-radius: 5px;
-  background-color: #f0f0f0;
+  background-color: ${({ bgColor }) => bgColor};
   padding-left: 15px;
 `;
 
