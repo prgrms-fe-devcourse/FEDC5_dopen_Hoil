@@ -14,11 +14,12 @@ const LoginProfile = ({ myInfo }: LoginProfileProps) => {
       <Avatar size="2xl" src={myInfo.image || ''} />
       <Flex direction="column" marginLeft="20px">
         <Text width="fit-content" fontSize="3xl" fontWeight="bold">
-          <span style={{ color: '#F88585' }}>{myInfo.username}</span>님
+          <span style={{ color: '#F88585' }}>{myInfo.username}</span> 님
           안녕하세요!
         </Text>
+        {isLoading && <Spinner />}
         <Text fontStyle="oblique" fontSize="md">
-          {isError ? 'Hi dopen!' : isLoading ? <Spinner /> : data}
+          {isError ? 'Hi dopen!' : data}
         </Text>
       </Flex>
     </Flex>
