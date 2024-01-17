@@ -32,7 +32,6 @@ const PostListItem = ({
     >
       <VStack spacing="0" align="left">
         <Text
-          color="black"
           fontSize="1.4rem"
           fontWeight="semibold"
           textOverflow="ellipsis"
