@@ -1,14 +1,18 @@
 import { extendTheme } from '@chakra-ui/react';
+import { StyleFunctionProps, mode } from '@chakra-ui/theme-tools';
 
 // example theme
 
 export const theme = extendTheme({
   styles: {
-    global: {
+    global: (props: StyleFunctionProps) => ({
       html: {
         fontSize: '62.5%',
       },
-    },
+      body: {
+        color: mode('black', 'white')(props),
+      },
+    }),
   },
   colors: {
     pink: {

@@ -21,7 +21,7 @@ const TextIconButton = ({
   textContent,
   textLocation = 'bottom',
   boxSize = 'icon',
-  iconColor = 'black',
+  iconColor = 'inherit',
   ...props
 }: TextIconButtonProps) => {
   const calculateFlexDir = (
@@ -48,7 +48,6 @@ const TextIconButton = ({
       cursor="pointer"
       role="group"
       fontSize="sm"
-      color="black"
       fontWeight="extrabold"
       {...props}
     >
