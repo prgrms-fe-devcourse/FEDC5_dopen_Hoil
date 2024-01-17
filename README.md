@@ -73,7 +73,7 @@
 ├── vitest@1.1.1
 ```
 
-# 주요 기능 <!-- 기능에 대한 설명을 적어주세요 -->
+# 주요 기능 <!-- 기능에 대한 설명을 적어주세요 --> <!-- 이미지가 너무 크면 <img src="" width="300px"/> 태그 가져다가 쓰시면 됩니다-->
 ### 로그인&회원가입
 ### 게시판
 ### 마이페이지
@@ -85,16 +85,20 @@
 ### 타이머 & 잔디
 원하는만큼 타이머를 설정하고 재생, 멈춤이 가능합니다. 제한시각인 23:45 전까지 가능합니다.
 react-hook-form을 이용하여 validation 하였습니다
-![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/9190df5f-d242-4fcd-9e5f-afaac2c89433) ![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/bda197e5-fc17-4e1d-a535-86dd309ea940)
+
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/9190df5f-d242-4fcd-9e5f-afaac2c89433" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/bda197e5-fc17-4e1d-a535-86dd309ea940" width="300px"/>
 
 인증된 사용자가 타이머를 사용하여 최소한 1초라도 기록하였다면 당일 잔디가 심어집니다. 기준은 임시지만 4시간 단위로 분리해두었습니다. 
 시간이 지날수록 색이 진해집니다.
 
-![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/1cce5eb7-0b9e-45bf-ba4b-2358a7807379) ![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/99d1ec1e-4d87-497c-bd19-f5d604fc9437)
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/1cce5eb7-0b9e-45bf-ba4b-2358a7807379" width="300px"/>
+
+![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/99d1ec1e-4d87-497c-bd19-f5d604fc9437)
 
 ### 다크모드
 
 chakra-ui의 sementicToken + colorMode를 이용하여 다크모드를 처리하였습니다.
+폰트 색상은 대부분 통일하여 body에서 상속받게 하였습니다 
 
 ![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/aaef4053-052c-4f17-86d6-7a6550dc6c35) ![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/48a6b1bc-0622-40ef-a2c9-8296ff981e60)
 
