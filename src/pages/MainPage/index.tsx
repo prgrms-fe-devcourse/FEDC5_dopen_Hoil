@@ -30,7 +30,7 @@ const MainPage = () => {
           {!myInfo ? <GuestGrassBox /> : <LoginGrassBox myInfo={myInfo} />}
           <BoardListPreview />
         </MainPageBody>
-        <Footer position="sticky" bottom="0" />
+        <Footer />
       </Flex>
     </>
   );
@@ -43,7 +43,6 @@ const MainPageBody = styled.div`
   width: 100%;
   height: 100vh;
   padding: 20px ${DEFAULT_PAGE_PADDING};
-  overflow-y: auto;
 
   &::-webkit-scrollbar {
     display: none;

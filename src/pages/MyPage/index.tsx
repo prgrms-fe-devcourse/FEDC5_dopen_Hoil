@@ -26,9 +26,9 @@ const MyPage = () => {
   };
 
   return (
-    <Box w="100%" h="100vh" m="0 auto" textAlign="center">
+    <Box w="100%" h="100vh" m="0 auto">
       <PageHeader pageName="마이페이지" />
-      <Box padding="20px" h="calc(100% - 160px)">
+      <Box padding="20px">
         <Box
           width="fit-content"
           margin="15px auto 0"

@@ -1,9 +1,5 @@
 import Badge from '@/components/common/Badge';
-import {
-  DEFAULT_HEADER_HEIGHT,
-  DEFAULT_PAGE_PADDING,
-  DEFAULT_WIDTH,
-} from '@/constants/style';
+import { DEFAULT_HEADER_HEIGHT, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import {
   Flex,
   FlexProps,
@@ -65,12 +61,16 @@ const MainHeader = ({ ...props }: FlexProps) => {
 
   return (
     <Flex
-      w={DEFAULT_WIDTH}
+      w="100%"
       h={DEFAULT_HEADER_HEIGHT}
       justify="space-between"
       align="center"
       pr={DEFAULT_PAGE_PADDING}
       pl={DEFAULT_PAGE_PADDING}
+      bg="customBgWhite"
+      position="sticky"
+      top="0"
+      zIndex="10"
       {...props}
     >
       {/* 로고 들어갈 자리입니다. 로고 사이즈에 맞춰서 사용해주세요*/}

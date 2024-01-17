@@ -50,6 +50,10 @@ export const theme = extendTheme({
   },
   semanticTokens: {
     colors: {
+      gray50: {
+        default: 'gray.50',
+        _dark: '#111111',
+      },
       gray100: {
         default: 'gray.100',
         _dark: '#131313',
@@ -77,6 +81,10 @@ export const theme = extendTheme({
       customWhite: {
         default: '#ffffff',
         _dark: 'gray.800',
+      },
+      customBgWhite: {
+        default: 'white',
+        _dark: 'black',
       },
     },
   },

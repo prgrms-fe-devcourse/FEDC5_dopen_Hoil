@@ -1,8 +1,4 @@
-import {
-  DEFAULT_HEADER_HEIGHT,
-  DEFAULT_PAGE_PADDING,
-  DEFAULT_WIDTH,
-} from '@/constants/style';
+import { DEFAULT_HEADER_HEIGHT, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { IconButton } from '@chakra-ui/button';
 import { Icon } from '@chakra-ui/icon';
 import {
@@ -36,14 +32,17 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
 
   return (
     <Flex
-      w={DEFAULT_WIDTH}
+      w="100%"
       h={DEFAULT_HEADER_HEIGHT}
       shrink="0"
       align="center"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
       justify="space-between"
-      position="relative"
+      top="0"
+      bg="customBgWhite"
+      position="sticky"
+      zIndex="10"
       {...props}
     >
       <Flex w="69px" align="center" cursor="pointer" onClick={goBack}>
