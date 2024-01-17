@@ -16,13 +16,12 @@ const BoardListPreview = () => {
         paddingBottom="23px"
         justifyContent="space-between"
       >
-        <Text color="black" fontSize="3xl" fontWeight="medium" cursor="default">
+        <Text fontSize="3xl" fontWeight="medium" cursor="default">
           게시판
         </Text>
         <Button
           fontSize="md"
-          color="gray.800"
-          bg="white"
+          bg="transparent"
           onClick={() => navigate('/board')}
         >
           더 보기 <ChevronRightIcon />
