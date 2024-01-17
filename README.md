@@ -9,11 +9,46 @@
 # 개발 기간
 23년 12월 22일(금) ~ 24년 1월 17일(수)
 
-### 멤버 구성 <!-- 각자 개발하신 파트 + 맡으신 직무 적어주시면 됩니다 -->
-- 팀장 : 김영현. [자주쓰이는 공통컴포넌트](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/issues/7) 제작, 잔디, 타이머, 컴포넌트 제작, 회고작성 페이지, chakra-ui이용한 다크모드 세팅, 배포
-- 문서(노션) : 안재현.
-- 아이디어, 발표 : 이종혁
-- 디자인 : 조승현
+- ## 👬 팀 소개 <!-- 각자 개발하신 파트 + 맡으신 직무 적어주시면 됩니다 -->
+
+<table>
+  <tr>
+		<td>
+        <a href="https://github.com/loevray">
+            <img src="https://avatars.githubusercontent.com/u/87127340?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/JaeHyunGround">
+            <img src="https://avatars.githubusercontent.com/u/97944429?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/whdgur5717">
+            <img src="https://avatars.githubusercontent.com/u/120625398?v=4" width="100px" />
+        </a>
+    </td>
+    <td>
+        <a href="https://github.com/SeungHyune">
+            <img src="https://avatars.githubusercontent.com/u/114329713?v=4" width="100px" />
+        </a>
+    </td>
+
+  </tr>
+  <tr>
+    <td><b>김영현</b></td>
+    <td><b>안재현</b></td>
+    <td><b>이종혁</b></td>
+    <td><b>조승현</b></td>
+  </tr>
+  <tr>
+    <td><b>팀장, [자주쓰이는 공통컴포넌트](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/issues/7) 제작, 잔디, 타이머, 컴포넌트 제작, 회고작성 페이지, chakra-ui이용한 다크모드 세팅, 배포</b></td>
+    <td><b>문서 담당</b></td>
+    <td><b>아이디어, 발표</b></td>
+    <td><b>디자인</b></td>
+  </tr>
+</table>
+
 
 ### 개발 환경
 
