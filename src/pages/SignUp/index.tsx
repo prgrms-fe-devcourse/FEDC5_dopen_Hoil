@@ -19,6 +19,10 @@ const SignUp = () => {
   const isSignedUp = useRef(false);
 
   const inputBgColor = useColorModeValue('#F0F0F0F0', '#141414');
+  const dopenLogo = useColorModeValue(
+    '/assets/dopenLogo.svg',
+    '/assets/dopenWhiteLogo.svg',
+  );
 
   const { mutate: logIn } = useLogin({
     onSuccessFn: () => {},
@@ -91,12 +95,7 @@ const SignUp = () => {
     <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">
       <Box mb={30}>
         <Heading mb={6}>
-          <Image
-            m="0 auto"
-            w="198px"
-            src="/assets/dopenLogo.svg"
-            alt="Dopen Logo"
-          />
+          <Image m="0 auto" w="198px" src={dopenLogo} alt="Dopen Logo" />
         </Heading>
         <Text fontSize="md">
           <Text as="span" mr={5}>
