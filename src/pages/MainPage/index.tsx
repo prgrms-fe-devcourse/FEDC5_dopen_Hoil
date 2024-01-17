@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { useMyInfo } from '@/hooks/useAuth';
@@ -8,24 +8,11 @@ import GuestProfile from '@/pages/MainPage/GuestProfile';
 import LoginProfile from '@/pages/MainPage/LoginProfile';
 import Dday from '@/pages/MainPage/Dday';
 import BoardListPreview from '@/pages/MainPage/BoardListPreview';
-import { useStudyPost } from '@/hooks/useStudy';
-import Grass from '@/components/Grass';
-import { GRASS_DUMMY } from '@/constants/GrassDummy';
+import LoginGrassBox from '@/pages/MainPage/LoginGrassBox';
+import GuestGrassBox from '@/pages/MainPage/GuestGrassBox';
 
 const MainPage = () => {
   const { data: myInfo } = useMyInfo();
-
-  const timerChannelId = myInfo && JSON.parse(myInfo.fullName).timerChannelId;
-  const { studyPost = [] } = useStudyPost({
-    channelId: timerChannelId,
-  });
-
-  const studyPosts = myInfo
-    ? studyPost.map(({ title, createdAt }) => ({
-        time: title,
-        createdAt,
-      }))
-    : GRASS_DUMMY;
 
   return (
     <>
@@ -40,12 +27,7 @@ const MainPage = () => {
         <MainPageBody>
           {myInfo ? <LoginProfile myInfo={myInfo} /> : <GuestProfile />}
           <Dday myInfo={myInfo} />
-          {!myInfo && (
-            <Text fontSize="1.5rem" fontWeight="bold" color="black" mb="17px">
-              여러분의 열정을 기록해 보세요.
-            </Text>
-          )}
-          <Grass timerPosts={studyPosts} />
+          {!myInfo ? <GuestGrassBox /> : <LoginGrassBox myInfo={myInfo} />}
           <BoardListPreview />
         </MainPageBody>
         <Footer position="sticky" bottom="0" />
