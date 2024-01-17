@@ -174,7 +174,7 @@ const ReflectionPostEditPage = () => {
   return (
     <>
       <PageHeader pageName="회고" />
-      <Flex flexDir="column" align="center" w="100%" flex={1} color="black">
+      <Flex flexDir="column" align="center" w="100%" flex={1}>
         <Flex
           w="100%"
           p="0 20px"
@@ -208,7 +208,7 @@ const ReflectionPostEditPage = () => {
               </Text>
               <Text
                 fontSize="1.2rem"
-                color={date === new Date().getDate() ? 'pink.300' : 'gray.800'}
+                color={date === new Date().getDate() ? 'pink.300' : 'gray800'}
               >
                 {day}
               </Text>
@@ -219,7 +219,7 @@ const ReflectionPostEditPage = () => {
           style={{ width: '100%', flex: 1 }}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <VStack w="100%" bg="gray.100" p="0 20px" spacing="14px" pt="47px">
+          <VStack w="100%" bg="gray100" p="0 20px" spacing="14px" pt="47px">
             {ReflectionInputList.map(
               ({ name, label, required, placeholder, validate }) => (
                 <FormControl key={name} isInvalid={!!errors?.[name]?.message}>
@@ -230,9 +230,9 @@ const ReflectionPostEditPage = () => {
                     id={name}
                     p="10px"
                     placeholder={placeholder}
-                    _placeholder={{ color: 'gray.700' }}
+                    _placeholder={{ color: 'gray800' }}
                     borderRadius="5px"
-                    bg="white"
+                    bg="customWhite"
                     wordBreak="break-all"
                     h={name === 'title' ? '50px' : '100px'}
                     resize="none"
