@@ -6,14 +6,14 @@ import { useEffect } from 'react';
 
 interface CommentFormProps {
   id: string;
-  image: string;
+  author: string;
 }
 
 export interface CommentInput {
   comment: string;
 }
 
-const CommentForm = ({ id }: CommentFormProps) => {
+const CommentForm = ({ id, author }: CommentFormProps) => {
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const CommentForm = ({ id }: CommentFormProps) => {
     formState: { errors },
   } = useForm<CommentInput>();
 
-  const { pushComment, isSuccess } = useCreateComment();
+  const { pushComment, isSuccess } = useCreateComment(author);
 
   const onCommentValid: SubmitHandler<CommentInput> = ({ comment }) => {
     if (comment.trim().length < 1) {

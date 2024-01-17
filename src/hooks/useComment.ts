@@ -3,14 +3,14 @@ import { createComment, deleteComment } from '@/apis/comment';
 import { pushNotification } from '@/apis/notifications';
 import { MY_COMMENT_LIST, POST_DETAIL } from '@/constants/queryKeys';
 
-export const useCreateComment = () => {
+export const useCreateComment = (author: string) => {
   const queryClient = useQueryClient();
   const { mutate, isSuccess } = useMutation(createComment, {
     onSuccess: async (data) => {
       await pushNotification({
         notificationType: 'COMMENT',
         notificationTypeId: data._id,
-        userId: data.author._id,
+        userId: author,
         postId: data.post,
       });
       queryClient.invalidateQueries([POST_DETAIL, data.post]);

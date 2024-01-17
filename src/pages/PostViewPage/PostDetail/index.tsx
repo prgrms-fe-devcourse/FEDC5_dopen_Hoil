@@ -148,6 +148,7 @@ const PostDetail = () => {
           <Comments
             comments={comments}
             myInfo={myInfo!}
+            author={author._id}
             _id={_id}
             bottom="0"
           ></Comments>
