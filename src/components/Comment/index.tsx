@@ -31,7 +31,6 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
         width="100%"
         p="10px 0"
         zIndex="100"
-        backgroundColor="white"
       >
         <CommentForm id={_id} image={myInfo.image} />
       </Box>

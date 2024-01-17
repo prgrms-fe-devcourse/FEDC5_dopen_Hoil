@@ -61,7 +61,7 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
         </FormLabel>
         <Textarea
           resize="none"
-          bgColor="gray.200"
+          bgColor="gray200"
           w="calc(100% - 84px)"
           h="40px"
           borderRadius="5px"
