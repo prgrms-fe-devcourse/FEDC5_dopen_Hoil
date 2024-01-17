@@ -28,7 +28,7 @@ export const useNotificationList = () => {
     Notification[],
     AxiosError,
     MyNotificationListItem[]
-  >(NOTIFICATION_LIST, getUserNotificationList, {
+  >([NOTIFICATION_LIST], getUserNotificationList, {
     suspense: true,
     useErrorBoundary: true,
     refetchOnWindowFocus: true,

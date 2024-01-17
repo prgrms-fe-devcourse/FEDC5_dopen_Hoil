@@ -2,7 +2,6 @@ import { useQueryClient, useQuery, useMutation } from 'react-query';
 import { getMessageListByUser, sendMessage } from '@/apis/message';
 import { convertDateToString } from '@/utils/convertDateToString';
 import { MESSAGE } from '@/constants/queryKeys';
-
 interface MessageLog {
   time: string;
   message: string;

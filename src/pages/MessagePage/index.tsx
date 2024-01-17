@@ -8,7 +8,7 @@ const MessagePage = () => {
       <PageHeader pageName="DM" flexShrink="0" />
       <Message
         flexGrow="1"
-        bgColor="gray300"
+        bgColor="gray.300"
         overflowY="auto"
         paddingLeft="20px"
         paddingRight="20px"
