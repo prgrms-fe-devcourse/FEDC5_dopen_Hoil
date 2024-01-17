@@ -29,9 +29,8 @@ const SearchPage = () => {
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (keyword.trim().length === 0) {
-      alert('검색어를 입력해주세요.');
+    if (keyword.trim().length === 0 || keyword.trim().length > 30) {
+      alert('검색어를 1글자 이상 30글자 이하로 입력해 주세요.');
       setIsSearch(true);
       setSearchData({
         keyword: '',

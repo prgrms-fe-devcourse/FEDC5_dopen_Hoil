@@ -31,7 +31,11 @@ const SearchInput = ({
   ...props
 }: SearchInputProps) => {
   return (
-    <FormControl isInvalid={!keyword.trim().length && isSearch}>
+    <FormControl
+      isInvalid={
+        (!keyword.trim().length || keyword.trim().length > 30) && isSearch
+      }
+    >
       <Box p={`0 ${DEFAULT_PAGE_PADDING}`} {...props}>
         <Flex
           padding="8px 16px"
@@ -49,11 +53,14 @@ const SearchInput = ({
               placeholder="검색어를 입력하세요."
               focusBorderColor="transparent"
               ref={inputRef}
+              autoFocus
             />
           </form>
           <CloseButton ml="5px" onClick={() => setKeyword('')} />
         </Flex>
-        <FormErrorMessage>검색어를 입력해주세요.</FormErrorMessage>
+        <FormErrorMessage>
+          검색어를 1글자 이상 30글자 이하로 입력해 주세요.
+        </FormErrorMessage>
       </Box>
     </FormControl>
   );
