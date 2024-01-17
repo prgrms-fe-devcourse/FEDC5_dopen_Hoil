@@ -9,7 +9,7 @@ import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import UserListItem from './UserListItem';
 
 interface UserListProps extends StackProps {
-  keyword: string;
+  keyword?: string;
   offset?: number;
   limit?: number;
   isDivider?: boolean;
@@ -24,8 +24,9 @@ const UserList = ({
   ...props
 }: UserListProps) => {
   const navigate = useNavigate();
+  const queryKey = keyword ? [USER_LIST, keyword] : [USER_LIST];
   const { data } = useQuery<User[], AxiosError>(
-    [USER_LIST],
+    queryKey,
     async () => {
       return await getUserList({ offset, limit });
     },
@@ -36,7 +37,9 @@ const UserList = ({
       },
       /* 옵셔널 두번... */
       select: (data) =>
-        data.filter((user) => user?.username?.includes(keyword)),
+        keyword
+          ? data.filter((user) => user.username?.includes(keyword))
+          : data,
     },
   );
   if (data && !data.length) {
