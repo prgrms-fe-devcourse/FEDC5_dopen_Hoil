@@ -120,9 +120,9 @@
 
 ### 회고게시판
 
-당일의 회고를 기록할 수 있습니다.
+당일의 회고를 기록할 수 있습니다. 이곳도 역시 react-hook-form을 사용하여 validation및 에러, 예외처리 해주었습니다
 
-<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/c4a83120-4245-443f-b17f-566636f353b7" width="300px"/>
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/c4a83120-4245-443f-b17f-566636f353b7" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/66ff70c5-12bb-4904-978a-86e2a1ceb1df" width="300px"/>
 
 ---
 
