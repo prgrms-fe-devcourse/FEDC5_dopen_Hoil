@@ -53,9 +53,10 @@ const TextIconButton = ({
     >
       <IconButton
         aria-label="home"
-        icon={<Icon as={TheIcon} boxSize={boxSize} color={iconColor} />}
         bg="transparent"
+        color="inherit"
         _groupHover={{ background: 'gray.450' }}
+        icon={<Icon as={TheIcon} boxSize={boxSize} color={iconColor} />}
       />
       <Text textAlign="center">{textContent}</Text>
     </Flex>
