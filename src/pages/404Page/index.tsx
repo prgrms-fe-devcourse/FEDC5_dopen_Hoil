@@ -16,12 +16,7 @@ const ErrorPage = () => {
         alignItems="center"
       >
         <Image m="100px 0 30px 0" src="/assets/404.svg" alt="404 Error" />
-        <Text
-          cursor="default"
-          fontSize="1.6rem"
-          fontWeight="regular"
-          color="black"
-        >
+        <Text cursor="default" fontSize="1.6rem" fontWeight="regular">
           죄송합니다. 해당 페이지를 찾을 수 없습니다.
         </Text>
         <Button
