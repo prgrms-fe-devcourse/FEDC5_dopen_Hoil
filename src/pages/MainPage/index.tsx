@@ -19,7 +19,7 @@ const MainPage = () => {
       <Flex
         position="relative"
         w="100%"
-        height="100vh"
+        flex="1"
         margin="0 auto"
         direction="column"
       >
@@ -41,7 +41,7 @@ const MainPageBody = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  flex: 1;
   padding: 20px ${DEFAULT_PAGE_PADDING};
 
   &::-webkit-scrollbar {

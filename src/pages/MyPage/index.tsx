@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Box, Text, Avatar, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, Avatar, useColorModeValue, Flex } from '@chakra-ui/react';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { removeItem } from '@/utils/storage';
 import { useLogOut, useMyInfo } from '@/hooks/useAuth';
@@ -26,13 +26,14 @@ const MyPage = () => {
   };
 
   return (
-    <Box w="100%" h="100vh" m="0 auto">
+    <Flex w="100%" flex="1" flexDir="column" m="0 auto">
       <PageHeader pageName="마이페이지" />
-      <Box padding="20px">
+      <Box padding="20px" flex="1">
         <Box
           width="fit-content"
           margin="15px auto 0"
           cursor="pointer"
+          textAlign="center"
           onClick={() => navigator(`/${myInfo?.username}`)}
         >
           <Box>
@@ -71,7 +72,7 @@ const MyPage = () => {
         </MyPageUl>
       </Box>
       <Footer />
-    </Box>
+    </Flex>
   );
 };
 
