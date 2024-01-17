@@ -19,7 +19,6 @@ interface UserContentBlockProps extends FlexProps {
   ellipsis?: number | number[];
   subContent?: string;
   contentFontSize?: string | number;
-  onContentClick?: () => void;
   onImageClick?: () => void;
   onSubContentClick?: () => void;
 }
@@ -34,7 +33,6 @@ const UserContentBlock = ({
   ellipsis = 1,
   subContent,
   contentFontSize = '1.2rem',
-  onContentClick,
   onSubContentClick,
   onImageClick,
   ...props
@@ -44,10 +42,9 @@ const UserContentBlock = ({
       w={DEFAULT_WIDTH}
       align="center"
       gap="17px"
-      cursor={onContentClick && 'pointer'}
+      cursor="pointer"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
-      onClick={() => onContentClick && onContentClick()}
       {...props}
     >
       <Avatar

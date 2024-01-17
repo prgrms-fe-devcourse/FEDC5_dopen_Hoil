@@ -66,7 +66,7 @@ const MyCommentListItem = ({
         isOnline={false}
         content={calculateTimeDiff(createdAt) || ''}
         subContent="삭제"
-        onContentClick={() => onMoveMyComment(postId, myPost.channel?.name)}
+        onClick={() => onMoveMyComment(postId, myPost.channel?.name)}
         onSubContentClick={() => setIsConfirm(true)}
       />
       <Box
