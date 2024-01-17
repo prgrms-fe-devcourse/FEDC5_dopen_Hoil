@@ -181,6 +181,8 @@ const PostEditPage = () => {
               placeholder="내용을 입력하세요."
               {...register('content', {
                 required: '글의 내용은 필수 입니다.',
+                validate: (value) =>
+                  value.trim() !== '' || '글의 내용은 필수 입니다.',
                 minLength: {
                   value: 1,
                   message: '최소 1글자 이상 입력 해주세요.',
