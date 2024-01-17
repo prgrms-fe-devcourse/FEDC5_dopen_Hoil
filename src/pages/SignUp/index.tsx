@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Box, Text, Heading, Image } from '@chakra-ui/react';
+import { Box, Text, Heading, Image, useColorModeValue } from '@chakra-ui/react';
 
 import { useLogin, useSignUp } from '@/hooks/useAuth';
 import { UserInfoInput, UserResponse } from '@/types/user';
@@ -17,6 +17,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const isAdminLogin = useRef(false);
   const isSignedUp = useRef(false);
+
+  const inputBgColor = useColorModeValue('#F0F0F0F0', '#141414');
 
   const { mutate: logIn } = useLogin({
     onSuccessFn: () => {},
@@ -111,7 +113,7 @@ const SignUp = () => {
             ({ name, type, required, placeholder, validate }) => (
               <li key={name}>
                 <Input
-                  bgColor="red"
+                  bgColor={inputBgColor}
                   type={type}
                   placeholder={placeholder}
                   {...register(name, {
