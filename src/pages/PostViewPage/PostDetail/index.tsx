@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,32 +17,47 @@ import UserContentBlock from '@/components/common/UserContentBlock';
 import Post from './Container';
 import Settings from './Settings';
 import { convertDateToString } from '@/utils/convertDateToString';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const PostDetail = () => {
-  const { postId } = useParams();
+  const { boardName, postId } = useParams();
   const navigate = useNavigate();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { _id, title, comments, author, createdAt },
+    data: { _id, title, comments, author, createdAt, image },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
   })!;
   const postData = JSON.parse(title);
   const { date, time } = convertDateToString(new Date(createdAt));
-  const { countLike, setLike, clicked } = useLike(postId!);
+  const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
 
+  const pushNotificationMutate = usePushNotification();
+
+  const onClickLike = async () => {
+    const data = await setLike();
+    if (!data) {
+      return;
+    }
+    pushNotificationMutate({
+      notificationType: 'LIKE',
+      notificationTypeId: data._id,
+      userId: author._id,
+      postId: _id,
+    });
+  };
   const settingsOption = [
     {
       text: '수정하기',
-      show: true,
+      show: author._id === myInfo?._id,
       confirmText: '수정하시겠습니까?',
       icon: <EditIcon />,
       onClick: () => {
-        navigate('/board');
+        navigate(`/board/${boardName}/post?id=${postId}`);
       },
     },
     {
@@ -88,9 +103,15 @@ const PostDetail = () => {
             username={author.username}
             userImage={author.coverImage}
             content={`${date} ${time}`}
-            onClick={() => navigate(`/${author.username}`)}
+            onImageClick={() => navigate(`/${author.username}`)}
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
+            <Image
+              src={image}
+              objectFit="cover"
+              maxH="100%"
+              fallbackSrc="https://via.placeholder.com/150"
+            />
             <Text fontSize="1.5rem">{postData.content}</Text>
           </Post.Content>
           <Post.Footer justifyContent="space-between">
@@ -104,7 +125,7 @@ const PostDetail = () => {
                 fontWeight="normal"
                 textColor="gray.800"
                 textLocation="right"
-                onClick={() => setLike()}
+                onClick={onClickLike}
               />
               <TextIconButton
                 TheIcon={MdArticle}

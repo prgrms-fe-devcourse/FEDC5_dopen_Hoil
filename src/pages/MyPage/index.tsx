@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Box, Text, Avatar } from '@chakra-ui/react';
+import { Box, Text, Avatar, useColorModeValue, Flex } from '@chakra-ui/react';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { removeItem } from '@/utils/storage';
 import { useLogOut, useMyInfo } from '@/hooks/useAuth';
@@ -11,6 +11,8 @@ import Footer from '@/components/Footer';
 
 const MyPage = () => {
   const navigator = useNavigate();
+
+  const menuListBg = useColorModeValue('#fff', '#1c1c1c');
 
   const onSuccessFn = () => {
     removeItem(LOGIN_TOKEN);
@@ -24,13 +26,14 @@ const MyPage = () => {
   };
 
   return (
-    <Box w="100%" h="100vh" m="0 auto" textAlign="center">
+    <Flex w="100%" flex="1" flexDir="column" m="0 auto">
       <PageHeader pageName="마이페이지" />
-      <Box padding="20px" h="calc(100% - 160px)">
+      <Box padding="20px" flex="1">
         <Box
           width="fit-content"
           margin="15px auto 0"
           cursor="pointer"
+          textAlign="center"
           onClick={() => navigator(`/${myInfo?.username}`)}
         >
           <Box>
@@ -45,7 +48,7 @@ const MyPage = () => {
         </Box>
         {MYPAGE_LIST.map((mypage, index) => {
           return (
-            <MyPageUl key={index}>
+            <MyPageUl key={index} menuListBg={menuListBg}>
               {mypage.map(({ icon, title, href }, index) => {
                 return (
                   <MyPageListItem
@@ -60,7 +63,7 @@ const MyPage = () => {
             </MyPageUl>
           );
         })}
-        <MyPageUl>
+        <MyPageUl menuListBg={menuListBg}>
           <li onClick={onLogOut}>
             <Text as="strong" fontSize="lg" color="pink.400">
               로그아웃
@@ -69,7 +72,7 @@ const MyPage = () => {
         </MyPageUl>
       </Box>
       <Footer />
-    </Box>
+    </Flex>
   );
 };
 
@@ -80,8 +83,8 @@ const ProfileName = styled.strong`
   margin-top: 10px;
 `;
 
-const MyPageUl = styled.ul`
-  background-color: #fff;
+const MyPageUl = styled.ul<{ menuListBg?: '#fff' | '#1c1c1c' }>`
+  background-color: ${({ menuListBg }) => menuListBg};
   border-radius: 5px;
   box-shadow: rgba(17, 12, 46, 0.05) 0px 1px 100px 0px;
   margin-top: 20px;

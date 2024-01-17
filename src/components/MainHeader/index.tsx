@@ -1,9 +1,5 @@
 import Badge from '@/components/common/Badge';
-import {
-  DEFAULT_HEADER_HEIGHT,
-  DEFAULT_PAGE_PADDING,
-  DEFAULT_WIDTH,
-} from '@/constants/style';
+import { DEFAULT_HEADER_HEIGHT, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import {
   Flex,
   FlexProps,
@@ -25,13 +21,17 @@ import { useNavigate } from 'react-router-dom';
 const MainHeader = ({ ...props }: FlexProps) => {
   const { toggleColorMode } = useColorMode();
   const DarkModeIcon = useColorModeValue(MdOutlineDarkMode, MdOutlineLightMode);
+  const DarkModeLogo = useColorModeValue(
+    '/assets/dopenLogo.svg',
+    '/assets/dopenWhiteLogo.svg',
+  );
 
   const navigate = useNavigate();
 
   const BadgedIcon = () => {
     return (
       <Badge count={1}>
-        <Icon as={MdOutlineNotifications} color="black" boxSize="icon" />
+        <Icon as={MdOutlineNotifications} boxSize="icon" />
       </Badge>
     );
   };
@@ -61,12 +61,16 @@ const MainHeader = ({ ...props }: FlexProps) => {
 
   return (
     <Flex
-      w={DEFAULT_WIDTH}
+      w="100%"
       h={DEFAULT_HEADER_HEIGHT}
       justify="space-between"
       align="center"
       pr={DEFAULT_PAGE_PADDING}
       pl={DEFAULT_PAGE_PADDING}
+      bg="customBgWhite"
+      position="sticky"
+      top="0"
+      zIndex="10"
       {...props}
     >
       {/* 로고 들어갈 자리입니다. 로고 사이즈에 맞춰서 사용해주세요*/}
@@ -74,7 +78,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
         alt="dopen logo"
         w="130px"
         h={DEFAULT_HEADER_HEIGHT}
-        src="/assets/dopenLogo.svg"
+        src={DarkModeLogo}
       />
       <Flex gap="20px">
         {mainHeaderIconPath.map(({ icon, onClick, description }) => (
@@ -83,8 +87,9 @@ const MainHeader = ({ ...props }: FlexProps) => {
             bg="transparent"
             size="md"
             aria-label={description}
-            icon={<Icon as={icon} color="black" boxSize="icon" />}
             onClick={onClick}
+            color="inherit"
+            icon={<Icon as={icon} boxSize="icon" />}
           />
         ))}
       </Flex>

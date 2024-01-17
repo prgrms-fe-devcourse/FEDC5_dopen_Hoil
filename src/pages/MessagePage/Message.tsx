@@ -1,20 +1,33 @@
 import { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage, useSendMessage } from '@/hooks/useMessage';
 import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
 import MessageForm from './MessageForm';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
-  const { messageLogs, sendMessageMutate } = useMessage(userId!);
+  const messageLogs = useMessage(userId!);
+  const sendMessageMutate = useSendMessage();
+  const pushNotificationMutate = usePushNotification();
 
   const onSendMessage = async (message: string) => {
     if (!userId) {
       return;
     }
-    sendMessageMutate({ message, receiver: userId });
+    const data = await sendMessageMutate.mutateAsync({
+      message,
+      receiver: userId,
+    });
+
+    pushNotificationMutate({
+      notificationType: 'MESSAGE',
+      notificationTypeId: data._id,
+      userId,
+      postId: data._id,
+    });
   };
 
   return (
@@ -25,9 +38,9 @@ const Message = ({ ...props }: BoxProps) => {
             <TextDivider
               key={date}
               p="10px"
-              dividerColor="gray.400"
+              dividerColor="gray400"
               text={
-                <Box p="2px" bgColor="gray.300">
+                <Box p="2px" bgColor="gray300">
                   {date}
                 </Box>
               }
@@ -62,7 +75,7 @@ const Message = ({ ...props }: BoxProps) => {
       })}
       <MessageForm
         onSuccess={onSendMessage}
-        bgColor="white"
+        bgColor="customWhite"
         pos="absolute"
         bottom="0"
         left="0"

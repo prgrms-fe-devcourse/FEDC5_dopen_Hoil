@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import {
   Avatar,
   Flex,
@@ -25,10 +25,9 @@ const UserListItem = ({
 }: UserListItemProps) => {
   return (
     <Flex
-      w={DEFAULT_WIDTH}
-      pl={DEFAULT_PAGE_PADDING}
-      pr={DEFAULT_PAGE_PADDING}
-      h="40px"
+      w="100%"
+      p={`5px ${DEFAULT_PAGE_PADDING}`}
+      h="50px"
       align="center"
       color="black"
       cursor="pointer"

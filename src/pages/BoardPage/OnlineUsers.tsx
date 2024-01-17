@@ -9,13 +9,7 @@ const OnlineUsers = () => {
 
   return (
     <Box w={DEFAULT_WIDTH} padding={`10px ${DEFAULT_PAGE_PADDING}`}>
-      <Text
-        fontSize="1.6rem"
-        fontWeight="semibold"
-        color="black"
-        cursor="default"
-        mb="10px"
-      >
+      <Text fontSize="1.6rem" fontWeight="semibold" cursor="default" mb="10px">
         실시간 접속자
       </Text>
       {!onlineUsersListData.length ? (

@@ -12,6 +12,7 @@ import Comments from '@/components/Comment';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { convertDateToString } from '@/utils/convertDateToString';
 import { useState } from 'react';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const ReflectionDetail = () => {
   const { postId } = useParams();
@@ -23,7 +24,7 @@ const ReflectionDetail = () => {
   });
   const { data: myInfo } = useCheckUserAuth();
   const postData = JSON.parse(title);
-  const { countLike, setLike, clicked } = useLike(postId!);
+  const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
   const { date, time } = convertDateToString(new Date(createdAt));
   const [isFold, setIsFold] = useState(false);
   const reflectionLists = [
@@ -40,6 +41,22 @@ const ReflectionDetail = () => {
       content: postData.content.sayToMe,
     },
   ];
+
+  const pushNotificationMutate = usePushNotification();
+
+  const onClickLike = async () => {
+    const data = await setLike();
+    if (!data) {
+      return;
+    }
+    pushNotificationMutate({
+      notificationType: 'LIKE',
+      notificationTypeId: data._id,
+      userId: author._id,
+      postId: _id,
+    });
+  };
+
   return (
     <>
       <Post gap="30px">
@@ -63,18 +80,18 @@ const ReflectionDetail = () => {
               TheIcon={MdFavoriteBorder}
               textContent={String(countLike)}
               boxSize="18px"
-              iconColor={clicked ? 'pink' : 'gray.400'}
+              iconColor={clicked ? 'pink' : 'gray400'}
               fontSize="1.2rem"
               fontWeight="normal"
               textColor="gray.800"
               textLocation="right"
-              onClick={() => setLike()}
+              onClick={onClickLike}
             />
             <TextIconButton
               TheIcon={MdArticle}
               textContent={String(comments.length)}
               boxSize="18px"
-              iconColor="gray.400"
+              iconColor="gray400"
               fontSize="1.2rem"
               fontWeight="normal"
               textColor="gray.800"

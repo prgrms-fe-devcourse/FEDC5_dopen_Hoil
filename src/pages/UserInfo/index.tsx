@@ -40,7 +40,7 @@ const UserInfo = () => {
   }
 
   return (
-    <Box border="1px solid" height="100vh">
+    <Box height="100vh">
       <PageHeader pageName={username} />
       <UserInfoContainer
         userList={userList}

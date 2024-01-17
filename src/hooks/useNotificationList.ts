@@ -1,13 +1,13 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import {
   checkNotification,
   getUserNotificationList,
   NotificationType,
+  pushNotification,
 } from '@/apis/notifications';
 import { NOTIFICATION_LIST } from '@/constants/queryKeys';
 import { User, Notification } from '@/apis/type';
-import { useCheckUserAuth } from './useAuth';
 
 export interface MyNotificationListItem {
   type: NotificationType;
@@ -24,12 +24,11 @@ export const messageByTypes: { [key in NotificationType]: string } = {
 };
 
 export const useNotificationList = () => {
-  const { data: myInfo } = useCheckUserAuth();
   const { data } = useQuery<
     Notification[],
     AxiosError,
     MyNotificationListItem[]
-  >([NOTIFICATION_LIST, myInfo?._id], getUserNotificationList, {
+  >([NOTIFICATION_LIST], getUserNotificationList, {
     suspense: true,
     useErrorBoundary: true,
     refetchOnWindowFocus: true,
@@ -58,16 +57,25 @@ export const useNotificationList = () => {
     },
   });
 
-  const myNotificationList = data ?? [];
+  return { myNotificationList: data ?? [] };
+};
 
-  const { mutate } = useMutation(checkNotification, {
-    onError: () => {
-      alert('서버 오류입니다');
+export const usePushNotification = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(pushNotification, {
+    onSettled: () => {
+      queryClient.invalidateQueries(NOTIFICATION_LIST);
     },
   });
+  return mutate;
+};
 
-  return {
-    myNotificationList,
-    readNotification: mutate,
-  };
+export const useCheckNotification = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(checkNotification, {
+    onSettled: () => {
+      queryClient.invalidateQueries(NOTIFICATION_LIST);
+    },
+  });
+  return mutate;
 };

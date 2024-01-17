@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 import { useMyInfo } from '@/hooks/useAuth';
 import { useMyPostList } from '@/hooks/usePost';
@@ -39,9 +39,9 @@ const MyBoardList = () => {
   };
 
   return (
-    <Box>
+    <Flex flex="1" flexDir="column">
       <PageHeader pageName="내가 작성한 게시글" />
-      <Box padding="0 0 20px">
+      <Box flex="1" padding="0 0 20px">
         {myPostList.length === 0 && (
           <Box textAlign="center" fontSize="14px" p="50px 0">
             작성한 게시글이 없습니다.
@@ -63,7 +63,7 @@ const MyBoardList = () => {
         )}
       </Box>
       <Footer />
-    </Box>
+    </Flex>
   );
 };
 

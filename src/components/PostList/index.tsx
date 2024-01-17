@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
 import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { checkIsJson } from '@/utils/checkIsJson';
 import { useNavigate } from 'react-router-dom';
@@ -41,14 +41,18 @@ const PostList = ({
   /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
   if (data && !data.length) {
     return (
-      <Box w="100%" padding={`0 ${DEFAULT_PAGE_PADDING}`} fontSize="1.2rem">
+      <Box
+        margin="0 auto"
+        padding={`0 ${DEFAULT_PAGE_PADDING}`}
+        fontSize="1.2rem"
+      >
         검색어와 일치하는 글이 없습니다
       </Box>
     );
   }
 
   return (
-    <VStack w={DEFAULT_WIDTH} spacing={0} divider={<StackDivider />} {...props}>
+    <VStack w="100%" spacing={0} divider={<StackDivider />} {...props}>
       {data?.map((post) => (
         <PostListItem
           key={post._id}
@@ -59,7 +63,7 @@ const PostList = ({
           username={post.author.username}
           likeCount={post.likes.length}
           commentCount={post.comments.length}
-          onClick={() => navigate(`./${post._id}`)}
+          onClick={() => navigate(`/board/${post.channel?.name}/${post._id}`)}
         />
       ))}
     </VStack>

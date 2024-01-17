@@ -44,7 +44,7 @@ const UserProfile = ({
         <Avatar src={image} w="118px" h="118px" />
       </Box>
       <Box>
-        <Text as="strong" display="block" fontSize="3xl" color="#222" mb="15px">
+        <Text as="strong" display="block" fontSize="3xl" mb="15px">
           {username}
         </Text>
 

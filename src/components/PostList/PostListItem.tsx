@@ -1,5 +1,12 @@
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
-import { Flex, FlexProps, HStack, Text, VStack } from '@chakra-ui/react';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
+import {
+  Flex,
+  FlexProps,
+  HStack,
+  Text,
+  VStack,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import TextIconButton from '../common/TextIconButton';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 
@@ -19,9 +26,11 @@ const PostListItem = ({
   commentCount = 0,
   ...props
 }: PostListItemProps) => {
+  const darModeColorGray800 = useColorModeValue('gray.800', 'gray.white.800');
+
   return (
     <Flex
-      w={DEFAULT_WIDTH}
+      w="100%"
       h="67px"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
@@ -32,7 +41,6 @@ const PostListItem = ({
     >
       <VStack spacing="0" align="left">
         <Text
-          color="black"
           fontSize="1.4rem"
           fontWeight="semibold"
           textOverflow="ellipsis"
@@ -42,7 +50,7 @@ const PostListItem = ({
         >
           {title}
         </Text>
-        <Text color="gray.800" fontSize="1.2rem" fontWeight="medium">
+        <Text color={darModeColorGray800} fontSize="1.2rem" fontWeight="medium">
           {username}
         </Text>
         <HStack>
@@ -59,17 +67,15 @@ const PostListItem = ({
           iconColor="pink.400"
           fontSize="1.2rem"
           fontWeight="normal"
-          textColor="gray.800"
           textLocation="right"
         />
         <TextIconButton
           TheIcon={MdArticle}
           textContent={commentCount.toString()}
           boxSize="18px"
-          iconColor="gray.800"
+          iconColor={darModeColorGray800}
           fontSize="1.2rem"
           fontWeight="normal"
-          textColor="gray.800"
           textLocation="right"
         />
       </Flex>

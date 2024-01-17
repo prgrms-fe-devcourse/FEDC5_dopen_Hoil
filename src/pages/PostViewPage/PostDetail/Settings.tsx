@@ -20,7 +20,12 @@ const Settings = ({ children }: SettingsProps) => {
         <AccordionButton>
           <AccordionIcon />
         </AccordionButton>
-        <AccordionPanel pos="absolute" w="60px">
+        <AccordionPanel
+          pos="absolute"
+          w="60px"
+          left="-20px"
+          transform="translateX(-100%)"
+        >
           <Box>{children}</Box>
         </AccordionPanel>
       </AccordionItem>
