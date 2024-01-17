@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { usePostDetail } from '@/hooks/usePost';
 import TextCard from './TextCard';
 import Post from '@/pages/PostViewPage/PostDetail/Container';
-import { Flex, Box, Button } from '@chakra-ui/react';
+import { Flex, Box, Button, Text, Portal } from '@chakra-ui/react';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import TextIconButton from '@/components/common/TextIconButton';
@@ -11,8 +11,13 @@ import { useLike } from '@/hooks/useLike';
 import Comments from '@/components/Comment';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { convertDateToString } from '@/utils/convertDateToString';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePushNotification } from '@/hooks/useNotificationList';
+import { ArrowDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { deletePost } from '@/apis/post';
+import Settings from '@/pages/PostViewPage/PostDetail/Settings';
+import { useConfirmModal } from '@/hooks/useConfirmModal';
+import Confirm from '@/components/common/Confirm';
 
 const ReflectionDetail = () => {
   const { postId } = useParams();
@@ -43,6 +48,7 @@ const ReflectionDetail = () => {
   ];
 
   const pushNotificationMutate = usePushNotification();
+  const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
 
   const onClickLike = async () => {
     const data = await setLike();
@@ -57,16 +63,67 @@ const ReflectionDetail = () => {
     });
   };
 
+  const settingsOption = [
+    {
+      text: '수정하기',
+      show: author._id === myInfo?._id,
+      confirmText: '수정하시겠습니까?',
+      icon: <EditIcon />,
+      onClick: () => {
+        navigate(`/board/reflection/post?id=${postId}`);
+      },
+    },
+    {
+      text: '삭제하기',
+      show: author._id === myInfo?._id,
+      confirmText: '삭제하시겠습니까?',
+      icon: <DeleteIcon />,
+      onClick: async () => {
+        await deletePost(postId!);
+        navigate(-1);
+      },
+    },
+  ];
+
+  const pageEndRef = useRef<HTMLDivElement | null>(null);
+  const isMyPost = myInfo?.posts?.some((post) => post._id === postId);
+
   return (
     <>
       <Post gap="30px">
         <Post.Header>{postData.title}</Post.Header>
-        <UserContentBlock
-          username={author.username}
-          userImage={author.coverImage}
-          content={`${date} ${time}`}
-          onClick={() => navigate(`/${author.username}`)}
-        />
+        <Flex>
+          <UserContentBlock
+            username={author.username}
+            userImage={author.coverImage}
+            content={`${date} ${time}`}
+            onClick={() => navigate(`/${author.username}`)}
+          />
+          {isMyPost && (
+            <Settings>
+              {settingsOption.map(
+                ({ text, icon, onClick, confirmText, show }) => {
+                  if (!show) {
+                    return null;
+                  }
+                  return (
+                    <Button
+                      w="100%"
+                      fontSize="1.3rem"
+                      key={text}
+                      onClick={() => open(onClick, confirmText || '')}
+                    >
+                      {icon}
+                      <Text as="span" pl="5px">
+                        {text}
+                      </Text>
+                    </Button>
+                  );
+                },
+              )}
+            </Settings>
+          )}
+        </Flex>
         <Post.Content>
           <Flex flexDir="column" gap="10px">
             {reflectionLists.map(({ title, content }) => {
@@ -107,6 +164,25 @@ const ReflectionDetail = () => {
       {!isFold && (
         <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
       )}
+      {isOpen && (
+        <Confirm
+          onConfirm={handleConfirm}
+          onCancel={close}
+          comment={message || '진행하시겠습니까?'}
+        />
+      )}
+      <Portal>
+        <Box pos="absolute" top="5" left="5">
+          <ArrowDownIcon
+            color="gray.500"
+            w="30"
+            h="30"
+            onClick={() => {
+              pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          ></ArrowDownIcon>
+        </Box>
+      </Portal>
     </>
   );
 };
