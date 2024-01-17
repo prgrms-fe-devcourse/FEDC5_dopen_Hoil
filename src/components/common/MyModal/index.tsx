@@ -48,8 +48,8 @@ const MyModal = ({
             {title}
           </Heading>
           <ModalCloseButton />
-          <ModalBody>{children}</ModalBody>
-          <ModalFooter justifyContent="center">
+          <ModalBody bg="customBgWhite">{children}</ModalBody>
+          <ModalFooter bg="customBgWhite" justifyContent="center">
             <Button
               h="modal.button.h"
               w="modal.button.w"
