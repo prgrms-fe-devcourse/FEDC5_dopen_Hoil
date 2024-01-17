@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Text, Checkbox, Flex } from '@chakra-ui/react';
+import { Text, Checkbox, Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { getItem } from '@/utils/storage';
 
@@ -15,6 +15,7 @@ import { useLogin } from '@/hooks/useAuth';
 const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const inputBgColor = useColorModeValue('#F0F0F0F0', '#141414');
 
   const {
     register,
@@ -81,6 +82,7 @@ const LoginForm = () => {
           ({ name, type, required, placeholder, validate }) => (
             <li key={name}>
               <Input
+                bgColor={inputBgColor}
                 type={type}
                 placeholder={placeholder}
                 {...register(name, {
