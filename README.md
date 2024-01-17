@@ -118,6 +118,12 @@
 ### 검색
 ### 실시간 접속자
 
+### 회고게시판
+
+당일의 회고를 기록할 수 있습니다.
+
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/c4a83120-4245-443f-b17f-566636f353b7" width="300px"/>
+
 ---
 
 ### 타이머 & 잔디
