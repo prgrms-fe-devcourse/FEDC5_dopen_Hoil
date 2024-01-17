@@ -164,7 +164,7 @@ const PostDetail = () => {
       <Portal>
         <Box pos="absolute" top="5" left="5">
           <ArrowDownIcon
-            bgColor="white"
+            color="gray.500"
             w="30"
             h="30"
             onClick={() => {
