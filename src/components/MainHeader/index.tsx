@@ -1,4 +1,4 @@
-import Badge from '@/components/common/Badge';
+// import Badge from '@/components/common/Badge';
 import { DEFAULT_HEADER_HEIGHT, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import {
   Flex,
@@ -28,13 +28,13 @@ const MainHeader = ({ ...props }: FlexProps) => {
 
   const navigate = useNavigate();
 
-  const BadgedIcon = () => {
-    return (
-      <Badge count={1}>
-        <Icon as={MdOutlineNotifications} boxSize="icon" />
-      </Badge>
-    );
-  };
+  // const BadgedIcon = () => {
+  //   return (
+  //     <Badge count={1}>
+  //       <Icon as={MdOutlineNotifications} boxSize="icon" />
+  //     </Badge>
+  //   );
+  // };
 
   const mainHeaderIconPath = [
     {
@@ -53,7 +53,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
       onClick: () => navigate('/search'),
     },
     {
-      icon: BadgedIcon,
+      icon: MdOutlineNotifications,
       description: 'notification',
       onClick: () => navigate('/notification'),
     },
