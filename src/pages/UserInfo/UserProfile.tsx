@@ -43,7 +43,7 @@ const UserProfile = ({
       <Box mr="15px">
         <Avatar src={image} w="118px" h="118px" />
       </Box>
-      <Box>
+      <Box w="calc(100% - 133px)">
         <Text as="strong" display="block" fontSize="3xl" mb="15px">
           {username}
         </Text>
