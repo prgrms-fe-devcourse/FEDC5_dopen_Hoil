@@ -99,6 +99,7 @@ const UserContentBlock = ({
               ? contentFontSize
               : `${contentFontSize}px`
           }
+          wordBreak="break-all"
           noOfLines={ellipsis}
         >
           {content}
