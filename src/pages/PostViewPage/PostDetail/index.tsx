@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Flex, Image, Portal, Text } from '@chakra-ui/react';
+import { ArrowDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { useLike } from '@/hooks/useLike';
 import { usePostDetail } from '@/hooks/usePost';
@@ -71,11 +71,11 @@ const PostDetail = () => {
       },
     },
   ];
-
+  const pageEndRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
-      <Post gap="10px">
-        <Flex flexDir="column" pos="relative" gap="10px">
+      <Post gap="10px" pos="relative">
+        <Flex flexDir="column" gap="10px">
           <Post.Header minH="30px">
             <Flex justifyContent="space-between">
               <Box>{postData.title}</Box>
@@ -141,15 +141,19 @@ const PostDetail = () => {
             <Box>{calculateTimeDiff(createdAt)}</Box>
           </Post.Footer>
         </Flex>
-      </Post>
-      <Button onClick={() => setIsFold(!isFold)}>
-        {isFold ? '댓글 펼치기' : '댓글 접기'}
-      </Button>
-      <Box>
+        <Button onClick={() => setIsFold(!isFold)}>
+          {isFold ? '댓글 펼치기' : '댓글 접기'}
+        </Button>
         {!isFold && (
-          <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+          <Comments
+            comments={comments}
+            myInfo={myInfo!}
+            _id={_id}
+            bottom="0"
+          ></Comments>
         )}
-      </Box>
+      </Post>
+      <div ref={pageEndRef} />
       {isOpen && (
         <Confirm
           onConfirm={handleConfirm}
@@ -157,6 +161,20 @@ const PostDetail = () => {
           comment={message || '진행하시겠습니까?'}
         />
       )}
+      <Portal>
+        <Box pos="absolute" top="5" left="5">
+          <ArrowDownIcon
+            bgColor="white"
+            w="30"
+            h="30"
+            onClick={() => {
+              pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            보임?
+          </ArrowDownIcon>
+        </Box>
+      </Portal>
     </>
   );
 };
