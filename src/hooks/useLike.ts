@@ -8,7 +8,7 @@ export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { likes, author },
+    data: { likes },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
