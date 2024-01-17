@@ -11,6 +11,10 @@ const PageLayout = () => {
       maxW={DEFAULT_WIDTH}
       height="100vh"
       margin="0 auto"
+      overflowY="auto"
+      /*   &::-webkit-scrollbar {
+    display: none;
+  } */
     >
       <Outlet />
     </Flex>

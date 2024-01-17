@@ -1,4 +1,4 @@
-import { DEFAULT_HEADER_HEIGHT, DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_HEADER_HEIGHT } from '@/constants/style';
 import { Flex, FlexProps } from '@chakra-ui/react';
 import {
   MdHome,
@@ -70,9 +70,12 @@ const Footer = ({ ...props }: FlexProps) => {
       borderTop="1px solid"
       borderColor="gray.450"
       align="center"
-      w={DEFAULT_WIDTH}
+      w="100%"
       h={DEFAULT_HEADER_HEIGHT}
       shrink="0"
+      position="sticky"
+      bottom="0"
+      bgColor="gray50"
       {...props}
     >
       {elementsData.map(({ icon, text }) => (
