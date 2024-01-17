@@ -117,30 +117,39 @@
 ### 알림
 ### 검색
 ### 실시간 접속자
+
+---
+
 ### 타이머 & 잔디
 원하는만큼 타이머를 설정하고 재생, 멈춤이 가능합니다. 제한시각인 23:45 전까지 가능합니다.
 react-hook-form을 이용하여 validation 하였습니다
 
-<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/9190df5f-d242-4fcd-9e5f-afaac2c89433" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/bda197e5-fc17-4e1d-a535-86dd309ea940" width="300px"/>
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/9202b324-2d33-4669-94ff-93fa27f2b07f" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/0d591df8-181f-4681-aecd-3c055049c672" width="300px"/>
 
 인증된 사용자가 타이머를 사용하여 최소한 1초라도 기록하였다면 당일 잔디가 심어집니다. 기준은 임시지만 4시간 단위로 분리해두었습니다. 
 시간이 지날수록 색이 진해집니다.
 
-<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/1cce5eb7-0b9e-45bf-ba4b-2358a7807379" width="300px"/>
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/1cce5eb7-0b9e-45bf-ba4b-2358a7807379" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/99d1ec1e-4d87-497c-bd19-f5d604fc9437"/> 
 
-![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/99d1ec1e-4d87-497c-bd19-f5d604fc9437)
+---
 
 ### 다크모드
 
 chakra-ui의 sementicToken + colorMode를 이용하여 다크모드를 처리하였습니다.
 폰트 색상은 대부분 통일하여 body에서 상속받게 하였습니다 
 
-![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/aaef4053-052c-4f17-86d6-7a6550dc6c35) ![image](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/48a6b1bc-0622-40ef-a2c9-8296ff981e60)
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/aaef4053-052c-4f17-86d6-7a6550dc6c35" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/48a6b1bc-0622-40ef-a2c9-8296ff981e60" width="300px"/> 
 
+---
 
 ### D-day
 
 인증된 사용자는 자신만의 D-day를 등록할 수 있습니다
+form을 사용한 곳은 모두 react-hook-form을 이용하였습니다
+
+<img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/8498142d-8f73-4e02-80e8-a1d63533efc3" width="300px"/> <img src="https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/assets/87127340/ff36ee89-34a2-4ec4-af19-63ab6a73004c" width="300px"/>
+
+---
 
 ### 추가할 거 있으시면 더 추가해주세요
 
