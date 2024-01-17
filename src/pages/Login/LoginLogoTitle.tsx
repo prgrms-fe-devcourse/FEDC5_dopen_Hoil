@@ -1,15 +1,15 @@
-import { Box, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Heading, Image, Text, useColorModeValue } from '@chakra-ui/react';
 
 const LoginLogoTitle = () => {
+  const dopenLogo = useColorModeValue(
+    '/assets/dopenLogo.svg',
+    '/assets/dopenWhiteLogo.svg',
+  );
+
   return (
     <Box mb="36px">
       <Heading as="h2" mb="17px">
-        <Image
-          m="0 auto"
-          w="198px"
-          src="/assets/dopenLogo.svg"
-          alt="Dopen Logo"
-        />
+        <Image m="0 auto" w="198px" src={dopenLogo} alt="Dopen Logo" />
       </Heading>
       <Box fontSize="md">
         <Text as="strong" fontSize="4xl" color="pink.300">

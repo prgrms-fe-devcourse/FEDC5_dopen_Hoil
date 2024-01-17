@@ -8,6 +8,7 @@ import {
   UnorderedList,
   ListItem,
   FormLabel,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -36,6 +37,8 @@ const UpdateUserInfo = ({
 }: userInfoTypes) => {
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const [profilePreview, setProfilePreview] = useState<string>(image || '');
+
+  const inputBgColor = useColorModeValue('#F0F0F0F0', '#141414');
 
   const navigate = useNavigate();
 
@@ -136,6 +139,7 @@ const UpdateUserInfo = ({
               {label}
             </FormLabel>
             <Input
+              bgColor={inputBgColor}
               type={type}
               id={name}
               required={name === 'email' ? false : required}

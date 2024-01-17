@@ -5,7 +5,7 @@ import { Text } from '@chakra-ui/react';
 const GuestGrassBox = () => {
   return (
     <>
-      <Text fontSize="1.5rem" fontWeight="bold" color="black" mb="17px">
+      <Text fontSize="1.5rem" fontWeight="bold" mb="17px">
         여러분의 열정을 기록해 보세요.
       </Text>
       <Grass timerPosts={GRASS_DUMMY} />

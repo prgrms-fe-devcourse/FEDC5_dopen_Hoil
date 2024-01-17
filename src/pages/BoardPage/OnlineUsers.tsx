@@ -1,15 +1,17 @@
-import OnlineUserProfile from '@/components/OnlineUserProfile';
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
-import { useOnlineUserList } from '@/hooks/useOnlineUserList';
-import { Box, Divider, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import { Box, Divider, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { useOnlineUserList } from '@/hooks/useOnlineUserList';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
+import OnlineUserProfile from '@/components/OnlineUserProfile';
 
 const OnlineUsers = () => {
+  const navigate = useNavigate();
   const { onlineUsersListData = [] } = useOnlineUserList();
 
   return (
-    <Box w={DEFAULT_WIDTH} padding={`10px ${DEFAULT_PAGE_PADDING}`}>
-      <Text fontSize="1.6rem" fontWeight="semibold" cursor="default" mb="10px">
+    <Box w="100%" padding={`10px ${DEFAULT_PAGE_PADDING}`} overflow-x="auto">
+      <Text fontSize="1.6rem" fontWeight="semibold" color="black" mb="10px">
         실시간 접속자
       </Text>
       {!onlineUsersListData.length ? (
@@ -23,6 +25,7 @@ const OnlineUsers = () => {
               key={onlineUser._id}
               username={onlineUser.username}
               image={onlineUser.image}
+              onClick={() => navigate(`/${onlineUser.username}`)}
             />
           ))}
         </OnlineUsersBox>
