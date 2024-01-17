@@ -138,6 +138,7 @@ const PostEditPage = () => {
               variant="flushed"
               focusBorderColor="black"
               placeholder="제목을 입력해주세요."
+              _placeholder={{ color: 'gray800' }}
               {...register('title', {
                 required: '글의 제목은 필수입니다.',
                 minLength: {
@@ -186,6 +187,7 @@ const PostEditPage = () => {
                   message: '최대 500글자까지 입력 가능합니다.',
                 },
               })}
+              _placeholder={{ color: 'gray800' }}
             ></Textarea>
             <FormErrorMessage>
               {errors?.content && errors.content.message}
