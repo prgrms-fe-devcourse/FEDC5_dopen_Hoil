@@ -42,7 +42,7 @@ const CommentForm = ({ id, author }: CommentFormProps) => {
       return;
     }
 
-    const scrollPosition = document.body.scrollHeight + 70;
+    const scrollPosition = document.body.scrollHeight + 300;
     setTimeout(() => window.scrollTo(0, scrollPosition), 100);
   }, [isSuccess]);
 
@@ -53,9 +53,8 @@ const CommentForm = ({ id, author }: CommentFormProps) => {
           resize="none"
           bgColor="gray200"
           w="100%"
-          h="40px"
+          h="50px"
           borderRadius="5px"
-          margin="0 10px"
           placeholder="댓글을 입력해주세요."
           id="comment"
           {...register('comment', {
