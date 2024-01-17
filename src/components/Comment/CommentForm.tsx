@@ -1,12 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  Avatar,
-  FormLabel,
-  Textarea,
-  Image,
-  Text,
-  Box,
-} from '@chakra-ui/react';
+import { Image, Text, Box, Input } from '@chakra-ui/react';
 import { useCreateComment } from '@/hooks/useComment';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
@@ -20,7 +13,7 @@ export interface CommentInput {
   comment: string;
 }
 
-const CommentForm = ({ id, image }: CommentFormProps) => {
+const CommentForm = ({ id }: CommentFormProps) => {
   const {
     register,
     handleSubmit,
@@ -56,13 +49,10 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
   return (
     <Box>
       <Form onSubmit={handleSubmit(onCommentValid)}>
-        <FormLabel htmlFor="comment" m="0">
-          <Avatar w="40px" h="40px" src={image} />
-        </FormLabel>
-        <Textarea
+        <Input
           resize="none"
           bgColor="gray200"
-          w="calc(100% - 84px)"
+          w="100%"
           h="40px"
           borderRadius="5px"
           margin="0 10px"
