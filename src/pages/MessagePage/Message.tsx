@@ -38,9 +38,9 @@ const Message = ({ ...props }: BoxProps) => {
             <TextDivider
               key={date}
               p="10px"
-              dividerColor="gray.400"
+              dividerColor="gray400"
               text={
-                <Box p="2px" bgColor="gray.300">
+                <Box p="2px" bgColor="gray300">
                   {date}
                 </Box>
               }
@@ -75,7 +75,7 @@ const Message = ({ ...props }: BoxProps) => {
       })}
       <MessageForm
         onSuccess={onSendMessage}
-        bgColor="white"
+        bgColor="customWhite"
         pos="absolute"
         bottom="0"
         left="0"
