@@ -9,10 +9,8 @@ interface TextCardProps extends BoxProps {
 const TextCard = ({ header, body, ...props }: TextCardProps) => {
   return (
     <Box minH="100px" {...props}>
-      <Heading as="h3" textColor="black">
-        {header}
-      </Heading>
-      <Text textColor="gray.700">{body}</Text>
+      <Heading as="h3">{header}</Heading>
+      <Text textColor="gray700">{body}</Text>
     </Box>
   );
 };

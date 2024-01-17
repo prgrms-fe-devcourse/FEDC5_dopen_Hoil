@@ -58,13 +58,17 @@ export const theme = extendTheme({
         default: 'gray.200',
         _dark: '#141414',
       },
+      gray300: {
+        default: 'gray.300',
+        _dark: '#1c1c1c',
+      },
       gray400: {
         default: 'gray.400',
         _dark: 'gray.800',
       },
-      gray300: {
-        default: 'gray.300',
-        _dark: '#1c1c1c',
+      gray700: {
+        default: 'gray700',
+        _dark: '#f9f9f9',
       },
       gray800: {
         default: 'gray.800',
