@@ -64,7 +64,7 @@ const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
     >
       <form style={{ padding: '0 20px' }}>
         <FormControl isInvalid={!!errors.dDayTitle?.message}>
-          <FormLabel htmlFor="dDayTitle" fontSize="1.4rem">
+          <FormLabel htmlFor="dDayTitle" fontSize="1.4rem" pt="10px">
             D-Day 명을 작성해주세요.
           </FormLabel>
           <InputGroup>
@@ -96,7 +96,7 @@ const DdayModal = ({ isOpen, onClose, setDday }: DdayModalProps) => {
           <FormErrorMessage>{errors.dDayTitle?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.dDayDate?.message}>
-          <FormLabel htmlFor="dDayDate" fontSize="1.4rem">
+          <FormLabel htmlFor="dDayDate" fontSize="1.4rem" pt="10px">
             날짜를 선택해주세요.
           </FormLabel>
           <Input
