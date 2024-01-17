@@ -20,7 +20,7 @@ import { convertDateToString } from '@/utils/convertDateToString';
 import { usePushNotification } from '@/hooks/useNotificationList';
 
 const PostDetail = () => {
-  const { postId } = useParams();
+  const { boardName, postId } = useParams();
   const navigate = useNavigate();
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
@@ -50,15 +50,14 @@ const PostDetail = () => {
       postId: _id,
     });
   };
-
   const settingsOption = [
     {
       text: '수정하기',
-      show: true,
+      show: author._id === myInfo?._id,
       confirmText: '수정하시겠습니까?',
       icon: <EditIcon />,
       onClick: () => {
-        navigate('/board');
+        navigate(`/board/${boardName}/post?id=${postId}`);
       },
     },
     {
