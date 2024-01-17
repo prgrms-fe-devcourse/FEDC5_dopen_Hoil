@@ -37,12 +37,7 @@ const MyPage = () => {
           onClick={() => navigator(`/${myInfo?.username}`)}
         >
           <Box>
-            <Avatar
-              w="118px"
-              h="118px"
-              name={myInfo?.username + '님의 프로필 이미지입니다.'}
-              src={myInfo?.image || 'https://via.placeholder.com/118x118'}
-            />
+            <Avatar w="118px" h="118px" src={myInfo?.image || ''} />
           </Box>
           <ProfileName>{myInfo?.username}</ProfileName>
         </Box>

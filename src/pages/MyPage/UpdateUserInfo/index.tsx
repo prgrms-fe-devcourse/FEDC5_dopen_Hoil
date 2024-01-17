@@ -104,12 +104,7 @@ const UpdateUserInfo = ({
               <Avatar
                 w="118px"
                 h="118px"
-                name="프로필 이미지 등록하기"
-                src={
-                  profilePreview
-                    ? profilePreview
-                    : 'https://via.placeholder.com/118x118'
-                }
+                src={profilePreview ? profilePreview : ''}
               />
             </Box>
             <Box w="calc(100% - 150px)">
