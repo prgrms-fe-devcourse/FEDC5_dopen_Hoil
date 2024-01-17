@@ -32,14 +32,14 @@ const PostDetail = () => {
   })!;
   const postData = JSON.parse(title);
   const { date, time } = convertDateToString(new Date(createdAt));
-  const { countLike, mutateAsync: setLIke, clicked } = useLike(postId!);
+  const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
 
   const pushNotificationMutate = usePushNotification();
 
   const onClickLike = async () => {
-    const data = await setLIke();
+    const data = await setLike();
     if (!data) {
       return;
     }
