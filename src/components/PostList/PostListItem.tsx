@@ -26,7 +26,7 @@ const PostListItem = ({
   commentCount = 0,
   ...props
 }: PostListItemProps) => {
-  const darModeColorGray800 = useColorModeValue('gray.800', '#f6f6f6');
+  const darModeColorGray800 = useColorModeValue('gray.800', 'gray.white.800');
 
   return (
     <Flex
