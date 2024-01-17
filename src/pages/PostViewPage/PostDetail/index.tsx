@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -25,7 +25,7 @@ const PostDetail = () => {
   const [isFold, setIsFold] = useState<boolean>(false);
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { _id, title, comments, author, createdAt },
+    data: { _id, title, comments, author, createdAt, image },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
@@ -106,6 +106,12 @@ const PostDetail = () => {
             onImageClick={() => navigate(`/${author.username}`)}
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
+            <Image
+              src={image}
+              objectFit="cover"
+              maxH="100%"
+              fallbackSrc="https://via.placeholder.com/150"
+            />
             <Text fontSize="1.5rem">{postData.content}</Text>
           </Post.Content>
           <Post.Footer justifyContent="space-between">
