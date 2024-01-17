@@ -103,7 +103,7 @@ const PostDetail = () => {
             username={author.username}
             userImage={author.coverImage}
             content={`${date} ${time}`}
-            onClick={() => navigate(`/${author.username}`)}
+            onImageClick={() => navigate(`/${author.username}`)}
           />
           <Post.Content paddingTop="10px" paddingBottom="10px">
             <Text fontSize="1.5rem">{postData.content}</Text>
