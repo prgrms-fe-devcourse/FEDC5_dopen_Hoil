@@ -20,7 +20,7 @@ export const useMessage = (userId: string) => {
         data?.forEach(({ message, sender, _id, createdAt }) => {
           const { date, time } = convertDateToString(new Date(createdAt));
           const type = userId === sender._id ? 'sent' : 'received';
-
+          //userId 상대방임
           const existingMessages = messageLogs.get(date);
           if (existingMessages) {
             messageLogs.set(date, [
