@@ -43,7 +43,7 @@
   </tr>
   <tr>
     <td><b>팀장, [자주쓰이는 공통컴포넌트](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/issues/7) 제작, 잔디,<br> 타이머, 컴포넌트 제작, 회고작성 페이지,<br> chakra-ui이용한 다크모드 세팅, 배포</b></td>
-    <td><b>문서 담당</b></td>
+    <td><b>문서화 담당<br>Main<br>Search<br>BoardEnter<br>Board<br>PostEdit<br>404 Error</b></td>
     <td><b>아이디어, 발표</b></td>
     <td><b>디자인</b></td>
   </tr>
