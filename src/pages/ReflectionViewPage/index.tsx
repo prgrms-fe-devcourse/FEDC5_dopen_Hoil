@@ -10,7 +10,7 @@ const ReflectionViewPage = () => {
   const { reset } = useQueryErrorResetBoundary();
   return (
     <>
-      <PageHeader pageName="회고"></PageHeader>
+      <PageHeader pageName="인증 & 회고 게시판"></PageHeader>
       <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Spinner />}>
           <ReflectionDetail />
