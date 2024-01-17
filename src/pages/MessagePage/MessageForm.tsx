@@ -40,7 +40,7 @@ const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
               bgColor="white"
               type="submit"
             >
-              <Image src="/src/assets/send.svg" alt="comment send" />
+              <Image src="/public/assets/send.svg" alt="comment send" />
             </Button>
           </Flex>
         </FormControl>
