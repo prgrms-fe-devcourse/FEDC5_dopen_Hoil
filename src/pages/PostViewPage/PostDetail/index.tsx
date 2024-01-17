@@ -170,9 +170,7 @@ const PostDetail = () => {
             onClick={() => {
               pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
             }}
-          >
-            보임?
-          </ArrowDownIcon>
+          ></ArrowDownIcon>
         </Box>
       </Portal>
     </>
