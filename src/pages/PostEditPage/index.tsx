@@ -127,14 +127,13 @@ const PostEditPage = () => {
         w="100%"
         h="100vh"
         p={`10px ${DEFAULT_PAGE_PADDING}`}
-        bg="gray.100"
+        bg="gray100"
       >
         <form onSubmit={handleSubmit(onPosting)}>
           <FormControl isInvalid={!!errors?.title?.message}>
             <Input
               fontSize="1.8rem"
               fontWeight="bold"
-              color="black"
               p="15px 5px"
               variant="flushed"
               focusBorderColor="black"
@@ -173,8 +172,7 @@ const PostEditPage = () => {
               h="388px"
               p="10px"
               fontSize="1.3rem"
-              color="black"
-              bg="white"
+              bg="customWhite"
               focusBorderColor="black"
               placeholder="내용을 입력하세요."
               {...register('content', {
