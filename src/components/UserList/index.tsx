@@ -65,7 +65,7 @@ const UserList = ({
           userImage={user?.image}
           key={user._id}
           username={user?.username}
-          _hover={{ bg: 'gray.100' }}
+          _hover={{ bg: 'gray100' }}
           onClick={() => navigate(`/${user?.username}`)}
         />
       ))}

@@ -29,7 +29,6 @@ const UserListItem = ({
       p={`5px ${DEFAULT_PAGE_PADDING}`}
       h="50px"
       align="center"
-      color="black"
       cursor="pointer"
       {...props}
     >
