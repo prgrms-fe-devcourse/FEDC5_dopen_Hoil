@@ -80,7 +80,7 @@ const ReflectionDetail = () => {
               TheIcon={MdFavoriteBorder}
               textContent={String(countLike)}
               boxSize="18px"
-              iconColor={clicked ? 'pink' : 'gray.400'}
+              iconColor={clicked ? 'pink' : 'gray400'}
               fontSize="1.2rem"
               fontWeight="normal"
               textColor="gray.800"
@@ -91,7 +91,7 @@ const ReflectionDetail = () => {
               TheIcon={MdArticle}
               textContent={String(comments.length)}
               boxSize="18px"
-              iconColor="gray.400"
+              iconColor="gray400"
               fontSize="1.2rem"
               fontWeight="normal"
               textColor="gray.800"
