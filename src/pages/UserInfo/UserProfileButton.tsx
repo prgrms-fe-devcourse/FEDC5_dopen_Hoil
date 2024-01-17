@@ -112,7 +112,7 @@ const UserProfileButton = ({
         h="40px"
         fontSize="1.4rem"
         fontWeight="medium"
-        backgroundColor="gray.300"
+        backgroundColor="gray300"
         ml="10px"
         onClick={onSendMessage}
       >
