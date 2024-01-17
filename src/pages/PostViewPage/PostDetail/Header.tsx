@@ -6,7 +6,11 @@ interface HeaderProps extends BoxProps {
 }
 
 const Header = ({ children, ...props }: HeaderProps) => {
-  return <Heading {...props}>{children}</Heading>;
+  return (
+    <Heading {...props} p="0 20px">
+      {children}
+    </Heading>
+  );
 };
 
 export default Header;

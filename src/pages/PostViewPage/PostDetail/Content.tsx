@@ -6,7 +6,11 @@ interface ContentProps extends BoxProps {
 }
 
 const Content = ({ children, ...props }: ContentProps) => {
-  return <Box {...props}>{children}</Box>;
+  return (
+    <Box {...props} p="0 20px">
+      {children}
+    </Box>
+  );
 };
 
 export default Content;
