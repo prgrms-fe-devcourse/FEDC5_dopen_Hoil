@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { useLike } from '@/hooks/useLike';
-import { usePostDetail } from '@/hooks/usePost';
+import { useMyPostList, usePostDetail } from '@/hooks/usePost';
 import { useConfirmModal } from '@/hooks/useConfirmModal';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { deletePost } from '@/apis/post';
@@ -35,7 +35,7 @@ const PostDetail = () => {
   const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
-
+  const { data: myPosts } = useMyPostList();
   const pushNotificationMutate = usePushNotification();
 
   const onClickLike = async () => {
@@ -72,36 +72,43 @@ const PostDetail = () => {
     },
   ];
   const pageEndRef = useRef<HTMLDivElement | null>(null);
+  const isMyPost = myPosts?.some((post) => post._id === postId);
   return (
     <>
       <Post gap="10px" pos="relative">
         <Flex flexDir="column" gap="10px">
           <Post.Header minH="30px">
-            <Flex justifyContent="space-between">
+            <Flex pos="relative" justifyContent="space-between">
               <Box>{postData.title}</Box>
-              <Settings>
-                {settingsOption.map(
-                  ({ text, icon, onClick, confirmText, show }) => {
-                    if (!show) {
-                      return null;
-                    }
-                    return (
-                      <Button
-                        key={text}
-                        onClick={() => open(onClick, confirmText || '')}
-                      >
-                        {icon}
-                        {text}
-                      </Button>
-                    );
-                  },
-                )}
-              </Settings>
+              {isMyPost && (
+                <Settings>
+                  {settingsOption.map(
+                    ({ text, icon, onClick, confirmText, show }) => {
+                      if (!show) {
+                        return null;
+                      }
+                      return (
+                        <Button
+                          w="100%"
+                          fontSize="1.3rem"
+                          key={text}
+                          onClick={() => open(onClick, confirmText || '')}
+                        >
+                          {icon}
+                          <Text as="span" pl="5px">
+                            {text}
+                          </Text>
+                        </Button>
+                      );
+                    },
+                  )}
+                </Settings>
+              )}
             </Flex>
           </Post.Header>
           <UserContentBlock
             username={author.username}
-            userImage={author.coverImage}
+            userImage={author.image}
             content={`${date} ${time}`}
             onImageClick={() => navigate(`/${author.username}`)}
           />
@@ -110,7 +117,7 @@ const PostDetail = () => {
               src={image}
               objectFit="cover"
               maxH="100%"
-              fallbackSrc="https://via.placeholder.com/150"
+              // fallbackSrc="https://via.placeholder.com/150"
             />
             <Text fontSize="1.5rem">{postData.content}</Text>
           </Post.Content>
@@ -141,7 +148,7 @@ const PostDetail = () => {
             <Box>{calculateTimeDiff(createdAt)}</Box>
           </Post.Footer>
         </Flex>
-        <Button onClick={() => setIsFold(!isFold)}>
+        <Button onClick={() => setIsFold(!isFold)} m="0 20px">
           {isFold ? '댓글 펼치기' : '댓글 접기'}
         </Button>
         {!isFold && (
