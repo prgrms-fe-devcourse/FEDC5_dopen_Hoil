@@ -10,6 +10,7 @@ export const theme = extendTheme({
         fontSize: '62.5%',
       },
       body: {
+        bg: mode('white', 'black')(props),
         color: mode('black', 'white')(props),
       },
     }),
