@@ -6,7 +6,11 @@ interface FooterProps extends FlexProps {
 }
 
 const Footer = ({ children, ...props }: FooterProps) => {
-  return <Flex {...props}>{children}</Flex>;
+  return (
+    <Flex {...props} p="0 20px">
+      {children}
+    </Flex>
+  );
 };
 
 export default Footer;
