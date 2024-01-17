@@ -4,6 +4,7 @@ import { StyleFunctionProps, mode } from '@chakra-ui/theme-tools';
 // example theme
 
 export const theme = extendTheme({
+  config: { initialColorMode: 'light', useSystemColorMode: false },
   styles: {
     global: (props: StyleFunctionProps) => ({
       html: {
