@@ -4,8 +4,8 @@ import { Notification } from './type';
 export const getUserNotificationList = async () =>
   await getRequest<Notification[]>('/notifications');
 
-export const checkNotification = async () =>
-  await putRequest('/notifications/seen');
+export const checkNotification = async (id: string) =>
+  await putRequest('/notifications/seen', { sender: id });
 
 export type NotificationType = 'COMMENT' | 'FOLLOW' | 'LIKE' | 'MESSAGE';
 export interface PushNotificationPayload {

@@ -1,22 +1,20 @@
 import { useMyInfo } from '@/hooks/useAuth';
+import PageHeader from '@/components/PageHeader';
 import UpdateUserInfo from '../UpdateUserInfo';
-import { Box } from '@chakra-ui/react';
+import Footer from '@/components/Footer';
 
 const Account = () => {
-  const { data: myInfo, isError, isLoading } = useMyInfo();
+  const { data: myInfo } = useMyInfo();
 
-  if (isLoading) {
-    return <Box>로딩중입니다...</Box>;
-  }
-
-  if (isError || !myInfo) {
-    return <Box>인증되지 않은 사용자 입니다.</Box>;
+  if (!myInfo) {
+    return;
   }
 
   const { image, email, fullName, username } = myInfo;
   const { name, timerChannelId } = JSON.parse(fullName);
   return (
     <>
+      <PageHeader pageName="회원정보 수정" />
       <UpdateUserInfo
         image={image}
         email={email}
@@ -24,6 +22,7 @@ const Account = () => {
         username={username}
         timerChannelId={timerChannelId}
       />
+      <Footer />
     </>
   );
 };

@@ -26,10 +26,11 @@ const MyCommentList = () => {
               작성한 댓글이 없습니다.
             </Box>
           )}
-          {myCommentList.map(({ _id, comment, createdAt }) => (
+          {myCommentList.map(({ _id, comment, createdAt, post }) => (
             <MyCommentListItem
               key={_id}
               id={_id}
+              postId={post}
               comment={comment}
               image={image}
               username={username}

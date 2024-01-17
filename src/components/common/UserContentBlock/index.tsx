@@ -85,7 +85,10 @@ const UserContentBlock = ({
             right="0"
             zIndex="normal"
             cursor={onSubContentClick && 'pointer'}
-            onClick={() => onSubContentClick && onSubContentClick()}
+            onClick={(event) => {
+              event.stopPropagation();
+              onSubContentClick && onSubContentClick();
+            }}
           >
             {subContent}
           </Text>

@@ -3,19 +3,18 @@ import { createLike, deleteLike } from '@/apis/post';
 import { AUTH, POST_DETAIL } from '@/constants/queryKeys';
 import { usePostDetail } from './usePost';
 import { useCheckUserAuth } from './useAuth';
-import { pushNotification } from '@/apis/notifications';
 
 export const useLike = (postId: string) => {
   const queryClient = useQueryClient();
   const { data: myInfo } = useCheckUserAuth();
   const {
-    data: { likes, author },
+    data: { likes },
   } = usePostDetail({
     id: postId!,
     enabled: !!postId,
   });
   const clicked = likes.filter((like) => like.user === myInfo?._id);
-  const { mutate: setLike } = useMutation(
+  const mutate = useMutation(
     async () => {
       if (!clicked.length) {
         return await createLike(postId);
@@ -24,16 +23,6 @@ export const useLike = (postId: string) => {
       }
     },
     {
-      onSuccess: async (data) => {
-        if (data) {
-          await pushNotification({
-            notificationType: 'LIKE',
-            notificationTypeId: data._id,
-            userId: author._id,
-            postId: data.post,
-          });
-        }
-      },
       onError: () => {
         alert('잠시 후에 시도해주세요');
       },
@@ -43,5 +32,10 @@ export const useLike = (postId: string) => {
       },
     },
   );
-  return { countLike: likes.length, setLike, clicked: clicked.length > 0 };
+
+  return {
+    countLike: likes.length,
+    mutateAsync: mutate.mutateAsync,
+    clicked: clicked.length > 0,
+  };
 };

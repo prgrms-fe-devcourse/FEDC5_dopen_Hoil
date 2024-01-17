@@ -6,7 +6,7 @@ import PageHeader from '@/components/PageHeader';
 const NotificationPage = () => {
   return (
     <>
-      <PageHeader pageName="Notification" />
+      <PageHeader pageName="알림" />
       <Suspense fallback={<Spinner />}>
         <NotificationList gap="10px" h="100vh" overflowY="auto" />
       </Suspense>

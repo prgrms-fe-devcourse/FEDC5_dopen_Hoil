@@ -1,29 +1,33 @@
 import { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMessage } from '@/hooks/useMessage';
+import { useMessage, useSendMessage } from '@/hooks/useMessage';
 import { Box, Flex, BoxProps } from '@chakra-ui/react';
 import TextDivider from '@/pages/MessagePage/TextDivider';
 import MessageBox from '@/pages/MessagePage/MessageBox';
 import MessageForm from './MessageForm';
-import { sendMessage } from '@/apis/message';
-import { pushNotification } from '@/apis/notifications';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const Message = ({ ...props }: BoxProps) => {
   const { userId } = useParams();
-  const { messageLogs, updateMessageLogs } = useMessage(userId!);
+  const messageLogs = useMessage(userId!);
+  const sendMessageMutate = useSendMessage();
+  const pushNotificationMutate = usePushNotification();
 
   const onSendMessage = async (message: string) => {
     if (!userId) {
       return;
     }
-    const data = await sendMessage({ message, receiver: userId });
-    await pushNotification({
+    const data = await sendMessageMutate.mutateAsync({
+      message,
+      receiver: userId,
+    });
+
+    pushNotificationMutate({
       notificationType: 'MESSAGE',
       notificationTypeId: data._id,
-      userId: userId,
+      userId,
       postId: data._id,
     });
-    updateMessageLogs();
   };
 
   return (
@@ -74,7 +78,8 @@ const Message = ({ ...props }: BoxProps) => {
         bgColor="white"
         pos="absolute"
         bottom="0"
-        w="100%"
+        left="0"
+        width="100%"
       />
     </Flex>
   );

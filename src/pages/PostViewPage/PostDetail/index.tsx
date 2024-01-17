@@ -17,6 +17,7 @@ import UserContentBlock from '@/components/common/UserContentBlock';
 import Post from './Container';
 import Settings from './Settings';
 import { convertDateToString } from '@/utils/convertDateToString';
+import { usePushNotification } from '@/hooks/useNotificationList';
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -31,9 +32,24 @@ const PostDetail = () => {
   })!;
   const postData = JSON.parse(title);
   const { date, time } = convertDateToString(new Date(createdAt));
-  const { countLike, setLike, clicked } = useLike(postId!);
+  const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
+
+  const pushNotificationMutate = usePushNotification();
+
+  const onClickLike = async () => {
+    const data = await setLike();
+    if (!data) {
+      return;
+    }
+    pushNotificationMutate({
+      notificationType: 'LIKE',
+      notificationTypeId: data._id,
+      userId: author._id,
+      postId: _id,
+    });
+  };
 
   const settingsOption = [
     {
@@ -104,7 +120,7 @@ const PostDetail = () => {
                 fontWeight="normal"
                 textColor="gray.800"
                 textLocation="right"
-                onClick={() => setLike()}
+                onClick={onClickLike}
               />
               <TextIconButton
                 TheIcon={MdArticle}

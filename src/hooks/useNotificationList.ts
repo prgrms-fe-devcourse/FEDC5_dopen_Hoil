@@ -1,8 +1,10 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import {
+  checkNotification,
   getUserNotificationList,
   NotificationType,
+  pushNotification,
 } from '@/apis/notifications';
 import { NOTIFICATION_LIST } from '@/constants/queryKeys';
 import { User, Notification } from '@/apis/type';
@@ -22,42 +24,58 @@ export const messageByTypes: { [key in NotificationType]: string } = {
 };
 
 export const useNotificationList = () => {
-  const { data, isLoading, error } = useQuery<
+  const { data } = useQuery<
     Notification[],
     AxiosError,
     MyNotificationListItem[]
   >(NOTIFICATION_LIST, getUserNotificationList, {
     suspense: true,
-    meta: {
-      errorMessage: '오류가 발생했습니다',
-    },
+    useErrorBoundary: true,
+    refetchOnWindowFocus: true,
+
     select: (data) => {
       return data.map<MyNotificationListItem>((notify) => {
-        //TODO : FOLLOW 및 LIKE에 대한 알림 확인 필요
-        const { createdAt: date, _id, author } = notify;
-
+        const { createdAt: date, _id, author, seen } = notify;
         if (notify.message) {
-          return { type: 'MESSAGE', author, date, _id };
+          return { type: 'MESSAGE', author, date, _id, seen };
         }
 
         if (notify.comment) {
-          return { type: 'COMMENT', author, date, _id };
+          return { type: 'COMMENT', author, date, _id, seen };
         }
 
         if (notify.follow) {
-          return { type: 'FOLLOW', author, date, _id };
-        } else {
-          throw new Error('type is invalid');
+          return { type: 'FOLLOW', author, date, _id, seen };
         }
+
+        if (notify.like) {
+          return { type: 'LIKE', author, date, _id, seen };
+        }
+
+        return { type: 'MESSAGE', author, date, _id, seen };
       });
     },
   });
 
-  const myNotificationList = data ?? [];
+  return { myNotificationList: data ?? [] };
+};
 
-  return {
-    myNotificationList,
-    isLoading,
-    error,
-  };
+export const usePushNotification = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(pushNotification, {
+    onSettled: () => {
+      queryClient.invalidateQueries(NOTIFICATION_LIST);
+    },
+  });
+  return mutate;
+};
+
+export const useCheckNotification = () => {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation(checkNotification, {
+    onSettled: () => {
+      queryClient.invalidateQueries(NOTIFICATION_LIST);
+    },
+  });
+  return mutate;
 };

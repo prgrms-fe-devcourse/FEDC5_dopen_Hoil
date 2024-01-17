@@ -2,6 +2,7 @@ import { AbsoluteCenter, Flex, FlexProps, Text } from '@chakra-ui/react';
 import {
   useNotificationList,
   messageByTypes,
+  useCheckNotification,
 } from '@/hooks/useNotificationList';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
@@ -10,7 +11,7 @@ interface NotificationListProps extends FlexProps {}
 
 const NotificationList = ({ ...props }: NotificationListProps) => {
   const { myNotificationList } = useNotificationList();
-
+  const readNotificationMutate = useCheckNotification();
   return (
     <Flex flexDir="column" overflowY="auto" {...props}>
       {myNotificationList.length ? (
@@ -21,6 +22,9 @@ const NotificationList = ({ ...props }: NotificationListProps) => {
               username={author.username}
               content={messageByTypes[type]}
               subContent={calculateTimeDiff(date)}
+              onClick={async () => {
+                readNotificationMutate(author._id);
+              }}
             ></UserContentBlock>
           );
         })
