@@ -5,6 +5,7 @@ const LoginLogoTitle = () => {
     '/assets/dopenLogo.svg',
     '/assets/dopenWhiteLogo.svg',
   );
+
   return (
     <Box mb="36px">
       <Heading as="h2" mb="17px">
