@@ -6,7 +6,7 @@ import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 
 interface CommentProps extends BoxProps {
   comments: TComment[];
-  author: string;
+  author?: string;
   myInfo: User;
   _id: string;
 }
@@ -40,7 +40,7 @@ const Comments = ({
         bg="customBgWhite"
         zIndex="100"
       >
-        <CommentForm id={_id} author={author} />
+        <CommentForm id={_id} author={author ?? ''} />
       </Box>
     </Box>
   );
