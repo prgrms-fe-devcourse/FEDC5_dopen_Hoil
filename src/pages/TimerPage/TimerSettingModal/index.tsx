@@ -142,7 +142,7 @@ const TimerSettingModal = ({
       onButtonClick={handleSubmit(onSubmit)}
       isCentered
     >
-      <Box pl="20px" color="black">
+      <Box pl="20px">
         <Text fontSize="1.4rem" fontWeight="bold" m="14px 0">
           목표 시간을 설정해주세요
         </Text>
@@ -165,13 +165,13 @@ const TimerSettingModal = ({
                   h="70px"
                   fontSize="3rem"
                   textAlign="center"
+                  bg="customWhite"
                 />
                 <FormErrorMessage>{errors?.[name]?.message}</FormErrorMessage>
               </FormControl>
               {index !== timeInputMetaData.length - 1 && (
                 <Flex
                   fontSize="2rem"
-                  color="#000000"
                   fontWeight="bold"
                   m="0 10px"
                   align="center"
