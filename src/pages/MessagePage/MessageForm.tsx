@@ -31,13 +31,14 @@ const MessageForm = ({ onSuccess, ...props }: MessageFormProps) => {
               {...registeredOption}
               h="4rem"
               display="inline"
-              border="1px solid black"
               borderRadius="10px"
+              bgColor="customWhite"
             />
             <Button
               isLoading={isSubmitting}
               isDisabled={!isValid}
-              bgColor="white"
+              _hover={{ background: 'transparent' }}
+              bgColor="customWhite"
               type="submit"
             >
               <Image src="/public/assets/send.svg" alt="comment send" />
