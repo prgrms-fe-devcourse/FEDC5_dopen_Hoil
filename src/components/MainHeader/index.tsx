@@ -31,7 +31,7 @@ const MainHeader = ({ ...props }: FlexProps) => {
   const BadgedIcon = () => {
     return (
       <Badge count={1}>
-        <Icon as={MdOutlineNotifications} color="black" boxSize="icon" />
+        <Icon as={MdOutlineNotifications} boxSize="icon" />
       </Badge>
     );
   };
@@ -83,8 +83,9 @@ const MainHeader = ({ ...props }: FlexProps) => {
             bg="transparent"
             size="md"
             aria-label={description}
-            icon={<Icon as={icon} color="black" boxSize="icon" />}
             onClick={onClick}
+            color="inherit"
+            icon={<Icon as={icon} boxSize="icon" />}
           />
         ))}
       </Flex>
