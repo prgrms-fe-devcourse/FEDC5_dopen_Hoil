@@ -1,14 +1,15 @@
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { getUserList } from '@/apis/userInfo';
 import { User } from '@/apis/type';
 import { AxiosError } from 'axios';
 import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
 import { USER_LIST } from '@/constants/queryKeys';
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import UserListItem from './UserListItem';
 
 interface UserListProps extends StackProps {
-  keyword: string;
+  keyword?: string;
   offset?: number;
   limit?: number;
   isDivider?: boolean;
@@ -22,8 +23,10 @@ const UserList = ({
   isDivider = false,
   ...props
 }: UserListProps) => {
+  const navigate = useNavigate();
+  const queryKey = keyword ? [USER_LIST, keyword] : [USER_LIST];
   const { data } = useQuery<User[], AxiosError>(
-    [USER_LIST],
+    queryKey,
     async () => {
       return await getUserList({ offset, limit });
     },
@@ -34,13 +37,15 @@ const UserList = ({
       },
       /* 옵셔널 두번... */
       select: (data) =>
-        data.filter((user) => user?.username?.includes(keyword)),
+        keyword
+          ? data.filter((user) => user.username?.includes(keyword))
+          : data,
     },
   );
   if (data && !data.length) {
     return (
       <Box
-        w={DEFAULT_WIDTH}
+        margin="0 auto"
         padding={`0 ${DEFAULT_PAGE_PADDING}`}
         fontSize="1.2rem"
       >
@@ -50,16 +55,18 @@ const UserList = ({
   }
   return (
     <VStack
-      w={DEFAULT_WIDTH}
+      width="100%"
       spacing={2}
       divider={isDivider ? <StackDivider /> : undefined}
       {...props}
     >
       {data?.map((user) => (
         <UserListItem
+          userImage={user?.image}
           key={user._id}
           username={user?.username}
           _hover={{ bg: 'gray.100' }}
+          onClick={() => navigate(`/${user?.username}`)}
         />
       ))}
     </VStack>

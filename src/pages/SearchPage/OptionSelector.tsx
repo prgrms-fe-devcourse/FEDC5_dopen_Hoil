@@ -7,24 +7,23 @@ import {
   Select,
   SelectProps,
 } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
 
 interface SearchOptionSelectorProps extends SelectProps {
   option: string;
-  setOption: Dispatch<SetStateAction<string>>;
+  onChangeSearchOption: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   channelListData?: Channel[];
 }
 
 const OptionSelector = ({
   option = '',
-  setOption,
+  onChangeSearchOption,
   channelListData = [],
   ...props
 }: SearchOptionSelectorProps) => {
   return (
     <Box p={`0 ${DEFAULT_PAGE_PADDING}`}>
       <FormControl isInvalid={!option}>
-        <Select onChange={(e) => setOption(e.target.value)} {...props}>
+        <Select onChange={onChangeSearchOption} {...props}>
           <option value="유저">유저</option>
           {channelListData?.map((option) => (
             <option value={option.name} key={option._id}>

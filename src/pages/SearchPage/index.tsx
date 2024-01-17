@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { OPTION_USER } from '@/constants/SearchOptions';
@@ -20,6 +20,8 @@ const SearchPage = () => {
 
   const [option, setOption] = useState('유저');
   const [keyword, setKeyword] = useState('');
+  const [isSearch, setIsSearch] = useState(false);
+  const inputRef = useRef<null | HTMLInputElement>(null);
   const [searchData, setSearchData] = useState<SearchDataTypes>({
     keyword: '',
     channelId: '',
@@ -27,8 +29,14 @@ const SearchPage = () => {
 
   const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (keyword === '') {
+
+    if (keyword.trim().length === 0) {
       alert('검색어를 입력해주세요.');
+      setIsSearch(true);
+      setSearchData({
+        keyword: '',
+        channelId: '',
+      });
       return;
     }
 
@@ -48,24 +56,39 @@ const SearchPage = () => {
       }
     }
     setKeyword('');
+    setIsSearch(false);
+  };
+
+  const onChangeSearchOption = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    setOption(event.target.value);
+    setSearchData({
+      keyword: '',
+      channelId: '',
+    });
+    setIsSearch(false);
+    inputRef?.current?.focus();
   };
 
   return (
-    <Flex w={DEFAULT_WIDTH} height="100vh" margin="0 auto" direction="column">
+    <Flex direction="column">
       <PageHeader pageName="검색" />
       <SearchPageBody>
         <OptionSelector
           w="155px"
           mb="5px"
           option={option}
-          setOption={setOption}
+          onChangeSearchOption={onChangeSearchOption}
           channelListData={channelListData}
         />
         <SearchInput
           w="100%"
           mb="30px"
           keyword={keyword}
+          isSearch={isSearch}
           setKeyword={setKeyword}
+          inputRef={inputRef}
           onSearchSubmit={onSearchSubmit}
         />
         {searchData.keyword &&

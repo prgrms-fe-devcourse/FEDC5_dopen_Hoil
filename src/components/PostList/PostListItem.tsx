@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE_PADDING, DEFAULT_WIDTH } from '@/constants/style';
+import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import {
   Flex,
   FlexProps,
@@ -30,7 +30,7 @@ const PostListItem = ({
 
   return (
     <Flex
-      w={DEFAULT_WIDTH}
+      w="100%"
       h="67px"
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
