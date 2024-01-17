@@ -31,7 +31,7 @@ const SearchInput = ({
       <Box p={`0 ${DEFAULT_PAGE_PADDING}`} {...props}>
         <Flex
           padding="8px 16px"
-          bg="gray.200"
+          bgColor="gray200"
           borderRadius="10px"
           alignItems="center"
         >
@@ -39,7 +39,6 @@ const SearchInput = ({
           <form style={{ flexGrow: '1' }} onSubmit={(e) => onSearchSubmit(e)}>
             <Input
               fontSize="1.4rem"
-              color="gray.700"
               disabled={disabled}
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}

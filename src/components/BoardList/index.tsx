@@ -9,7 +9,6 @@ const BoardList = ({ boardName, ...props }: BodarListProps) => {
   return (
     <>
       <Flex
-        color="black"
         justifyContent="space-between"
         alignItems="center"
         cursor="pointer"

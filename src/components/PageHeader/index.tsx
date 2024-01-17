@@ -5,10 +5,18 @@ import {
 } from '@/constants/style';
 import { IconButton } from '@chakra-ui/button';
 import { Icon } from '@chakra-ui/icon';
-import { Flex, Text } from '@chakra-ui/layout';
-import { FlexProps } from '@chakra-ui/react';
+import {
+  AbsoluteCenter,
+  Flex,
+  FlexProps,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import {
   MdArrowBackIos,
+  MdOutlineDarkMode,
+  MdOutlineLightMode,
   MdOutlineNotifications,
   MdOutlineSearch,
 } from 'react-icons/md';
@@ -21,8 +29,10 @@ interface PageHeaderProps extends FlexProps {
 
 const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
   const navigate = useNavigate();
-
   const goBack = () => navigate(-1);
+
+  const DarkModeIcon = useColorModeValue(MdOutlineDarkMode, MdOutlineLightMode);
+  const { toggleColorMode } = useColorMode();
 
   return (
     <Flex
@@ -33,7 +43,7 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
       pl={DEFAULT_PAGE_PADDING}
       pr={DEFAULT_PAGE_PADDING}
       justify="space-between"
-      color="black"
+      position="relative"
       {...props}
     >
       <Flex w="69px" align="center" cursor="pointer" onClick={goBack}>
@@ -41,26 +51,35 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
         <Text fontSize="sm">뒤로가기</Text>
       </Flex>
 
-      <Text fontSize="lg" fontWeight="medium">
+      <AbsoluteCenter fontSize="lg" fontWeight="medium" axis="both">
         {pageName}
-      </Text>
+      </AbsoluteCenter>
 
-      <Flex w="69px" justify="space-between">
+      <Flex w="100px" justify="space-between">
         <IconButton
+          color="inherit"
           aria-label="search"
-          icon={<Icon as={MdOutlineSearch} color="black" boxSize="icon" />}
           bg="transparent"
-          onClick={() => navigate('/search')}
+          onClick={toggleColorMode}
+          icon={<Icon as={DarkModeIcon} boxSize="icon" />}
         />
         <IconButton
+          color="inherit"
+          aria-label="search"
+          bg="transparent"
+          onClick={() => navigate('/search')}
+          icon={<Icon as={MdOutlineSearch} boxSize="icon" />}
+        />
+        <IconButton
+          color="inherit"
           aria-label="notify"
-          icon={
-            <Badge count={1}>
-              <Icon as={MdOutlineNotifications} color="black" boxSize="icon" />
-            </Badge>
-          }
           bg="transparent"
           onClick={() => navigate('/notification')}
+          icon={
+            <Badge count={1}>
+              <Icon as={MdOutlineNotifications} boxSize="icon" />
+            </Badge>
+          }
         />
       </Flex>
     </Flex>

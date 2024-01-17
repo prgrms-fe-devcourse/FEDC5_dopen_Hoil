@@ -1,14 +1,20 @@
 import { extendTheme } from '@chakra-ui/react';
+import { StyleFunctionProps, mode } from '@chakra-ui/theme-tools';
 
 // example theme
 
 export const theme = extendTheme({
+  config: { initialColorMode: 'light', useSystemColorMode: false },
   styles: {
-    global: {
+    global: (props: StyleFunctionProps) => ({
       html: {
         fontSize: '62.5%',
       },
-    },
+      body: {
+        bg: mode('white', 'black')(props),
+        color: mode('black', 'white')(props),
+      },
+    }),
   },
   colors: {
     pink: {
@@ -41,6 +47,38 @@ export const theme = extendTheme({
     black: '#222222',
 
     white: '#FFFFFF',
+  },
+  semanticTokens: {
+    colors: {
+      gray100: {
+        default: 'gray.100',
+        _dark: '#131313',
+      },
+      gray200: {
+        default: 'gray.200',
+        _dark: '#141414',
+      },
+      gray300: {
+        default: 'gray.300',
+        _dark: '#1c1c1c',
+      },
+      gray400: {
+        default: 'gray.400',
+        _dark: 'gray.800',
+      },
+      gray700: {
+        default: 'gray700',
+        _dark: '#f9f9f9',
+      },
+      gray800: {
+        default: 'gray.800',
+        _dark: '#f6f6f6',
+      },
+      customWhite: {
+        default: '#ffffff',
+        _dark: 'gray.800',
+      },
+    },
   },
   fonts: {
     heading: 'Noto Sans KR',

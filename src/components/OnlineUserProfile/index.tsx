@@ -13,7 +13,6 @@ const OnlineUserProfile = ({ username, image }: OnlineUserProfileProps) => {
       </Avatar>
       <Text
         w="60px"
-        color="black"
         fontSize="1.2rem"
         fontWeight="semibold"
         cursor="default"

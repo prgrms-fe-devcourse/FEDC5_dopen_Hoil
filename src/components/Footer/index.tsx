@@ -70,7 +70,6 @@ const Footer = ({ ...props }: FlexProps) => {
       borderTop="1px solid"
       borderColor="gray.450"
       align="center"
-      bg="gray.50"
       w={DEFAULT_WIDTH}
       h={DEFAULT_HEADER_HEIGHT}
       shrink="0"

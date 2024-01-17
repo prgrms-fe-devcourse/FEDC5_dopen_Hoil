@@ -18,7 +18,6 @@ const BoardListPreviewItem = ({
 
   return (
     <Flex
-      color="black"
       alignItems="center"
       cursor="pointer"
       onClick={() => navigate(`/board/${channel}`)}
