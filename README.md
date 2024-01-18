@@ -12,43 +12,76 @@
 - ## 👬 팀 소개 <!-- 각자 개발하신 파트 + 맡으신 직무 적어주시면 됩니다 -->
 
 <table>
+<thead>
+	<tr>
+    <th><strong>팀장</strong></th>
+    <th><strong>팀원(문서화 담당)</strong></th>
+    <th><strong>팀원(아이디어, 발표)</strong></th>
+    <th><strong>팀원(디자인)</strong></th>
+  </tr>
+</thead>
+	<tbody>
   <tr>
 		<td>
-        <a href="https://github.com/loevray">
-            <img src="https://avatars.githubusercontent.com/u/87127340?v=4" width="100px" />
+        <a href="https://github.com/loevray" target="_blank">
+            <img src="https://avatars.githubusercontent.com/u/87127340?v=4" />
         </a>
     </td>
     <td>
-        <a href="https://github.com/JaeHyunGround">
-            <img src="https://avatars.githubusercontent.com/u/97944429?v=4" width="100px" />
+        <a href="https://github.com/JaeHyunGround" target="_blank">
+            <img src="https://avatars.githubusercontent.com/u/97944429?v=4" />
         </a>
     </td>
     <td>
-        <a href="https://github.com/whdgur5717">
-            <img src="https://avatars.githubusercontent.com/u/120625398?v=4" width="100px" />
+        <a href="https://github.com/whdgur5717" target="_blank">
+            <img src="https://avatars.githubusercontent.com/u/120625398?v=4" />
         </a>
     </td>
     <td>
-        <a href="https://github.com/SeungHyune">
-            <img src="https://avatars.githubusercontent.com/u/114329713?v=4" width="100px" />
+        <a href="https://github.com/SeungHyune" target="_blank">
+            <img src="https://avatars.githubusercontent.com/u/114329713?v=4" />
         </a>
     </td>
 
   </tr>
   <tr>
-    <td><b>김영현</b></td>
-    <td><b>안재현</b></td>
-    <td><b>이종혁</b></td>
-    <td><b>조승현</b></td>
+    <td align="center"><strong><a href="https://github.com/loevray" target="_blank">김영현</a></strong></td>
+    <td align="center"><strong><a href="https://github.com/JaeHyunGround" target="_blank">안재현</a></strong></td>
+    <td align="center"><strong><a href="https://github.com/whdgur5717" target="_blank">이종혁</a></strong></td>
+    <td align="center"><strong><a href="https://github.com/SeungHyune" target="_blank">조승현</a></strong></td>
   </tr>
-  <tr>
-    <td><b>팀장, [자주쓰이는 공통컴포넌트](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/issues/7) 제작, 잔디,<br> 타이머, 컴포넌트 제작, 회고작성 페이지,<br> chakra-ui이용한 다크모드 세팅, 배포</b></td>
-    <td><b>문서화 담당<br>Main<br>Search<br>BoardEnter<br>Board<br>PostEdit<br>404 Error</b></td>
-    <td><b>아이디어, 발표</b></td>
-    <td><b>디자인</b></td>
-  </tr>
+  </tbody>
 </table>
 
+### 구현 기능
+#### 김영현 (팀장)
+- [자주쓰이는 공통컴포넌트](https://github.com/prgrms-fe-devcourse/FEDC5_dopen_Hoil/issues/7) 제작
+- 잔디
+- 타이머 컴포넌트 제작
+- 회고작성 페이지
+- chakra-ui이용한 다크모드 세팅
+- 배포
+
+#### 안재현 (문서화 담당)
+- Main
+- Search
+- BoardEnter
+- Board
+- PostEdit
+- 404 Error
+
+#### 이종혁 (기획 아이디어, 발표)
+
+#### 조승현 (디자인)
+- 회원가입
+- 로그인
+- 회원정보 수정
+- 내가 작성한 댓글
+- 내가 작성한 게시글
+- 회원 상세 정보 보기
+- 댓글 컴포넌트 제작
+
+<br>
 
 ### 개발 환경
 
