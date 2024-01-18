@@ -157,13 +157,13 @@ const ReflectionDetail = () => {
           </Flex>
           <Box>{calculateTimeDiff(createdAt)}</Box>
         </Post.Footer>
+        <Button onClick={() => setIsFold(!isFold)}>
+          {isFold ? '댓글 펼치기' : '댓글 접기'}
+        </Button>
+        {!isFold && (
+          <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+        )}
       </Post>
-      <Button onClick={() => setIsFold(!isFold)}>
-        {isFold ? '댓글 펼치기' : '댓글 접기'}
-      </Button>
-      {!isFold && (
-        <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
-      )}
       {isOpen && (
         <Confirm
           onConfirm={handleConfirm}

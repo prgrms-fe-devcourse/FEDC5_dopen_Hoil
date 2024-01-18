@@ -10,7 +10,7 @@ interface PostProps extends FlexProps {
 
 const PostContainer = ({ children, ...props }: PostProps) => {
   return (
-    <Flex flexDir="column" gap="20px" {...props}>
+    <Flex flexDir="column" gap="20px" {...props} flex={1}>
       {children}
     </Flex>
   );
