@@ -156,14 +156,14 @@ const TimerPage = () => {
 
   return (
     <Flex flexDir="column" align="center" w="100%" bg="pink.200" flex={1}>
-      <PageHeader pageName="타이머" />
+      <PageHeader pageName="타이머" bg="pink.300" />
       <Center p="97px 0" position="relative" w="100%">
         <CircularProgress
           value={
             stringTimeToSeconds(originTargetTime.current.toString()) -
             stringTimeToSeconds(timer)
           }
-          color="black"
+          color="pink.300"
           size="400px"
           thickness="1px"
           max={stringTimeToSeconds(originTargetTime.current)}

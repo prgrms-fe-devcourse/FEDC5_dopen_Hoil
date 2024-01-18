@@ -10,7 +10,9 @@ const TextCard = ({ header, body, ...props }: TextCardProps) => {
   return (
     <Box minH="100px" {...props}>
       <Heading as="h3">{header}</Heading>
-      <Text textColor="gray700">{body}</Text>
+      <Text textColor="gray700" fontSize="1.5rem" mt="10px">
+        {body}
+      </Text>
     </Box>
   );
 };

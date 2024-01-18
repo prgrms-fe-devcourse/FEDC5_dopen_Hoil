@@ -1,26 +1,19 @@
 import styled from '@emotion/styled';
-import {
-  Avatar,
-  FormLabel,
-  Textarea,
-  Image,
-  Text,
-  Box,
-} from '@chakra-ui/react';
+import { Image, Text, Box, Input } from '@chakra-ui/react';
 import { useCreateComment } from '@/hooks/useComment';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 
 interface CommentFormProps {
   id: string;
-  image: string;
+  author: string;
 }
 
 export interface CommentInput {
   comment: string;
 }
 
-const CommentForm = ({ id, image }: CommentFormProps) => {
+const CommentForm = ({ id, author }: CommentFormProps) => {
   const {
     register,
     handleSubmit,
@@ -29,7 +22,7 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
     formState: { errors },
   } = useForm<CommentInput>();
 
-  const { pushComment, isSuccess } = useCreateComment();
+  const { pushComment, isSuccess } = useCreateComment(author);
 
   const onCommentValid: SubmitHandler<CommentInput> = ({ comment }) => {
     if (comment.trim().length < 1) {
@@ -49,23 +42,20 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
       return;
     }
 
-    const scrollPosition = document.body.scrollHeight + 70;
+    const scrollPosition = document.body.scrollHeight + 300;
     setTimeout(() => window.scrollTo(0, scrollPosition), 100);
   }, [isSuccess]);
 
   return (
     <Box>
       <Form onSubmit={handleSubmit(onCommentValid)}>
-        <FormLabel htmlFor="comment" m="0">
-          <Avatar w="40px" h="40px" src={image} />
-        </FormLabel>
-        <Textarea
+        <Input
           resize="none"
           bgColor="gray200"
-          w="calc(100% - 84px)"
-          h="40px"
+          w="100%"
+          h="50px"
+          mr="10px"
           borderRadius="5px"
-          margin="0 10px"
           placeholder="댓글을 입력해주세요."
           id="comment"
           {...register('comment', {
@@ -79,7 +69,7 @@ const CommentForm = ({ id, image }: CommentFormProps) => {
           <Image src="/assets/send.svg" alt="comment send" />
         </Button>
       </Form>
-      <Text m="5px 0 0 55px" fontSize="1.2rem" color="pink.300">
+      <Text mt="5px" fontSize="1.2rem" color="pink.300">
         {errors && errors['comment'] && errors['comment']?.message}
       </Text>
     </Box>

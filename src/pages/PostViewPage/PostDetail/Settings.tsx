@@ -15,16 +15,17 @@ interface SettingsProps extends AccordionPanelProps {
 
 const Settings = ({ children }: SettingsProps) => {
   return (
-    <Accordion allowToggle pos="relative">
+    <Accordion allowToggle>
       <AccordionItem border="0">
         <AccordionButton>
           <AccordionIcon />
         </AccordionButton>
         <AccordionPanel
           pos="absolute"
-          w="60px"
-          left="-20px"
-          transform="translateX(-100%)"
+          w="100%"
+          right="0"
+          maxWidth="100px"
+          zIndex="100"
         >
           <Box>{children}</Box>
         </AccordionPanel>

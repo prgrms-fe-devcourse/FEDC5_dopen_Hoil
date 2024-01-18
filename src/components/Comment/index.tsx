@@ -6,11 +6,18 @@ import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 
 interface CommentProps extends BoxProps {
   comments: TComment[];
+  author?: string;
   myInfo: User;
   _id: string;
 }
 
-const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
+const Comments = ({
+  comments,
+  author,
+  myInfo,
+  _id,
+  ...props
+}: CommentProps) => {
   return (
     <Box {...props} padding={`0 ${DEFAULT_PAGE_PADDING}`}>
       <Box>
@@ -29,10 +36,11 @@ const Comments = ({ comments, myInfo, _id, ...props }: CommentProps) => {
         left="0"
         bottom="0"
         width="100%"
-        p="10px 0"
+        mt="10px"
+        bg="customBgWhite"
         zIndex="100"
       >
-        <CommentForm id={_id} image={myInfo.image} />
+        <CommentForm id={_id} author={author ?? ''} />
       </Box>
     </Box>
   );

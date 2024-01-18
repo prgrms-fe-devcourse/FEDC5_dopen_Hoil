@@ -3,7 +3,14 @@ import { Post } from '@/apis/type';
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import PostListItem from './PostListItem';
-import { Box, StackDivider, StackProps, VStack } from '@chakra-ui/react';
+import {
+  AbsoluteCenter,
+  Box,
+  Spinner,
+  StackDivider,
+  StackProps,
+  VStack,
+} from '@chakra-ui/react';
 import { DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { checkIsJson } from '@/utils/checkIsJson';
@@ -20,7 +27,7 @@ const PostList = ({
   limit,
   ...props
 }: PostListProps) => {
-  const { data } = useQuery<Post[], AxiosError>(
+  const { data, isLoading } = useQuery<Post[], AxiosError>(
     [channelId],
     async () => {
       return await getPostListByChannel({ channelId, offset, limit });
@@ -38,7 +45,6 @@ const PostList = ({
     },
   );
   const navigate = useNavigate();
-  /* 어떤 예외사항이 더 있을지 생각해보겠습니다 */
   if (data && !data.length) {
     return (
       <Box
@@ -48,6 +54,14 @@ const PostList = ({
       >
         검색어와 일치하는 글이 없습니다
       </Box>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <AbsoluteCenter>
+        <Spinner />
+      </AbsoluteCenter>
     );
   }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
-import { Box, Button } from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import { useCreateFollow, useDeleteFollow } from '@/hooks/useFollow';
 
 import { getItem } from '@/utils/storage';
@@ -75,10 +75,11 @@ const UserProfileButton = ({
   };
 
   return (
-    <Box>
+    <Flex gap="5px" flexWrap="wrap">
       {isFollowing ? (
         <Button
-          w="120px"
+          w="100%"
+          maxWidth="120px"
           h="40px"
           fontSize="1.4rem"
           fontWeight="medium"
@@ -93,7 +94,8 @@ const UserProfileButton = ({
         </Button>
       ) : (
         <Button
-          w="120px"
+          w="100%"
+          maxWidth="120px"
           h="40px"
           fontSize="1.4rem"
           fontWeight="medium"
@@ -108,12 +110,12 @@ const UserProfileButton = ({
         </Button>
       )}
       <Button
-        w="120px"
+        w="100%"
+        maxWidth="120px"
         h="40px"
         fontSize="1.4rem"
         fontWeight="medium"
         backgroundColor="gray300"
-        ml="10px"
         onClick={onSendMessage}
       >
         메시지 보내기
@@ -127,7 +129,7 @@ const UserProfileButton = ({
           }
         />
       )}
-    </Box>
+    </Flex>
   );
 };
 

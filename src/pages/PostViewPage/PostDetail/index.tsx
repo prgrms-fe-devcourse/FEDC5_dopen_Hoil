@@ -1,11 +1,11 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Flex, Image, Portal, Text } from '@chakra-ui/react';
+import { ArrowDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { useLike } from '@/hooks/useLike';
-import { usePostDetail } from '@/hooks/usePost';
+import { useMyPostList, usePostDetail } from '@/hooks/usePost';
 import { useConfirmModal } from '@/hooks/useConfirmModal';
 import { calculateTimeDiff } from '@/utils/calculateTimeDiff';
 import { deletePost } from '@/apis/post';
@@ -35,7 +35,7 @@ const PostDetail = () => {
   const { countLike, mutateAsync: setLike, clicked } = useLike(postId!);
 
   const { isOpen, open, close, handleConfirm, message } = useConfirmModal();
-
+  const { data: myPosts } = useMyPostList();
   const pushNotificationMutate = usePushNotification();
 
   const onClickLike = async () => {
@@ -71,37 +71,44 @@ const PostDetail = () => {
       },
     },
   ];
-
+  const pageEndRef = useRef<HTMLDivElement | null>(null);
+  const isMyPost = myPosts?.some((post) => post._id === postId);
   return (
     <>
-      <Post gap="10px">
-        <Flex flexDir="column" pos="relative" gap="10px">
+      <Post gap="10px" pos="relative">
+        <Flex flexDir="column" gap="10px">
           <Post.Header minH="30px">
-            <Flex justifyContent="space-between">
+            <Flex pos="relative" justifyContent="space-between">
               <Box>{postData.title}</Box>
-              <Settings>
-                {settingsOption.map(
-                  ({ text, icon, onClick, confirmText, show }) => {
-                    if (!show) {
-                      return null;
-                    }
-                    return (
-                      <Button
-                        key={text}
-                        onClick={() => open(onClick, confirmText || '')}
-                      >
-                        {icon}
-                        {text}
-                      </Button>
-                    );
-                  },
-                )}
-              </Settings>
+              {isMyPost && (
+                <Settings>
+                  {settingsOption.map(
+                    ({ text, icon, onClick, confirmText, show }) => {
+                      if (!show) {
+                        return null;
+                      }
+                      return (
+                        <Button
+                          w="100%"
+                          fontSize="1.3rem"
+                          key={text}
+                          onClick={() => open(onClick, confirmText || '')}
+                        >
+                          {icon}
+                          <Text as="span" pl="5px">
+                            {text}
+                          </Text>
+                        </Button>
+                      );
+                    },
+                  )}
+                </Settings>
+              )}
             </Flex>
           </Post.Header>
           <UserContentBlock
             username={author.username}
-            userImage={author.coverImage}
+            userImage={author.image}
             content={`${date} ${time}`}
             onImageClick={() => navigate(`/${author.username}`)}
           />
@@ -110,7 +117,7 @@ const PostDetail = () => {
               src={image}
               objectFit="cover"
               maxH="100%"
-              fallbackSrc="https://via.placeholder.com/150"
+              // fallbackSrc="https://via.placeholder.com/150"
             />
             <Text fontSize="1.5rem">{postData.content}</Text>
           </Post.Content>
@@ -141,15 +148,20 @@ const PostDetail = () => {
             <Box>{calculateTimeDiff(createdAt)}</Box>
           </Post.Footer>
         </Flex>
-      </Post>
-      <Button onClick={() => setIsFold(!isFold)}>
-        {isFold ? '댓글 펼치기' : '댓글 접기'}
-      </Button>
-      <Box>
+        <Button onClick={() => setIsFold(!isFold)} m="0 20px">
+          {isFold ? '댓글 펼치기' : '댓글 접기'}
+        </Button>
         {!isFold && (
-          <Comments comments={comments} myInfo={myInfo!} _id={_id}></Comments>
+          <Comments
+            comments={comments}
+            myInfo={myInfo!}
+            author={author._id}
+            _id={_id}
+            bottom="0"
+          ></Comments>
         )}
-      </Box>
+      </Post>
+      <div ref={pageEndRef} />
       {isOpen && (
         <Confirm
           onConfirm={handleConfirm}
@@ -157,6 +169,18 @@ const PostDetail = () => {
           comment={message || '진행하시겠습니까?'}
         />
       )}
+      <Portal>
+        <Box pos="absolute" top="5" left="5">
+          <ArrowDownIcon
+            color="gray.500"
+            w="30"
+            h="30"
+            onClick={() => {
+              pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          ></ArrowDownIcon>
+        </Box>
+      </Portal>
     </>
   );
 };
