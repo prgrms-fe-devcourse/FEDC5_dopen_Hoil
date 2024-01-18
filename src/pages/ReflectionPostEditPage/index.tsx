@@ -1,5 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import { DEFAULT_HEADER_HEIGHT } from '@/constants/style';
+import { useChannelInfo } from '@/hooks/useChannels';
 import { useEditPost, usePostDetail, usePosting } from '@/hooks/usePost';
 import { getRecentEightDates } from '@/utils/getRecentEightDates';
 import { EditIcon } from '@chakra-ui/icons';
@@ -118,6 +119,10 @@ const ReflectionPostEditPage = () => {
     enabled: !!postId,
   });
 
+  const { channel: reflectionChannel } = useChannelInfo({
+    channelInfo: 'reflection',
+  });
+
   const {
     register,
     handleSubmit,
@@ -163,11 +168,10 @@ const ReflectionPostEditPage = () => {
       onEditPost({
         postId,
         title,
-        //존재하는 게시판이름과 id 1대1 대응하는 자료구조가 있으면 좋을것 같습니다. 일단 임시로 가져와 넣어두었습니다
-        channelId: '659f893e93c1183c6d54ac9c',
+        channelId: reflectionChannel._id,
       });
     } else {
-      onCreatePost({ title, channelId: '659f893e93c1183c6d54ac9c' });
+      onCreatePost({ title, channelId: reflectionChannel._id });
     }
   };
 
