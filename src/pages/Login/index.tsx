@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { LOGIN_TOKEN } from '@/constants/user';
 import { getItem, removeItem } from '@/utils/storage';
 
@@ -17,13 +17,13 @@ const Login = () => {
   }, []);
 
   return (
-    <Box w="100%" m="0 auto" textAlign="center" p="130px 20px">
+    <Flex flexDir="column" w="100%" textAlign="center" p="0 20px">
       <LoginLogoTitle />
       <LoginForm />
       <LoginFindCredentials />
       <LoginDivider />
       <LoginWithSocial />
-    </Box>
+    </Flex>
   );
 };
 

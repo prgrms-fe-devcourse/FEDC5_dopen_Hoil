@@ -7,9 +7,10 @@ const PageLayout = () => {
     <Flex
       position="relative"
       direction="column"
+      justify="center"
       w="100vw"
       maxW={DEFAULT_WIDTH}
-      height="100vh"
+      height="100dvh"
       margin="0 auto"
       overflowY="auto"
       sx={{ '&::-webkit-scrollbar': { display: 'none' } }}
