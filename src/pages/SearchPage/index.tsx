@@ -2,7 +2,6 @@ import { FormEvent, useRef, useState } from 'react';
 import { Flex } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { OPTION_USER } from '@/constants/SearchOptions';
-import { DEFAULT_WIDTH } from '@/constants/style';
 import PageHeader from '@/components/PageHeader';
 import PostList from '@/components/PostList';
 import UserList from '@/components/UserList';
@@ -71,7 +70,7 @@ const SearchPage = () => {
   };
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" height="100vh">
       <PageHeader pageName="검색" />
       <SearchPageBody>
         <OptionSelector
@@ -109,8 +108,6 @@ const SearchPageBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: ${DEFAULT_WIDTH};
-  height: 100vh;
   margin: 0 auto;
   padding: 20px 0;
   overflow-y: auto;
