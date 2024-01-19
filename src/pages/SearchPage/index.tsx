@@ -1,13 +1,13 @@
-import { FormEvent, useRef, useState } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Flex, Text, Box, CloseButton, Input, Select } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 import styled from '@emotion/styled';
+import { useChannelList } from '@/hooks/useChannels';
 import { OPTION_USER } from '@/constants/SearchOptions';
 import PageHeader from '@/components/PageHeader';
 import PostList from '@/components/PostList';
 import UserList from '@/components/UserList';
-import OptionSelector from '@/pages/SearchPage/OptionSelector';
-import SearchInput from '@/pages/SearchPage/SearchInput';
-import { useChannelList } from '@/hooks/useChannels';
 
 export interface SearchDataTypes {
   keyword: string;
@@ -15,89 +15,124 @@ export interface SearchDataTypes {
 }
 
 const SearchPage = () => {
-  const { channelListData } = useChannelList();
+  const { channelListData = [] } = useChannelList();
 
-  const [option, setOption] = useState('유저');
-  const [keyword, setKeyword] = useState('');
-  const [isSearch, setIsSearch] = useState(false);
-  const inputRef = useRef<null | HTMLInputElement>(null);
   const [searchData, setSearchData] = useState<SearchDataTypes>({
     keyword: '',
     channelId: '',
   });
 
-  const onSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (keyword.trim().length === 0 || keyword.trim().length > 30) {
-      alert('검색어를 1글자 이상 30글자 이하로 입력해 주세요.');
-      setIsSearch(true);
-      setSearchData({
-        keyword: '',
-        channelId: '',
-      });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    watch,
+    resetField,
+    formState: { errors },
+  } = useForm<SearchDataTypes>();
+
+  const onSearchSubmit: SubmitHandler<SearchDataTypes> = ({
+    keyword,
+    channelId,
+  }) => {
+    if (keyword.trim() === '') {
+      setError(
+        'keyword',
+        { message: '검색어를 공백 제외 1글자 이상 입력해주세요.' },
+        { shouldFocus: true },
+      );
       return;
     }
 
-    if (option === OPTION_USER) {
+    if (channelId === OPTION_USER) {
       setSearchData({
         keyword,
         channelId: '',
       });
     } else {
-      if (channelListData) {
-        setSearchData({
-          keyword,
-          channelId: channelListData?.filter(
-            (channel) => channel.name === option,
-          )[0]._id,
-        });
-      }
+      setSearchData({
+        keyword,
+        channelId: channelListData?.filter(
+          (channel) => channel.name === channelId,
+        )[0]._id,
+      });
     }
-    setKeyword('');
-    setIsSearch(false);
+
+    resetField('keyword');
   };
 
-  const onChangeSearchOption = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    setOption(event.target.value);
+  const watchSearchOption = watch('channelId');
+  useEffect(() => {
     setSearchData({
       keyword: '',
       channelId: '',
     });
-    setIsSearch(false);
-    inputRef?.current?.focus();
-  };
+  }, [watchSearchOption]);
 
   return (
     <Flex direction="column" height="100vh">
       <PageHeader pageName="검색" />
+
       <SearchPageBody>
-        <OptionSelector
-          w="155px"
-          mb="5px"
-          option={option}
-          onChangeSearchOption={onChangeSearchOption}
-          channelListData={channelListData}
-        />
-        <SearchInput
-          w="100%"
-          mb="30px"
-          keyword={keyword}
-          isSearch={isSearch}
-          setKeyword={setKeyword}
-          inputRef={inputRef}
-          onSearchSubmit={onSearchSubmit}
-        />
-        {searchData.keyword &&
-          (searchData.channelId !== '' ? (
-            <PostList
-              keyword={searchData.keyword}
-              channelId={searchData.channelId}
-            />
-          ) : (
-            <UserList keyword={searchData.keyword} />
-          ))}
+        <SearchForm onSubmit={handleSubmit(onSearchSubmit)}>
+          <Box overflow="hidden">
+            <Select
+              w="160px"
+              mb="5px"
+              h="30px"
+              fontSize="1.4rem"
+              float="right"
+              {...register('channelId', {})}
+            >
+              <option value="유저">유저</option>
+              {channelListData?.map((option) => (
+                <option value={option.name} key={option._id}>
+                  {option.description}
+                </option>
+              ))}
+            </Select>
+          </Box>
+          <Box>
+            <Flex
+              padding="8px 16px"
+              bgColor="gray200"
+              borderRadius="10px"
+              alignItems="center"
+            >
+              <SearchIcon mr="5px" boxSize={6} />
+              <Input
+                padding="3px 10px"
+                width="100%"
+                outline="none"
+                backgroundColor="transparent"
+                fontSize="1.3rem"
+                type="text"
+                placeholder="검색어를 입력해주세요."
+                autoFocus
+                {...register('keyword', {
+                  required: '검색어를 입력해주세요.',
+                  maxLength: {
+                    value: 30,
+                    message: '검색어를 30글자 이하로 입력해주세요.',
+                  },
+                })}
+              />
+              <CloseButton ml="5px" onClick={() => resetField('keyword')} />
+            </Flex>
+          </Box>
+          <Text mt={2} color="pink.300" fontSize="1.2rem">
+            {errors && errors['keyword'] && errors['keyword']?.message}
+          </Text>
+          {searchData.keyword &&
+            (searchData.channelId !== '' ? (
+              <PostList
+                keyword={searchData.keyword}
+                channelId={searchData.channelId}
+              />
+            ) : (
+              <UserList keyword={searchData.keyword} />
+            ))}
+        </SearchForm>
       </SearchPageBody>
     </Flex>
   );
@@ -115,6 +150,11 @@ const SearchPageBody = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const SearchForm = styled.form`
+  width: 100%;
+  padding: 0 20px;
 `;
 
 export default SearchPage;
