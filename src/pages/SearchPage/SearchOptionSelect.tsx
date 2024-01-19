@@ -8,7 +8,10 @@ interface SearchSelectProps {
   channelListData?: Channel[];
 }
 
-const SearchSelect = ({ register, channelListData }: SearchSelectProps) => {
+const SearchOptionSelect = ({
+  register,
+  channelListData,
+}: SearchSelectProps) => {
   return (
     <Box overflow="hidden">
       <Select
@@ -30,4 +33,4 @@ const SearchSelect = ({ register, channelListData }: SearchSelectProps) => {
     </Box>
   );
 };
-export default SearchSelect;
+export default SearchOptionSelect;
