@@ -8,7 +8,7 @@ import PageHeader from '@/components/PageHeader';
 import PostList from '@/components/PostList';
 import UserList from '@/components/UserList';
 import SearchInput from './SearchInput';
-import SearchSelect from './SearchSelect';
+import SearchOptionSelect from './SearchOptionSelect';
 
 export interface SearchDataTypes {
   keyword: string;
@@ -76,7 +76,10 @@ const SearchPage = () => {
 
       <SearchPageBody>
         <SearchForm onSubmit={handleSubmit(onSearchSubmit)}>
-          <SearchSelect register={register} channelListData={channelListData} />
+          <SearchOptionSelect
+            register={register}
+            channelListData={channelListData}
+          />
           <SearchInput register={register} resetField={resetField} />
           <Text mt={2} color="pink.300" fontSize="1.2rem">
             {errors && errors['keyword'] && errors['keyword']?.message}
