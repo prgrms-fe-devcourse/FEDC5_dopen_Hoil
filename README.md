@@ -4,7 +4,7 @@
 # 프로젝트 소개
 회고 기록 + 타이머 기능이 존재하는 커뮤니티 사이트입니다.
 
-[배포 URL](https://fedc-5-dopen-hoil.vercel.app/)
+[배포 URL](https://dopen.vercel.app/)
 
 # 개발 기간
 23년 12월 22일(금) ~ 24년 1월 17일(수)
