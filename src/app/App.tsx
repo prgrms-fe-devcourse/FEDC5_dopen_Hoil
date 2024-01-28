@@ -59,7 +59,7 @@ const App = () => {
               <Route path="/notification" element={<NotificationPage />} />
               <Route path="/timer" element={<TimerPage />} />
             </Route>
-            <Route path="/:username" element={<UserInfo />} />
+            <Route path="/:username/*" element={<UserInfo />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/board" element={<BoardEnterPage />} />
             <Route

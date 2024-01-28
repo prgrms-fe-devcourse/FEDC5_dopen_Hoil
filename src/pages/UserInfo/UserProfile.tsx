@@ -1,43 +1,25 @@
-import { useEffect, useState } from 'react';
 import { Flex, Box, Text, Avatar } from '@chakra-ui/react';
-import { User } from '@/apis/type';
 import UserProfileButton from './UserProfileButton';
 
 interface UserProfileProps {
-  userInfo: User;
-  myInfo: User;
   username: string;
   isSameUser: boolean;
+  isFollowing: boolean;
+  image: string;
+  followId: string;
+  userId: string;
+  onupdateFollowing: (isFollowing: boolean) => void;
 }
 
 const UserProfile = ({
-  userInfo,
-  myInfo,
   username,
   isSameUser,
+  isFollowing,
+  image,
+  followId,
+  userId,
+  onupdateFollowing,
 }: UserProfileProps) => {
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [followId, setFollowId] = useState('');
-
-  const { image, _id: userId } = userInfo;
-  const { following } = myInfo;
-
-  useEffect(() => {
-    const isAlreadyFollowing = following.some(
-      ({ user: followingUserId, _id }) => {
-        if (followingUserId === userId) {
-          setFollowId(_id);
-          return followingUserId === userId;
-        }
-      },
-    );
-    setIsFollowing(isAlreadyFollowing);
-  }, [following]);
-
-  const onupdateFollowing = (isFollowing: boolean) => {
-    setIsFollowing(isFollowing);
-  };
-
   return (
     <Flex alignItems="center" p="0 20px" mb="30px">
       <Box mr="15px">

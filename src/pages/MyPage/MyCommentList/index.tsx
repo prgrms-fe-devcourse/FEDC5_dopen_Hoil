@@ -22,7 +22,7 @@ const MyCommentList = () => {
       <CommentListContainer>
         <UnorderedList listStyleType="none" ml="0" p="20px">
           {myCommentList.length === 0 && (
-            <Box textAlign="center" fontSize="14px" p="50px 0">
+            <Box textAlign="center" fontSize="1.4rem" p="50px 0">
               작성한 댓글이 없습니다.
             </Box>
           )}

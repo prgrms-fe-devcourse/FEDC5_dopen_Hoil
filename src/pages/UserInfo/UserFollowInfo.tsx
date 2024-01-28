@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Flex, Box, Text } from '@chakra-ui/react';
 import { useStudyPost } from '@/hooks/useStudy';
 import { User } from '@/apis/type';
@@ -7,6 +8,7 @@ interface UserFollowInfoProps {
 }
 
 const UserFollowInfo = ({ followInfo }: UserFollowInfoProps) => {
+  const navigate = useNavigate();
   const { followers, following, fullName } = followInfo;
 
   const { timerChannelId } = JSON.parse(fullName);
@@ -21,11 +23,23 @@ const UserFollowInfo = ({ followInfo }: UserFollowInfoProps) => {
       borderTop="1px solid #D9D9D9"
       padding="8px 0"
     >
-      <Box fontSize="1.4rem" textAlign="center" flex="1">
+      <Box
+        fontSize="1.4rem"
+        textAlign="center"
+        flex="1"
+        cursor="pointer"
+        onClick={() => navigate('./follower')}
+      >
         <Text>팔로워</Text>
         <Text as="strong">{followers.length}</Text>
       </Box>
-      <Box fontSize="1.4rem" textAlign="center" flex="1">
+      <Box
+        fontSize="1.4rem"
+        textAlign="center"
+        flex="1"
+        cursor="pointer"
+        onClick={() => navigate('./follow')}
+      >
         <Text>팔로우</Text>
         <Text as="strong">{following.length}</Text>
       </Box>
