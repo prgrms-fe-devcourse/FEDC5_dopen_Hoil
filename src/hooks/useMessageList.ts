@@ -24,7 +24,7 @@ export const useMessageList = () => {
 
       return {
         key: createdAt,
-        userImage: otherType.coverImage,
+        userImage: otherType.image,
         username: otherType.username,
         content: message,
         subContent: calculateTimeDiff(createdAt) || '',
