@@ -45,6 +45,6 @@ export const calculateTimeDiff = (
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-    }).format(new Date(current));
+    }).format(new Date(past));
   }
 };
