@@ -22,7 +22,7 @@ const GuestProfile = () => {
           로그인
         </Text>
         <Text fontStyle="oblique" fontSize="md" cursor="default">
-          도펜에 가입한 사람이 가장 많은 시간을 갖는다.
+          Dopen에 가입한 사람이 가장 많은 시간을 갖는다.
         </Text>
       </Flex>
     </Flex>
