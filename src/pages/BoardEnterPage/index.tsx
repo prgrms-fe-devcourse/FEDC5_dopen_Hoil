@@ -18,7 +18,7 @@ const BoardEnterPage = () => {
           <BoardList
             key={board._id}
             boardName={board.description}
-            fontSize="2rem"
+            fontSize="1.6rem"
             fontWeight="midium"
             p="10px"
             onClick={() => navigate(`./${[board.name]}`)}
