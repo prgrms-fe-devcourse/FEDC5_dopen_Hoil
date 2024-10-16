@@ -55,7 +55,7 @@ const TextIconButton = ({
         aria-label="home"
         bg="transparent"
         color="inherit"
-        _groupHover={{ background: 'gray.450' }}
+        _groupHover={{ background: 'transparent' }}
         icon={<Icon as={TheIcon} boxSize={boxSize} color={iconColor} />}
       />
       <Text textAlign="center">{textContent}</Text>
