@@ -10,7 +10,21 @@ interface PostProps extends FlexProps {
 
 const PostContainer = ({ children, ...props }: PostProps) => {
   return (
-    <Flex flexDir="column" gap="20px" {...props} flex={1}>
+    <Flex
+      flexDir="column"
+      gap="20px"
+      {...props}
+      flex={1}
+      overflowY="auto"
+      css={{
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '&': {
+          scrollbarWidth: 'none',
+        },
+      }}
+    >
       {children}
     </Flex>
   );
