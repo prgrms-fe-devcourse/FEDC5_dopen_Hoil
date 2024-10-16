@@ -1,43 +1,52 @@
+import React, { Fragment, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import MainPage from '@/pages/MainPage';
-import SignUp from '@/pages/SignUp';
-import Login from '@/pages/Login';
-import MyPage from '@/pages/MyPage';
-import Account from '@/pages/MyPage/Account';
-import MyCommentList from '@/pages/MyPage/MyCommentList';
-import MyBoardList from '@/pages/MyPage/MyBoardList';
-import MessagePage from '@/pages/MessagePage';
-import MessageListPage from '@/pages/MessageListPage';
-import PageLayout from '@/components/PageLayout';
-import TimerPage from '@/pages/TimerPage';
-import ErrorPage from '@/pages/404Page';
-import SearchPage from '@/pages/SearchPage';
-import BoardEnterPage from '@/pages/BoardEnterPage';
-import BoardPage from '@/pages/BoardPage';
-import PostEditPage from '@/pages/PostEditPage';
-import { useChannelList } from '@/hooks/useChannels';
-import NotificationPage from '@/pages/NotificationPage';
-import PostViewPage from '@/pages/PostViewPage';
 import '@fontsource/noto-sans-kr';
-import { Fragment, Suspense } from 'react';
-import UserInfo from '@/pages/UserInfo';
+
+import PageLayout from '@/components/PageLayout';
+import ErrorPage from '@/pages/404Page';
+
+import { useChannelList } from '@/hooks/useChannels';
+
 import PrivateRoute from '@/components/common/PrivateRoute';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@/pages/PostViewPage/ErrorFallback';
 import { useQueryErrorResetBoundary } from 'react-query';
+
 import { Spinner } from '@chakra-ui/react';
-import ReflectionViewPage from '@/pages/ReflectionViewPage';
-import ReflectionPostEditPage from '@/pages/ReflectionPostEditPage';
+
+const MainPage = React.lazy(() => import('@/pages/MainPage'));
+const Login = React.lazy(() => import('@/pages/Login'));
+const SignUp = React.lazy(() => import('@/pages/SignUp'));
+const MyPage = React.lazy(() => import('@/pages/MyPage'));
+const Account = React.lazy(() => import('@/pages/MyPage/Account'));
+const MyCommentList = React.lazy(() => import('@/pages/MyPage/MyCommentList'));
+const MyBoardList = React.lazy(() => import('@/pages/MyPage/MyBoardList'));
+const MessageListPage = React.lazy(() => import('@/pages/MessageListPage'));
+const MessagePage = React.lazy(() => import('@/pages/MessagePage'));
+const ReflectionViewPage = React.lazy(
+  () => import('@/pages/ReflectionViewPage'),
+);
+const PostViewPage = React.lazy(() => import('@/pages/PostViewPage'));
+const NotificationPage = React.lazy(() => import('@/pages/NotificationPage'));
+const TimerPage = React.lazy(() => import('@/pages/TimerPage'));
+const UserInfo = React.lazy(() => import('@/pages/UserInfo'));
+const SearchPage = React.lazy(() => import('@/pages/SearchPage'));
+const BoardEnterPage = React.lazy(() => import('@/pages/BoardEnterPage'));
+const ReflectionPostEditPage = React.lazy(
+  () => import('@/pages/ReflectionPostEditPage'),
+);
+const BoardPage = React.lazy(() => import('@/pages/BoardPage'));
+const PostEditPage = React.lazy(() => import('@/pages/PostEditPage'));
 
 const App = () => {
   const { channelListData } = useChannelList();
   const { reset } = useQueryErrorResetBoundary();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
-      <Suspense fallback={<Spinner />}>
-        <Routes>
-          <Route element={<PageLayout />}>
+    <PageLayout>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
@@ -76,10 +85,10 @@ const App = () => {
               </Fragment>
             ))}
             <Route path="*" element={<ErrorPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </ErrorBoundary>
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+    </PageLayout>
   );
 };
 

@@ -2,7 +2,6 @@ import { DEFAULT_HEADER_HEIGHT, DEFAULT_PAGE_PADDING } from '@/constants/style';
 import { IconButton } from '@chakra-ui/button';
 import { Icon } from '@chakra-ui/icon';
 import {
-  AbsoluteCenter,
   Flex,
   FlexProps,
   Text,
@@ -41,8 +40,8 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
       justify="space-between"
       top="0"
       bg="customBgWhite"
-      position="sticky"
       zIndex="10"
+      position="sticky"
       {...props}
     >
       <Flex w="69px" align="center" cursor="pointer" onClick={goBack}>
@@ -50,9 +49,9 @@ const PageHeader = ({ pageName, ...props }: PageHeaderProps) => {
         <Text fontSize="sm">뒤로가기</Text>
       </Flex>
 
-      <AbsoluteCenter fontSize="lg" fontWeight="medium" axis="both">
+      <Flex fontSize="lg" fontWeight="medium">
         {pageName}
-      </AbsoluteCenter>
+      </Flex>
 
       <Flex w="100px" justify="space-between">
         <IconButton

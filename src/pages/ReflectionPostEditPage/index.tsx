@@ -178,7 +178,7 @@ const ReflectionPostEditPage = () => {
   return (
     <>
       <PageHeader pageName="회고" />
-      <Flex flexDir="column" align="center" w="100%" flex={1}>
+      <Flex flexDir="column" align="center" w="100%" flex={1} overflowY="auto">
         <Flex
           w="100%"
           p="0 20px"

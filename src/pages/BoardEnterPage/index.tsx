@@ -13,7 +13,7 @@ const BoardEnterPage = () => {
   return (
     <>
       <PageHeader pageName="게시판" />
-      <Box w={DEFAULT_WIDTH} h="100vh" p={`0 ${DEFAULT_PAGE_PADDING}`}>
+      <Box w={DEFAULT_WIDTH} flex="1" p={`0 ${DEFAULT_PAGE_PADDING}`}>
         {channelListData?.map((board) => (
           <BoardList
             key={board._id}
