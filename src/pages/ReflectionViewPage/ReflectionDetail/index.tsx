@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { usePostDetail } from '@/hooks/usePost';
 import TextCard from './TextCard';
 import Post from '@/pages/PostViewPage/PostDetail/Container';
-import { Flex, Box, Button, Text, Portal } from '@chakra-ui/react';
+import { Flex, Box, Button, Text } from '@chakra-ui/react';
 import UserContentBlock from '@/components/common/UserContentBlock';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import TextIconButton from '@/components/common/TextIconButton';
@@ -11,9 +11,9 @@ import { useLike } from '@/hooks/useLike';
 import Comments from '@/components/Comment';
 import { useCheckUserAuth } from '@/hooks/useAuth';
 import { convertDateToString } from '@/utils/convertDateToString';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { usePushNotification } from '@/hooks/useNotificationList';
-import { ArrowDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { deletePost } from '@/apis/post';
 import Settings from '@/pages/PostViewPage/PostDetail/Settings';
 import { useConfirmModal } from '@/hooks/useConfirmModal';
@@ -85,7 +85,6 @@ const ReflectionDetail = () => {
     },
   ];
 
-  const pageEndRef = useRef<HTMLDivElement | null>(null);
   const isMyPost = myInfo?.posts?.some((post) => post._id === postId);
 
   return (
@@ -171,18 +170,6 @@ const ReflectionDetail = () => {
           comment={message || '진행하시겠습니까?'}
         />
       )}
-      <Portal>
-        <Box pos="absolute" top="5" left="5">
-          <ArrowDownIcon
-            color="gray.500"
-            w="30"
-            h="30"
-            onClick={() => {
-              pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          ></ArrowDownIcon>
-        </Box>
-      </Portal>
     </>
   );
 };
