@@ -31,15 +31,7 @@ const Comments = ({
           />
         ))}
       </Box>
-      <Box
-        pos="sticky"
-        left="0"
-        bottom="0"
-        width="100%"
-        mt="10px"
-        bg="customBgWhite"
-        zIndex="100"
-      >
+      <Box width="100%" mt="10px" bg="customBgWhite" zIndex="100">
         <CommentForm id={_id} author={author ?? ''} />
       </Box>
     </Box>
