@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Image, Portal, Text } from '@chakra-ui/react';
-import { ArrowDownIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { MdArticle, MdFavoriteBorder } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRef, useState } from 'react';
@@ -133,6 +133,7 @@ const PostDetail = () => {
                 textColor="gray.800"
                 textLocation="right"
                 onClick={onClickLike}
+                marginRight="5px"
               />
               <TextIconButton
                 TheIcon={MdArticle}
@@ -169,18 +170,6 @@ const PostDetail = () => {
           comment={message || '진행하시겠습니까?'}
         />
       )}
-      <Portal>
-        <Box pos="absolute" top="5" left="5">
-          <ArrowDownIcon
-            color="gray.500"
-            w="30"
-            h="30"
-            onClick={() => {
-              pageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          ></ArrowDownIcon>
-        </Box>
-      </Portal>
     </>
   );
 };
