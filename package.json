@@ -28,7 +28,7 @@
     "react-hook-form": "^7.49.2",
     "react-icons": "^4.12.0",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.21.1",
+    "react-router-dom": "6.4",
     "storybook-addon-react-router-v6": "^2.0.10"
   },
   "devDependencies": {
